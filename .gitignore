@@ -44,4 +44,4 @@ app.*.map.json
 /android/app/release
 
 # VSCode
-.vscode/
+.vscode/settings.json
