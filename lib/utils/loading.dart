@@ -22,7 +22,7 @@ class PrimarySpinkitCircle extends StatelessWidget {
   }
 }
 
-/// 二度押しを防止したいときなどの重ねるローディングウィジェット
+/// 二度押しを防止したいときなどに重ねるローディングウィジェット
 class OverlayLoadingWidget extends StatelessWidget {
   const OverlayLoadingWidget({
     super.key,
