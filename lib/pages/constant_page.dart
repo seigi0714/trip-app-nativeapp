@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../services/scaffold_messenger_service.dart';
 import '../utils/loading.dart';
 import '../utils/logger.dart';
 
@@ -31,6 +32,7 @@ class ConstantPage extends HookConsumerWidget with WidgetsBindingObserver {
       },
     );
     return ScaffoldMessenger(
+      key: ref.watch(scaffoldMessengerKeyProvider),
       child: Scaffold(
         body: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
