@@ -8,7 +8,7 @@ import '../utils/logger.dart';
 
 /// GoRouter の navigatorBuilder で返すことによって
 /// すべてのルートの上に ConstantPage を 挿入することができるので
-/// どこからでもスナックバーの表示や、画面タップによるアンフォーカスを行うことができる。
+/// どこからでもスナックバーの表示や、画面タップによるアンフォーカスができる。
 class ConstantPage extends HookConsumerWidget with WidgetsBindingObserver {
   const ConstantPage({
     super.key,
