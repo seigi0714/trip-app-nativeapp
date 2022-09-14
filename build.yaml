@@ -1,0 +1,17 @@
+# 自動生成ファイルに ignore_for_file コメントを付加するための設定。
+# これをすることで、analysis_options.yaml の analyzer/exclude での、
+# lib/**/**.freezed.dart, lib/**/**.g.dart 指定と
+# analyzer/errors での、invalid_annotation_target: ignore 設定が不要になる。
+# https://twitter.com/_mono/status/1536907416864169987
+
+targets:
+  $default:
+    builders:
+      source_gen|combining_builder:
+        options:
+          ignore_for_file:
+            - type=lint
+            - implicit_dynamic_parameter
+            - implicit_dynamic_type
+            - implicit_dynamic_method
+            - strict_raw_type
