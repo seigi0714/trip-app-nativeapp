@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/utils/extensions/build_context.dart';
 
 import '../utils/constants/color.dart';
+import '../widgets/brand_button.dart';
 
 class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
@@ -16,38 +17,41 @@ class LoginPage extends HookConsumerWidget {
     return Scaffold(
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            SizedBox(
-              height: 50,
-              width: context.displaySize.width * 0.8,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: lineGreen,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(24)),
-                  ),
-                ),
-                onPressed: () {},
-                child: Row(
-                  children: const [
-                    Spacer(flex: 2),
-                    FaIcon(
-                      FontAwesomeIcons.line,
-                      size: 30,
-                    ),
-                    Spacer(),
-                    Text(
-                      'LINEでログイン',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                      ),
-                    ),
-                    Spacer(flex: 2),
-                  ],
-                ),
+            BrandButton(
+              label: 'LINE ログイン',
+              brandLogo: Icon(
+                FontAwesomeIcons.line,
+                size: context.displaySize.width * 0.08,
               ),
+              backgroundColor: lineGreen,
+              onPressed: () {
+                // TODO(shimizu-saffle): LINEでログイン
+              },
+            ),
+            BrandButton(
+              label: 'Google ログイン',
+              labelColor: Colors.black54,
+              brandLogo: Image.asset(
+                'assets/images/google_logo.png',
+                height: context.displaySize.width * 0.08,
+              ),
+              backgroundColor: Colors.white,
+              onPressed: () {
+                // TODO(shimizu-saffle): LINEでログイン
+              },
+            ),
+            BrandButton(
+              label: 'Apple ログイン',
+              brandLogo: Icon(
+                FontAwesomeIcons.apple,
+                size: context.displaySize.width * 0.08,
+              ),
+              backgroundColor: Colors.black,
+              onPressed: () {
+                // TODO(shimizu-saffle): LINEでログイン
+              },
             ),
           ],
         ),
