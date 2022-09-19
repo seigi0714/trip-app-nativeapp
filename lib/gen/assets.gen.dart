@@ -17,10 +17,18 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/google_logo.png');
 }
 
+class $AssetsLottiesGen {
+  const $AssetsLottiesGen();
+
+  /// File path: assets/lotties/travel-loading.json
+  String get travelLoading => 'assets/lotties/travel-loading.json';
+}
+
 class Assets {
   Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsLottiesGen lotties = $AssetsLottiesGen();
 }
 
 class AssetGenImage {
