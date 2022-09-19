@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:trip_app_nativeapp/utils/constants/color.dart';
 
 import '../services/scaffold_messenger_service.dart';
 import 'router.dart';
@@ -51,6 +53,12 @@ class _TripApp extends ConsumerWidget {
       routeInformationProvider: router.routeInformationProvider,
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
+      theme: ThemeData(
+        primaryColor: kPrimaryColor,
+        textTheme: GoogleFonts.zenMaruGothicTextTheme(
+          Theme.of(context).textTheme,
+        ),
+      ),
     );
   }
 }
