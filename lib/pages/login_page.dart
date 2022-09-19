@@ -54,7 +54,7 @@ class LoginPage extends HookConsumerWidget {
                 ),
                 backgroundColor: Colors.white,
                 onPressed: () {
-                  // TODO(shimizu-saffle): LINEでログイン
+                  // TODO(shimizu-saffle): Googleでログイン
                 },
               ),
               const Spacer(),
@@ -66,7 +66,7 @@ class LoginPage extends HookConsumerWidget {
                 ),
                 backgroundColor: Colors.black,
                 onPressed: () {
-                  // TODO(shimizu-saffle): LINEでログイン
+                  // TODO(shimizu-saffle): Appleでログイン
                 },
               ),
               const Spacer(flex: 2),
