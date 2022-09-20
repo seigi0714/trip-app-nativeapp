@@ -44,6 +44,7 @@ dependencies:
   hooks_riverpod: ^1.0.4
   lottie: ^1.4.3
   nil: ^1.1.1
+  shared_preferences: ^2.0.15
   simple_logger: ^1.9.0+1
 
 dev_dependencies:
