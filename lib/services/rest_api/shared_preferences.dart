@@ -23,7 +23,6 @@ class SharedPreferencesService {
   /// idToken と nonce を SharedPreferences に書き込む。
   Future<void> login({
     required String idToken,
-    required String nonce,
   }) async {
     await _setString(key: SharedPreferencesKey.idToken, value: idToken);
   }
