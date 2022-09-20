@@ -7,6 +7,8 @@ enum SharedPreferencesKey {
 }
 
 /// SharedPreferences のインスタンスを提供するプロバイダ。
+///
+/// ProviderScope.overrides でインスタンスを生成・上書きして使用する。
 final sharedPreferencesProvider =
     Provider<SharedPreferences>((_) => throw UnimplementedError());
 
