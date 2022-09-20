@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/utils/constants/color.dart';
 
-import '../services/scaffold_messenger_service.dart';
+import '../services/scaffold_messenger/scaffold_messenger_service.dart';
 import 'router.dart';
 
 class TripApp extends StatelessWidget {
