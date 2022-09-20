@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../utils/extensions/string.dart';
-import '../../utils/constants/string.dart';
+import '../../utils/extensions/string.dart';
+import '../utils/constants/string.dart';
 
 final scaffoldMessengerKeyProvider =
     Provider((_) => GlobalKey<ScaffoldMessengerState>());
