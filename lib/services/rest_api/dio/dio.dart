@@ -6,6 +6,7 @@ import 'package:trip_app_nativeapp/services/rest_api/dio/header_interceptor.dart
 import 'package:trip_app_nativeapp/services/rest_api/dio/request_interceptor.dart';
 
 import '../../../utils/constants/number.dart';
+import 'response_interceptor.dart';
 
 /// Dio のインスタンスを各種設定を済ませて提供するプロバイダ。
 final dioProvider = Provider<Dio>(
@@ -21,8 +22,10 @@ final dioProvider = Provider<Dio>(
       ..interceptors.addAll(
         <Interceptor>[
           ref.watch(headerInterceptorProvider),
-          if (kDebugMode) ref.watch(requestInterceptorProvider),
-          // TODO(shimizu-saffle): デバッグモードでは ResponseInterceptor を追加する。
+          if (kDebugMode) ...[
+            ref.watch(requestInterceptorProvider),
+            ref.watch(responseInterceptorProvider),
+          ],
         ],
       );
     return dio;
