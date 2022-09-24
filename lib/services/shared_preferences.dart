@@ -40,12 +40,12 @@ class SharedPreferencesService {
   Future<bool> _setString({
     required SharedPreferencesKey key,
     required String value,
-  }) async {
+  }) {
     return _read(sharedPreferencesProvider).setString(key.name, value);
   }
 
   /// SharedPreferences に保存している特定のキー・バリューペアを削除する
-  Future<bool> _removeByKey(SharedPreferencesKey key) async {
+  Future<bool> _removeByKey(SharedPreferencesKey key) {
     return _read(sharedPreferencesProvider).remove(key.name);
   }
 }
