@@ -16,7 +16,7 @@ class RequestInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) {
-    logger.info('*** Request ***');
+    logger.i('*** Request ***');
     _printCurlCommand(options);
     super.onRequest(options, handler);
   }
@@ -30,12 +30,12 @@ class RequestInterceptor extends Interceptor {
           ).toList().join('&')}';
     }
     final requestUrl = '${options.baseUrl}${options.path}$query';
-    logger.info('curl -X ${options.method} $requestUrl');
+    logger.i('curl -X ${options.method} $requestUrl');
     for (final key in options.headers.keys) {
-      logger.info('-H "$key: ${options.headers[key]}"');
+      logger.i('-H "$key: ${options.headers[key]}"');
     }
     if (options.data != null && options.data is Map) {
-      logger.info('-d ${jsonEncode(options.data)}');
+      logger.i('-d ${jsonEncode(options.data)}');
     }
   }
 }

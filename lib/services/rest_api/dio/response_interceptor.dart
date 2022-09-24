@@ -16,14 +16,14 @@ class ResponseInterceptor extends Interceptor {
   ) {
     final requestOptions = response.requestOptions;
     logger
-      ..info('*** Response ***')
-      ..info(
+      ..i('*** Response ***')
+      ..i(
         '${requestOptions.method} '
         '${requestOptions.baseUrl}${requestOptions.path}',
       )
-      ..info('${response.statusCode} ${response.statusMessage}')
-      ..info(response.headers.toString())
-      ..info(response.data.toString());
+      ..i('${response.statusCode} ${response.statusMessage}')
+      ..i(response.headers.toString())
+      ..i(response.data.toString());
     super.onResponse(response, handler);
   }
 }

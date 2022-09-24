@@ -20,7 +20,7 @@ class ConstantPage extends HookConsumerWidget with WidgetsBindingObserver {
   /// アプリのライフサイクルを監視する。
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    logger.info('AppLifecycleState: ${state.name}');
+    logger.i('AppLifecycleState: ${state.name}');
   }
 
   @override
