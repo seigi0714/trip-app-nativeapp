@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 /// SharedPreferencesKey で管理するデータの列挙
 enum SharedPreferencesKey {
-  idToken,
+  loginToken,
 }
 
 /// SharedPreferences のインスタンスを提供するプロバイダ。
@@ -22,15 +22,18 @@ class SharedPreferencesService {
   SharedPreferencesService(this._read);
   final Reader _read;
 
-  /// idToken と nonce を SharedPreferences に書き込む。
+  /// loginToken を SharedPreferences に書き込む。
   Future<void> login({
-    required String idToken,
+    required String loginToken,
   }) async {
-    await _setString(key: SharedPreferencesKey.idToken, value: idToken);
+    await _setString(
+      key: SharedPreferencesKey.loginToken,
+      value: loginToken,
+    );
   }
 
   Future<void> logout() async {
-    await _removeByKey(SharedPreferencesKey.idToken);
+    await _removeByKey(SharedPreferencesKey.loginToken);
   }
 
   /// String 型のキー・バリューペアを保存する

@@ -11,7 +11,7 @@ final idTokenProvider = Provider<String>((_) => '');
 /// 未ログインで idToken が見つからない場合は空文字を返す。
 /// Provider.overrides が済んだ後は、WidgetRef や Reader 経由で idTokenProvider を使用すると、
 /// Future 型にもならず便利。
-Future<String> get idToken async {
+Future<String> get loginToken async {
   final sp = await SharedPreferences.getInstance();
-  return sp.getString(SharedPreferencesKey.idToken.name) ?? '';
+  return sp.getString(SharedPreferencesKey.loginToken.name) ?? '';
 }
