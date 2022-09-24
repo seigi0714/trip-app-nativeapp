@@ -32,13 +32,13 @@ class ApiClient implements AbstractApiClient {
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
       );
-      final data = response.data;
-      if (data == null) {
+      final responseData = response.data;
+      if (responseData == null) {
         return ResponseResult<T>.failure(
-          message: 'データを取得できませんでした',
+          message: 'レスポンスデータを正常に取得できませんでした',
         );
       }
-      return ResponseResult<T>.success(responseData: data);
+      return ResponseResult<T>.success(responseData: responseData);
     } on DioError catch (dioError) {
       return ResponseResult<T>.failure(
         message: dioError.message,
@@ -56,9 +56,29 @@ class ApiClient implements AbstractApiClient {
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
-  }) {
-    // TODO: implement post
-    throw UnimplementedError();
+  }) async {
+    try {
+      final response = await _dio.post<T>(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options ?? Options(headers: header),
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      );
+      final responseData = response.data;
+      if (responseData == null) {
+        return ResponseResult<T>.failure(
+          message: 'レスポンスデータを正常に取得できませんでした',
+        );
+      }
+      return ResponseResult<T>.success(responseData: responseData);
+    } on DioError catch (dioError) {
+      return ResponseResult<T>.failure(
+        message: dioError.message,
+      );
+    }
   }
 
   @override
