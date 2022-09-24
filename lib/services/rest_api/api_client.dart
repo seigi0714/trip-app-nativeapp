@@ -91,9 +91,29 @@ class ApiClient implements AbstractApiClient {
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
-  }) {
-    // TODO: implement put
-    throw UnimplementedError();
+  }) async {
+    try {
+      final response = await _dio.put<T>(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options ?? Options(headers: header),
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      );
+      final responseData = response.data;
+      if (responseData == null) {
+        return ResponseResult<T>.failure(
+          message: 'レスポンスデータを正常に取得できませんでした',
+        );
+      }
+      return ResponseResult<T>.success(responseData: responseData);
+    } on DioError catch (dioError) {
+      return ResponseResult<T>.failure(
+        message: dioError.message,
+      );
+    }
   }
 
   @override
@@ -104,9 +124,27 @@ class ApiClient implements AbstractApiClient {
     Map<String, dynamic>? header,
     Options? options,
     CancelToken? cancelToken,
-  }) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  }) async {
+    try {
+      final response = await _dio.delete<T>(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options ?? Options(headers: header),
+        cancelToken: cancelToken,
+      );
+      final responseData = response.data;
+      if (responseData == null) {
+        return ResponseResult<T>.failure(
+          message: 'レスポンスデータを正常に取得できませんでした',
+        );
+      }
+      return ResponseResult<T>.success(responseData: responseData);
+    } on DioError catch (dioError) {
+      return ResponseResult<T>.failure(
+        message: dioError.message,
+      );
+    }
   }
 
   @override
@@ -119,8 +157,28 @@ class ApiClient implements AbstractApiClient {
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
-  }) {
-    // TODO: implement patch
-    throw UnimplementedError();
+  }) async {
+    try {
+      final response = await _dio.patch<T>(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options ?? Options(headers: header),
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      );
+      final responseData = response.data;
+      if (responseData == null) {
+        return ResponseResult<T>.failure(
+          message: 'レスポンスデータを正常に取得できませんでした',
+        );
+      }
+      return ResponseResult<T>.success(responseData: responseData);
+    } on DioError catch (dioError) {
+      return ResponseResult<T>.failure(
+        message: dioError.message,
+      );
+    }
   }
 }
