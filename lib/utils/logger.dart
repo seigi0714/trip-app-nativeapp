@@ -1,8 +1,11 @@
-import 'package:simple_logger/simple_logger.dart';
+import 'package:roggle/roggle.dart';
 
-final SimpleLogger logger = SimpleLogger()
-  ..mode = LoggerMode.print
-  ..setLevel(
-    Level.FINEST,
-    includeCallerInfo: true,
-  );
+final logger = Roggle(
+  printer: SinglePrettyPrinter(
+    loggerName: ' [APP]',
+    // warning 以上のときはスタックトレースを出力する
+    stackTraceLevel: Level.warning,
+    // ログが長くなるので非表示
+    printCaller: false,
+  ),
+);

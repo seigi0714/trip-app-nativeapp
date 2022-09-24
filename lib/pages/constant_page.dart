@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../services/scaffold_messenger_service.dart';
+import '../services/scaffold_messenger.dart';
 import '../utils/loading.dart';
 import '../utils/logger.dart';
 
@@ -20,7 +20,7 @@ class ConstantPage extends HookConsumerWidget with WidgetsBindingObserver {
   /// アプリのライフサイクルを監視する。
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    logger.info('AppLifecycleState: ${state.name}');
+    logger.i('AppLifecycleState: ${state.name}');
   }
 
   @override
