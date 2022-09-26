@@ -1,5 +1,11 @@
 PODS:
   - Flutter (1.0.0)
+  - flutter_line_sdk (2.3.0):
+    - Flutter
+    - LineSDKSwift (~> 5.3)
+  - LineSDKSwift (5.9.0):
+    - LineSDKSwift/Core (= 5.9.0)
+  - LineSDKSwift/Core (5.9.0)
   - path_provider_ios (0.0.1):
     - Flutter
   - shared_preferences_ios (0.0.1):
@@ -7,12 +13,19 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - flutter_line_sdk (from `.symlinks/plugins/flutter_line_sdk/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
+
+SPEC REPOS:
+  trunk:
+    - LineSDKSwift
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  flutter_line_sdk:
+    :path: ".symlinks/plugins/flutter_line_sdk/ios"
   path_provider_ios:
     :path: ".symlinks/plugins/path_provider_ios/ios"
   shared_preferences_ios:
@@ -20,6 +33,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_line_sdk: ffbd219457120ca500b4fba2a5fd818dee21a17a
+  LineSDKSwift: 97d6306ca17ae41520f29eb5dff4077dd81f08b2
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
 
