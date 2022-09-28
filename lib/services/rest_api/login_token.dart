@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../shared_preferences.dart';
 
 /// ProviderScope.overrides でインスタンスを生成・上書きして使用する。
-final idTokenProvider = Provider<String>((_) => '');
+final loginTokenProvider = Provider<String>((_) => '');
 
 /// ルートの ProviderScope.overrides で idTokenProvider の値を上書きする目的で、
 /// SharedPreferences に格納している idToken を取得して返す。

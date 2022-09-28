@@ -21,7 +21,7 @@ class HeaderInterceptor extends Interceptor {
     options.headers['Referer'] = overwriteUrl ?? options.baseUrl;
     options.headers['Origin'] = options.baseUrl;
     options.headers['Accept'] = 'application/json';
-    final idToken = _ref.watch(idTokenProvider);
+    final idToken = _ref.watch(loginTokenProvider);
     if (idToken.isNotEmpty) {
       options.headers['Authorization'] = 'IdToken $idToken';
     }
