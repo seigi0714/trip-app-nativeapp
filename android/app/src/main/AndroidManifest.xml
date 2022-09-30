@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.trip_app_nativeapp">
+    package="com.seigiruka.trip_app_nativeapp">
    <application
         android:label="trip_app_nativeapp"
         android:name="${applicationName}"
