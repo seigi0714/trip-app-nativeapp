@@ -20,7 +20,7 @@ final routerProvider = Provider<GoRouter>(
       navigatorBuilder: (context, state, child) {
         return ConstantPage(child: child);
       },
-      errorPageBuilder: (context, state) => MaterialPage(
+      errorPageBuilder: (context, state) => MaterialPage<Widget>(
         key: state.pageKey,
         child: Scaffold(
           body: Center(
