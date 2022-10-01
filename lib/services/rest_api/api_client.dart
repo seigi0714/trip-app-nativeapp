@@ -4,7 +4,7 @@ import 'package:trip_app_nativeapp/models/api/response_result/response_result.da
 import 'package:trip_app_nativeapp/services/rest_api/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/services/rest_api/dio/dio.dart';
 
-final apiClientProvider = Provider<AbstractApiClient>(
+final apiClientProvider = Provider<ApiClient>(
   (ref) => ApiClient(
     ref.watch(dioProvider),
   ),
