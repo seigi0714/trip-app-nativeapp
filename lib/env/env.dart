@@ -9,4 +9,12 @@ abstract class Env {
     obfuscate: true,
   )
   static final lineChannelId = _Env.lineChannelId;
+  @EnviedField(
+    varName: 'INET',
+  )
+  static final inet = _Env.inet;
+  @EnviedField(
+    varName: 'PORT',
+  )
+  static final port = _Env.port;
 }
