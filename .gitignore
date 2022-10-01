@@ -46,3 +46,7 @@ app.*.map.json
 # VSCode
 .vscode/settings.json
 .vscode/launch.json
+
+# Env
+.env
+env.g.dart
