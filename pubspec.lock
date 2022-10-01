@@ -183,6 +183,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.6"
+  dotenv:
+    dependency: transitive
+    description:
+      name: dotenv
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.1"
+  envied:
+    dependency: "direct main"
+    description:
+      name: envied
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.3"
+  envied_generator:
+    dependency: "direct dev"
+    description:
+      name: envied_generator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.3"
   fake_async:
     dependency: transitive
     description:
