@@ -9,8 +9,16 @@ part of 'api_response.dart';
 // **************************************************************************
 
 _$_ApiResponse _$$_ApiResponseFromJson(Map<String, dynamic> json) =>
-    _$_ApiResponse(
-      data: const DataConverter().fromJson(json['data']),
+    $checkedCreate(
+      r'_$_ApiResponse',
+      json,
+      ($checkedConvert) {
+        final val = _$_ApiResponse(
+          data:
+              $checkedConvert('data', (v) => const DataConverter().fromJson(v)),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$$_ApiResponseToJson(_$_ApiResponse instance) =>

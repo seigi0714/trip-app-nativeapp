@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 
+import '../../models/api/api_response/api_response.dart';
 import '../../models/api/response_result/response_result.dart';
 
 /// dio.dart の abstract class Dio の形式に沿った
@@ -34,7 +35,7 @@ abstract class AbstractApiClient {
     ProgressCallback onReceiveProgress,
   });
 
-  Future<ResponseResult<T>> post<T>(
+  Future<ApiResponse> post(
     String path, {
     Map<String, dynamic> data,
     Map<String, dynamic> queryParameters,

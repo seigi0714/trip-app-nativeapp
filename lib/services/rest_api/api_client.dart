@@ -4,6 +4,11 @@ import 'package:trip_app_nativeapp/models/api/response_result/response_result.da
 import 'package:trip_app_nativeapp/services/rest_api/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/services/rest_api/dio/dio.dart';
 
+import '../../models/api/api_response/api_response.dart';
+import '../../models/api/error_response/error_response.dart';
+import '../../models/api/exception/api_exception.dart';
+import '../../utils/constants/json.dart';
+
 final apiClientProvider = Provider<ApiClient>(
   (ref) => ApiClient(
     ref.watch(dioProvider),
@@ -47,7 +52,7 @@ class ApiClient implements AbstractApiClient {
   }
 
   @override
-  Future<ResponseResult<T>> post<T>(
+  Future<ApiResponse> post(
     String path, {
     Map<String, dynamic>? data,
     Map<String, dynamic>? queryParameters,
@@ -58,7 +63,7 @@ class ApiClient implements AbstractApiClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      final response = await _dio.post<T>(
+      final response = await _dio.post<Json>(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -68,16 +73,21 @@ class ApiClient implements AbstractApiClient {
         onReceiveProgress: onReceiveProgress,
       );
       final responseData = response.data;
-      if (responseData == null) {
-        return ResponseResult<T>.failure(
-          message: 'レスポンスデータを正常に取得できませんでした',
+      final statusCode = response.statusCode;
+      if (responseData == null || statusCode == null) {
+        throw const ApiException();
+      }
+      if (statusCode >= 400 && statusCode < 600) {
+        final errorResponse = ErrorResponse.fromJson(responseData);
+        throw ApiException(
+          statusCode: statusCode,
+          errorCode: errorResponse.errorCode,
+          description: errorResponse.description,
         );
       }
-      return ResponseResult<T>.success(responseData: responseData);
-    } on DioError catch (dioError) {
-      return ResponseResult<T>.failure(
-        message: dioError.message,
-      );
+      return ApiResponse.fromJson(responseData);
+    } on Exception {
+      rethrow;
     }
   }
 

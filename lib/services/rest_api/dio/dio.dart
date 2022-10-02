@@ -19,6 +19,8 @@ final dioProvider = Provider<Dio>(
         baseUrl: 'http://${Env.inet}:${Env.port}',
         connectTimeout: connectionTimeoutMilliSeconds,
         receiveTimeout: receiveTimeoutMilliSeconds,
+        contentType: Headers.jsonContentType,
+        validateStatus: (_) => true,
       )
       ..interceptors.addAll(
         <Interceptor>[
