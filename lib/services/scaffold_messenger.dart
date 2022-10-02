@@ -61,8 +61,16 @@ class ScaffoldMessengerService {
       scaffoldMessengerState.removeCurrentSnackBar();
     }
     return scaffoldMessengerState.showSnackBar(
+      // TODO(shimizu-saffle): Theme でスタイルを指定する。
       SnackBar(
-        content: Text(message),
+        content: Text(
+          message,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 14,
+          ),
+        ),
+        backgroundColor: Colors.white,
         behavior: defaultSnackBarBehavior,
         duration: duration,
       ),
