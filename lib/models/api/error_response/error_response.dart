@@ -8,10 +8,10 @@ part 'error_response.g.dart';
 class ErrorResponse with _$ErrorResponse {
   const factory ErrorResponse({
     /// Trip App API 独自のエラーコード
-    required String errorCode,
+    @Default('') String errorCode,
 
     /// Trip App API が返すエラーについての説明
-    required String description,
+    @Default('') String description,
   }) = _ErrorResponse;
 
   factory ErrorResponse.fromJson(Map<String, dynamic> json) =>

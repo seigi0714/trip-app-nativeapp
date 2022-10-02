@@ -9,13 +9,22 @@ part of 'error_response.dart';
 // **************************************************************************
 
 _$_ErrorResponse _$$_ErrorResponseFromJson(Map<String, dynamic> json) =>
-    _$_ErrorResponse(
-      errorCode: json['errorCode'] as String,
-      description: json['description'] as String,
+    $checkedCreate(
+      r'_$_ErrorResponse',
+      json,
+      ($checkedConvert) {
+        final val = _$_ErrorResponse(
+          errorCode: $checkedConvert('error_code', (v) => v as String? ?? ''),
+          description:
+              $checkedConvert('description', (v) => v as String? ?? ''),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'errorCode': 'error_code'},
     );
 
 Map<String, dynamic> _$$_ErrorResponseToJson(_$_ErrorResponse instance) =>
     <String, dynamic>{
-      'errorCode': instance.errorCode,
+      'error_code': instance.errorCode,
       'description': instance.description,
     };

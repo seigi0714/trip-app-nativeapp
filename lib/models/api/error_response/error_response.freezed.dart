@@ -109,17 +109,19 @@ class __$$_ErrorResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ErrorResponse implements _ErrorResponse {
-  const _$_ErrorResponse({required this.errorCode, required this.description});
+  const _$_ErrorResponse({this.errorCode = '', this.description = ''});
 
   factory _$_ErrorResponse.fromJson(Map<String, dynamic> json) =>
       _$$_ErrorResponseFromJson(json);
 
   /// Trip App API 独自のエラーコード
   @override
+  @JsonKey()
   final String errorCode;
 
   /// Trip App API が返すエラーについての説明
   @override
+  @JsonKey()
   final String description;
 
   @override
@@ -159,8 +161,7 @@ class _$_ErrorResponse implements _ErrorResponse {
 
 abstract class _ErrorResponse implements ErrorResponse {
   const factory _ErrorResponse(
-      {required final String errorCode,
-      required final String description}) = _$_ErrorResponse;
+      {final String errorCode, final String description}) = _$_ErrorResponse;
 
   factory _ErrorResponse.fromJson(Map<String, dynamic> json) =
       _$_ErrorResponse.fromJson;
