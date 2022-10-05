@@ -26,7 +26,16 @@ class DefaultFirebaseOptions {
         return ios;
       case TargetPlatform.macOS:
         return macos;
-      // ignore: no_default_cases
+      case TargetPlatform.windows:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.linux:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for linux - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -58,8 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '274154645467',
     projectId: 'trip-app-dev',
     storageBucket: 'trip-app-dev.appspot.com',
-    iosClientId:
-        '274154645467-9eacjmei6kajirgfad6lbac6ri186lm4.apps.googleusercontent.com',
+    iosClientId: '274154645467-9eacjmei6kajirgfad6lbac6ri186lm4.apps.googleusercontent.com',
     iosBundleId: 'com.seigiruka.tripAppNativeapp',
   );
 
@@ -69,8 +77,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '274154645467',
     projectId: 'trip-app-dev',
     storageBucket: 'trip-app-dev.appspot.com',
-    iosClientId:
-        '274154645467-9eacjmei6kajirgfad6lbac6ri186lm4.apps.googleusercontent.com',
+    iosClientId: '274154645467-9eacjmei6kajirgfad6lbac6ri186lm4.apps.googleusercontent.com',
     iosBundleId: 'com.seigiruka.tripAppNativeapp',
   );
 }
