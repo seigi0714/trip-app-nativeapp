@@ -86,6 +86,8 @@ class ApiClient implements AbstractApiClient {
         );
       }
       return ApiResponse.fromJson(responseData);
+    } on DioError {
+      rethrow;
     } on Exception {
       rethrow;
     }

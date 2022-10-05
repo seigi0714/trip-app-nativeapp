@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -85,5 +86,15 @@ class ScaffoldMessengerService {
     final message =
         e.toString().replaceAll('Exception: ', '').replaceAll('Exception', '');
     return showSnackBar(message.ifIsEmpty(generalExceptionMessage));
+  }
+
+  /// FirebaseException 起点でスナックバーを表示する
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
+      showSnackBarByFirebaseException(
+    FirebaseException e,
+  ) {
+    return showSnackBar(
+      '[${e.code}]: ${e.message ?? 'FirebaseException が発生しました。'}',
+    );
   }
 }
