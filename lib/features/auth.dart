@@ -1,15 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:trip_app_nativeapp/models/api/exception/app_exception.dart';
 import 'package:trip_app_nativeapp/utils/loading.dart';
 
 import '../models/api/exception/api_exception.dart';
 import '../repositories/auth_repository.dart';
 import '../services/scaffold_messenger.dart';
 
-final authUserProvider = StreamProvider<User?>(
+final firebaseAuthUserProvider = StreamProvider<User?>(
   (ref) => ref.watch(firebaseAuthProvider).userChanges(),
 );
 
@@ -23,7 +21,7 @@ final signUpWithLINEProvider = Provider.autoDispose<Future<void> Function()>(
         await ref
             .read(authRepositoryProvider)
             .signInWithCustomToken(response.customToken);
-        ref.read(scaffoldMessengerServiceProvider).showSnackBar('ログインしました。');
+        ref.read(scaffoldMessengerServiceProvider).showSnackBar('ログインしました 🙌');
       } on PlatformException catch (e) {
         ref
             .read(scaffoldMessengerServiceProvider)
@@ -33,13 +31,10 @@ final signUpWithLINEProvider = Provider.autoDispose<Future<void> Function()>(
             .read(scaffoldMessengerServiceProvider)
             .showSnackBarByFirebaseException(e);
       } on ApiException catch (e) {
-        if (kDebugMode) {}
         ref.read(scaffoldMessengerServiceProvider).showSnackBar(
           '''[${e.statusCode}] ログインに失敗しました。
           ${e.errorCode}: ${e.description}''',
         );
-      } on AppException catch (e) {
-        ref.read(scaffoldMessengerServiceProvider).showSnackBar(e.toString());
       } on Exception catch (e) {
         ref.read(scaffoldMessengerServiceProvider).showSnackBarByException(e);
       } finally {
