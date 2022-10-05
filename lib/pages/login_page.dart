@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:trip_app_nativeapp/repositories/auth_repository.dart';
 import 'package:trip_app_nativeapp/utils/extensions/build_context.dart';
 
+import '../features/auth.dart';
 import '../gen/assets.gen.dart';
 import '../utils/constants/color.dart';
 import '../widgets/brand_button.dart';
@@ -42,12 +42,7 @@ class LoginPage extends HookConsumerWidget {
                   size: context.displaySize.width * 0.08,
                 ),
                 backgroundColor: lineGreen,
-                onPressed: () async {
-                  // TODO(shimizu-saffle): LINEでログイン
-                  final response =
-                      await ref.read(authRepositoryProvider).signUpWithLINE();
-                  print(response.customToken);
-                },
+                onPressed: () => ref.read(signUpWithLINEProvider).call(),
               ),
               const Spacer(),
               BrandButton(
