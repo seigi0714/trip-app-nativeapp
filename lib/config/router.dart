@@ -3,14 +3,28 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/pages/login_page.dart';
 
+import '../features/auth.dart';
 import '../pages/constant_page.dart';
+import '../pages/home_page.dart';
 
 final routerProvider = Provider<GoRouter>(
   (ref) {
     return GoRouter(
-      // TODO(shimizu-saffle): ページが増え次第、initialLocation を変更して、適切なリダイレクト処理を行う。
-      initialLocation: LoginPage.path,
+      // TODO(shimizu-saffle): fix Exception
+      redirect: (state) {
+        final isAtLoginPage = state.location == LoginPage.path;
+        final isLoggedIn = ref.watch(isLoggedInProvider).value;
+        if (isLoggedIn == false) {
+          return isAtLoginPage ? null : LoginPage.path;
+        }
+        return null;
+      },
       routes: [
+        GoRoute(
+          path: HomePage.path,
+          name: HomePage.name,
+          builder: (context, state) => const HomePage(),
+        ),
         GoRoute(
           path: LoginPage.path,
           name: LoginPage.name,
