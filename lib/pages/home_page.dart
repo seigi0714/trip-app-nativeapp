@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:trip_app_nativeapp/repositories/auth_repository.dart';
 import 'package:trip_app_nativeapp/utils/extensions/build_context.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   static const path = '/';
   static const name = 'HomePage';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -18,6 +20,11 @@ class HomePage extends StatelessWidget {
               Text(
                 'アプリのトップページ\n旅のしおり一覧をグリッド状に表示する',
                 style: context.textTheme.headlineSmall,
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => ref.read(authRepositoryProvider).signOut(),
+                child: const Text('ログアウト'),
               ),
             ],
           ),

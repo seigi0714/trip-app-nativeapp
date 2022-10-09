@@ -79,8 +79,10 @@ class ScaffoldMessengerService {
   }
 
   /// Exception 起点でスナックバーを表示する。
-  /// Dart の Exception 型の場合は toString() 冒頭を取り除いて
-  /// 差し支えのないメッセージに置換しておく。
+  ///
+  /// 開発者向けのメッセージを差し支えのないメッセージに置換してユーザーに表示する。
+  ///
+  /// デバッグモードでは、Exceptionのメッセージをそのまま表示する。
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
       showSnackBarByException(Exception e) {
     var message = generalExceptionMessage;
