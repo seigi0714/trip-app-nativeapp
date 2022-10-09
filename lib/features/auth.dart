@@ -43,3 +43,18 @@ final signUpWithLINEProvider = Provider.autoDispose<Future<void> Function()>(
     };
   },
 );
+
+final signOutProvider = Provider.autoDispose<Future<void> Function()>((ref) {
+  return () async {
+    try {
+      await ref.read(firebaseAuthProvider).signOut();
+      ref.read(scaffoldMessengerServiceProvider).showSnackBar('ログアウトしました 😌');
+    } on FirebaseException catch (e) {
+      ref
+          .read(scaffoldMessengerServiceProvider)
+          .showSnackBarByFirebaseException(e);
+    } on Exception catch (e) {
+      ref.read(scaffoldMessengerServiceProvider).showSnackBarByException(e);
+    }
+  };
+});
