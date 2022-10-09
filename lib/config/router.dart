@@ -1,29 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:trip_app_nativeapp/pages/loading_page.dart';
 import 'package:trip_app_nativeapp/pages/login_page.dart';
 
 import '../features/auth.dart';
-import '../pages/constant_page.dart';
+import '../pages/error_page.dart';
 import '../pages/home_page.dart';
 
 final routerProvider = Provider<GoRouter>(
   (ref) {
+    final user = ref.watch(userProvider);
     return GoRouter(
-      // TODO(shimizu-saffle): fix Exception
-      redirect: (state) {
-        final isAtLoginPage = state.location == LoginPage.path;
-        final isLoggedIn = ref.watch(isLoggedInProvider).value;
-        if (isLoggedIn == false) {
+      redirect: (BuildContext context, state) {
+        final isAtLoginPage = state.subloc == LoginPage.path;
+        if (user.value == null) {
           return isAtLoginPage ? null : LoginPage.path;
+        } else if (isAtLoginPage) {
+          return HomePage.path;
+        } else {
+          return null;
         }
-        return null;
       },
       routes: [
         GoRoute(
           path: HomePage.path,
           name: HomePage.name,
-          builder: (context, state) => const HomePage(),
+          builder: (context, state) => user.when(
+            data: (user) {
+              if (user == null) {
+                return const LoginPage();
+              }
+              return const HomePage();
+            },
+            error: (error, stackTrace) =>
+                ErrorPage(errorMessage: state.error.toString()),
+            loading: () => const LoadingPage(),
+          ),
         ),
         GoRoute(
           path: LoginPage.path,
@@ -31,16 +44,9 @@ final routerProvider = Provider<GoRouter>(
           builder: (context, state) => const LoginPage(),
         ),
       ],
-      navigatorBuilder: (context, state, child) {
-        return ConstantPage(child: child);
-      },
       errorPageBuilder: (context, state) => MaterialPage<Widget>(
         key: state.pageKey,
-        child: Scaffold(
-          body: Center(
-            child: Text(state.error.toString()),
-          ),
-        ),
+        child: ErrorPage(errorMessage: state.error.toString()),
       ),
     );
   },

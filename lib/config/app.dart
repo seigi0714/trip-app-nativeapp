@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:nil/nil.dart';
 import 'package:trip_app_nativeapp/utils/constants/color.dart';
 
+import '../pages/constant_page.dart';
 import '../services/scaffold_messenger.dart';
 import 'router.dart';
 
@@ -59,6 +61,8 @@ class _TripApp extends ConsumerWidget {
           Theme.of(context).textTheme,
         ),
       ),
+      builder: (context, child) =>
+          child == null ? nil : ConstantPage(child: child),
     );
   }
 }
