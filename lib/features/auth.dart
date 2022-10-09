@@ -7,12 +7,9 @@ import '../models/api/exception/api_exception.dart';
 import '../repositories/auth_repository.dart';
 import '../services/scaffold_messenger.dart';
 
-final userProvider = StreamProvider<User?>((ref) async* {
-  final userStream = ref.watch(firebaseAuthProvider).authStateChanges();
-  await for (final user in userStream) {
-    yield user;
-  }
-});
+final authUserProvider = StreamProvider<User?>(
+  (ref) => ref.watch(firebaseAuthProvider).userChanges(),
+);
 
 final signUpWithLINEProvider = Provider.autoDispose<Future<void> Function()>(
   (ref) {

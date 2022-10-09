@@ -10,7 +10,7 @@ import '../pages/home_page.dart';
 
 final routerProvider = Provider<GoRouter>(
   (ref) {
-    final user = ref.watch(userProvider);
+    final user = ref.watch(authUserProvider);
     return GoRouter(
       redirect: (BuildContext context, state) {
         final isAtLoginPage = state.subloc == LoginPage.path;
