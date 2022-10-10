@@ -13,6 +13,8 @@ analyzer:
   exclude:
     - 'lib/env/env.dart'
     - 'lib/firebase_options.dart'
+  errors:
+    avoid_classes_with_only_static_members: ignore
 
 linter:
   # The lint rules applied to this project can be customized in the
@@ -31,3 +33,4 @@ linter:
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
+
