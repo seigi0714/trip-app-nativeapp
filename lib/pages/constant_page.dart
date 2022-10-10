@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../services/scaffold_messenger.dart';
 import '../utils/loading.dart';
 import '../utils/logger.dart';
 
-/// GoRouter の navigatorBuilder で返すことによって
-/// すべてのルートの上に ConstantPage を 挿入することができるので
-/// どこからでもスナックバーの表示や、画面タップによるアンフォーカスができる。
+/// MaterialApp.router の builder で返すことによって
+/// すべてのページ上に ConstantPage を 挿入することができるので
+/// どこからでもモーダル付きインジケーターの表示や、画面タップによるアンフォーカスができる。
 class ConstantPage extends HookConsumerWidget with WidgetsBindingObserver {
   const ConstantPage({
     super.key,
@@ -31,18 +30,14 @@ class ConstantPage extends HookConsumerWidget with WidgetsBindingObserver {
         return null;
       },
     );
-    return ScaffoldMessenger(
-      key: ref.watch(scaffoldMessengerKeyProvider),
-      child: Scaffold(
-        body: GestureDetector(
-          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-          child: Stack(
-            children: [
-              child,
-              if (ref.watch(overlayLoadingProvider))
-                const OverlayLoadingWidget(),
-            ],
-          ),
+    return Scaffold(
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Stack(
+          children: [
+            child,
+            if (ref.watch(overlayLoadingProvider)) const OverlayLoadingWidget(),
+          ],
         ),
       ),
     );

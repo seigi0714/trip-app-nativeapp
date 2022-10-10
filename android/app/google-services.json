@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "274154645467",
+    "project_id": "trip-app-dev",
+    "storage_bucket": "trip-app-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274154645467:android:a5703c830b5b568e20a9fe",
+        "android_client_info": {
+          "package_name": "com.seigiruka.trip_app_nativeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "274154645467-duif0it6o5oqmg6o77lup3mupf0emnh9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZpptrJlhsMuH8iP1ymj9uUMvIOLkrT_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "274154645467-duif0it6o5oqmg6o77lup3mupf0emnh9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "274154645467-9eacjmei6kajirgfad6lbac6ri186lm4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.seigiruka.tripAppNativeapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

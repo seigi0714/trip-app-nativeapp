@@ -7,6 +7,10 @@
 targets:
   $default:
     builders:
+      json_serializable:
+        options:
+          checked: true
+          field_rename: snake
       source_gen|combining_builder:
         options:
           ignore_for_file:

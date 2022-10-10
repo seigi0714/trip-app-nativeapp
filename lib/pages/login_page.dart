@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:trip_app_nativeapp/utils/extensions/build_context.dart';
 
+import '../features/auth.dart';
 import '../gen/assets.gen.dart';
 import '../utils/constants/color.dart';
 import '../widgets/brand_button.dart';
@@ -41,9 +42,7 @@ class LoginPage extends HookConsumerWidget {
                   size: context.displaySize.width * 0.08,
                 ),
                 backgroundColor: lineGreen,
-                onPressed: () {
-                  // TODO(shimizu-saffle): LINEでログイン
-                },
+                onPressed: () => ref.read(signUpWithLINEProvider).call(),
               ),
               const Spacer(),
               BrandButton(
