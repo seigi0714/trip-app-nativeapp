@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/services/rest_api/dio/header_interceptor.dart';
 import 'package:trip_app_nativeapp/services/rest_api/dio/request_interceptor.dart';
 
-import '../../../env/env.dart';
+import '../../../config/env.dart';
 import '../../../utils/constants/number.dart';
 import 'response_interceptor.dart';
 

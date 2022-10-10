@@ -48,5 +48,5 @@ app.*.map.json
 .vscode/launch.json
 
 # Env
-.env.local
-env.g.dart
+.dev.env
+.prod.env
