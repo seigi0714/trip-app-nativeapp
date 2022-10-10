@@ -33,6 +33,26 @@ jobs:
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
 
+      - name: Make dev envfile
+        uses: SpicyPizza/create-envfile@041383d6577d09916e24632ef274f18ec2909b4f
+        with:
+          envkey_DEBUG: false
+          envkey_SOME_API_KEY: '123456abcdef'
+          envkey_LINE_CHANNEL_ID: ${{ secrets.LINE_CHANNEL_ID }}
+          envkey_INET: ${{ secrets.INET }}
+          envkey_PORT: ${{ secrets.PORT }}
+          file_name: .dev.env
+
+      - name: Make prod envfile
+        uses: SpicyPizza/create-envfile@041383d6577d09916e24632ef274f18ec2909b4f
+        with:
+          envkey_DEBUG: false
+          envkey_SOME_API_KEY: '123456abcdef'
+          envkey_LINE_CHANNEL_ID: ${{ secrets.LINE_CHANNEL_ID }}
+          envkey_INET: ${{ secrets.INET }}
+          envkey_PORT: ${{ secrets.PORT }}
+          file_name: .prod.env
+
       - name: Install Flutter dependencies
         run: flutter pub get
 
