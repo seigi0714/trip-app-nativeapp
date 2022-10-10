@@ -1,7 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../utils/extensions/string.dart';
 import '../utils/constants/string.dart';
 
 final scaffoldMessengerKeyProvider =
@@ -61,8 +62,16 @@ class ScaffoldMessengerService {
       scaffoldMessengerState.removeCurrentSnackBar();
     }
     return scaffoldMessengerState.showSnackBar(
+      // TODO(shimizu-saffle): Theme でスタイルを指定する。
       SnackBar(
-        content: Text(message),
+        content: Text(
+          message,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 14,
+          ),
+        ),
+        backgroundColor: Colors.white,
         behavior: defaultSnackBarBehavior,
         duration: duration,
       ),
@@ -70,12 +79,29 @@ class ScaffoldMessengerService {
   }
 
   /// Exception 起点でスナックバーを表示する。
-  /// Dart の Exception 型の場合は toString() 冒頭を取り除いて
-  /// 差し支えのないメッセージに置換しておく。
+  ///
+  /// 開発者向けのメッセージを差し支えのないメッセージに置換してユーザーに表示する。
+  ///
+  /// デバッグモードでは、Exceptionのメッセージをそのまま表示する。
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
       showSnackBarByException(Exception e) {
-    final message =
-        e.toString().replaceAll('Exception: ', '').replaceAll('Exception', '');
-    return showSnackBar(message.ifIsEmpty(generalExceptionMessage));
+    var message = generalExceptionMessage;
+    if (kDebugMode) {
+      message = e
+          .toString()
+          .replaceAll('Exception: ', '')
+          .replaceAll('Exception', '');
+    }
+    return showSnackBar(message);
+  }
+
+  /// FirebaseException 起点でスナックバーを表示する
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
+      showSnackBarByFirebaseException(
+    FirebaseException e,
+  ) {
+    return showSnackBar(
+      '[${e.code}]: ${e.message ?? 'FirebaseException が発生しました。'}',
+    );
   }
 }

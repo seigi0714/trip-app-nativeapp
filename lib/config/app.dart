@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:nil/nil.dart';
+import 'package:trip_app_nativeapp/utils/constants/color.dart';
 
-import '../services/scaffold_messenger_service.dart';
+import '../pages/constant_page.dart';
+import '../services/scaffold_messenger.dart';
 import 'router.dart';
 
 class TripApp extends StatelessWidget {
@@ -51,6 +55,15 @@ class _TripApp extends ConsumerWidget {
       routeInformationProvider: router.routeInformationProvider,
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
+      scaffoldMessengerKey: ref.watch(scaffoldMessengerKeyProvider),
+      theme: ThemeData(
+        primaryColor: kPrimaryColor,
+        textTheme: GoogleFonts.zenMaruGothicTextTheme(
+          Theme.of(context).textTheme,
+        ),
+      ),
+      builder: (context, child) =>
+          child == null ? nil : ConstantPage(child: child),
     );
   }
 }

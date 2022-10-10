@@ -9,6 +9,13 @@
 # packages, and plugins designed to encourage good coding practices.
 include: package:pedantic_mono/analysis_options.yaml
 
+analyzer:
+  exclude:
+    - 'lib/env/env.dart'
+    - 'lib/firebase_options.dart'
+  errors:
+    avoid_classes_with_only_static_members: ignore
+
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`
@@ -26,3 +33,4 @@ linter:
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
+
