@@ -40,7 +40,7 @@ class AuthRepository {
       }
       final response = await _apiClient.post(
         '/api/v1/auth/signup/line',
-        data: <String, dynamic>{
+        data: <String, String>{
           'line_id_token': idToken,
           'nonce': nonce,
         },
