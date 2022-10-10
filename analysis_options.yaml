@@ -12,6 +12,7 @@ include: package:pedantic_mono/analysis_options.yaml
 analyzer:
   exclude:
     - 'lib/env/env.dart'
+    - 'lib/firebase_options.dart'
 
 linter:
   # The lint rules applied to this project can be customized in the
