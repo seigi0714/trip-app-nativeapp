@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:trip_app_nativeapp/models/api/response_result/response_result.dart';
 import 'package:trip_app_nativeapp/services/rest_api/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/services/rest_api/dio/dio.dart';
 
@@ -21,7 +20,7 @@ class ApiClient implements AbstractApiClient {
   final Dio _dio;
 
   @override
-  Future<ResponseResult<T>> get<T>(
+  Future<ApiResponse> get(
     String path, {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? header,
@@ -30,7 +29,7 @@ class ApiClient implements AbstractApiClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      final response = await _dio.get<T>(
+      final response = await _dio.get<Json>(
         path,
         queryParameters: queryParameters,
         options: options ?? Options(headers: header),
@@ -38,16 +37,23 @@ class ApiClient implements AbstractApiClient {
         onReceiveProgress: onReceiveProgress,
       );
       final responseData = response.data;
-      if (responseData == null) {
-        return ResponseResult<T>.failure(
-          message: 'レスポンスデータを正常に取得できませんでした',
+      final statusCode = response.statusCode;
+      if (responseData == null || statusCode == null) {
+        throw const ApiException();
+      }
+      if (statusCode >= 400 && statusCode < 600) {
+        final errorResponse = ErrorResponse.fromJson(responseData);
+        throw ApiException(
+          statusCode: statusCode,
+          errorCode: errorResponse.errorCode,
+          description: errorResponse.description,
         );
       }
-      return ResponseResult<T>.success(responseData: responseData);
-    } on DioError catch (dioError) {
-      return ResponseResult<T>.failure(
-        message: dioError.message,
-      );
+      return ApiResponse.fromJson(responseData);
+    } on DioError {
+      rethrow;
+    } on Exception {
+      rethrow;
     }
   }
 
@@ -90,107 +96,6 @@ class ApiClient implements AbstractApiClient {
       rethrow;
     } on Exception {
       rethrow;
-    }
-  }
-
-  @override
-  Future<ResponseResult<T>> put<T>(
-    String path, {
-    Map<String, dynamic>? data,
-    Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? header,
-    Options? options,
-    CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
-  }) async {
-    try {
-      final response = await _dio.put<T>(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: options ?? Options(headers: header),
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
-      );
-      final responseData = response.data;
-      if (responseData == null) {
-        return ResponseResult<T>.failure(
-          message: 'レスポンスデータを正常に取得できませんでした',
-        );
-      }
-      return ResponseResult<T>.success(responseData: responseData);
-    } on DioError catch (dioError) {
-      return ResponseResult<T>.failure(
-        message: dioError.message,
-      );
-    }
-  }
-
-  @override
-  Future<ResponseResult<T>> delete<T>(
-    String path, {
-    Map<String, dynamic>? data,
-    Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? header,
-    Options? options,
-    CancelToken? cancelToken,
-  }) async {
-    try {
-      final response = await _dio.delete<T>(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: options ?? Options(headers: header),
-        cancelToken: cancelToken,
-      );
-      final responseData = response.data;
-      if (responseData == null) {
-        return ResponseResult<T>.failure(
-          message: 'レスポンスデータを正常に取得できませんでした',
-        );
-      }
-      return ResponseResult<T>.success(responseData: responseData);
-    } on DioError catch (dioError) {
-      return ResponseResult<T>.failure(
-        message: dioError.message,
-      );
-    }
-  }
-
-  @override
-  Future<ResponseResult<T>> patch<T>(
-    String path, {
-    Map<String, dynamic>? data,
-    Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? header,
-    Options? options,
-    CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
-  }) async {
-    try {
-      final response = await _dio.patch<T>(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: options ?? Options(headers: header),
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
-      );
-      final responseData = response.data;
-      if (responseData == null) {
-        return ResponseResult<T>.failure(
-          message: 'レスポンスデータを正常に取得できませんでした',
-        );
-      }
-      return ResponseResult<T>.success(responseData: responseData);
-    } on DioError catch (dioError) {
-      return ResponseResult<T>.failure(
-        message: dioError.message,
-      );
     }
   }
 }
