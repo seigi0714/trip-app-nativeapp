@@ -2,19 +2,18 @@
 
 // ignore_for_file: type=lint, implicit_dynamic_parameter, implicit_dynamic_type, implicit_dynamic_method, strict_raw_type
 
-part of 'post_signup_via_line_response.dart';
+part of 'post_login_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_PostSignupViaLineResponse _$$_PostSignupViaLineResponseFromJson(
-        Map<String, dynamic> json) =>
+_$_PostLoginResponse _$$_PostLoginResponseFromJson(Map<String, dynamic> json) =>
     $checkedCreate(
-      r'_$_PostSignupViaLineResponse',
+      r'_$_PostLoginResponse',
       json,
       ($checkedConvert) {
-        final val = _$_PostSignupViaLineResponse(
+        final val = _$_PostLoginResponse(
           customToken: $checkedConvert('custom_token', (v) => v as String),
         );
         return val;
@@ -22,8 +21,8 @@ _$_PostSignupViaLineResponse _$$_PostSignupViaLineResponseFromJson(
       fieldKeyMap: const {'customToken': 'custom_token'},
     );
 
-Map<String, dynamic> _$$_PostSignupViaLineResponseToJson(
-        _$_PostSignupViaLineResponse instance) =>
+Map<String, dynamic> _$$_PostLoginResponseToJson(
+        _$_PostLoginResponse instance) =>
     <String, dynamic>{
       'custom_token': instance.customToken,
     };
