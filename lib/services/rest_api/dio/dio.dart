@@ -16,7 +16,7 @@ final dioProvider = Provider<Dio>(
       ..httpClientAdapter = DefaultHttpClientAdapter()
       ..options = BaseOptions(
         // TODO(shimizu-saffle): 環境に応じて変更されるようにする。
-        baseUrl: 'http://${Env.inet}:${Env.port}',
+        baseUrl: 'http://${Env.tripAppApiUrl}:${Env.tripAppApiPort}',
         connectTimeout: connectionTimeoutMilliSeconds,
         receiveTimeout: receiveTimeoutMilliSeconds,
         contentType: Headers.jsonContentType,

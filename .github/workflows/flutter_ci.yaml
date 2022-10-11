@@ -39,8 +39,8 @@ jobs:
           envkey_DEBUG: false
           envkey_SOME_API_KEY: '123456abcdef'
           envkey_LINE_CHANNEL_ID: ${{ secrets.LINE_CHANNEL_ID }}
-          envkey_INET: ${{ secrets.INET }}
-          envkey_PORT: ${{ secrets.PORT }}
+          envkey_TRIPAPP_API_URL: ${{ secrets.TRIPAPP_API_URL }}
+          envkey_TRIPAPP_API_PORT: ${{ secrets.TRIPAPP_API_PORT }}
           file_name: .dev.env
 
       - name: Make prod envfile
@@ -49,8 +49,8 @@ jobs:
           envkey_DEBUG: false
           envkey_SOME_API_KEY: '123456abcdef'
           envkey_LINE_CHANNEL_ID: ${{ secrets.LINE_CHANNEL_ID }}
-          envkey_INET: ${{ secrets.INET }}
-          envkey_PORT: ${{ secrets.PORT }}
+          envkey_TRIPAPP_API_URL: ${{ secrets.TRIPAPP_API_URL }}
+          envkey_TRIPAPP_API_PORT: ${{ secrets.TRIPAPP_API_PORT }}
           file_name: .prod.env
 
       - name: Install Flutter dependencies

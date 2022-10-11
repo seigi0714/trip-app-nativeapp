@@ -5,6 +5,8 @@ class Env {
   static String get fileName => kReleaseMode ? '.prod.env' : '.dev.env';
   static String get lineChannelId =>
       dotenv.env['LINE_CHANNEL_ID'] ?? 'LINE_CHANNEL_ID not found';
-  static String get inet => dotenv.env['INET'] ?? 'INET not found';
-  static String get port => dotenv.env['PORT'] ?? 'PORT not found';
+  static String get tripAppApiUrl =>
+      dotenv.env['TRIPAPP_API_URL'] ?? 'TRIPAPP_API_URL not found';
+  static String get tripAppApiPort =>
+      dotenv.env['TRIPAPP_API_PORT'] ?? 'TRIPAPP_API_PORT not found';
 }
