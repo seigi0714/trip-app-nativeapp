@@ -5,9 +5,9 @@ import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/models/api/exception/api_exception.dart';
 
-import '../models/api/api_response/post_signup_via_line_response/post_signup_via_line_response.dart';
-import '../models/api/exception/app_exception.dart';
-import '../services/rest_api/api_client.dart';
+import '../../models/api/api_response/post_signup_via_line_response/post_signup_via_line_response.dart';
+import '../../models/api/exception/app_exception.dart';
+import '../../services/rest_api/api_client.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepository(

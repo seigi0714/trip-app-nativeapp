@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/widgets/loading.dart';
 
 import '../models/api/exception/api_exception.dart';
-import '../repositories/auth_repository.dart';
+import '../repositories/auth/auth_repository.dart';
 import '../services/app/scaffold_messenger.dart';
 
 final authUserProvider = StreamProvider<User?>(
