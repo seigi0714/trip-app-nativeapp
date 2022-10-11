@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utils/loading.dart';
+import '../widgets/loading.dart';
 
 class LoadingPage extends StatelessWidget {
   const LoadingPage({super.key});

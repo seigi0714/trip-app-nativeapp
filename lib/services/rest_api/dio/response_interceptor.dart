@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../utils/logger.dart';
+import '../../app/logger.dart';
 
 final responseInterceptorProvider = Provider<ResponseInterceptor>(
   (_) => ResponseInterceptor(),

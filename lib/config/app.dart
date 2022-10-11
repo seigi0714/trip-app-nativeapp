@@ -5,7 +5,7 @@ import 'package:nil/nil.dart';
 import 'package:trip_app_nativeapp/utils/constants/color.dart';
 
 import '../pages/constant_page.dart';
-import '../services/scaffold_messenger.dart';
+import '../services/app/scaffold_messenger.dart';
 import 'router.dart';
 
 class TripApp extends StatelessWidget {

@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:trip_app_nativeapp/utils/loading.dart';
+import 'package:trip_app_nativeapp/widgets/loading.dart';
 
 import '../models/api/exception/api_exception.dart';
 import '../repositories/auth_repository.dart';
-import '../services/scaffold_messenger.dart';
+import '../services/app/scaffold_messenger.dart';
 
 final authUserProvider = StreamProvider<User?>(
   (ref) => ref.watch(firebaseAuthProvider).userChanges(),
