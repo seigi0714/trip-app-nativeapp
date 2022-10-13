@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/pages/loading_page.dart';
 import 'package:trip_app_nativeapp/pages/login_page.dart';
 
-import '../features/auth.dart';
 import '../pages/error_page.dart';
 import '../pages/home_page.dart';
+import '../providers/auth.dart';
 
 final routerProvider = Provider<GoRouter>(
   (ref) {
