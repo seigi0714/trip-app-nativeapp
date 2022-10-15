@@ -15,6 +15,7 @@ analyzer:
     - 'lib/firebase_options.dart'
   errors:
     avoid_classes_with_only_static_members: ignore
+    one_member_abstracts: ignore
 
 linter:
   # The lint rules applied to this project can be customized in the
