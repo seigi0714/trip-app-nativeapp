@@ -74,10 +74,6 @@ Future<void> main() async {
             (server) => server.reply(
               200,
               testResponse,
-              // Adds one-sec delay to reply method.
-              // Basically, I'd wait for one second before returning reply data.
-              // See -> issue:[106] & pr:[126]
-              delay: const Duration(seconds: 1),
             ),
             data: testRequest,
           );
