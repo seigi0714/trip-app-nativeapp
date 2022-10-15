@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
+import 'package:trip_app_nativeapp/core/exception/api_exception.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/dio.dart';
 
@@ -19,7 +22,10 @@ Future<void> main() async {
       setUp(
         () {
           dio = Dio(
-            BaseOptions(baseUrl: testBaseUrl),
+            BaseOptions(
+              baseUrl: testBaseUrl,
+              validateStatus: (status) => true,
+            ),
           );
           dioAdapter = DioAdapter(
             dio: dio,
@@ -84,6 +90,74 @@ Future<void> main() async {
           expect(response.data, testItems);
         },
       );
+
+      test(
+        'post 異常系 ステータスコードが 401 の場合は ApiException が スローされるはず。',
+        () async {
+          const route = '/post';
+          dioAdapter.onPost(
+            route,
+            (server) => server.reply(
+              HttpStatus.unauthorized,
+              <String, dynamic>{
+                'error_code': 'test',
+                'description': 'test',
+              },
+            ),
+          );
+
+          await expectLater(
+            () async {
+              await container.read(apiClientProvider).post(
+                    route,
+                  );
+            },
+            throwsA(
+              isA<ApiException>()
+                  .having(
+                    (e) => e.statusCode,
+                    'statusCode',
+                    HttpStatus.unauthorized,
+                  )
+                  .having(
+                    (e) => e.errorCode,
+                    'errorCode',
+                    'test',
+                  )
+                  .having(
+                    (e) => e.description,
+                    'description',
+                    'test',
+                  ),
+            ),
+          );
+        },
+      );
+
+      test('post 異常系 レスポンスが null の場合は、ApiException が スローされるはず。', () async {
+        const route = '/post';
+        dioAdapter.onPost(
+          route,
+          (server) => server.reply(
+            HttpStatus.internalServerError,
+            null,
+          ),
+        );
+        await expectLater(
+          () async {
+            await container.read(apiClientProvider).post(
+                  route,
+                );
+          },
+          throwsA(
+            isA<ApiException>().having(
+              (e) => e.statusCode,
+              'statusCode',
+              HttpStatus.internalServerError,
+            ),
+          ),
+        );
+      });
     },
   );
 }
