@@ -42,7 +42,7 @@ class LoginPage extends HookConsumerWidget {
                   size: context.displaySize.width * 0.08,
                 ),
                 backgroundColor: lineGreen,
-                onPressed: () => ref.read(signUpWithLINEProvider).call(),
+                onPressed: () => ref.read(loginController).call(),
               ),
               const Spacer(),
               BrandButton(

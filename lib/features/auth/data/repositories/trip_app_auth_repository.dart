@@ -3,20 +3,23 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../core/exception/api_exception.dart';
 import '../../../../core/http/api_client/api_client.dart';
-import '../models/post_signup_via_line_response/post_login_response.dart';
+import '../../domain/entity/custom_token.dart';
+import '../../domain/repositories/trip_app_auth_interface.dart';
+import '../models/post_login_response/post_login_response.dart';
 
-final tripAppAuthRepositoryProvider = Provider<TripAppAuthRepository>((ref) {
+final tripAppAuthRepositoryProvider = Provider<TripAppAuthInterface>((ref) {
   return TripAppAuthRepository(
     ref.watch(apiClientProvider),
   );
 });
 
-class TripAppAuthRepository {
+class TripAppAuthRepository implements TripAppAuthInterface {
   TripAppAuthRepository(this._apiClient);
 
   final ApiClient _apiClient;
 
-  Future<PostLoginResponse> loginWithIdToken({
+  @override
+  Future<CustomToken> loginWithIdToken({
     required String idToken,
     required String nonce,
   }) async {
@@ -28,7 +31,7 @@ class TripAppAuthRepository {
           'nonce': nonce,
         },
       );
-      return PostLoginResponse.fromJson(response.data);
+      return PostLoginResponse.fromJson(response.data).customToken;
     } on DioError {
       rethrow;
     } on ApiException {

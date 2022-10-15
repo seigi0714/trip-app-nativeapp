@@ -24,7 +24,7 @@ class HomePage extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () => ref.read(signOutProvider).call(),
+                onPressed: () => ref.read(logOutController).call(),
                 child: const Text('ログアウト'),
               ),
             ],
