@@ -39,7 +39,7 @@ class ApiClient implements AbstractApiClient {
       final responseData = response.data;
       final statusCode = response.statusCode;
       if (responseData == null || statusCode == null) {
-        throw const ApiException();
+        throw const ApiException(statusCode: 500);
       }
       if (statusCode >= 400 && statusCode < 600) {
         final errorResponse = ErrorResponse.fromJson(responseData);
@@ -81,7 +81,7 @@ class ApiClient implements AbstractApiClient {
       final responseData = response.data;
       final statusCode = response.statusCode;
       if (responseData == null || statusCode == null) {
-        throw const ApiException();
+        throw const ApiException(statusCode: 500);
       }
       if (statusCode >= 400 && statusCode < 600) {
         final errorResponse = ErrorResponse.fromJson(responseData);

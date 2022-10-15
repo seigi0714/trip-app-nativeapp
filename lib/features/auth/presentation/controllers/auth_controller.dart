@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/view/widgets/loading.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/usecases/auth_usecase.dart';
 
+import '../../../../core/exception/exception_handler.dart';
 import '../../../../core/scaffold_messenger.dart';
 import '../../data/repositories/firebase_auth_repository.dart';
 
@@ -18,7 +19,7 @@ final loginController = Provider.autoDispose<Future<void> Function()>(
         await ref.read(authUsecase).loginWithLINE();
         ref.read(scaffoldMessengerServiceProvider).showSnackBar('ログインしました 🙌');
       } on Exception catch (e) {
-        ref.read(scaffoldMessengerServiceProvider).showSnackBarByException(e);
+        ref.read(exceptionHandler).handleException(e);
       } finally {
         ref.read(overlayLoadingProvider.notifier).update((s) => false);
       }
