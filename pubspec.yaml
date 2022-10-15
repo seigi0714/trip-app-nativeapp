@@ -39,6 +39,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^2.1.0+1
+  http_mock_adapter: ^0.3.3
   json_serializable: ^6.3.1
   pedantic_mono: ^1.20.0
 
