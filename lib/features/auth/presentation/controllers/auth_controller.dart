@@ -7,7 +7,7 @@ import '../../../../core/exception/exception_handler.dart';
 import '../../../../core/view/widgets/helpers/scaffold_messenger.dart';
 import '../../data/repositories/firebase_auth_repository.dart';
 
-final authUserProvider = StreamProvider<User?>(
+final firebaseAuthUserProvider = StreamProvider<User?>(
   (ref) => ref.watch(firebaseAuthProvider).userChanges(),
 );
 

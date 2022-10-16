@@ -10,7 +10,7 @@ import 'features/auth/presentation/controllers/auth_controller.dart';
 
 final routerProvider = Provider<GoRouter>(
   (ref) {
-    final user = ref.watch(authUserProvider);
+    final user = ref.watch(firebaseAuthUserProvider);
     return GoRouter(
       redirect: (BuildContext context, state) {
         final isAtLoginPage = state.subloc == LoginPage.path;
