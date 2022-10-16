@@ -4,7 +4,7 @@ import 'package:trip_app_nativeapp/core/view/widgets/loading.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/usecases/auth_usecase.dart';
 
 import '../../../../core/exception/exception_handler.dart';
-import '../../../../core/scaffold_messenger.dart';
+import '../../../../core/view/widgets/helpers/scaffold_messenger.dart';
 import '../../data/repositories/firebase_auth_repository.dart';
 
 final authUserProvider = StreamProvider<User?>(
@@ -17,7 +17,7 @@ final loginController = Provider.autoDispose<Future<void> Function()>(
       ref.read(overlayLoadingProvider.notifier).update((s) => true);
       try {
         await ref.read(authUsecase).loginWithLINE();
-        ref.read(scaffoldMessengerServiceProvider).showSnackBar('ログインしました 🙌');
+        ref.read(scaffoldMessengerHelperProvider).showSnackBar('ログインしました 🙌');
       } on Exception catch (e) {
         ref.read(exceptionHandler).handleException(e);
       } finally {
@@ -31,9 +31,9 @@ final logOutController = Provider.autoDispose<Future<void> Function()>((ref) {
   return () async {
     try {
       await ref.read(firebaseAuthProvider).signOut();
-      ref.read(scaffoldMessengerServiceProvider).showSnackBar('ログアウトしました 😌');
+      ref.read(scaffoldMessengerHelperProvider).showSnackBar('ログアウトしました 😌');
     } on Exception catch (e) {
-      ref.read(scaffoldMessengerServiceProvider).showSnackBarByException(e);
+      ref.read(exceptionHandler).handleException(e);
     }
   };
 });

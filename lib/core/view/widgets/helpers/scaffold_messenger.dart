@@ -1,23 +1,20 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'constants/string.dart';
 
 final scaffoldMessengerKeyProvider =
     Provider((_) => GlobalKey<ScaffoldMessengerState>());
 
-final scaffoldMessengerServiceProvider =
-    Provider.autoDispose(ScaffoldMessengerService.new);
+final scaffoldMessengerHelperProvider =
+    Provider.autoDispose(ScaffoldMessengerHelper.new);
 
 /// ツリー上部の ScaffoldMessenger 上でスナックバーやダイアログの表示を操作する。
-class ScaffoldMessengerService {
-  ScaffoldMessengerService(this._ref);
+class ScaffoldMessengerHelper {
+  ScaffoldMessengerHelper(this._ref);
 
   static const defaultSnackBarBehavior = SnackBarBehavior.floating;
   static const defaultSnackBarDuration = Duration(seconds: 3);
 
-  final AutoDisposeProviderRef<ScaffoldMessengerService> _ref;
+  final AutoDisposeProviderRef<ScaffoldMessengerHelper> _ref;
 
   GlobalKey<ScaffoldMessengerState> get scaffoldMessengerKey =>
       _ref.read(scaffoldMessengerKeyProvider);
@@ -75,22 +72,5 @@ class ScaffoldMessengerService {
         duration: duration,
       ),
     );
-  }
-
-  /// Exception 起点でスナックバーを表示する。
-  ///
-  /// 開発者向けのメッセージを差し支えのないメッセージに置換してユーザーに表示する。
-  ///
-  /// デバッグモードでは、Exceptionのメッセージをそのまま表示する。
-  ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
-      showSnackBarByException(Exception e) {
-    var message = generalExceptionMessage;
-    if (kDebugMode) {
-      message = e
-          .toString()
-          .replaceAll('Exception: ', '')
-          .replaceAll('Exception', '');
-    }
-    return showSnackBar(message);
   }
 }

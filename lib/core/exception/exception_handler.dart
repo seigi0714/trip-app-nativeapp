@@ -6,7 +6,7 @@ import 'package:trip_app_nativeapp/core/exception/api_exception.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
 
 import '../constants/string.dart';
-import '../scaffold_messenger.dart';
+import '../view/widgets/helpers/scaffold_messenger.dart';
 
 final exceptionHandler = Provider<ExceptionHandler>(ExceptionHandler.new);
 
@@ -25,7 +25,7 @@ class ExceptionHandler {
     if (e is ApiException) {
       _handleApiException(e);
     }
-    _ref.read(scaffoldMessengerServiceProvider).showSnackBar(message);
+    _ref.read(scaffoldMessengerHelperProvider).showSnackBar(message);
   }
 
   void _handleApiException(ApiException e) {
