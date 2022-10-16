@@ -30,6 +30,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>line3rdp.$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+				<string>com.googleusercontent.apps.274154645467-9eacjmei6kajirgfad6lbac6ri186lm4</string>
 			</array>
 		</dict>
 	</array>
