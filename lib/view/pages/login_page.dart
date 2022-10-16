@@ -5,10 +5,10 @@ import 'package:lottie/lottie.dart';
 import 'package:trip_app_nativeapp/core/enum/login_type.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 
-import '../../../../core/constants/color.dart';
-import '../../../../core/gen/assets.gen.dart';
-import '../../../../core/view/widgets/brand_button.dart';
-import '../controllers/auth_controller.dart';
+import '../../core/constants/color.dart';
+import '../../core/gen/assets.gen.dart';
+import '../../features/auth/controller/auth_controller.dart';
+import '../widgets/brand_button.dart';
 
 class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
@@ -43,8 +43,7 @@ class LoginPage extends HookConsumerWidget {
                   size: context.displaySize.width * 0.08,
                 ),
                 backgroundColor: lineGreen,
-                onPressed: () =>
-                    ref.read(loginController).call(LoginType.line),
+                onPressed: () => ref.read(loginController).call(LoginType.line),
               ),
               const Spacer(),
               BrandButton(

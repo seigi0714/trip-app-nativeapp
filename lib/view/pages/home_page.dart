@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 
-import '../../../features/auth/presentation/controllers/auth_controller.dart';
+import '../../features/auth/controller/auth_controller.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
