@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/view/widgets/loading.dart';
-import 'package:trip_app_nativeapp/features/auth/domain/usecases/authenticator.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/interactor/auth_interactor.dart';
 
 import '../../../../core/exception/exception_handler.dart';
 import '../../../../core/view/widgets/helpers/scaffold_messenger.dart';
@@ -16,7 +16,7 @@ final loginController = Provider.autoDispose<Future<void> Function()>(
     return () async {
       ref.read(overlayLoadingProvider.notifier).update((s) => true);
       try {
-        await ref.read(authenticatorProvider).loginWithLINE();
+        await ref.read(authInteractorProvider).loginWithLINE();
         ref.read(scaffoldMessengerHelperProvider).showSnackBar('ログインしました 🙌');
       } on Exception catch (e) {
         ref.read(exceptionHandler).handleException(e);
