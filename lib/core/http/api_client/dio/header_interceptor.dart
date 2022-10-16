@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../login_token.dart';
+import '../../../cache/login_token.dart';
 
 final headerInterceptorProvider =
     Provider<HeaderInterceptor>(HeaderInterceptor.new);

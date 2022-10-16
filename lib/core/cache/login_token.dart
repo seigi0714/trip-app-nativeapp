@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../shared_preferences.dart';
+import 'shared_preferences.dart';
 
 /// ProviderScope.overrides でインスタンスを生成・上書きして使用する。
 final loginTokenProvider = Provider<String>((_) => '');

@@ -17,30 +17,12 @@ class FirebaseAuthRepository implements FirebaseAuthInterface {
 
   final FirebaseAuth _firebaseAuth;
 
-  /// Firebase Auth のカスタムトークン認証でサインインする。
   @override
-  Future<UserCredential> signInWithCustomToken({
+  Future<void> signInWithCustomToken({
     required String customToken,
-  }) async {
-    try {
-      final userCredential =
-          await _firebaseAuth.signInWithCustomToken(customToken);
-      return userCredential;
-    } on FirebaseException {
-      rethrow;
-    } on Exception {
-      rethrow;
-    }
-  }
+  }) =>
+      _firebaseAuth.signInWithCustomToken(customToken);
 
   @override
-  Future<void> signOut() async {
-    try {
-      await _firebaseAuth.signOut();
-    } on FirebaseException {
-      rethrow;
-    } on Exception {
-      rethrow;
-    }
-  }
+  Future<void> signOut() => _firebaseAuth.signOut();
 }

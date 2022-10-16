@@ -28,33 +28,27 @@ class ApiClient implements AbstractApiClient {
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
   }) async {
-    try {
-      final response = await _dio.get<Json>(
-        path,
-        queryParameters: queryParameters,
-        options: options ?? Options(headers: header),
-        cancelToken: cancelToken,
-        onReceiveProgress: onReceiveProgress,
-      );
-      final responseData = response.data;
-      final statusCode = response.statusCode;
-      if (responseData == null || statusCode == null) {
-        throw const ApiException(statusCode: 500);
-      }
-      if (statusCode >= 400 && statusCode < 600) {
-        final errorResponse = ErrorResponse.fromJson(responseData);
-        throw ApiException(
-          statusCode: statusCode,
-          errorCode: errorResponse.errorCode,
-          description: errorResponse.description,
-        );
-      }
-      return ApiResponse.fromJson(responseData);
-    } on DioError {
-      rethrow;
-    } on Exception {
-      rethrow;
+    final response = await _dio.get<Json>(
+      path,
+      queryParameters: queryParameters,
+      options: options ?? Options(headers: header),
+      cancelToken: cancelToken,
+      onReceiveProgress: onReceiveProgress,
+    );
+    final responseData = response.data;
+    final statusCode = response.statusCode;
+    if (responseData == null || statusCode == null) {
+      throw const ApiException(statusCode: 500);
     }
+    if (statusCode >= 400 && statusCode < 600) {
+      final errorResponse = ErrorResponse.fromJson(responseData);
+      throw ApiException(
+        statusCode: statusCode,
+        errorCode: errorResponse.errorCode,
+        description: errorResponse.description,
+      );
+    }
+    return ApiResponse.fromJson(responseData);
   }
 
   @override
@@ -68,34 +62,28 @@ class ApiClient implements AbstractApiClient {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    try {
-      final response = await _dio.post<Json>(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: options ?? Options(headers: header),
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
-      );
-      final responseData = response.data;
-      final statusCode = response.statusCode;
-      if (responseData == null || statusCode == null) {
-        throw const ApiException(statusCode: 500);
-      }
-      if (statusCode >= 400 && statusCode < 600) {
-        final errorResponse = ErrorResponse.fromJson(responseData);
-        throw ApiException(
-          statusCode: statusCode,
-          errorCode: errorResponse.errorCode,
-          description: errorResponse.description,
-        );
-      }
-      return ApiResponse.fromJson(responseData);
-    } on DioError {
-      rethrow;
-    } on Exception {
-      rethrow;
+    final response = await _dio.post<Json>(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: options ?? Options(headers: header),
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+    final responseData = response.data;
+    final statusCode = response.statusCode;
+    if (responseData == null || statusCode == null) {
+      throw const ApiException(statusCode: 500);
     }
+    if (statusCode >= 400 && statusCode < 600) {
+      final errorResponse = ErrorResponse.fromJson(responseData);
+      throw ApiException(
+        statusCode: statusCode,
+        errorCode: errorResponse.errorCode,
+        description: errorResponse.description,
+      );
+    }
+    return ApiResponse.fromJson(responseData);
   }
 }
