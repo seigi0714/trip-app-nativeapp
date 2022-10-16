@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/view/widgets/loading.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/interactor/auth_interactor.dart';
 
+import '../../../../core/enum/login_type.dart';
 import '../../../../core/exception/exception_handler.dart';
 import '../../../../core/view/widgets/helpers/scaffold_messenger.dart';
 import '../../data/repositories/firebase_auth_repository.dart';
@@ -11,12 +12,20 @@ final firebaseAuthUserProvider = StreamProvider<User?>(
   (ref) => ref.watch(firebaseAuthProvider).userChanges(),
 );
 
-final loginController = Provider.autoDispose<Future<void> Function()>(
+final loginController =
+    Provider.autoDispose<Future<void> Function(LoginType loginType)>(
   (ref) {
-    return () async {
+    return (LoginType loginType) async {
       ref.read(overlayLoadingProvider.notifier).update((s) => true);
       try {
-        await ref.read(authInteractorProvider).loginWithLINE();
+        switch (loginType) {
+          case LoginType.line:
+            await ref.read(authInteractorProvider).loginWithLINE();
+            break;
+          case LoginType.google:
+            await ref.read(authInteractorProvider).loginWithGoogle();
+            break;
+        }
         ref.read(scaffoldMessengerHelperProvider).showSnackBar('ログインしました 🙌');
       } on Exception catch (e) {
         ref.read(exceptionHandler).handleException(e);

@@ -1,0 +1,4 @@
+enum LoginType {
+  google,
+  line;
+}
