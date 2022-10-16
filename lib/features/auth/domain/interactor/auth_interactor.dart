@@ -45,5 +45,7 @@ class AuthInteractor {
   Future<void> loginWithGoogle() async {
     final credential = await googleLoginInterface.login();
     await firebaseAuthInterface.signInWithGoogle(credential);
+
+    // TODO(seigi0714): ユーザー登録APIをコール
   }
 }

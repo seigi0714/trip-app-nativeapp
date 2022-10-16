@@ -18,6 +18,7 @@ class GoogleLoginRepository implements GoogleLoginInterface {
       throw const AppException(message: 'idToken または accessToken が取得できませんでした');
     }
 
+    // TODO(seigi0714: ユーザー登録も行うのでGoogleユーザー情報も持ったエンティティを返すようにする)
     return ThirdPertyCredential(
       idToken: googleAuth!.idToken!,
       accessToken: googleAuth.accessToken!,
