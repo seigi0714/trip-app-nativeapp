@@ -1,4 +1,0 @@
-enum LoginProvider {
-  google,
-  line;
-}

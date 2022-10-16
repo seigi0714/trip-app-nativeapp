@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/view/widgets/loading.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/interactor/auth_interactor.dart';
 
-import '../../../../core/enum/login_provider.dart';
+import '../../../../core/enum/login_type.dart';
 import '../../../../core/exception/exception_handler.dart';
 import '../../../../core/view/widgets/helpers/scaffold_messenger.dart';
 import '../../data/repositories/firebase_auth_repository.dart';
@@ -13,16 +13,16 @@ final firebaseAuthUserProvider = StreamProvider<User?>(
 );
 
 final loginController =
-    Provider.autoDispose<Future<void> Function(LoginProvider provider)>(
+    Provider.autoDispose<Future<void> Function(LoginType loginType)>(
   (ref) {
-    return (LoginProvider provider) async {
+    return (LoginType loginType) async {
       ref.read(overlayLoadingProvider.notifier).update((s) => true);
       try {
-        switch (provider) {
-          case LoginProvider.line:
+        switch (loginType) {
+          case LoginType.line:
             await ref.read(authInteractorProvider).loginWithLINE();
             break;
-          case LoginProvider.google:
+          case LoginType.google:
             await ref.read(authInteractorProvider).loginWithGoogle();
             break;
         }
