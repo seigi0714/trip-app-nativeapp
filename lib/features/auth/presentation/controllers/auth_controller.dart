@@ -26,8 +26,7 @@ final loginController =
             await ref.read(authInteractorProvider).loginWithGoogle();
             break;
         }
-
-        ref.read(scaffoldMessengerServiceProvider).showSnackBar('ログインしました 🙌');
+        ref.read(scaffoldMessengerHelperProvider).showSnackBar('ログインしました 🙌');
       } on Exception catch (e) {
         ref.read(exceptionHandler).handleException(e);
       } finally {
