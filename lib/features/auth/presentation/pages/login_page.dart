@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
+import 'package:trip_app_nativeapp/core/enum/login_provider.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 
 import '../../../../core/constants/color.dart';
@@ -42,7 +43,8 @@ class LoginPage extends HookConsumerWidget {
                   size: context.displaySize.width * 0.08,
                 ),
                 backgroundColor: lineGreen,
-                onPressed: () => ref.read(loginController).call(),
+                onPressed: () =>
+                    ref.read(loginController).call(LoginProvider.line),
               ),
               const Spacer(),
               BrandButton(
@@ -52,9 +54,8 @@ class LoginPage extends HookConsumerWidget {
                   height: context.displaySize.width * 0.08,
                 ),
                 backgroundColor: Colors.white,
-                onPressed: () {
-                  // TODO(shimizu-saffle): Googleでログイン
-                },
+                onPressed: () =>
+                    ref.read(loginController).call(LoginProvider.google),
               ),
               const Spacer(),
               BrandButton(
