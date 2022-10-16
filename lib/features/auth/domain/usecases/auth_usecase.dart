@@ -7,16 +7,16 @@ import '../repositories/firebase_auth_interface.dart';
 import '../repositories/line_login_interface.dart';
 import '../repositories/trip_app_auth_interface.dart';
 
-final authUsecase = Provider<AuthUsecase>((ref) {
-  return AuthUsecase(
+final authUseCaseProvider = Provider<AuthUseCase>((ref) {
+  return AuthUseCase(
     firebaseAuthInterface: ref.watch(firebaseAuthRepositoryProvider),
     lineLoginInterface: ref.watch(lineLoginRepositoryProvider),
     tripAppAuthInterface: ref.watch(tripAppAuthRepositoryProvider),
   );
 });
 
-class AuthUsecase {
-  AuthUsecase({
+class AuthUseCase {
+  AuthUseCase({
     required this.lineLoginInterface,
     required this.tripAppAuthInterface,
     required this.firebaseAuthInterface,

@@ -16,7 +16,7 @@ final loginController = Provider.autoDispose<Future<void> Function()>(
     return () async {
       ref.read(overlayLoadingProvider.notifier).update((s) => true);
       try {
-        await ref.read(authUsecase).loginWithLINE();
+        await ref.read(authUseCaseProvider).loginWithLINE();
         ref.read(scaffoldMessengerHelperProvider).showSnackBar('ログインしました 🙌');
       } on Exception catch (e) {
         ref.read(exceptionHandler).handleException(e);
