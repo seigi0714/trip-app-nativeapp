@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:trip_app_nativeapp/core/view/pages/loading_page.dart';
-import 'package:trip_app_nativeapp/features/auth/presentation/pages/login_page.dart';
+import 'package:trip_app_nativeapp/view/pages/loading_page.dart';
+import 'package:trip_app_nativeapp/view/pages/login_page.dart';
 
-import 'core/view/pages/error_page.dart';
-import 'core/view/pages/home_page.dart';
-import 'features/auth/presentation/controllers/auth_controller.dart';
+import 'features/auth/controller/auth_controller.dart';
+import 'view/pages/error_page.dart';
+import 'view/pages/home_page.dart';
 
 final routerProvider = Provider<GoRouter>(
   (ref) {

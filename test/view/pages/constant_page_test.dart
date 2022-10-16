@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/trip_app.dart';
-import 'package:trip_app_nativeapp/core/view/pages/constant_page.dart';
-import 'package:trip_app_nativeapp/core/view/pages/home_page.dart';
-import 'package:trip_app_nativeapp/core/view/widgets/loading.dart';
+import 'package:trip_app_nativeapp/view/pages/constant_page.dart';
+import 'package:trip_app_nativeapp/view/pages/home_page.dart';
+import 'package:trip_app_nativeapp/view/widgets/loading.dart';
 
 void main() {
   testWidgets(
