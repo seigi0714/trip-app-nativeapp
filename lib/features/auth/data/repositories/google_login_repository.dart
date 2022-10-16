@@ -14,14 +14,17 @@ class GoogleLoginRepository implements GoogleLoginInterface {
     final googleUser = await GoogleSignIn().signIn();
     final googleAuth = await googleUser?.authentication;
 
-    if (googleAuth?.idToken == null || googleAuth?.accessToken == null) {
+    final idToken = googleAuth?.idToken;
+    final accsesToken = googleAuth?.accessToken;
+
+    if (idToken == null || accsesToken == null) {
       throw const AppException(message: 'idToken または accessToken が取得できませんでした');
     }
 
-    // TODO(seigi0714: ユーザー登録も行うのでGoogleユーザー情報も持ったエンティティを返すようにする)
+    // TODO(seigi0714): ユーザー登録も行うのでGoogleユーザー情報も持ったエンティティを返すようにする
     return ThirdPertyCredential(
-      idToken: googleAuth!.idToken!,
-      accessToken: googleAuth.accessToken!,
+      idToken: idToken,
+      accessToken: accsesToken,
     );
   }
 }
