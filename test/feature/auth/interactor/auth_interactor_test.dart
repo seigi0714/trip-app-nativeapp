@@ -16,7 +16,7 @@ import 'package:trip_app_nativeapp/features/auth/domain/repositories/google_logi
 import 'package:trip_app_nativeapp/features/auth/domain/repositories/line_login_interface.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/repositories/trip_app_auth_interface.dart';
 
-import './auth_intaractor_test.mocks.dart';
+import './auth_interactor_test.mocks.dart';
 
 @GenerateMocks([
   FirebaseAuthInterface,
