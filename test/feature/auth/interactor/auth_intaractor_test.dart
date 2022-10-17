@@ -107,7 +107,6 @@ Future<void> main() async {
             nonce: testOidcInfo.nonce,
           ),
         ).thenAnswer((_) async => testCustomToken);
-
         when(
           mockFirebaseAuthRepository.signInWithCustomToken(
             customToken: testCustomToken,
@@ -159,6 +158,7 @@ Future<void> main() async {
         ),
       );
 
+      verify(mockLineLoginRepository.login()).called(1);
       verifyNever(
         mockTripAppRepository.loginWithIdToken(
           idToken: anyNamed('idToken'),
@@ -211,7 +211,6 @@ Future<void> main() async {
           nonce: testOidcInfo.nonce,
         ),
       ).called(1);
-
       verifyNever(
         mockFirebaseAuthRepository.signInWithCustomToken(
           customToken: anyNamed('customToken'),
@@ -233,7 +232,6 @@ Future<void> main() async {
       ).thenAnswer(
         (_) async => testCustomToken,
       );
-
       when(
         mockFirebaseAuthRepository.signInWithCustomToken(
           customToken: testCustomToken,
@@ -265,7 +263,6 @@ Future<void> main() async {
           nonce: testOidcInfo.nonce,
         ),
       ).called(1);
-
       verify(
         mockFirebaseAuthRepository.signInWithCustomToken(
           customToken: testCustomToken,
@@ -294,6 +291,7 @@ Future<void> main() async {
           authInteractor.loginWithGoogle(),
           completes,
         );
+
         verify(mockGoogleLoginRepository.login()).called(1);
         verify(
           mockFirebaseAuthRepository.signInWithGoogle(testThirdPertyCredential),
