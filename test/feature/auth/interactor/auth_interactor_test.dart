@@ -36,7 +36,7 @@ Future<void> main() async {
 
   const testOidcInfo = OidcInfo(idToken: 'idToken', nonce: 'nonce');
   const testCustomToken = 'customToken';
-  const testthirdPartyCredential = ThirdPartyCredential(
+  const testThirdPartyCredential = ThirdPartyCredential(
     idToken: 'idToken',
     accessToken: 'accessToken',
   );
@@ -277,10 +277,10 @@ Future<void> main() async {
       '正常系',
       () async {
         when(mockGoogleLoginRepository.login())
-            .thenAnswer((_) async => testthirdPartyCredential);
+            .thenAnswer((_) async => testThirdPartyCredential);
 
         when(
-          mockFirebaseAuthRepository.signInWithGoogle(testthirdPartyCredential),
+          mockFirebaseAuthRepository.signInWithGoogle(testThirdPartyCredential),
         ).thenAnswer(
           (_) async {
             return;
@@ -294,7 +294,7 @@ Future<void> main() async {
 
         verify(mockGoogleLoginRepository.login()).called(1);
         verify(
-          mockFirebaseAuthRepository.signInWithGoogle(testthirdPartyCredential),
+          mockFirebaseAuthRepository.signInWithGoogle(testThirdPartyCredential),
         ).called(1);
       },
     );
@@ -328,11 +328,11 @@ Future<void> main() async {
       when(
         mockGoogleLoginRepository.login(),
       ).thenAnswer(
-        (_) async => testthirdPartyCredential,
+        (_) async => testThirdPartyCredential,
       );
 
       when(
-        mockFirebaseAuthRepository.signInWithGoogle(testthirdPartyCredential),
+        mockFirebaseAuthRepository.signInWithGoogle(testThirdPartyCredential),
       ).thenThrow(
         firebaseLoginException,
       );
@@ -357,7 +357,7 @@ Future<void> main() async {
 
       verify(mockGoogleLoginRepository.login()).called(1);
       verify(
-        mockFirebaseAuthRepository.signInWithGoogle(testthirdPartyCredential),
+        mockFirebaseAuthRepository.signInWithGoogle(testThirdPartyCredential),
       ).called(1);
     });
   });
