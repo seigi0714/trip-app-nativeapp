@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'third_perty_credential.dart';
+part of 'third_party_credential.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,31 +15,31 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$ThirdPertyCredential {
+mixin _$ThirdPartyCredential {
   String get idToken => throw _privateConstructorUsedError;
   String get accessToken => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ThirdPertyCredentialCopyWith<ThirdPertyCredential> get copyWith =>
+  $ThirdPartyCredentialCopyWith<ThirdPartyCredential> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ThirdPertyCredentialCopyWith<$Res> {
-  factory $ThirdPertyCredentialCopyWith(ThirdPertyCredential value,
-          $Res Function(ThirdPertyCredential) then) =
-      _$ThirdPertyCredentialCopyWithImpl<$Res>;
+abstract class $ThirdPartyCredentialCopyWith<$Res> {
+  factory $ThirdPartyCredentialCopyWith(ThirdPartyCredential value,
+          $Res Function(ThirdPartyCredential) then) =
+      _$ThirdPartyCredentialCopyWithImpl<$Res>;
   $Res call({String idToken, String accessToken});
 }
 
 /// @nodoc
-class _$ThirdPertyCredentialCopyWithImpl<$Res>
-    implements $ThirdPertyCredentialCopyWith<$Res> {
-  _$ThirdPertyCredentialCopyWithImpl(this._value, this._then);
+class _$ThirdPartyCredentialCopyWithImpl<$Res>
+    implements $ThirdPartyCredentialCopyWith<$Res> {
+  _$ThirdPartyCredentialCopyWithImpl(this._value, this._then);
 
-  final ThirdPertyCredential _value;
+  final ThirdPartyCredential _value;
   // ignore: unused_field
-  final $Res Function(ThirdPertyCredential) _then;
+  final $Res Function(ThirdPartyCredential) _then;
 
   @override
   $Res call({
@@ -60,32 +60,32 @@ class _$ThirdPertyCredentialCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$_ThirdPertyCredentialCopyWith<$Res>
-    implements $ThirdPertyCredentialCopyWith<$Res> {
-  factory _$$_ThirdPertyCredentialCopyWith(_$_ThirdPertyCredential value,
-          $Res Function(_$_ThirdPertyCredential) then) =
-      __$$_ThirdPertyCredentialCopyWithImpl<$Res>;
+abstract class _$$_ThirdPartyCredentialCopyWith<$Res>
+    implements $ThirdPartyCredentialCopyWith<$Res> {
+  factory _$$_ThirdPartyCredentialCopyWith(_$_ThirdPartyCredential value,
+          $Res Function(_$_ThirdPartyCredential) then) =
+      __$$_ThirdPartyCredentialCopyWithImpl<$Res>;
   @override
   $Res call({String idToken, String accessToken});
 }
 
 /// @nodoc
-class __$$_ThirdPertyCredentialCopyWithImpl<$Res>
-    extends _$ThirdPertyCredentialCopyWithImpl<$Res>
-    implements _$$_ThirdPertyCredentialCopyWith<$Res> {
-  __$$_ThirdPertyCredentialCopyWithImpl(_$_ThirdPertyCredential _value,
-      $Res Function(_$_ThirdPertyCredential) _then)
-      : super(_value, (v) => _then(v as _$_ThirdPertyCredential));
+class __$$_ThirdPartyCredentialCopyWithImpl<$Res>
+    extends _$ThirdPartyCredentialCopyWithImpl<$Res>
+    implements _$$_ThirdPartyCredentialCopyWith<$Res> {
+  __$$_ThirdPartyCredentialCopyWithImpl(_$_ThirdPartyCredential _value,
+      $Res Function(_$_ThirdPartyCredential) _then)
+      : super(_value, (v) => _then(v as _$_ThirdPartyCredential));
 
   @override
-  _$_ThirdPertyCredential get _value => super._value as _$_ThirdPertyCredential;
+  _$_ThirdPartyCredential get _value => super._value as _$_ThirdPartyCredential;
 
   @override
   $Res call({
     Object? idToken = freezed,
     Object? accessToken = freezed,
   }) {
-    return _then(_$_ThirdPertyCredential(
+    return _then(_$_ThirdPartyCredential(
       idToken: idToken == freezed
           ? _value.idToken
           : idToken // ignore: cast_nullable_to_non_nullable
@@ -100,8 +100,8 @@ class __$$_ThirdPertyCredentialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ThirdPertyCredential implements _ThirdPertyCredential {
-  const _$_ThirdPertyCredential(
+class _$_ThirdPartyCredential implements _ThirdPartyCredential {
+  const _$_ThirdPartyCredential(
       {required this.idToken, required this.accessToken});
 
   @override
@@ -111,14 +111,14 @@ class _$_ThirdPertyCredential implements _ThirdPertyCredential {
 
   @override
   String toString() {
-    return 'ThirdPertyCredential(idToken: $idToken, accessToken: $accessToken)';
+    return 'ThirdPartyCredential(idToken: $idToken, accessToken: $accessToken)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ThirdPertyCredential &&
+            other is _$_ThirdPartyCredential &&
             const DeepCollectionEquality().equals(other.idToken, idToken) &&
             const DeepCollectionEquality()
                 .equals(other.accessToken, accessToken));
@@ -132,15 +132,15 @@ class _$_ThirdPertyCredential implements _ThirdPertyCredential {
 
   @JsonKey(ignore: true)
   @override
-  _$$_ThirdPertyCredentialCopyWith<_$_ThirdPertyCredential> get copyWith =>
-      __$$_ThirdPertyCredentialCopyWithImpl<_$_ThirdPertyCredential>(
+  _$$_ThirdPartyCredentialCopyWith<_$_ThirdPartyCredential> get copyWith =>
+      __$$_ThirdPartyCredentialCopyWithImpl<_$_ThirdPartyCredential>(
           this, _$identity);
 }
 
-abstract class _ThirdPertyCredential implements ThirdPertyCredential {
-  const factory _ThirdPertyCredential(
+abstract class _ThirdPartyCredential implements ThirdPartyCredential {
+  const factory _ThirdPartyCredential(
       {required final String idToken,
-      required final String accessToken}) = _$_ThirdPertyCredential;
+      required final String accessToken}) = _$_ThirdPartyCredential;
 
   @override
   String get idToken;
@@ -148,6 +148,6 @@ abstract class _ThirdPertyCredential implements ThirdPertyCredential {
   String get accessToken;
   @override
   @JsonKey(ignore: true)
-  _$$_ThirdPertyCredentialCopyWith<_$_ThirdPertyCredential> get copyWith =>
+  _$$_ThirdPartyCredentialCopyWith<_$_ThirdPartyCredential> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -8,7 +8,7 @@ import 'dart:async' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:trip_app_nativeapp/features/auth/domain/entity/oidc/oidc_info.dart'
     as _i2;
-import 'package:trip_app_nativeapp/features/auth/domain/entity/third_perty_credential/third_perty_credential.dart'
+import 'package:trip_app_nativeapp/features/auth/domain/entity/third_party_credential/third_party_credential.dart'
     as _i3;
 import 'package:trip_app_nativeapp/features/auth/domain/repositories/firebase_auth_interface.dart'
     as _i4;
@@ -40,9 +40,9 @@ class _FakeOidcInfo_0 extends _i1.SmartFake implements _i2.OidcInfo {
         );
 }
 
-class _FakeThirdPertyCredential_1 extends _i1.SmartFake
-    implements _i3.ThirdPertyCredential {
-  _FakeThirdPertyCredential_1(
+class _FakeThirdPartyCredential_1 extends _i1.SmartFake
+    implements _i3.ThirdPartyCredential {
+  _FakeThirdPartyCredential_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -72,7 +72,7 @@ class MockFirebaseAuthInterface extends _i1.Mock
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
-  _i5.Future<void> signInWithGoogle(_i3.ThirdPertyCredential? credential) =>
+  _i5.Future<void> signInWithGoogle(_i3.ThirdPartyCredential? credential) =>
       (super.noSuchMethod(
         Invocation.method(
           #signInWithGoogle,
@@ -127,20 +127,20 @@ class MockGoogleLoginInterface extends _i1.Mock
   }
 
   @override
-  _i5.Future<_i3.ThirdPertyCredential> login() => (super.noSuchMethod(
+  _i5.Future<_i3.ThirdPartyCredential> login() => (super.noSuchMethod(
         Invocation.method(
           #login,
           [],
         ),
-        returnValue: _i5.Future<_i3.ThirdPertyCredential>.value(
-            _FakeThirdPertyCredential_1(
+        returnValue: _i5.Future<_i3.ThirdPartyCredential>.value(
+            _FakeThirdPartyCredential_1(
           this,
           Invocation.method(
             #login,
             [],
           ),
         )),
-      ) as _i5.Future<_i3.ThirdPertyCredential>);
+      ) as _i5.Future<_i3.ThirdPartyCredential>);
 }
 
 /// A class which mocks [TripAppAuthInterface].

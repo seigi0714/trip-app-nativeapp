@@ -9,7 +9,7 @@ import 'package:trip_app_nativeapp/features/auth/data/repositories/google_login_
 import 'package:trip_app_nativeapp/features/auth/data/repositories/line_login_repository.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/trip_app_auth_repository.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/entity/oidc/oidc_info.dart';
-import 'package:trip_app_nativeapp/features/auth/domain/entity/third_perty_credential/third_perty_credential.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/entity/third_party_credential/third_party_credential.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/interactor/auth_interactor.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/repositories/firebase_auth_interface.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/repositories/google_login_interface.dart';
@@ -36,7 +36,7 @@ Future<void> main() async {
 
   const testOidcInfo = OidcInfo(idToken: 'idToken', nonce: 'nonce');
   const testCustomToken = 'customToken';
-  const testThirdPertyCredential = ThirdPertyCredential(
+  const testThirdPertyCredential = ThirdPartyCredential(
     idToken: 'idToken',
     accessToken: 'accessToken',
   );

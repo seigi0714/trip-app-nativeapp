@@ -1,4 +1,4 @@
-import '../entity/third_perty_credential/third_perty_credential.dart';
+import '../entity/third_party_credential/third_party_credential.dart';
 
 abstract class FirebaseAuthInterface {
   /// Firebase customtokenを用いたログイン
@@ -6,7 +6,7 @@ abstract class FirebaseAuthInterface {
     required String customToken,
   });
   ///　Oauthログインで生成されたCredentialを用いたログイン
-  Future<void> signInWithGoogle(ThirdPertyCredential credential);
+  Future<void> signInWithGoogle(ThirdPartyCredential credential);
   /// ログアウト
   Future<void> signOut();
 }

@@ -2,7 +2,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../core/exception/app_exception.dart';
-import '../../domain/entity/third_perty_credential/third_perty_credential.dart';
+import '../../domain/entity/third_party_credential/third_party_credential.dart';
 import '../../domain/repositories/google_login_interface.dart';
 
 final googleLoginRepositoryProvider =
@@ -10,7 +10,7 @@ final googleLoginRepositoryProvider =
 
 class GoogleLoginRepository implements GoogleLoginInterface {
   @override
-  Future<ThirdPertyCredential> login() async {
+  Future<ThirdPartyCredential> login() async {
     final googleUser = await GoogleSignIn().signIn();
     final googleAuth = await googleUser?.authentication;
 
@@ -22,7 +22,7 @@ class GoogleLoginRepository implements GoogleLoginInterface {
     }
 
     // TODO(seigi0714): ユーザー登録も行うのでGoogleユーザー情報も持ったエンティティを返すようにする
-    return ThirdPertyCredential(
+    return ThirdPartyCredential(
       idToken: idToken,
       accessToken: accsesToken,
     );
