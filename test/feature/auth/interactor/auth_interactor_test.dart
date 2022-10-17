@@ -36,7 +36,7 @@ Future<void> main() async {
 
   const testOidcInfo = OidcInfo(idToken: 'idToken', nonce: 'nonce');
   const testCustomToken = 'customToken';
-  const testThirdPertyCredential = ThirdPartyCredential(
+  const testthirdPartyCredential = ThirdPartyCredential(
     idToken: 'idToken',
     accessToken: 'accessToken',
   );
@@ -95,7 +95,7 @@ Future<void> main() async {
     reset(mockGoogleLoginRepository);
   });
   // LINEログイン
-  group('AuthIntaractor loginWithLINE', () {
+  group('AuthInteractor loginWithLINE', () {
     test(
       '正常系',
       () async {
@@ -272,15 +272,15 @@ Future<void> main() async {
   });
 
   // Googleログイン
-  group('AuthIntaractor loginWithGoogle', () {
+  group('AuthInteractor loginWithGoogle', () {
     test(
       '正常系',
       () async {
         when(mockGoogleLoginRepository.login())
-            .thenAnswer((_) async => testThirdPertyCredential);
+            .thenAnswer((_) async => testthirdPartyCredential);
 
         when(
-          mockFirebaseAuthRepository.signInWithGoogle(testThirdPertyCredential),
+          mockFirebaseAuthRepository.signInWithGoogle(testthirdPartyCredential),
         ).thenAnswer(
           (_) async {
             return;
@@ -294,7 +294,7 @@ Future<void> main() async {
 
         verify(mockGoogleLoginRepository.login()).called(1);
         verify(
-          mockFirebaseAuthRepository.signInWithGoogle(testThirdPertyCredential),
+          mockFirebaseAuthRepository.signInWithGoogle(testthirdPartyCredential),
         ).called(1);
       },
     );
@@ -328,11 +328,11 @@ Future<void> main() async {
       when(
         mockGoogleLoginRepository.login(),
       ).thenAnswer(
-        (_) async => testThirdPertyCredential,
+        (_) async => testthirdPartyCredential,
       );
 
       when(
-        mockFirebaseAuthRepository.signInWithGoogle(testThirdPertyCredential),
+        mockFirebaseAuthRepository.signInWithGoogle(testthirdPartyCredential),
       ).thenThrow(
         firebaseLoginException,
       );
@@ -357,7 +357,7 @@ Future<void> main() async {
 
       verify(mockGoogleLoginRepository.login()).called(1);
       verify(
-        mockFirebaseAuthRepository.signInWithGoogle(testThirdPertyCredential),
+        mockFirebaseAuthRepository.signInWithGoogle(testthirdPartyCredential),
       ).called(1);
     });
   });
