@@ -107,7 +107,22 @@ Future<void> main() async {
             nonce: testOidcInfo.nonce,
           ),
         ).thenAnswer((_) async => testCustomToken);
-        await authInteractor.loginWithLINE();
+
+        when(
+          mockFirebaseAuthRepository.signInWithCustomToken(
+            customToken: testCustomToken,
+          ),
+        ).thenAnswer(
+          (_) async {
+            return;
+          },
+        );
+
+        await expectLater(
+          authInteractor.loginWithLINE(),
+          completes,
+        );
+
         verify(mockLineLoginRepository.login()).called(1);
         verify(
           mockTripAppRepository.loginWithIdToken(
@@ -125,7 +140,7 @@ Future<void> main() async {
 
     test('準正常系 LINEログインに失敗した際は後続の処理が呼ばれず例外を返す', () async {
       when(mockLineLoginRepository.login()).thenThrow(lineLoginException);
-      
+
       await expectLater(
         () async {
           await authInteractor.loginWithLINE();
@@ -266,7 +281,19 @@ Future<void> main() async {
       () async {
         when(mockGoogleLoginRepository.login())
             .thenAnswer((_) async => testThirdPertyCredential);
-        await authInteractor.loginWithGoogle();
+
+        when(
+          mockFirebaseAuthRepository.signInWithGoogle(testThirdPertyCredential),
+        ).thenAnswer(
+          (_) async {
+            return;
+          },
+        );
+
+        await expectLater(
+          authInteractor.loginWithGoogle(),
+          completes,
+        );
         verify(mockGoogleLoginRepository.login()).called(1);
         verify(
           mockFirebaseAuthRepository.signInWithGoogle(testThirdPertyCredential),
