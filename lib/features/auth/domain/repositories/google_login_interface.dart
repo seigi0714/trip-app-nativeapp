@@ -1,6 +1,6 @@
 
-import '../entity/third_perty_credential/third_perty_credential.dart';
+import '../entity/third_party_credential/third_party_credential.dart';
 
 abstract class GoogleLoginInterface {
-  Future<ThirdPertyCredential> login();
+  Future<ThirdPartyCredential> login();
 }

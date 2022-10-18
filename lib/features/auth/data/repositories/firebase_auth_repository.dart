@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:trip_app_nativeapp/features/auth/domain/entity/third_perty_credential/third_perty_credential.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/entity/third_party_credential/third_party_credential.dart';
 
 import '../../domain/repositories/firebase_auth_interface.dart';
 
@@ -26,7 +26,7 @@ class FirebaseAuthRepository implements FirebaseAuthInterface {
 
   @override
   Future<void> signInWithGoogle(
-    ThirdPertyCredential credential,
+    ThirdPartyCredential credential,
   ) async {
     final firebaseCredential = GoogleAuthProvider.credential(
       accessToken: credential.accessToken,
