@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:trip_app_nativeapp/core/enum/login_type.dart';
-import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
+            import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
 import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
 import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
@@ -13,7 +13,7 @@ import 'package:trip_app_nativeapp/view/widgets/loading.dart';
 
 import '../../../mock/listener.dart';
 import '../../../mock/mock_exception_handler.dart';
-import '../../../mock/mock_scaffold_messanger_helper.dart';
+import '../../../mock/mock_scaffold_messenger_helper.dart';
 import '../interactor/auth_interactor_test.mocks.dart';
 import 'auth_controller_test.mocks.dart';
 
@@ -23,7 +23,7 @@ Future<void> main() async {
   late LoadingProviderListener loadingProviderListener;
 
   final mockAuthInteractor = MockAuthInteractor();
-  final mockScaffoldMessangerHelper = MockScaffoldMessangerHelper();
+  final mockScaffoldMessengerHelper = MockScaffoldMessengerHelper();
   final mockExceptionHandler = MockExceptionHandler();
   final mockFirebaseAuthRepository = MockFirebaseAuthInterface();
 
@@ -47,7 +47,7 @@ Future<void> main() async {
         ),
         scaffoldMessengerHelperProvider.overrideWithProvider(
           Provider.autoDispose(
-            (ref) => mockScaffoldMessangerHelper,
+            (ref) => mockScaffoldMessengerHelper,
           ),
         ),
         exceptionHandler.overrideWithProvider(
@@ -70,7 +70,7 @@ Future<void> main() async {
     );
 
     reset(mockAuthInteractor);
-    reset(mockScaffoldMessangerHelper);
+    reset(mockScaffoldMessengerHelper);
     reset(loadingProviderListener);
     reset(mockExceptionHandler);
     reset(mockFirebaseAuthRepository);
@@ -80,7 +80,7 @@ Future<void> main() async {
     test('正常系 LINEログイン', () async {
       when(mockAuthInteractor.loginWithLINE()).thenAnswer((_) async {});
       when(
-        mockScaffoldMessangerHelper.showSnackBar(
+        mockScaffoldMessengerHelper.showSnackBar(
           loginMessage,
         ),
       ).thenReturn(null);
@@ -92,7 +92,7 @@ Future<void> main() async {
 
       verify(mockAuthInteractor.loginWithLINE()).called(1);
       verify(
-        mockScaffoldMessangerHelper.showSnackBar(
+        mockScaffoldMessengerHelper.showSnackBar(
           loginMessage,
         ),
       ).called(1);
@@ -103,7 +103,7 @@ Future<void> main() async {
     test('正常系 Googleログイン', () async {
       when(mockAuthInteractor.loginWithGoogle()).thenAnswer((_) async {});
       when(
-        mockScaffoldMessangerHelper.showSnackBar(
+        mockScaffoldMessengerHelper.showSnackBar(
           loginMessage,
         ),
       ).thenReturn(null);
@@ -115,7 +115,7 @@ Future<void> main() async {
 
       verify(mockAuthInteractor.loginWithGoogle()).called(1);
       verify(
-        mockScaffoldMessangerHelper.showSnackBar(
+        mockScaffoldMessengerHelper.showSnackBar(
           loginMessage,
         ),
       ).called(1);
@@ -139,7 +139,7 @@ Future<void> main() async {
       verify(mockAuthInteractor.loginWithLINE()).called(1);
       verify(mockExceptionHandler.handleException(loginException)).called(1);
       verifyNever(
-        mockScaffoldMessangerHelper.showSnackBar(
+        mockScaffoldMessengerHelper.showSnackBar(
           loginMessage,
         ),
       );
@@ -163,7 +163,7 @@ Future<void> main() async {
       verify(mockAuthInteractor.loginWithGoogle()).called(1);
       verify(mockExceptionHandler.handleException(loginException)).called(1);
       verifyNever(
-        mockScaffoldMessangerHelper.showSnackBar(
+        mockScaffoldMessengerHelper.showSnackBar(
           loginMessage,
         ),
       );
@@ -176,7 +176,7 @@ Future<void> main() async {
     test('正常系', () async {
       when(mockFirebaseAuthRepository.signOut()).thenAnswer((_) async {});
       when(
-        mockScaffoldMessangerHelper.showSnackBar(logoutMessage),
+        mockScaffoldMessengerHelper.showSnackBar(logoutMessage),
       ).thenReturn(null);
 
       await expectLater(
@@ -185,7 +185,7 @@ Future<void> main() async {
       );
 
       verify(mockFirebaseAuthRepository.signOut()).called(1);
-      verify(mockScaffoldMessangerHelper.showSnackBar(logoutMessage)).called(1);
+      verify(mockScaffoldMessengerHelper.showSnackBar(logoutMessage)).called(1);
     });
 
     test('準正常系 Firebaseログアウトに失敗', () async {
@@ -201,7 +201,7 @@ Future<void> main() async {
 
       verify(mockFirebaseAuthRepository.signOut()).called(1);
       verify(mockExceptionHandler.handleException(logoutException)).called(1);
-      verifyNever(mockScaffoldMessangerHelper.showSnackBar(logoutMessage));
+      verifyNever(mockScaffoldMessengerHelper.showSnackBar(logoutMessage));
     });
   });
 }
