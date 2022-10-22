@@ -39,7 +39,7 @@ final loginController =
 final logOutController = Provider.autoDispose<Future<void> Function()>((ref) {
   return () async {
     try {
-      await ref.read(firebaseAuthProvider).signOut();
+      await ref.read(firebaseAuthRepositoryProvider).signOut();
       ref.read(scaffoldMessengerHelperProvider).showSnackBar('ログアウトしました 😌');
     } on Exception catch (e) {
       ref.read(exceptionHandler).handleException(e);

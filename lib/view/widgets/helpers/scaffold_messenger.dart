@@ -48,7 +48,7 @@ class ScaffoldMessengerHelper {
   }
 
   /// スナックバーを表示する。
-  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar(
+  void showSnackBar(
     String message, {
     bool removeCurrentSnackBar = true,
     Duration duration = defaultSnackBarDuration,
@@ -57,7 +57,7 @@ class ScaffoldMessengerHelper {
     if (removeCurrentSnackBar) {
       scaffoldMessengerState.removeCurrentSnackBar();
     }
-    return scaffoldMessengerState.showSnackBar(
+    scaffoldMessengerState.showSnackBar(
       // TODO(shimizu-saffle): Theme でスタイルを指定する。
       SnackBar(
         content: Text(
