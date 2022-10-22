@@ -11,7 +11,7 @@ import 'package:trip_app_nativeapp/features/auth/domain/interactor/auth_interact
 import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart';
 import 'package:trip_app_nativeapp/view/widgets/loading.dart';
 
-import '../../../mock/listener.dart';
+import '../../../mock/loading_provider_listener.dart';
 import '../../../mock/mock_exception_handler.dart';
 import '../../../mock/mock_scaffold_messenger_helper.dart';
 import '../interactor/auth_interactor_test.mocks.dart';
