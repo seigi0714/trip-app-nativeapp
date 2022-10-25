@@ -1,17 +1,12 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
 
-import 'shared_preferences.dart';
+final loginTokenProvider = Provider<AsyncValue<String>>((ref) {
+  final value = ref.read(getLoginTokenProvider);
+  return value.whenData((token) => token ?? '');
+});
 
-/// ProviderScope.overrides でインスタンスを生成・上書きして使用する。
-final loginTokenProvider = Provider<String>((_) => '');
-
-/// ルートの ProviderScope.overrides で idTokenProvider の値を上書きする目的で、
-/// SharedPreferences に格納している idToken を取得して返す。
-/// 未ログインで idToken が見つからない場合は空文字を返す。
-/// Provider.overrides が済んだ後は、WidgetRef や Reader 経由で idTokenProvider を使用すると、
-/// Future 型にもならず便利。
-Future<String> get loginToken async {
-  final sp = await SharedPreferences.getInstance();
-  return sp.getString(SharedPreferencesKey.loginToken.name) ?? '';
-}
+final getLoginTokenProvider = FutureProvider<String?>((ref) async {
+  final user = await ref.read(firebaseAuthUserProvider.future);
+  return user?.getIdToken();
+});
