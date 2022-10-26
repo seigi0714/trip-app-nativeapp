@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/dio.dart';
 
 import '../../constants/json.dart';
@@ -8,9 +9,15 @@ import '../response/api_response/api_response.dart';
 import '../response/error_response/error_response.dart';
 import 'abstract_api_client.dart';
 
-final apiClientProvider = Provider<ApiClient>(
+final publicTripAppV1Client = Provider<ApiClient>(
   (ref) => ApiClient(
-    ref.watch(dioProvider),
+    ref.watch(tripAppV1DioProvider(ApiDestination.publicTripAppV1)),
+  ),
+);
+
+final privateTripAppV1Client = Provider<ApiClient>(
+  (ref) => ApiClient(
+    ref.watch(tripAppV1DioProvider(ApiDestination.privateTripAppV1)),
   ),
 );
 
