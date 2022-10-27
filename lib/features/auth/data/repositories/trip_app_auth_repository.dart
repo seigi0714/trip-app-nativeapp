@@ -7,7 +7,7 @@ import '../models/post_login_response/post_login_response.dart';
 
 final tripAppAuthRepositoryProvider = Provider<TripAppAuthInterface>((ref) {
   return TripAppAuthRepository(
-    ref.watch(apiClientProvider),
+    ref.watch(publicTripAppV1Client),
   );
 });
 
@@ -22,7 +22,7 @@ class TripAppAuthRepository implements TripAppAuthInterface {
     required String nonce,
   }) async {
     final response = await _apiClient.post(
-      '/api/v1/auth/signup/line',
+      '/auth/signup/line',
       data: <String, String>{
         'line_id_token': idToken,
         'nonce': nonce,

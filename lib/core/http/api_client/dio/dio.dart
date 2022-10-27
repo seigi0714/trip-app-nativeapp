@@ -2,9 +2,9 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:trip_app_nativeapp/core/http/api_client/dio/baseurl_interceptor.dart';
 
 import '../../../constants/number.dart';
-import '../../../env.dart';
 import '../api_destination.dart';
 import 'header_interceptor.dart';
 import 'request_interceptor.dart';
@@ -16,8 +16,7 @@ final tripAppV1DioProvider = Provider.family<Dio,ApiDestination>(
     final dio = Dio()
       ..httpClientAdapter = DefaultHttpClientAdapter()
       ..options = BaseOptions(
-        // TODO(shimizu-saffle): 環境に応じて変更されるようにする。
-        baseUrl: 'http://${Env.tripAppApiUrl}:${Env.tripAppApiPort}',
+        baseUrl: ref.read(baseUrlProvider(apiDestination)),
         connectTimeout: connectionTimeoutMilliSeconds,
         receiveTimeout: receiveTimeoutMilliSeconds,
         contentType: Headers.jsonContentType,
