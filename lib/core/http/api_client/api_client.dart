@@ -9,15 +9,21 @@ import '../response/api_response/api_response.dart';
 import '../response/error_response/error_response.dart';
 import 'abstract_api_client.dart';
 
+/// 認証なしTripAppApiのAPIクライアントクラスを提供する。
 final publicTripAppV1Client = Provider<ApiClient>(
   (ref) => ApiClient(
-    ref.watch(tripAppV1DioProvider(ApiDestination.publicTripAppV1)),
+    ref.read(
+      dioProviderFamily(ApiDestination.publicTripAppV1),
+    ),
   ),
 );
 
+/// 認証ありTripAppApiのAPIクライアントクラスを提供する。
 final privateTripAppV1Client = Provider<ApiClient>(
   (ref) => ApiClient(
-    ref.watch(tripAppV1DioProvider(ApiDestination.privateTripAppV1)),
+    ref.read(
+      dioProviderFamily(ApiDestination.privateTripAppV1),
+    ),
   ),
 );
 

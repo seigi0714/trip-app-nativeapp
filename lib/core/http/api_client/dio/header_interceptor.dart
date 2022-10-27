@@ -7,7 +7,7 @@ import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 
 import '../../../cache/login_token.dart';
 
-final headerInterceptorProvider =
+final headerInterceptorProviderFamily =
     Provider.family<HeaderInterceptor, ApiDestination>(HeaderInterceptor.new);
 
 /// ヘッダーに認証情報などを付加する
