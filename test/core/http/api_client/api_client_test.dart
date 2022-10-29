@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:trip_app_nativeapp/core/exception/api_exception.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
+import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/dio.dart';
 
 Future<void> main() async {
@@ -33,10 +34,15 @@ Future<void> main() async {
           );
           container = ProviderContainer(
             overrides: [
-              dioProvider.overrideWithValue(dio),
+              dioProviderFamily(ApiDestination.publicTripAppV1)
+                  .overrideWithValue(dio),
             ],
           );
-          container.read(dioProvider).httpClientAdapter = dioAdapter;
+          container
+              .read(
+                dioProviderFamily(ApiDestination.publicTripAppV1),
+              )
+              .httpClientAdapter = dioAdapter;
         },
       );
 
@@ -78,7 +84,7 @@ Future<void> main() async {
             data: testRequest,
           );
 
-          final response = await container.read(apiClientProvider).post(
+          final response = await container.read(publicTripAppV1Client).post(
                 route,
                 data: testRequest,
               );
@@ -104,7 +110,7 @@ Future<void> main() async {
 
           await expectLater(
             () async {
-              await container.read(apiClientProvider).post(
+              await container.read(publicTripAppV1Client).post(
                     route,
                   );
             },
@@ -141,7 +147,7 @@ Future<void> main() async {
         );
         await expectLater(
           () async {
-            await container.read(apiClientProvider).post(
+            await container.read(publicTripAppV1Client).post(
                   route,
                 );
           },
