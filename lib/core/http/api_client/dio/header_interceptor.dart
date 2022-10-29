@@ -29,15 +29,7 @@ class HeaderInterceptor extends Interceptor {
 
     if (_apiDestination.isRequiredToken) {
       final loginToken = await _ref.watch(loginTokenProvider.future);
-      if (loginToken.isNotEmpty) {
-        options.headers['Authorization'] = 'Bearer $loginToken';
-      } else {
-        throw const ApiException(
-          statusCode: HttpStatus.unauthorized,
-          errorCode: 'id_token_required',
-          description: 'idトークンが含まれていませんでした。',
-        );
-      }
+      options.headers['Authorization'] = 'Bearer $loginToken';
     }
 
     return handler.next(options);
