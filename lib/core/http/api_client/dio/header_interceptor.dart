@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:trip_app_nativeapp/core/exception/api_exception.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 
 import '../../../cache/login_token.dart';
