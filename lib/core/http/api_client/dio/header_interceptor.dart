@@ -25,7 +25,7 @@ class HeaderInterceptor extends Interceptor {
     options.headers['Accept'] = 'application/json';
 
     if (_apiDestination.isRequiredToken) {
-      final loginToken = await _ref.watch(loginTokenProvider.future);
+      final loginToken = await _ref.read(loginTokenProvider);
       options.headers['Authorization'] = 'Bearer $loginToken';
     }
 

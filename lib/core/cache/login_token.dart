@@ -1,12 +1,15 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
 
-final loginTokenProvider = Provider<AsyncValue<String>>((ref) {
-  final value = ref.read(getLoginTokenProvider);
-  return value.whenData((token) => token ?? '');
-});
+final loginTokenProvider = Provider<Future<String>>((ref) {
+  final user = ref.watch(firebaseAuthUserProvider);
+  final idToken = user.maybeWhen(
+    data: (user) async {
+      final idToken = await user?.getIdToken();
+      return idToken ?? '';
+    },
+    orElse: () async => '',
+  );
 
-final getLoginTokenProvider = FutureProvider<String?>((ref) async {
-  final user = await ref.read(firebaseAuthUserProvider.future);
-  return user?.getIdToken();
+  return idToken;
 });
