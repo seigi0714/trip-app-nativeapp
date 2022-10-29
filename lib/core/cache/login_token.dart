@@ -3,13 +3,11 @@ import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart
 
 final loginTokenProvider = Provider<Future<String>>((ref) {
   final user = ref.watch(firebaseAuthUserProvider);
-  final idToken = user.maybeWhen(
+  return user.maybeWhen(
     data: (user) async {
       final idToken = await user?.getIdToken();
       return idToken ?? '';
     },
     orElse: () async => '',
   );
-
-  return idToken;
 });
