@@ -1,6 +1,6 @@
 
-import '../entity/third_party_credential/third_party_credential.dart';
+import '../entity/google_account/google_account.dart';
 
 abstract class GoogleLoginInterface {
-  Future<ThirdPartyCredential> login();
+  Future<GoogleAccount> login();
 }
