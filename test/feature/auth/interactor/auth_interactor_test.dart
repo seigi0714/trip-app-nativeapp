@@ -8,6 +8,7 @@ import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth
 import 'package:trip_app_nativeapp/features/auth/data/repositories/google_login_repository.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/line_login_repository.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/trip_app_auth_repository.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/entity/google_account/google_account.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/entity/oidc/oidc_info.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/entity/third_party_credential/third_party_credential.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/interactor/auth_interactor.dart';
@@ -39,6 +40,11 @@ Future<void> main() async {
   const testThirdPartyCredential = ThirdPartyCredential(
     idToken: 'idToken',
     accessToken: 'accessToken',
+  );
+
+  const testGoogleAccount = GoogleAccount(
+    displayName: 'google_name',
+    credential: testThirdPartyCredential,
   );
 
   /*
@@ -277,7 +283,7 @@ Future<void> main() async {
       '正常系',
       () async {
         when(mockGoogleLoginRepository.login())
-            .thenAnswer((_) async => testThirdPartyCredential);
+            .thenAnswer((_) async => testGoogleAccount);
 
         when(
           mockFirebaseAuthRepository.signInWithGoogle(testThirdPartyCredential),
@@ -328,7 +334,7 @@ Future<void> main() async {
       when(
         mockGoogleLoginRepository.login(),
       ).thenAnswer(
-        (_) async => testThirdPartyCredential,
+        (_) async => testGoogleAccount,
       );
 
       when(
