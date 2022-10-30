@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/dio.dart';
 
 import '../../constants/json.dart';
@@ -8,9 +9,21 @@ import '../response/api_response/api_response.dart';
 import '../response/error_response/error_response.dart';
 import 'abstract_api_client.dart';
 
-final apiClientProvider = Provider<ApiClient>(
+/// 認証なしTripAppApiのAPIクライアントクラスを提供する。
+final publicTripAppV1Client = Provider<ApiClient>(
   (ref) => ApiClient(
-    ref.watch(dioProvider),
+    ref.read(
+      dioProviderFamily(ApiDestination.publicTripAppV1),
+    ),
+  ),
+);
+
+/// 認証ありTripAppApiのAPIクライアントクラスを提供する。
+final privateTripAppV1Client = Provider<ApiClient>(
+  (ref) => ApiClient(
+    ref.read(
+      dioProviderFamily(ApiDestination.privateTripAppV1),
+    ),
   ),
 );
 
