@@ -293,6 +293,14 @@ Future<void> main() async {
           },
         );
 
+        when(
+          mockTripAppRepository.createUserWithFirebaseIdToken(
+            name: testGoogleAccount.displayName,
+          ),
+        ).thenAnswer((_) async {
+          return;
+        });
+
         await expectLater(
           authInteractor.loginWithGoogle(),
           completes,
@@ -301,6 +309,12 @@ Future<void> main() async {
         verify(mockGoogleLoginRepository.login()).called(1);
         verify(
           mockFirebaseAuthRepository.signInWithGoogle(testThirdPartyCredential),
+        ).called(1);
+
+        verify(
+          mockTripAppRepository.createUserWithFirebaseIdToken(
+            name: testGoogleAccount.displayName,
+          ),
         ).called(1);
       },
     );
@@ -328,6 +342,11 @@ Future<void> main() async {
 
       verify(mockGoogleLoginRepository.login()).called(1);
       verifyNever(mockFirebaseAuthRepository.signInWithGoogle(any));
+      verifyNever(
+        mockTripAppRepository.createUserWithFirebaseIdToken(
+          name: anyNamed('name'),
+        ),
+      );
     });
 
     test('準正常系 FirebaseGoogleログインに失敗すると例外を返す', () async {
@@ -364,6 +383,63 @@ Future<void> main() async {
       verify(mockGoogleLoginRepository.login()).called(1);
       verify(
         mockFirebaseAuthRepository.signInWithGoogle(testThirdPartyCredential),
+      ).called(1);
+      verifyNever(
+        mockTripAppRepository.createUserWithFirebaseIdToken(
+          name: anyNamed('name'),
+        ),
+      );
+    });
+
+    test('準正常系 API通信に失敗するとFirebaseログアウトも行う', () async {
+      when(
+        mockGoogleLoginRepository.login(),
+      ).thenAnswer(
+        (_) async => testGoogleAccount,
+      );
+
+      when(
+        mockFirebaseAuthRepository.signInWithGoogle(testThirdPartyCredential),
+      ).thenAnswer(
+        (_) async {},
+      );
+
+      when(
+        mockTripAppRepository.createUserWithFirebaseIdToken(
+          name: testGoogleAccount.displayName,
+        ),
+      ).thenThrow(tripAppLoginException);
+
+      await expectLater(
+        () async {
+          await authInteractor.loginWithGoogle();
+        },
+        throwsA(
+          isA<AppException>()
+            ..having(
+              (e) => e.code,
+              'errorCode',
+              unAuthorizationErrorCode,
+            ).having(
+              (e) => e.message,
+              'errorMessage',
+              tripAppLoginErrorMessage,
+            ),
+        ),
+      );
+
+      verify(mockGoogleLoginRepository.login()).called(1);
+      verify(
+        mockFirebaseAuthRepository.signInWithGoogle(testThirdPartyCredential),
+      ).called(1);
+      verify(
+        mockTripAppRepository.createUserWithFirebaseIdToken(
+          name: testGoogleAccount.displayName,
+        ),
+      ).called(1);
+
+      verify(
+        mockFirebaseAuthRepository.signOut(),
       ).called(1);
     });
   });
