@@ -8,6 +8,7 @@ import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth
 import 'package:trip_app_nativeapp/features/auth/data/repositories/google_login_repository.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/line_login_repository.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/trip_app_auth_repository.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/entity/google_account/google_account.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/entity/oidc/oidc_info.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/entity/third_party_credential/third_party_credential.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/interactor/auth_interactor.dart';
@@ -39,6 +40,11 @@ Future<void> main() async {
   const testThirdPartyCredential = ThirdPartyCredential(
     idToken: 'idToken',
     accessToken: 'accessToken',
+  );
+
+  const testGoogleAccount = GoogleAccount(
+    displayName: 'google_name',
+    credential: testThirdPartyCredential,
   );
 
   /*
@@ -277,7 +283,7 @@ Future<void> main() async {
       '正常系',
       () async {
         when(mockGoogleLoginRepository.login())
-            .thenAnswer((_) async => testThirdPartyCredential);
+            .thenAnswer((_) async => testGoogleAccount);
 
         when(
           mockFirebaseAuthRepository.signInWithGoogle(testThirdPartyCredential),
@@ -287,6 +293,14 @@ Future<void> main() async {
           },
         );
 
+        when(
+          mockTripAppRepository.createUserWithFirebaseIdToken(
+            name: testGoogleAccount.displayName,
+          ),
+        ).thenAnswer((_) async {
+          return;
+        });
+
         await expectLater(
           authInteractor.loginWithGoogle(),
           completes,
@@ -295,6 +309,12 @@ Future<void> main() async {
         verify(mockGoogleLoginRepository.login()).called(1);
         verify(
           mockFirebaseAuthRepository.signInWithGoogle(testThirdPartyCredential),
+        ).called(1);
+
+        verify(
+          mockTripAppRepository.createUserWithFirebaseIdToken(
+            name: testGoogleAccount.displayName,
+          ),
         ).called(1);
       },
     );
@@ -322,13 +342,18 @@ Future<void> main() async {
 
       verify(mockGoogleLoginRepository.login()).called(1);
       verifyNever(mockFirebaseAuthRepository.signInWithGoogle(any));
+      verifyNever(
+        mockTripAppRepository.createUserWithFirebaseIdToken(
+          name: anyNamed('name'),
+        ),
+      );
     });
 
     test('準正常系 FirebaseGoogleログインに失敗すると例外を返す', () async {
       when(
         mockGoogleLoginRepository.login(),
       ).thenAnswer(
-        (_) async => testThirdPartyCredential,
+        (_) async => testGoogleAccount,
       );
 
       when(
@@ -358,6 +383,63 @@ Future<void> main() async {
       verify(mockGoogleLoginRepository.login()).called(1);
       verify(
         mockFirebaseAuthRepository.signInWithGoogle(testThirdPartyCredential),
+      ).called(1);
+      verifyNever(
+        mockTripAppRepository.createUserWithFirebaseIdToken(
+          name: anyNamed('name'),
+        ),
+      );
+    });
+
+    test('準正常系 API通信に失敗するとFirebaseログアウトも行う', () async {
+      when(
+        mockGoogleLoginRepository.login(),
+      ).thenAnswer(
+        (_) async => testGoogleAccount,
+      );
+
+      when(
+        mockFirebaseAuthRepository.signInWithGoogle(testThirdPartyCredential),
+      ).thenAnswer(
+        (_) async {},
+      );
+
+      when(
+        mockTripAppRepository.createUserWithFirebaseIdToken(
+          name: testGoogleAccount.displayName,
+        ),
+      ).thenThrow(tripAppLoginException);
+
+      await expectLater(
+        () async {
+          await authInteractor.loginWithGoogle();
+        },
+        throwsA(
+          isA<AppException>()
+            ..having(
+              (e) => e.code,
+              'errorCode',
+              unAuthorizationErrorCode,
+            ).having(
+              (e) => e.message,
+              'errorMessage',
+              tripAppLoginErrorMessage,
+            ),
+        ),
+      );
+
+      verify(mockGoogleLoginRepository.login()).called(1);
+      verify(
+        mockFirebaseAuthRepository.signInWithGoogle(testThirdPartyCredential),
+      ).called(1);
+      verify(
+        mockTripAppRepository.createUserWithFirebaseIdToken(
+          name: testGoogleAccount.displayName,
+        ),
+      ).called(1);
+
+      verify(
+        mockFirebaseAuthRepository.signOut(),
       ).called(1);
     });
   });

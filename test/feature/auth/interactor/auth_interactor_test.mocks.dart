@@ -6,18 +6,20 @@
 import 'dart:async' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:trip_app_nativeapp/features/auth/domain/entity/google_account/google_account.dart'
+    as _i3;
 import 'package:trip_app_nativeapp/features/auth/domain/entity/oidc/oidc_info.dart'
     as _i2;
 import 'package:trip_app_nativeapp/features/auth/domain/entity/third_party_credential/third_party_credential.dart'
-    as _i3;
+    as _i6;
 import 'package:trip_app_nativeapp/features/auth/domain/repositories/firebase_auth_interface.dart'
     as _i4;
 import 'package:trip_app_nativeapp/features/auth/domain/repositories/google_login_interface.dart'
-    as _i7;
-import 'package:trip_app_nativeapp/features/auth/domain/repositories/line_login_interface.dart'
-    as _i6;
-import 'package:trip_app_nativeapp/features/auth/domain/repositories/trip_app_auth_interface.dart'
     as _i8;
+import 'package:trip_app_nativeapp/features/auth/domain/repositories/line_login_interface.dart'
+    as _i7;
+import 'package:trip_app_nativeapp/features/auth/domain/repositories/trip_app_auth_interface.dart'
+    as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -40,9 +42,8 @@ class _FakeOidcInfo_0 extends _i1.SmartFake implements _i2.OidcInfo {
         );
 }
 
-class _FakeThirdPartyCredential_1 extends _i1.SmartFake
-    implements _i3.ThirdPartyCredential {
-  _FakeThirdPartyCredential_1(
+class _FakeGoogleAccount_1 extends _i1.SmartFake implements _i3.GoogleAccount {
+  _FakeGoogleAccount_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -72,7 +73,7 @@ class MockFirebaseAuthInterface extends _i1.Mock
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
-  _i5.Future<void> signInWithGoogle(_i3.ThirdPartyCredential? credential) =>
+  _i5.Future<void> signInWithGoogle(_i6.ThirdPartyCredential? credential) =>
       (super.noSuchMethod(
         Invocation.method(
           #signInWithGoogle,
@@ -96,7 +97,7 @@ class MockFirebaseAuthInterface extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockLineLoginInterface extends _i1.Mock
-    implements _i6.LineLoginInterface {
+    implements _i7.LineLoginInterface {
   MockLineLoginInterface() {
     _i1.throwOnMissingStub(this);
   }
@@ -121,33 +122,32 @@ class MockLineLoginInterface extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGoogleLoginInterface extends _i1.Mock
-    implements _i7.GoogleLoginInterface {
+    implements _i8.GoogleLoginInterface {
   MockGoogleLoginInterface() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<_i3.ThirdPartyCredential> login() => (super.noSuchMethod(
+  _i5.Future<_i3.GoogleAccount> login() => (super.noSuchMethod(
         Invocation.method(
           #login,
           [],
         ),
-        returnValue: _i5.Future<_i3.ThirdPartyCredential>.value(
-            _FakeThirdPartyCredential_1(
+        returnValue: _i5.Future<_i3.GoogleAccount>.value(_FakeGoogleAccount_1(
           this,
           Invocation.method(
             #login,
             [],
           ),
         )),
-      ) as _i5.Future<_i3.ThirdPartyCredential>);
+      ) as _i5.Future<_i3.GoogleAccount>);
 }
 
 /// A class which mocks [TripAppAuthInterface].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockTripAppAuthInterface extends _i1.Mock
-    implements _i8.TripAppAuthInterface {
+    implements _i9.TripAppAuthInterface {
   MockTripAppAuthInterface() {
     _i1.throwOnMissingStub(this);
   }
@@ -168,4 +168,15 @@ class MockTripAppAuthInterface extends _i1.Mock
         ),
         returnValue: _i5.Future<String>.value(''),
       ) as _i5.Future<String>);
+  @override
+  _i5.Future<void> createUserWithFirebaseIdToken({required String? name}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createUserWithFirebaseIdToken,
+          [],
+          {#name: name},
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }

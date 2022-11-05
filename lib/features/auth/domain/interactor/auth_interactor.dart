@@ -43,9 +43,16 @@ class AuthInteractor {
   }
 
   Future<void> loginWithGoogle() async {
-    final credential = await googleLoginInterface.login();
-    await firebaseAuthInterface.signInWithGoogle(credential);
-
-    // TODO(seigi0714): ユーザー登録APIをコール
+    final googleAccount = await googleLoginInterface.login();
+    await firebaseAuthInterface.signInWithGoogle(googleAccount.credential);
+    try {
+      await tripAppAuthInterface.createUserWithFirebaseIdToken(
+        name: googleAccount.displayName,
+      );
+    } on Exception catch (_) {
+      //　ユーザー登録に失敗した場合いかなる失敗でもFirebaseサインアウト
+      await firebaseAuthInterface.signOut();
+      rethrow;
+    }
   }
 }
