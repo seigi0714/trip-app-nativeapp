@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:trip_app_nativeapp/core/enum/login_type.dart';
-            import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
+import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
 import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
 import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
@@ -42,21 +42,13 @@ Future<void> main() async {
   setUp(() {
     providerContainer = ProviderContainer(
       overrides: [
-        authInteractorProvider.overrideWithProvider(
-          Provider((_) => mockAuthInteractor),
+        authInteractorProvider.overrideWith((_) => mockAuthInteractor),
+        scaffoldMessengerHelperProvider.overrideWith(
+          (_) => mockScaffoldMessengerHelper,
         ),
-        scaffoldMessengerHelperProvider.overrideWithProvider(
-          Provider.autoDispose(
-            (ref) => mockScaffoldMessengerHelper,
-          ),
-        ),
-        exceptionHandler.overrideWithProvider(
-          Provider<ExceptionHandler>(
-            (_) => mockExceptionHandler,
-          ),
-        ),
-        firebaseAuthRepositoryProvider.overrideWithProvider(
-          Provider((_) => mockFirebaseAuthRepository),
+        exceptionHandler.overrideWith((_) => mockExceptionHandler),
+        firebaseAuthRepositoryProvider.overrideWith(
+          (_) => mockFirebaseAuthRepository,
         )
       ],
     );
