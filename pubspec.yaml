@@ -45,6 +45,7 @@ dev_dependencies:
   http_mock_adapter: ^0.3.3
   json_serializable: ^6.3.1
   pedantic_mono: ^1.20.0
+  riverpod_generator: ^1.0.6
 
 flutter:
   uses-material-design: true
