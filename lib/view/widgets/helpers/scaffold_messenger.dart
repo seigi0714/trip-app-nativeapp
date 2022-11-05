@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final scaffoldMessengerKeyProvider =
-    Provider((_) => GlobalKey<ScaffoldMessengerState>());
+part 'scaffold_messenger.g.dart';
 
-final scaffoldMessengerHelperProvider =
-    Provider.autoDispose(ScaffoldMessengerHelper.new);
+@riverpod
+GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey(
+  ScaffoldMessengerKeyRef ref,
+) =>
+    GlobalKey<ScaffoldMessengerState>();
+
+@riverpod
+ScaffoldMessengerHelper scaffoldMessengerHelper(
+  ScaffoldMessengerHelperRef ref,
+) =>
+    ScaffoldMessengerHelper(ref);
 
 /// ツリー上部の ScaffoldMessenger 上でスナックバーやダイアログの表示を操作する。
 class ScaffoldMessengerHelper {
