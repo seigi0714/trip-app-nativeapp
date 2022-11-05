@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/trip_app.dart';
 import 'package:trip_app_nativeapp/view/pages/constant_page.dart';
 import 'package:trip_app_nativeapp/view/pages/home_page.dart';
@@ -12,10 +11,7 @@ void main() {
     (tester) async {
       await tester.pumpWidget(
         TripApp(
-          overrides: [
-            overlayLoadingProvider
-                .overrideWithValue(StateController<bool>(true)),
-          ],
+          overrides: [overlayLoadingProvider.overrideWith((ref) => true)],
           testWidget: const ConstantPage(child: HomePage()),
         ),
       );
