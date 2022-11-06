@@ -8,7 +8,7 @@ import '../../../core/exception/exception_handler.dart';
 import '../../../view/widgets/helpers/scaffold_messenger.dart';
 import '../data/repositories/firebase_auth_repository.dart';
 
-final firebaseAuthUserProvider = StreamProvider<User?>(
+final firebaseAuthUserProvider = StreamProvider.autoDispose<User?>(
   (ref) => ref.watch(firebaseAuthProvider).userChanges(),
 );
 
