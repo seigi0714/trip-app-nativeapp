@@ -1,11 +1,14 @@
 import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../debug/logger.dart';
 
-final responseInterceptorProvider = Provider<ResponseInterceptor>(
-  (_) => ResponseInterceptor(),
-);
+part 'response_interceptor.g.dart';
+
+@riverpod
+ResponseInterceptor responseInterceptor(ResponseInterceptorRef ref) {
+  return ResponseInterceptor();
+}
 
 /// レスポンス内容をコンソールに出力する
 class ResponseInterceptor extends Interceptor {
