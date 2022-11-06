@@ -2,13 +2,19 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/exception/api_exception.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
 
 import '../../view/widgets/helpers/scaffold_messenger.dart';
 import '../constants/string.dart';
 
-final exceptionHandler = Provider<ExceptionHandler>(ExceptionHandler.new);
+part 'exception_handler.g.dart';
+
+@riverpod
+ExceptionHandler exceptionHandler(ExceptionHandlerRef ref) {
+  return ExceptionHandler(ref);
+}
 
 class ExceptionHandler {
   ExceptionHandler(this._ref);

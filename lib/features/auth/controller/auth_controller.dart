@@ -28,7 +28,7 @@ final loginController =
         }
         ref.read(scaffoldMessengerHelperProvider).showSnackBar('ログインしました 🙌');
       } on Exception catch (e) {
-        ref.read(exceptionHandler).handleException(e);
+        ref.read(exceptionHandlerProvider).handleException(e);
       } finally {
         ref.read(overlayLoadingProvider.notifier).update((s) => false);
       }
@@ -42,7 +42,7 @@ final logOutController = Provider.autoDispose<Future<void> Function()>((ref) {
       await ref.read(firebaseAuthRepositoryProvider).signOut();
       ref.read(scaffoldMessengerHelperProvider).showSnackBar('ログアウトしました 😌');
     } on Exception catch (e) {
-      ref.read(exceptionHandler).handleException(e);
+      ref.read(exceptionHandlerProvider).handleException(e);
     }
   };
 });

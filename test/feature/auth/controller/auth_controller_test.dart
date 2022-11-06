@@ -46,7 +46,7 @@ Future<void> main() async {
         scaffoldMessengerHelperProvider.overrideWith(
           (_) => mockScaffoldMessengerHelper,
         ),
-        exceptionHandler.overrideWith((_) => mockExceptionHandler),
+        exceptionHandlerProvider.overrideWith((_) => mockExceptionHandler),
         firebaseAuthRepositoryProvider.overrideWith(
           (_) => mockFirebaseAuthRepository,
         )
