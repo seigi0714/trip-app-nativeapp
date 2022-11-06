@@ -78,7 +78,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(loginController).call(LoginType.line),
+        providerContainer.read(loginProvider(LoginType.line).future),
         completes,
       );
 
@@ -88,8 +88,6 @@ Future<void> main() async {
           loginMessage,
         ),
       ).called(1);
-      verify(loadingProviderListener(false, true)).called(1);
-      verify(loadingProviderListener(true, false)).called(1);
     });
 
     test('正常系 Googleログイン', () async {
@@ -101,7 +99,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(loginController).call(LoginType.google),
+        providerContainer.read(loginProvider(LoginType.google).future),
         completes,
       );
 
@@ -111,8 +109,6 @@ Future<void> main() async {
           loginMessage,
         ),
       ).called(1);
-      verify(loadingProviderListener(false, true)).called(1);
-      verify(loadingProviderListener(true, false)).called(1);
     });
 
     test('準正常系 LINEログインに失敗するとExceptionハンドラーが呼ばれる', () async {
@@ -124,7 +120,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(loginController).call(LoginType.line),
+        providerContainer.read(loginProvider(LoginType.line).future),
         completes,
       );
 
@@ -135,8 +131,6 @@ Future<void> main() async {
           loginMessage,
         ),
       );
-      verify(loadingProviderListener(false, true)).called(1);
-      verify(loadingProviderListener(true, false)).called(1);
     });
 
     test('準正常系 Googleログインに失敗するとExceptionハンドラーが呼ばれる', () async {
@@ -148,7 +142,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(loginController).call(LoginType.google),
+        providerContainer.read(loginProvider(LoginType.google).future),
         completes,
       );
 
@@ -159,8 +153,6 @@ Future<void> main() async {
           loginMessage,
         ),
       );
-      verify(loadingProviderListener(false, true)).called(1);
-      verify(loadingProviderListener(true, false)).called(1);
     });
   });
 
@@ -172,7 +164,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(logOutController).call(),
+        providerContainer.read(logOutProvider.future),
         completes,
       );
 
@@ -187,7 +179,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(logOutController).call(),
+        providerContainer.read(logOutProvider.future),
         completes,
       );
 
