@@ -16,7 +16,7 @@ part 'api_client.g.dart';
 ApiClient publicTripAppV1Client(PublicTripAppV1ClientRef ref) {
   return ApiClient(
     ref.watch(
-      dioProviderFamily(ApiDestination.publicTripAppV1),
+      dioProvider(ApiDestination.publicTripAppV1),
     ),
   );
 }
@@ -26,7 +26,7 @@ ApiClient publicTripAppV1Client(PublicTripAppV1ClientRef ref) {
 ApiClient privateTripAppV1Client(PrivateTripAppV1ClientRef ref) {
   return ApiClient(
     ref.watch(
-      dioProviderFamily(ApiDestination.privateTripAppV1),
+      dioProvider(ApiDestination.privateTripAppV1),
     ),
   );
 }

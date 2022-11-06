@@ -34,13 +34,13 @@ Future<void> main() async {
           );
           container = ProviderContainer(
             overrides: [
-              dioProviderFamily(ApiDestination.publicTripAppV1)
+              dioProvider(ApiDestination.publicTripAppV1)
                   .overrideWithValue(dio),
             ],
           );
           container
               .read(
-                dioProviderFamily(ApiDestination.publicTripAppV1),
+                dioProvider(ApiDestination.publicTripAppV1),
               )
               .httpClientAdapter = dioAdapter;
         },

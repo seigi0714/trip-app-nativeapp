@@ -1,30 +1,33 @@
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:trip_app_nativeapp/core/http/api_client/dio/baseurl_interceptor.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/header_interceptor.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/request_interceptor.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/response_interceptor.dart';
 
 import '../../../constants/number.dart';
 import '../api_destination.dart';
+import 'baseurl.dart';
 
-/// Dio のインスタンスを各種設定を済ませて提供するプロバイダ。
-/// プロバイダー経由で各種設定に必要な情報を集めてDioインスタンスを生成する。
-final dioProviderFamily =
-    Provider.family<Dio, ApiDestination>((ref, apiDestination) {
-  final baseUrl = ref.read(baseUrlProviderFamily(apiDestination));
+part 'dio.g.dart';
+
+/// プロバイダー経由で必要な情報を集め、各種設定済みの Dio インスタンスを提供する。
+@riverpod
+Dio dio(
+  DioRef ref,
+  ApiDestination apiDestination,
+) {
+  final baseUrl = ref.watch(baseUrlProvider(apiDestination));
   final interceptors = [
-    ref.read(headerInterceptorProviderFamily(apiDestination)),
+    ref.watch(headerInterceptorProviderFamily(apiDestination)),
     if (kDebugMode) ...[
-      ref.read(requestInterceptorProvider),
-      ref.read(responseInterceptorProvider),
+      ref.watch(requestInterceptorProvider),
+      ref.watch(responseInterceptorProvider),
     ]
   ];
-
   return _dioFactory(interceptors: interceptors, baseUrl: baseUrl);
-});
+}
 
 Dio _dioFactory({
   required List<Interceptor> interceptors,

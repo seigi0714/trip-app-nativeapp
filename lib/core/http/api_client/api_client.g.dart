@@ -32,7 +32,7 @@ class _SystemHash {
 }
 
 String $publicTripAppV1ClientHash() =>
-    r'9863c5f6145c728f720a07238e53d47c088237eb';
+    r'c69f3df058858c37874dbd35b785a4ca80ae7aca';
 
 /// 認証なしTripAppApiのAPIクライアントクラスを提供する。
 ///
@@ -46,7 +46,7 @@ final publicTripAppV1ClientProvider = AutoDisposeProvider<ApiClient>(
 );
 typedef PublicTripAppV1ClientRef = AutoDisposeProviderRef<ApiClient>;
 String $privateTripAppV1ClientHash() =>
-    r'c96a3b0dbe12bd5219e3fa53fd1825669e61f8a5';
+    r'ec78dca9a3502ff57c893869a4d8992d8dbdaea9';
 
 /// 認証ありTripAppApiのAPIクライアントクラスを提供する。
 ///
