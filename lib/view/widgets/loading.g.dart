@@ -2,7 +2,7 @@
 
 // ignore_for_file: type=lint, implicit_dynamic_parameter, implicit_dynamic_type, implicit_dynamic_method, strict_raw_type
 
-part of 'router.dart';
+part of 'loading.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -31,13 +31,20 @@ class _SystemHash {
   }
 }
 
-String $routerHash() => r'ec6110e1096339371865e9abc9f1bd2bac072a16';
+String $OverlayLoadingHash() => r'43f1ca0e99e92cb0b9531d52ecbecc76be4a414b';
 
-/// See also [router].
-final routerProvider = AutoDisposeProvider<GoRouter>(
-  router,
-  name: r'routerProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : $routerHash,
+/// See also [OverlayLoading].
+final overlayLoadingProvider =
+    AutoDisposeNotifierProvider<OverlayLoading, bool>(
+  OverlayLoading.new,
+  name: r'overlayLoadingProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : $OverlayLoadingHash,
 );
-typedef RouterRef = AutoDisposeProviderRef<GoRouter>;
+typedef OverlayLoadingRef = AutoDisposeNotifierProviderRef<bool>;
+
+abstract class _$OverlayLoading extends AutoDisposeNotifier<bool> {
+  @override
+  bool build();
+}
