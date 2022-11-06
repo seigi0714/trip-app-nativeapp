@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/dio.dart';
 
@@ -9,23 +9,27 @@ import '../response/api_response/api_response.dart';
 import '../response/error_response/error_response.dart';
 import 'abstract_api_client.dart';
 
+part 'api_client.g.dart';
+
 /// 認証なしTripAppApiのAPIクライアントクラスを提供する。
-final publicTripAppV1Client = Provider<ApiClient>(
-  (ref) => ApiClient(
-    ref.read(
+@riverpod
+ApiClient publicTripAppV1Client(PublicTripAppV1ClientRef ref) {
+  return ApiClient(
+    ref.watch(
       dioProviderFamily(ApiDestination.publicTripAppV1),
     ),
-  ),
-);
+  );
+}
 
 /// 認証ありTripAppApiのAPIクライアントクラスを提供する。
-final privateTripAppV1Client = Provider<ApiClient>(
-  (ref) => ApiClient(
-    ref.read(
+@riverpod
+ApiClient privateTripAppV1Client(PrivateTripAppV1ClientRef ref) {
+  return ApiClient(
+    ref.watch(
       dioProviderFamily(ApiDestination.privateTripAppV1),
     ),
-  ),
-);
+  );
+}
 
 class ApiClient implements AbstractApiClient {
   ApiClient(this._dio);
