@@ -1,13 +1,16 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../debug/logger.dart';
 
-final requestInterceptorProvider = Provider<RequestInterceptor>(
-  (_) => RequestInterceptor(),
-);
+part 'request_interceptor.g.dart';
+
+@riverpod
+RequestInterceptor requestInterceptor(RequestInterceptorRef ref) {
+  return RequestInterceptor();
+}
 
 /// HTTP リクエスト時に付加したい処理を onRequest に記述する
 class RequestInterceptor extends Interceptor {
