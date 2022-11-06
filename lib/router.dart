@@ -12,11 +12,11 @@ part 'router.g.dart';
 
 @riverpod
 GoRouter router(RouterRef ref) {
-  final user = ref.watch(firebaseAuthUserProvider);
+  final userAsync = ref.watch(firebaseAuthUserProvider);
   return GoRouter(
     redirect: (BuildContext context, state) {
       final isAtLoginPage = state.subloc == LoginPage.path;
-      if (user.value == null) {
+      if (userAsync.value == null) {
         return isAtLoginPage ? null : LoginPage.path;
       } else if (isAtLoginPage) {
         return HomePage.path;
@@ -28,7 +28,7 @@ GoRouter router(RouterRef ref) {
       GoRoute(
         path: HomePage.path,
         name: HomePage.name,
-        builder: (context, state) => user.when(
+        builder: (context, state) => userAsync.when(
           data: (user) {
             if (user == null) {
               return const LoginPage();
