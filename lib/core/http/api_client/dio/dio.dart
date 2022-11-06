@@ -20,7 +20,7 @@ Dio dio(
 ) {
   final baseUrl = ref.watch(baseUrlProvider(apiDestination));
   final interceptors = [
-    ref.watch(headerInterceptorProviderFamily(apiDestination)),
+    ref.watch(headerInterceptorProvider(apiDestination)),
     if (kDebugMode) ...[
       ref.watch(requestInterceptorProvider),
       ref.watch(responseInterceptorProvider),

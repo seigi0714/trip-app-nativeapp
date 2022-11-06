@@ -2,7 +2,7 @@
 
 // ignore_for_file: type=lint, implicit_dynamic_parameter, implicit_dynamic_type, implicit_dynamic_method, strict_raw_type
 
-part of 'dio.dart';
+part of 'header_interceptor.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -31,30 +31,31 @@ class _SystemHash {
   }
 }
 
-String $dioHash() => r'43af8204fd9860d6cca1485e809f1d69ceb6fdcb';
+String $headerInterceptorHash() => r'334773dee9eed959495ef0b7a888469d9e94c4ac';
 
-/// プロバイダー経由で必要な情報を集め、各種設定済みの Dio インスタンスを提供する。
-///
-/// Copied from [dio].
-class DioProvider extends AutoDisposeProvider<Dio> {
-  DioProvider(
+/// See also [headerInterceptor].
+class HeaderInterceptorProvider extends AutoDisposeProvider<HeaderInterceptor> {
+  HeaderInterceptorProvider(
     this.apiDestination,
   ) : super(
-          (ref) => dio(
+          (ref) => headerInterceptor(
             ref,
             apiDestination,
           ),
-          from: dioProvider,
-          name: r'dioProvider',
+          from: headerInterceptorProvider,
+          name: r'headerInterceptorProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : $dioHash,
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : $headerInterceptorHash,
         );
 
   final ApiDestination apiDestination;
 
   @override
   bool operator ==(Object other) {
-    return other is DioProvider && other.apiDestination == apiDestination;
+    return other is HeaderInterceptorProvider &&
+        other.apiDestination == apiDestination;
   }
 
   @override
@@ -66,27 +67,25 @@ class DioProvider extends AutoDisposeProvider<Dio> {
   }
 }
 
-typedef DioRef = AutoDisposeProviderRef<Dio>;
+typedef HeaderInterceptorRef = AutoDisposeProviderRef<HeaderInterceptor>;
 
-/// プロバイダー経由で必要な情報を集め、各種設定済みの Dio インスタンスを提供する。
-///
-/// Copied from [dio].
-final dioProvider = DioFamily();
+/// See also [headerInterceptor].
+final headerInterceptorProvider = HeaderInterceptorFamily();
 
-class DioFamily extends Family<Dio> {
-  DioFamily();
+class HeaderInterceptorFamily extends Family<HeaderInterceptor> {
+  HeaderInterceptorFamily();
 
-  DioProvider call(
+  HeaderInterceptorProvider call(
     ApiDestination apiDestination,
   ) {
-    return DioProvider(
+    return HeaderInterceptorProvider(
       apiDestination,
     );
   }
 
   @override
-  AutoDisposeProvider<Dio> getProviderOverride(
-    covariant DioProvider provider,
+  AutoDisposeProvider<HeaderInterceptor> getProviderOverride(
+    covariant HeaderInterceptorProvider provider,
   ) {
     return call(
       provider.apiDestination,
@@ -100,5 +99,5 @@ class DioFamily extends Family<Dio> {
   List<ProviderOrFamily>? get dependencies => null;
 
   @override
-  String? get name => r'dioProvider';
+  String? get name => r'headerInterceptorProvider';
 }
