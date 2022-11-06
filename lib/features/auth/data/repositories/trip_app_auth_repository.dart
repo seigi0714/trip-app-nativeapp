@@ -1,16 +1,19 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/http/api_client/api_client.dart';
 import '../../domain/entity/custom_token.dart';
 import '../../domain/repositories/trip_app_auth_interface.dart';
 import '../models/post_login_response/post_login_response.dart';
 
-final tripAppAuthRepositoryProvider = Provider<TripAppAuthInterface>((ref) {
+part 'trip_app_auth_repository.g.dart';
+
+@riverpod
+TripAppAuthInterface tripAppAuthRepository(TripAppAuthRepositoryRef ref) {
   return TripAppAuthRepository(
-    publicV1Client: ref.watch(publicTripAppV1Client),
-    privateV1Client: ref.watch(privateTripAppV1Client),
+    publicV1Client: ref.watch(publicTripAppV1ClientProvider),
+    privateV1Client: ref.watch(privateTripAppV1ClientProvider),
   );
-});
+}
 
 class TripAppAuthRepository implements TripAppAuthInterface {
   TripAppAuthRepository({
