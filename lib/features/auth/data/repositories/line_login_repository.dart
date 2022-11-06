@@ -1,13 +1,16 @@
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/exception/app_exception.dart';
 import '../../domain/entity/oidc/oidc_info.dart';
 import '../../domain/repositories/line_login_interface.dart';
 
-final lineLoginRepositoryProvider = Provider<LineLoginInterface>(
-  (_) => LineLoginRepository(),
-);
+part 'line_login_repository.g.dart';
+
+@riverpod
+LineLoginInterface lineLoginRepository(LineLoginRepositoryRef ref) {
+  return LineLoginRepository();
+}
 
 class LineLoginRepository implements LineLoginInterface {
   @override
