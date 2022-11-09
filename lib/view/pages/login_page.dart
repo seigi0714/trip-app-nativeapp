@@ -44,9 +44,9 @@ class LoginPage extends HookConsumerWidget {
                   size: context.displaySize.width * 0.08,
                 ),
                 backgroundColor: lineGreen,
-                onPressed: () {
+                onPressed: () async {
                   ref.read(overlayLoadingProvider.notifier).state = true;
-                  ref.read(loginProvider(LoginType.line).future);
+                  await ref.read(loginProvider(LoginType.line).future);
                   ref.read(overlayLoadingProvider.notifier).state = false;
                 },
               ),
@@ -58,8 +58,11 @@ class LoginPage extends HookConsumerWidget {
                   height: context.displaySize.width * 0.08,
                 ),
                 backgroundColor: Colors.white,
-                onPressed: () =>
-                    ref.read(loginProvider(LoginType.google).future),
+                onPressed: () async {
+                  ref.read(overlayLoadingProvider.notifier).state = true;
+                  await ref.read(loginProvider(LoginType.google).future);
+                  ref.read(overlayLoadingProvider.notifier).state = false;
+                },
               ),
               const Spacer(),
               BrandButton(
