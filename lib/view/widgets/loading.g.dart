@@ -33,7 +33,9 @@ class _SystemHash {
 
 String $OverlayLoadingHash() => r'43f1ca0e99e92cb0b9531d52ecbecc76be4a414b';
 
-/// See also [OverlayLoading].
+/// OverlayLoading 中か否かを切り替える操作を提供する NotifierProvider を生成する
+///
+/// Copied from [OverlayLoading].
 final overlayLoadingProvider =
     AutoDisposeNotifierProvider<OverlayLoading, bool>(
   OverlayLoading.new,

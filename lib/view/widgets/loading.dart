@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'loading.g.dart';
 
+/// OverlayLoading 中か否かを切り替える操作を提供する NotifierProvider を生成する
 @riverpod
 class OverlayLoading extends _$OverlayLoading {
   @override
@@ -11,9 +12,6 @@ class OverlayLoading extends _$OverlayLoading {
     return false;
   }
 }
-
-/// アプリ全体に半透明のローディング画面を重ねるかどうか。
-// final overlayLoadingProvider = StateProvider<bool>((_) => false);
 
 /// プライマリカラーの SpinkitCircle を表示する
 class PrimarySpinkitCircle extends StatelessWidget {
