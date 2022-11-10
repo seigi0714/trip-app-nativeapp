@@ -1,12 +1,12 @@
 name: trip_app_nativeapp
 description: A new Flutter project.
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
   cupertino_icons: ^1.0.2
@@ -27,10 +27,11 @@ dependencies:
   go_router: ^5.0.5
   google_fonts: ^3.0.1
   google_sign_in: ^5.4.2
-  hooks_riverpod: ^1.0.4
+  hooks_riverpod: ^2.1.1
   lottie: ^1.4.3
   mockito: ^5.3.2
   nil: ^1.1.1
+  riverpod_annotation: ^1.0.6
   roggle: ^0.2.1+1
   shared_preferences: ^2.0.15
 
@@ -44,6 +45,7 @@ dev_dependencies:
   http_mock_adapter: ^0.3.3
   json_serializable: ^6.3.1
   pedantic_mono: ^1.20.0
+  riverpod_generator: ^1.0.6
 
 flutter:
   uses-material-design: true

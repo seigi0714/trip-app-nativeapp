@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:trip_app_nativeapp/core/enum/login_type.dart';
-            import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
+import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
 import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
 import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
@@ -42,21 +42,13 @@ Future<void> main() async {
   setUp(() {
     providerContainer = ProviderContainer(
       overrides: [
-        authInteractorProvider.overrideWithProvider(
-          Provider((_) => mockAuthInteractor),
+        authInteractorProvider.overrideWith((_) => mockAuthInteractor),
+        scaffoldMessengerHelperProvider.overrideWith(
+          (_) => mockScaffoldMessengerHelper,
         ),
-        scaffoldMessengerHelperProvider.overrideWithProvider(
-          Provider.autoDispose(
-            (ref) => mockScaffoldMessengerHelper,
-          ),
-        ),
-        exceptionHandler.overrideWithProvider(
-          Provider<ExceptionHandler>(
-            (_) => mockExceptionHandler,
-          ),
-        ),
-        firebaseAuthRepositoryProvider.overrideWithProvider(
-          Provider((_) => mockFirebaseAuthRepository),
+        exceptionHandlerProvider.overrideWith((_) => mockExceptionHandler),
+        firebaseAuthRepositoryProvider.overrideWith(
+          (_) => mockFirebaseAuthRepository,
         )
       ],
     );
@@ -86,7 +78,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(loginController).call(LoginType.line),
+        providerContainer.read(loginProvider(LoginType.line).future),
         completes,
       );
 
@@ -96,8 +88,6 @@ Future<void> main() async {
           loginMessage,
         ),
       ).called(1);
-      verify(loadingProviderListener(false, true)).called(1);
-      verify(loadingProviderListener(true, false)).called(1);
     });
 
     test('正常系 Googleログイン', () async {
@@ -109,7 +99,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(loginController).call(LoginType.google),
+        providerContainer.read(loginProvider(LoginType.google).future),
         completes,
       );
 
@@ -119,8 +109,6 @@ Future<void> main() async {
           loginMessage,
         ),
       ).called(1);
-      verify(loadingProviderListener(false, true)).called(1);
-      verify(loadingProviderListener(true, false)).called(1);
     });
 
     test('準正常系 LINEログインに失敗するとExceptionハンドラーが呼ばれる', () async {
@@ -132,7 +120,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(loginController).call(LoginType.line),
+        providerContainer.read(loginProvider(LoginType.line).future),
         completes,
       );
 
@@ -143,8 +131,6 @@ Future<void> main() async {
           loginMessage,
         ),
       );
-      verify(loadingProviderListener(false, true)).called(1);
-      verify(loadingProviderListener(true, false)).called(1);
     });
 
     test('準正常系 Googleログインに失敗するとExceptionハンドラーが呼ばれる', () async {
@@ -156,7 +142,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(loginController).call(LoginType.google),
+        providerContainer.read(loginProvider(LoginType.google).future),
         completes,
       );
 
@@ -167,8 +153,6 @@ Future<void> main() async {
           loginMessage,
         ),
       );
-      verify(loadingProviderListener(false, true)).called(1);
-      verify(loadingProviderListener(true, false)).called(1);
     });
   });
 
@@ -180,7 +164,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(logOutController).call(),
+        providerContainer.read(logOutProvider.future),
         completes,
       );
 
@@ -195,7 +179,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(logOutController).call(),
+        providerContainer.read(logOutProvider.future),
         completes,
       );
 

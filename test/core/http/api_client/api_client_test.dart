@@ -34,13 +34,13 @@ Future<void> main() async {
           );
           container = ProviderContainer(
             overrides: [
-              dioProviderFamily(ApiDestination.publicTripAppV1)
+              dioProvider(ApiDestination.publicTripAppV1)
                   .overrideWithValue(dio),
             ],
           );
           container
               .read(
-                dioProviderFamily(ApiDestination.publicTripAppV1),
+                dioProvider(ApiDestination.publicTripAppV1),
               )
               .httpClientAdapter = dioAdapter;
         },
@@ -84,10 +84,11 @@ Future<void> main() async {
             data: testRequest,
           );
 
-          final response = await container.read(publicTripAppV1Client).post(
-                route,
-                data: testRequest,
-              );
+          final response =
+              await container.read(publicTripAppV1ClientProvider).post(
+                    route,
+                    data: testRequest,
+                  );
 
           expect(response.data, testItems);
         },
@@ -110,7 +111,7 @@ Future<void> main() async {
 
           await expectLater(
             () async {
-              await container.read(publicTripAppV1Client).post(
+              await container.read(publicTripAppV1ClientProvider).post(
                     route,
                   );
             },
@@ -147,7 +148,7 @@ Future<void> main() async {
         );
         await expectLater(
           () async {
-            await container.read(publicTripAppV1Client).post(
+            await container.read(publicTripAppV1ClientProvider).post(
                   route,
                 );
           },

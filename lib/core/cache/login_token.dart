@@ -1,7 +1,10 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
 
-final loginTokenProvider = Provider<Future<String>>((ref) {
+part 'login_token.g.dart';
+
+@riverpod
+Future<String> loginToken(LoginTokenRef ref) {
   final user = ref.watch(firebaseAuthUserProvider);
   return user.value?.getIdToken() ?? Future.value('');
-});
+}

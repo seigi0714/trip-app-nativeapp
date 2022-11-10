@@ -79,17 +79,17 @@ Future<void> main() async {
   setUp(() {
     providerContainer = ProviderContainer(
       overrides: [
-        firebaseAuthRepositoryProvider.overrideWithProvider(
-          Provider((_) => mockFirebaseAuthRepository),
+        firebaseAuthRepositoryProvider.overrideWith(
+          (_) => mockFirebaseAuthRepository,
         ),
-        lineLoginRepositoryProvider.overrideWithProvider(
-          Provider((ref) => mockLineLoginRepository),
+        lineLoginRepositoryProvider.overrideWith(
+          (_) => mockLineLoginRepository,
         ),
-        googleLoginRepositoryProvider.overrideWithProvider(
-          Provider((_) => mockGoogleLoginRepository),
+        googleLoginRepositoryProvider.overrideWith(
+          (_) => mockGoogleLoginRepository,
         ),
-        tripAppAuthRepositoryProvider.overrideWithProvider(
-          Provider((_) => mockTripAppRepository),
+        tripAppAuthRepositoryProvider.overrideWith(
+          (_) => mockTripAppRepository,
         ),
       ],
     );

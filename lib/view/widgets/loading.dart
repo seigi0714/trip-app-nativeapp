@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-/// アプリ全体に半透明のローディング画面を重ねるかどうか。
-final overlayLoadingProvider = StateProvider<bool>((_) => false);
+part 'loading.g.dart';
+
+/// OverlayLoading 中か否かを切り替える操作を提供する NotifierProvider を生成する
+@riverpod
+class OverlayLoading extends _$OverlayLoading {
+  @override
+  bool build() {
+    return false;
+  }
+}
 
 /// プライマリカラーの SpinkitCircle を表示する
 class PrimarySpinkitCircle extends StatelessWidget {

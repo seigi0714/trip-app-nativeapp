@@ -1,4 +1,4 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/google_login_repository.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/line_login_repository.dart';
@@ -9,14 +9,17 @@ import '../repositories/google_login_interface.dart';
 import '../repositories/line_login_interface.dart';
 import '../repositories/trip_app_auth_interface.dart';
 
-final authInteractorProvider = Provider<AuthInteractor>((ref) {
+part 'auth_interactor.g.dart';
+
+@riverpod
+AuthInteractor authInteractor(AuthInteractorRef ref) {
   return AuthInteractor(
     firebaseAuthInterface: ref.watch(firebaseAuthRepositoryProvider),
     lineLoginInterface: ref.watch(lineLoginRepositoryProvider),
     tripAppAuthInterface: ref.watch(tripAppAuthRepositoryProvider),
     googleLoginInterface: ref.watch(googleLoginRepositoryProvider),
   );
-});
+}
 
 class AuthInteractor {
   AuthInteractor({
@@ -50,7 +53,7 @@ class AuthInteractor {
         name: googleAccount.displayName,
       );
     } on Exception catch (_) {
-      //　ユーザー登録に失敗した場合いかなる失敗でもFirebaseサインアウト
+      // ユーザー登録に失敗した場合いかなる失敗でもFirebaseサインアウト
       await firebaseAuthInterface.signOut();
       rethrow;
     }

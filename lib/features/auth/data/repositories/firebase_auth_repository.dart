@@ -1,17 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/entity/third_party_credential/third_party_credential.dart';
 
 import '../../domain/repositories/firebase_auth_interface.dart';
 
-final firebaseAuthProvider =
-    Provider<FirebaseAuth>((_) => FirebaseAuth.instance);
+part 'firebase_auth_repository.g.dart';
 
-final firebaseAuthRepositoryProvider = Provider<FirebaseAuthInterface>(
-  (ref) => FirebaseAuthRepository(
+@riverpod
+FirebaseAuth firebaseAuth(FirebaseAuthRef ref) => FirebaseAuth.instance;
+
+@riverpod
+FirebaseAuthInterface firebaseAuthRepository(FirebaseAuthRepositoryRef ref) {
+  return FirebaseAuthRepository(
     ref.watch(firebaseAuthProvider),
-  ),
-);
+  );
+}
 
 class FirebaseAuthRepository implements FirebaseAuthInterface {
   FirebaseAuthRepository(this._firebaseAuth);

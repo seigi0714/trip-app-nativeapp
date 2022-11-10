@@ -1,19 +1,33 @@
 import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 
 import '../../../cache/login_token.dart';
 
-final headerInterceptorProviderFamily =
-    Provider.family<HeaderInterceptor, ApiDestination>(HeaderInterceptor.new);
+part 'header_interceptor.g.dart';
+
+@riverpod
+HeaderInterceptor headerInterceptor(
+  HeaderInterceptorRef ref,
+  ApiDestination apiDestination,
+) {
+  return HeaderInterceptor(
+    apiDestination,
+    ref.watch(loginTokenProvider.future),
+  );
+}
 
 /// ヘッダーに認証情報などを付加する
 class HeaderInterceptor extends Interceptor {
-  HeaderInterceptor(this._ref, this._apiDestination, [this.overwriteUrl]);
+  HeaderInterceptor(
+    this._apiDestination,
+    this._loginTokenProvider, [
+    this.overwriteUrl,
+  ]);
 
   String? overwriteUrl;
   final ApiDestination _apiDestination;
-  final ProviderRef<HeaderInterceptor> _ref;
+  final Future<String> _loginTokenProvider;
 
   @override
   Future<void> onRequest(
@@ -25,7 +39,7 @@ class HeaderInterceptor extends Interceptor {
     options.headers['Accept'] = 'application/json';
 
     if (_apiDestination.isRequiredToken) {
-      final loginToken = await _ref.read(loginTokenProvider);
+      final loginToken = await _loginTokenProvider;
       options.headers['Authorization'] = 'Bearer $loginToken';
     }
 

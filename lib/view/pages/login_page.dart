@@ -9,6 +9,7 @@ import '../../core/constants/color.dart';
 import '../../core/gen/assets.gen.dart';
 import '../../features/auth/controller/auth_controller.dart';
 import '../widgets/brand_button.dart';
+import '../widgets/loading.dart';
 
 class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
@@ -43,7 +44,11 @@ class LoginPage extends HookConsumerWidget {
                   size: context.displaySize.width * 0.08,
                 ),
                 backgroundColor: lineGreen,
-                onPressed: () => ref.read(loginController).call(LoginType.line),
+                onPressed: () async {
+                  ref.read(overlayLoadingProvider.notifier).state = true;
+                  await ref.read(loginProvider(LoginType.line).future);
+                  ref.read(overlayLoadingProvider.notifier).state = false;
+                },
               ),
               const Spacer(),
               BrandButton(
@@ -53,8 +58,11 @@ class LoginPage extends HookConsumerWidget {
                   height: context.displaySize.width * 0.08,
                 ),
                 backgroundColor: Colors.white,
-                onPressed: () =>
-                    ref.read(loginController).call(LoginType.google),
+                onPressed: () async {
+                  ref.read(overlayLoadingProvider.notifier).state = true;
+                  await ref.read(loginProvider(LoginType.google).future);
+                  ref.read(overlayLoadingProvider.notifier).state = false;
+                },
               ),
               const Spacer(),
               BrandButton(
