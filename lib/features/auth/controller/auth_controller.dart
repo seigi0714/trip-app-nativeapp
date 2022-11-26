@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../../core/enum/login_type.dart';
-import '../../../core/exception/exception_handler.dart';
-import '../../../view/widgets/helpers/scaffold_messenger.dart';
-import '../data/repositories/firebase_auth_repository.dart';
-import '../domain/interactor/auth_interactor.dart';
+import 'package:trip_app_nativeapp/core/enum/login_type.dart';
+import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
+import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/interactor/auth_interactor.dart';
+import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart';
 
 part 'auth_controller.g.dart';
 

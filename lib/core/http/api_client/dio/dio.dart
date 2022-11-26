@@ -2,13 +2,12 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_app_nativeapp/core/constants/number.dart';
+import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
+import 'package:trip_app_nativeapp/core/http/api_client/dio/baseurl.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/header_interceptor.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/request_interceptor.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/response_interceptor.dart';
-
-import '../../../constants/number.dart';
-import '../api_destination.dart';
-import 'baseurl.dart';
 
 part 'dio.g.dart';
 

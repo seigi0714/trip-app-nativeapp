@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
+import 'package:trip_app_nativeapp/core/constants/color.dart';
 import 'package:trip_app_nativeapp/core/enum/login_type.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
-
-import '../../core/constants/color.dart';
-import '../../core/gen/assets.gen.dart';
-import '../../features/auth/controller/auth_controller.dart';
-import '../widgets/brand_button.dart';
-import '../widgets/loading.dart';
+import 'package:trip_app_nativeapp/core/gen/assets.gen.dart';
+import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
+import 'package:trip_app_nativeapp/view/widgets/brand_button.dart';
+import 'package:trip_app_nativeapp/view/widgets/loading.dart';
 
 class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});

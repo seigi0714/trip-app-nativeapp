@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/entity/third_party_credential/third_party_credential.dart';
-
-import '../../domain/repositories/firebase_auth_interface.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/repositories/firebase_auth_interface.dart';
 
 part 'firebase_auth_repository.g.dart';
 

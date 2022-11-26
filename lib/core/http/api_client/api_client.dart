@@ -1,13 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_app_nativeapp/core/constants/json.dart';
+import 'package:trip_app_nativeapp/core/exception/api_exception.dart';
+import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/dio.dart';
-
-import '../../constants/json.dart';
-import '../../exception/api_exception.dart';
-import '../response/api_response/api_response.dart';
-import '../response/error_response/error_response.dart';
-import 'abstract_api_client.dart';
+import 'package:trip_app_nativeapp/core/http/response/api_response/api_response.dart';
+import 'package:trip_app_nativeapp/core/http/response/error_response/error_response.dart';
 
 part 'api_client.g.dart';
 

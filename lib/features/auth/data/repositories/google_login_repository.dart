@@ -1,11 +1,10 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../../../core/exception/app_exception.dart';
-import '../../../../core/extensions/google_sign_in_account.dart';
-import '../../../../core/extensions/google_sign_in_authentication.dart';
-import '../../domain/entity/google_account/google_account.dart';
-import '../../domain/repositories/google_login_interface.dart';
+import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
+import 'package:trip_app_nativeapp/core/extensions/google_sign_in_account.dart';
+import 'package:trip_app_nativeapp/core/extensions/google_sign_in_authentication.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/entity/google_account/google_account.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/repositories/google_login_interface.dart';
 
 part 'google_login_repository.g.dart';
 

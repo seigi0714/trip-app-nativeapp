@@ -1,4 +1,4 @@
-import '../entity/custom_token.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/entity/custom_token.dart';
 
 abstract class TripAppAuthInterface {
   /// LINE IdTokenを用いたユーザー登録

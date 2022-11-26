@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 import 'package:trip_app_nativeapp/core/env.dart';
-
-import 'core/firebase_options.dart';
-import 'core/trip_app.dart';
+import 'package:trip_app_nativeapp/core/firebase_options.dart';
+import 'package:trip_app_nativeapp/core/trip_app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

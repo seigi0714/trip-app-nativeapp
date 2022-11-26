@@ -3,10 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nil/nil.dart';
 import 'package:trip_app_nativeapp/core/constants/color.dart';
-
-import '../router.dart';
-import '../view/pages/constant_page.dart';
-import '../view/widgets/helpers/scaffold_messenger.dart';
+import 'package:trip_app_nativeapp/router.dart';
+import 'package:trip_app_nativeapp/view/pages/constant_page.dart';
+import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart';
 
 class TripApp extends StatelessWidget {
   const TripApp({

@@ -1,9 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../../../core/http/api_client/api_client.dart';
-import '../../domain/entity/custom_token.dart';
-import '../../domain/repositories/trip_app_auth_interface.dart';
-import '../models/post_login_response/post_login_response.dart';
+import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
+import 'package:trip_app_nativeapp/features/auth/data/models/post_login_response/post_login_response.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/entity/custom_token.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/repositories/trip_app_auth_interface.dart';
 
 part 'trip_app_auth_repository.g.dart';
 

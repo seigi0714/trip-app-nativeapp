@@ -1,7 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_app_nativeapp/core/env.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
-
-import '../../../env.dart';
 
 part 'baseurl.g.dart';
 
