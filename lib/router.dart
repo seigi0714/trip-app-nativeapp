@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
+import 'package:trip_app_nativeapp/view/pages/error_page.dart';
+import 'package:trip_app_nativeapp/view/pages/home_page.dart';
 import 'package:trip_app_nativeapp/view/pages/loading_page.dart';
 import 'package:trip_app_nativeapp/view/pages/login_page.dart';
-
-import 'features/auth/controller/auth_controller.dart';
-import 'view/pages/error_page.dart';
-import 'view/pages/home_page.dart';
 
 part 'router.g.dart';
 

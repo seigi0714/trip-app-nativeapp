@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../../core/debug/logger.dart';
-import '../widgets/loading.dart';
+import 'package:trip_app_nativeapp/core/debug/logger.dart';
+import 'package:trip_app_nativeapp/view/widgets/loading.dart';
 
 /// MaterialApp.router の builder で返すことによって
 /// すべてのページ上に ConstantPage を 挿入することができるので

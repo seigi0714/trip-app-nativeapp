@@ -2,12 +2,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/google_login_repository.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/line_login_repository.dart';
-
-import '../../data/repositories/trip_app_auth_repository.dart';
-import '../repositories/firebase_auth_interface.dart';
-import '../repositories/google_login_interface.dart';
-import '../repositories/line_login_interface.dart';
-import '../repositories/trip_app_auth_interface.dart';
+import 'package:trip_app_nativeapp/features/auth/data/repositories/trip_app_auth_repository.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/repositories/firebase_auth_interface.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/repositories/google_login_interface.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/repositories/line_login_interface.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/repositories/trip_app_auth_interface.dart';
 
 part 'auth_interactor.g.dart';
 

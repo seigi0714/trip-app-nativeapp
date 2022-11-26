@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
-
-import '../../features/auth/controller/auth_controller.dart';
+import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});

@@ -2,8 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../../debug/logger.dart';
+import 'package:trip_app_nativeapp/core/debug/logger.dart';
 
 part 'request_interceptor.g.dart';
 

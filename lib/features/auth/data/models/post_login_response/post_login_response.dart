@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../../../domain/entity/custom_token.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/entity/custom_token.dart';
 
 part 'post_login_response.freezed.dart';
 part 'post_login_response.g.dart';

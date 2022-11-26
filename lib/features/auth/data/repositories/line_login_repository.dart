@@ -1,9 +1,8 @@
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../../../core/exception/app_exception.dart';
-import '../../domain/entity/oidc/oidc_info.dart';
-import '../../domain/repositories/line_login_interface.dart';
+import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/entity/oidc/oidc_info.dart';
+import 'package:trip_app_nativeapp/features/auth/domain/repositories/line_login_interface.dart';
 
 part 'line_login_repository.g.dart';
 

@@ -3,11 +3,10 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_app_nativeapp/core/constants/string.dart';
 import 'package:trip_app_nativeapp/core/exception/api_exception.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
-
-import '../../view/widgets/helpers/scaffold_messenger.dart';
-import '../constants/string.dart';
+import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart';
 
 part 'exception_handler.g.dart';
 

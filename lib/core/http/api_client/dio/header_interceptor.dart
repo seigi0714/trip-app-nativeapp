@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_app_nativeapp/core/cache/login_token.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
-
-import '../../../cache/login_token.dart';
 
 part 'header_interceptor.g.dart';
 

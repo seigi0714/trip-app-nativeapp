@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-
-import '../response/api_response/api_response.dart';
+import 'package:trip_app_nativeapp/core/http/response/api_response/api_response.dart';
 
 /// dio.dart の abstract class Dio の形式に沿った
 /// API クライアントの抽象クラス
