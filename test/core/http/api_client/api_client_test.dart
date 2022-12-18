@@ -19,7 +19,6 @@ Future<void> main() async {
     'ApiClient test',
     () {
       const testBaseUrl = 'https://test.com';
-
       setUp(
         () {
           dio = Dio(
@@ -50,7 +49,6 @@ Future<void> main() async {
         'post 正常系',
         () async {
           const route = '/post';
-
           const testRequest = <String, dynamic>{
             'data': <String, dynamic>{
               'items': <dynamic>[
@@ -61,7 +59,6 @@ Future<void> main() async {
               ],
             },
           };
-
           const testItems = <String, dynamic>{
             'items': <dynamic>[
               <String, dynamic>{
@@ -70,7 +67,6 @@ Future<void> main() async {
               },
             ],
           };
-
           const testResponse = <String, dynamic>{
             'data': testItems,
           };
@@ -95,7 +91,7 @@ Future<void> main() async {
       );
 
       test(
-        'post 異常系 ステータスコードが 401 の場合は ApiException が スローされるはず。',
+        'post 準正常系 ステータスコードが 401 の場合は ApiException が スローされるはず。',
         () async {
           const route = '/post';
           dioAdapter.onPost(
@@ -108,7 +104,6 @@ Future<void> main() async {
               },
             ),
           );
-
           await expectLater(
             () async {
               await container.read(publicTripAppV1ClientProvider).post(
@@ -137,7 +132,7 @@ Future<void> main() async {
         },
       );
 
-      test('post 異常系 レスポンスが null の場合は、ApiException が スローされるはず。', () async {
+      test('post 準正常系 レスポンスが null の場合は、ApiException が スローされるはず。', () async {
         const route = '/post';
         dioAdapter.onPost(
           route,
