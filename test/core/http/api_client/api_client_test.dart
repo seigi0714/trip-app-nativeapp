@@ -10,45 +10,32 @@ import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/dio.dart';
 
 Future<void> main() async {
-  TestWidgetsFlutterBinding.ensureInitialized();
-  late Dio dio;
-  late DioAdapter dioAdapter;
-  late ProviderContainer container;
-
   group(
     'ApiClient test',
     () {
-      const testBaseUrl = 'https://test.com';
+      late DioAdapter dioAdapter;
+      late ProviderContainer container;
+
+      const dummyEndpoint = '/dummy-endpoint';
+
       setUp(
         () {
-          dio = Dio(
-            BaseOptions(
-              baseUrl: testBaseUrl,
-              validateStatus: (status) => true,
-            ),
+          final dio = Dio(
+            BaseOptions(validateStatus: (status) => true),
           );
-          dioAdapter = DioAdapter(
-            dio: dio,
-            matcher: const UrlRequestMatcher(),
-          );
+          dioAdapter = DioAdapter(dio: dio);
           container = ProviderContainer(
             overrides: [
-              dioProvider(ApiDestination.publicTripAppV1)
+              dioProvider(ApiDestination.privateTripAppV1)
                   .overrideWithValue(dio),
             ],
           );
-          container
-              .read(
-                dioProvider(ApiDestination.publicTripAppV1),
-              )
-              .httpClientAdapter = dioAdapter;
         },
       );
 
       test(
         'post 正常系',
         () async {
-          const route = '/post';
           const testRequest = <String, dynamic>{
             'data': <String, dynamic>{
               'items': <dynamic>[
@@ -72,7 +59,7 @@ Future<void> main() async {
           };
 
           dioAdapter.onPost(
-            route,
+            dummyEndpoint,
             (server) => server.reply(
               200,
               testResponse,
@@ -81,8 +68,8 @@ Future<void> main() async {
           );
 
           final response =
-              await container.read(publicTripAppV1ClientProvider).post(
-                    route,
+              await container.read(privateTripAppV1ClientProvider).post(
+                    dummyEndpoint,
                     data: testRequest,
                   );
 
@@ -93,9 +80,8 @@ Future<void> main() async {
       test(
         'post 準正常系 ステータスコードが 401 の場合は ApiException が スローされるはず。',
         () async {
-          const route = '/post';
           dioAdapter.onPost(
-            route,
+            dummyEndpoint,
             (server) => server.reply(
               HttpStatus.unauthorized,
               <String, dynamic>{
@@ -106,8 +92,8 @@ Future<void> main() async {
           );
           await expectLater(
             () async {
-              await container.read(publicTripAppV1ClientProvider).post(
-                    route,
+              await container.read(privateTripAppV1ClientProvider).post(
+                    dummyEndpoint,
                   );
             },
             throwsA(
@@ -133,9 +119,8 @@ Future<void> main() async {
       );
 
       test('post 準正常系 レスポンスが null の場合は、ApiException が スローされるはず。', () async {
-        const route = '/post';
         dioAdapter.onPost(
-          route,
+          dummyEndpoint,
           (server) => server.reply(
             HttpStatus.internalServerError,
             null,
@@ -143,8 +128,8 @@ Future<void> main() async {
         );
         await expectLater(
           () async {
-            await container.read(publicTripAppV1ClientProvider).post(
-                  route,
+            await container.read(privateTripAppV1ClientProvider).post(
+                  dummyEndpoint,
                 );
           },
           throwsA(
