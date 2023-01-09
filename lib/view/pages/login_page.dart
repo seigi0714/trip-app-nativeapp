@@ -8,7 +8,6 @@ import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/core/gen/assets.gen.dart';
 import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
 import 'package:trip_app_nativeapp/view/widgets/brand_button.dart';
-import 'package:trip_app_nativeapp/view/widgets/loading.dart';
 
 class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
@@ -43,11 +42,8 @@ class LoginPage extends HookConsumerWidget {
                   size: context.displaySize.width * 0.08,
                 ),
                 backgroundColor: lineGreen,
-                onPressed: () async {
-                  ref.read(overlayLoadingProvider.notifier).state = true;
-                  await ref.read(loginProvider(LoginType.line).future);
-                  ref.read(overlayLoadingProvider.notifier).state = false;
-                },
+                onPressed: () =>
+                    ref.read(authControllerProvider).login(LoginType.line),
               ),
               const Spacer(),
               BrandButton(
@@ -57,11 +53,8 @@ class LoginPage extends HookConsumerWidget {
                   height: context.displaySize.width * 0.08,
                 ),
                 backgroundColor: Colors.white,
-                onPressed: () async {
-                  ref.read(overlayLoadingProvider.notifier).state = true;
-                  await ref.read(loginProvider(LoginType.google).future);
-                  ref.read(overlayLoadingProvider.notifier).state = false;
-                },
+                onPressed: () =>
+                    ref.read(authControllerProvider).login(LoginType.google),
               ),
               const Spacer(),
               BrandButton(
