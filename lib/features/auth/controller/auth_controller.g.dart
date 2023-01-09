@@ -31,81 +31,14 @@ class _SystemHash {
   }
 }
 
-String $loginHash() => r'35fdd451a5d808a1e69af28d2da2dcc7360f1ac8';
+String $authControllerHash() => r'59574e6e1cdcabbe18cb9e242363875abd753473';
 
-/// See also [login].
-class LoginProvider extends AutoDisposeFutureProvider<void> {
-  LoginProvider(
-    this.loginType,
-  ) : super(
-          (ref) => login(
-            ref,
-            loginType,
-          ),
-          from: loginProvider,
-          name: r'loginProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : $loginHash,
-        );
-
-  final LoginType loginType;
-
-  @override
-  bool operator ==(Object other) {
-    return other is LoginProvider && other.loginType == loginType;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, loginType.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-typedef LoginRef = AutoDisposeFutureProviderRef<void>;
-
-/// See also [login].
-final loginProvider = LoginFamily();
-
-class LoginFamily extends Family<AsyncValue<void>> {
-  LoginFamily();
-
-  LoginProvider call(
-    LoginType loginType,
-  ) {
-    return LoginProvider(
-      loginType,
-    );
-  }
-
-  @override
-  AutoDisposeFutureProvider<void> getProviderOverride(
-    covariant LoginProvider provider,
-  ) {
-    return call(
-      provider.loginType,
-    );
-  }
-
-  @override
-  List<ProviderOrFamily>? get allTransitiveDependencies => null;
-
-  @override
-  List<ProviderOrFamily>? get dependencies => null;
-
-  @override
-  String? get name => r'loginProvider';
-}
-
-String $logOutHash() => r'81532b889defb2a5a11c08d2f7ec85f6bffa247e';
-
-/// See also [logOut].
-final logOutProvider = AutoDisposeFutureProvider<void>(
-  logOut,
-  name: r'logOutProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : $logOutHash,
+/// See also [authController].
+final authControllerProvider = AutoDisposeProvider<AuthController>(
+  authController,
+  name: r'authControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : $authControllerHash,
 );
-typedef LogOutRef = AutoDisposeFutureProviderRef<void>;
+typedef AuthControllerRef = AutoDisposeProviderRef<AuthController>;

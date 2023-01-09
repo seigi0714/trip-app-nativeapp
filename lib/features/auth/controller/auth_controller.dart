@@ -6,6 +6,7 @@ import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/interactor/auth_interactor.dart';
 import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart';
+import 'package:trip_app_nativeapp/view/widgets/loading.dart';
 
 part 'auth_controller.g.dart';
 
@@ -14,31 +15,37 @@ final firebaseAuthUserProvider = StreamProvider.autoDispose<User?>(
 );
 
 @riverpod
-Future<void> login(
-  LoginRef ref,
-  LoginType loginType,
-) async {
-  try {
-    switch (loginType) {
-      case LoginType.line:
-        await ref.read(authInteractorProvider).loginWithLINE();
-        break;
-      case LoginType.google:
-        await ref.read(authInteractorProvider).loginWithGoogle();
-        break;
-    }
-    ref.read(scaffoldMessengerHelperProvider).showSnackBar('ログインしました 🙌');
-  } on Exception catch (e) {
-    ref.read(exceptionHandlerProvider).handleException(e);
-  }
-}
+AuthController authController(AuthControllerRef ref) => AuthController(ref);
 
-@riverpod
-Future<void> logOut(LogOutRef ref) async {
-  try {
-    await ref.read(firebaseAuthRepositoryProvider).signOut();
-    ref.read(scaffoldMessengerHelperProvider).showSnackBar('ログアウトしました 😌');
-  } on Exception catch (e) {
-    ref.read(exceptionHandlerProvider).handleException(e);
+class AuthController {
+  AuthController(this._ref);
+
+  final Ref _ref;
+
+  Future<void> login(LoginType loginType) async {
+    _ref.read(overlayLoadingProvider.notifier).state = true;
+    try {
+      switch (loginType) {
+        case LoginType.line:
+          await _ref.read(authInteractorProvider).loginWithLINE();
+          break;
+        case LoginType.google:
+          await _ref.read(authInteractorProvider).loginWithGoogle();
+          break;
+      }
+    } on Exception catch (e) {
+      _ref.read(exceptionHandlerProvider).handleException(e);
+    } finally {
+      _ref.read(overlayLoadingProvider.notifier).state = false;
+    }
+  }
+
+  Future<void> logOut() async {
+    try {
+      await _ref.read(firebaseAuthRepositoryProvider).signOut();
+      _ref.read(scaffoldMessengerHelperProvider).showSnackBar('ログアウトしました 😌');
+    } on Exception catch (e) {
+      _ref.read(exceptionHandlerProvider).handleException(e);
+    }
   }
 }
