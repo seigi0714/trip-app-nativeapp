@@ -14,6 +14,7 @@ class TripListPage extends HookConsumerWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.go('/$path/${TripNewPage.path}'),
+        child: const Icon(Icons.add,color: Colors.white,),
       ),
       body: const SafeArea(
         child: Center(

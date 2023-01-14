@@ -6,7 +6,7 @@ import 'package:trip_app_nativeapp/view/pages/error_page.dart';
 import 'package:trip_app_nativeapp/view/pages/home_page.dart';
 import 'package:trip_app_nativeapp/view/pages/loading_page.dart';
 import 'package:trip_app_nativeapp/view/pages/login_page.dart';
-import 'package:trip_app_nativeapp/view/pages/trips/trips_list.dart';
+import 'package:trip_app_nativeapp/view/pages/trips/trips_list_page.dart';
 import 'package:trip_app_nativeapp/view/pages/trips/trips_new_page.dart';
 
 part 'router.g.dart';
