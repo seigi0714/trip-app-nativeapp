@@ -14,7 +14,6 @@ jobs:
   flutter_test:
     name: Flutter Test (ubuntu-latest)
     permissions:
-      actions: write
       checks: write
       contents: read
     runs-on: ubuntu-latest
