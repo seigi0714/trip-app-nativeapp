@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/cache/login_token.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
@@ -12,7 +13,7 @@ HeaderInterceptor headerInterceptor(
 ) {
   return HeaderInterceptor(
     apiDestination,
-    ref.watch(loginTokenProvider.future),
+    ref,
   );
 }
 
@@ -20,13 +21,13 @@ HeaderInterceptor headerInterceptor(
 class HeaderInterceptor extends Interceptor {
   HeaderInterceptor(
     this._apiDestination,
-    this._loginTokenProvider, [
+    this._ref, [
     this.overwriteUrl,
   ]);
 
   String? overwriteUrl;
   final ApiDestination _apiDestination;
-  final Future<String> _loginTokenProvider;
+  final Ref _ref;
 
   @override
   Future<void> onRequest(
@@ -38,7 +39,7 @@ class HeaderInterceptor extends Interceptor {
     options.headers['Accept'] = 'application/json';
 
     if (_apiDestination.isRequiredToken) {
-      final loginToken = await _loginTokenProvider;
+      final loginToken = await _ref.read(loginTokenProvider.future);
       options.headers['Authorization'] = 'Bearer $loginToken';
     }
 
