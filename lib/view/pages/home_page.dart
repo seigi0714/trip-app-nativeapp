@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
@@ -25,6 +26,11 @@ class HomePage extends ConsumerWidget {
               ElevatedButton(
                 onPressed: () => ref.read(authControllerProvider).logOut(),
                 child: const Text('ログアウト'),
+              ),
+
+              ElevatedButton(
+                onPressed: () => context.go('/trips'),
+                child: const Text('旅一覧ページ'),
               ),
             ],
           ),

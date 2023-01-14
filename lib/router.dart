@@ -6,6 +6,8 @@ import 'package:trip_app_nativeapp/view/pages/error_page.dart';
 import 'package:trip_app_nativeapp/view/pages/home_page.dart';
 import 'package:trip_app_nativeapp/view/pages/loading_page.dart';
 import 'package:trip_app_nativeapp/view/pages/login_page.dart';
+import 'package:trip_app_nativeapp/view/pages/trips/trips_list_page.dart';
+import 'package:trip_app_nativeapp/view/pages/trips/trips_new_page.dart';
 
 part 'router.g.dart';
 
@@ -38,6 +40,20 @@ GoRouter router(RouterRef ref) {
               ErrorPage(errorMessage: state.error.toString()),
           loading: () => const LoadingPage(),
         ),
+        routes: [
+          GoRoute(
+            path: TripListPage.path,
+            name: TripListPage.name,
+            builder: (context, state) => const TripListPage(),
+            routes: [
+              GoRoute(
+                path: TripNewPage.path,
+                name: TripNewPage.name,
+                builder: (context, state) => const TripNewPage(),
+              ),
+            ],
+          ),
+        ],
       ),
       GoRoute(
         path: LoginPage.path,
