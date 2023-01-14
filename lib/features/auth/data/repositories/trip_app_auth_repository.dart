@@ -41,7 +41,7 @@ class TripAppAuthRepository implements TripAppAuthInterface {
   @override
   Future<void> createUserWithFirebaseIdToken({required String name}) async {
     await privateV1Client.post(
-      '/auth/signup/firebase_id_token',
+      '/auth/login/firebase_id_token',
       data: <String, String>{
         'name': name,
       },
