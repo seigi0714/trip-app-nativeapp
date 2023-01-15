@@ -33,6 +33,7 @@ class AuthController {
           await _ref.read(authInteractorProvider).loginWithGoogle();
           break;
       }
+      _ref.read(scaffoldMessengerHelperProvider).showSnackBar('ログインしました 🙌');
     } on Exception catch (e) {
       _ref.read(exceptionHandlerProvider).handleException(e);
     } finally {
