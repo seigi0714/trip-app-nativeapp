@@ -1,4 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
+import 'package:trip_app_nativeapp/core/exception/exception_code.dart';
 import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interactor.dart';
 import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart';
@@ -18,16 +20,16 @@ Future<void> createTrip(
 }) async {
   try {
     if (title.isEmpty) {
-      ref
-          .read(scaffoldMessengerHelperProvider)
-          .showSnackBar(emptyTripTitleMessage);
-      return;
+      throw const AppException(
+        code: ExceptionCode.invalidFormValue,
+        message: emptyTripTitleMessage,
+      );
     }
     if (fromDate.compareTo(endDate) == 1) {
-      ref
-          .read(scaffoldMessengerHelperProvider)
-          .showSnackBar(tripDateCompareErrorMessage);
-      return;
+      throw const AppException(
+        code: ExceptionCode.invalidFormValue,
+        message: tripDateCompareErrorMessage,
+      );
     }
 
     await ref.read(tripInteractorProvider).createTrip(title, fromDate, endDate);
@@ -37,5 +39,6 @@ Future<void> createTrip(
         .showSnackBar(createTripSuccessMessage);
   } on Exception catch (e) {
     ref.read(exceptionHandlerProvider).handleException(e);
+    rethrow;
   }
 }
