@@ -2,6 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
+import 'package:trip_app_nativeapp/core/exception/exception_code.dart';
 import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
 import 'package:trip_app_nativeapp/features/trips/controller/trip_controller.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interactor.dart';
@@ -83,8 +85,11 @@ Future<void> main() async {
     });
     test('準正常系 タイトルが空文字の場合旅作成は行わない', () async {
       when(
-        mockScaffoldMessengerHelper.showSnackBar(
-          emptyTripTitleMessage,
+        mockExceptionHandler.handleException(
+          const AppException(
+            code: ExceptionCode.invalidFormValue,
+            message: emptyTripTitleMessage,
+          ),
         ),
       ).thenReturn(null);
 
@@ -96,7 +101,18 @@ Future<void> main() async {
             endDate: validEndDate,
           ).future,
         ),
-        completes,
+        throwsA(
+          isA<AppException>()
+            ..having(
+              (e) => e.code,
+              'errorCode',
+              ExceptionCode.invalidFormValue,
+            ).having(
+              (e) => e.message,
+              'errorMessage',
+              emptyTripTitleMessage,
+            ),
+        ),
       );
 
       verifyNever(
@@ -107,15 +123,21 @@ Future<void> main() async {
         ),
       );
       verify(
-        mockScaffoldMessengerHelper.showSnackBar(
-          emptyTripTitleMessage,
+        mockExceptionHandler.handleException(
+          const AppException(
+            code: ExceptionCode.invalidFormValue,
+            message: emptyTripTitleMessage,
+          ),
         ),
       ).called(1);
     });
     test('準正常系 帰宅日が出発日より以前の日付の場合旅作成は行わない', () async {
       when(
-        mockScaffoldMessengerHelper.showSnackBar(
-          tripDateCompareErrorMessage,
+        mockExceptionHandler.handleException(
+          const AppException(
+            code: ExceptionCode.invalidFormValue,
+            message: tripDateCompareErrorMessage,
+          ),
         ),
       ).thenReturn(null);
 
@@ -127,7 +149,18 @@ Future<void> main() async {
             endDate: invalidEndDate,
           ).future,
         ),
-        completes,
+        throwsA(
+          isA<AppException>()
+            ..having(
+              (e) => e.code,
+              'errorCode',
+              ExceptionCode.invalidFormValue,
+            ).having(
+              (e) => e.message,
+              'errorMessage',
+              tripDateCompareErrorMessage,
+            ),
+        ),
       );
 
       verifyNever(
@@ -138,8 +171,11 @@ Future<void> main() async {
         ),
       );
       verify(
-        mockScaffoldMessengerHelper.showSnackBar(
-          tripDateCompareErrorMessage,
+        mockExceptionHandler.handleException(
+          const AppException(
+            code: ExceptionCode.invalidFormValue,
+            message: tripDateCompareErrorMessage,
+          ),
         ),
       ).called(1);
     });
@@ -166,7 +202,9 @@ Future<void> main() async {
             endDate: validEndDate,
           ).future,
         ),
-        completes,
+        throwsA(
+          isA<Exception>(),
+        ),
       );
 
       verify(
