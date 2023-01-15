@@ -21,6 +21,10 @@ Future<void> main() async {
   final mockScaffoldMessengerHelper = MockScaffoldMessengerHelper();
   final mockExceptionHandler = MockExceptionHandler();
 
+  // callbackがちゃんと呼ばれているかチェックするため
+  // 実際にはScaffoldMessengerHelperのメソッドが呼ばれているわけでは無い
+  final mockOnSuccess = MockScaffoldMessengerHelper();
+
   const validName = 'test_user';
   final validFromDate = DateTime(2023);
   final validEndDate = DateTime(2023, 1, 2);
@@ -60,13 +64,12 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(
-          createTripProvider(
-            title: validName,
-            fromDate: validFromDate,
-            endDate: validEndDate,
-          ).future,
-        ),
+        providerContainer.read(tripControllerProvider).createTrip(
+              title: validName,
+              fromDate: validFromDate,
+              endDate: validEndDate,
+              onSuccess: () => mockOnSuccess.showSnackBar('成功時コールバック'),
+            ),
         completes,
       );
 
@@ -82,6 +85,7 @@ Future<void> main() async {
           createTripSuccessMessage,
         ),
       ).called(1);
+      verify(mockOnSuccess.showSnackBar('成功時コールバック')).called(1);
     });
     test('準正常系 タイトルが空文字の場合旅作成は行わない', () async {
       when(
@@ -94,25 +98,13 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(
-          createTripProvider(
-            title: '',
-            fromDate: validFromDate,
-            endDate: validEndDate,
-          ).future,
-        ),
-        throwsA(
-          isA<AppException>()
-            ..having(
-              (e) => e.code,
-              'errorCode',
-              ExceptionCode.invalidFormValue,
-            ).having(
-              (e) => e.message,
-              'errorMessage',
-              emptyTripTitleMessage,
+        providerContainer.read(tripControllerProvider).createTrip(
+              title: '',
+              fromDate: validFromDate,
+              endDate: validEndDate,
+              onSuccess: () => mockOnSuccess.showSnackBar('成功時コールバック'),
             ),
-        ),
+        completes,
       );
 
       verifyNever(
@@ -130,6 +122,7 @@ Future<void> main() async {
           ),
         ),
       ).called(1);
+      verifyNever(mockOnSuccess.showSnackBar('成功時コールバック'));
     });
     test('準正常系 帰宅日が出発日より以前の日付の場合旅作成は行わない', () async {
       when(
@@ -142,25 +135,13 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(
-          createTripProvider(
-            title: validName,
-            fromDate: validFromDate,
-            endDate: invalidEndDate,
-          ).future,
-        ),
-        throwsA(
-          isA<AppException>()
-            ..having(
-              (e) => e.code,
-              'errorCode',
-              ExceptionCode.invalidFormValue,
-            ).having(
-              (e) => e.message,
-              'errorMessage',
-              tripDateCompareErrorMessage,
+        providerContainer.read(tripControllerProvider).createTrip(
+              title: validName,
+              fromDate: validFromDate,
+              endDate: invalidEndDate,
+              onSuccess: () => mockOnSuccess.showSnackBar('成功時コールバック'),
             ),
-        ),
+        completes,
       );
 
       verifyNever(
@@ -178,6 +159,7 @@ Future<void> main() async {
           ),
         ),
       ).called(1);
+      verifyNever(mockOnSuccess.showSnackBar('成功時コールバック'));
     });
     test('異常系 旅作成に失敗', () async {
       when(
@@ -195,16 +177,13 @@ Future<void> main() async {
       ).thenThrow(unexpectedException);
 
       await expectLater(
-        providerContainer.read(
-          createTripProvider(
-            title: validName,
-            fromDate: validFromDate,
-            endDate: validEndDate,
-          ).future,
-        ),
-        throwsA(
-          isA<Exception>(),
-        ),
+        providerContainer.read(tripControllerProvider).createTrip(
+              title: validName,
+              fromDate: validFromDate,
+              endDate: validEndDate,
+              onSuccess: () => mockOnSuccess.showSnackBar('成功時コールバック'),
+            ),
+        completes,
       );
 
       verify(
@@ -222,6 +201,7 @@ Future<void> main() async {
       verify(
         mockExceptionHandler.handleException(unexpectedException),
       ).called(1);
+      verifyNever(mockOnSuccess.showSnackBar('成功時コールバック'));
     });
   });
 }
