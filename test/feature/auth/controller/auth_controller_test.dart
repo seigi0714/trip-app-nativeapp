@@ -68,7 +68,7 @@ Future<void> main() async {
     reset(mockFirebaseAuthRepository);
   });
 
-  group('loginController', () {
+  group('login', () {
     test('正常系 LINEログイン', () async {
       when(mockAuthInteractor.loginWithLINE()).thenAnswer((_) async {});
       when(
@@ -78,7 +78,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(loginProvider(LoginType.line).future),
+        providerContainer.read(authControllerProvider).login(LoginType.line),
         completes,
       );
 
@@ -99,7 +99,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(loginProvider(LoginType.google).future),
+        providerContainer.read(authControllerProvider).login(LoginType.google),
         completes,
       );
 
@@ -120,7 +120,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(loginProvider(LoginType.line).future),
+        providerContainer.read(authControllerProvider).login(LoginType.line),
         completes,
       );
 
@@ -142,7 +142,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(loginProvider(LoginType.google).future),
+        providerContainer.read(authControllerProvider).login(LoginType.google),
         completes,
       );
 
@@ -156,7 +156,7 @@ Future<void> main() async {
     });
   });
 
-  group('logOutController', () {
+  group('logOut', () {
     test('正常系', () async {
       when(mockFirebaseAuthRepository.signOut()).thenAnswer((_) async {});
       when(
@@ -164,7 +164,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(logOutProvider.future),
+        providerContainer.read(authControllerProvider).logOut(),
         completes,
       );
 
@@ -179,7 +179,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(logOutProvider.future),
+        providerContainer.read(authControllerProvider).logOut(),
         completes,
       );
 
