@@ -38,6 +38,9 @@ class TripAppAuthRepository implements TripAppAuthInterface {
     return PostLoginResponse.fromJson(response.data).customToken;
   }
 
+  /// アカウントが trip-app-backend に存在しない場合は新規登録が行われる
+  ///
+  /// 存在する場合は ユーザーデータが返されるだけ
   @override
   Future<void> createUserWithFirebaseIdToken({required String name}) async {
     await privateV1Client.post(

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "274154645467-bnptd82lpmtmb1nfduob071qfi81ec9p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.seigiruka.trip_app_nativeapp",
+            "certificate_hash": "470e0cebba0184202205ef181338c1c1f80b4dbf"
+          }
+        },
+        {
           "client_id": "274154645467-duif0it6o5oqmg6o77lup3mupf0emnh9.apps.googleusercontent.com",
           "client_type": 3
         }

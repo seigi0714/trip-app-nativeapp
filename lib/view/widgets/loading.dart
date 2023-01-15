@@ -11,6 +11,10 @@ class OverlayLoading extends _$OverlayLoading {
   bool build() {
     return false;
   }
+
+  void startLoading() => state = true;
+
+  void endLoading() => state = false;
 }
 
 /// プライマリカラーの SpinkitCircle を表示する
