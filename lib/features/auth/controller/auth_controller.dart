@@ -23,7 +23,7 @@ class AuthController {
   final Ref _ref;
 
   Future<void> login(LoginType loginType) async {
-    _ref.read(overlayLoadingProvider.notifier).state = true;
+    _ref.read(overlayLoadingProvider.notifier).startLoading();
     try {
       switch (loginType) {
         case LoginType.line:
@@ -36,7 +36,7 @@ class AuthController {
     } on Exception catch (e) {
       _ref.read(exceptionHandlerProvider).handleException(e);
     } finally {
-      _ref.read(overlayLoadingProvider.notifier).state = false;
+      _ref.read(overlayLoadingProvider.notifier).endLoading();
     }
   }
 
