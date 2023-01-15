@@ -31,89 +31,14 @@ class _SystemHash {
   }
 }
 
-String $createTripHash() => r'ee3afc9e917c077d9a5a85aae875bfc877998cd4';
+String $tripControllerHash() => r'ecb9d08395accfaf9687b15c2b145bb9a666d1d1';
 
-/// See also [createTrip].
-class CreateTripProvider extends AutoDisposeFutureProvider<void> {
-  CreateTripProvider({
-    required this.title,
-    required this.fromDate,
-    required this.endDate,
-  }) : super(
-          (ref) => createTrip(
-            ref,
-            title: title,
-            fromDate: fromDate,
-            endDate: endDate,
-          ),
-          from: createTripProvider,
-          name: r'createTripProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : $createTripHash,
-        );
-
-  final String title;
-  final DateTime fromDate;
-  final DateTime endDate;
-
-  @override
-  bool operator ==(Object other) {
-    return other is CreateTripProvider &&
-        other.title == title &&
-        other.fromDate == fromDate &&
-        other.endDate == endDate;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, title.hashCode);
-    hash = _SystemHash.combine(hash, fromDate.hashCode);
-    hash = _SystemHash.combine(hash, endDate.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-typedef CreateTripRef = AutoDisposeFutureProviderRef<void>;
-
-/// See also [createTrip].
-final createTripProvider = CreateTripFamily();
-
-class CreateTripFamily extends Family<AsyncValue<void>> {
-  CreateTripFamily();
-
-  CreateTripProvider call({
-    required String title,
-    required DateTime fromDate,
-    required DateTime endDate,
-  }) {
-    return CreateTripProvider(
-      title: title,
-      fromDate: fromDate,
-      endDate: endDate,
-    );
-  }
-
-  @override
-  AutoDisposeFutureProvider<void> getProviderOverride(
-    covariant CreateTripProvider provider,
-  ) {
-    return call(
-      title: provider.title,
-      fromDate: provider.fromDate,
-      endDate: provider.endDate,
-    );
-  }
-
-  @override
-  List<ProviderOrFamily>? get allTransitiveDependencies => null;
-
-  @override
-  List<ProviderOrFamily>? get dependencies => null;
-
-  @override
-  String? get name => r'createTripProvider';
-}
+/// See also [tripController].
+final tripControllerProvider = AutoDisposeProvider<TripController>(
+  tripController,
+  name: r'tripControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : $tripControllerHash,
+);
+typedef TripControllerRef = AutoDisposeProviderRef<TripController>;

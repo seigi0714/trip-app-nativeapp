@@ -65,21 +65,17 @@ class TripNewPage extends HookConsumerWidget {
               ),
               ElevatedButton(
                 child: const Text('作成'),
-                onPressed: () async {
-                  try {
-                    await ref.read(
-                      createTripProvider(
+                onPressed: () {
+                  ref.read(tripControllerProvider).createTrip(
                         title: titleEditingController.text,
                         fromDate: fromDate.value,
                         endDate: endDate.value,
-                      ).future,
-                    );
-                    if (!isMounted()) return;
-                    //ignore: use_build_context_synchronously
-                    context.pop();
-                  } catch (e) {
-                    // controller側でハンドリングしているのでここでは踏み潰す
-                  }
+                        onSuccess: () {
+                          if (!isMounted()) return;
+                          //ignore: use_build_context_synchronously
+                          context.pop();
+                        },
+                      );
                 },
               ),
             ],
