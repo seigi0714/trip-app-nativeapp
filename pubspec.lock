@@ -322,7 +322,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_datetime_picker:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_datetime_picker
       url: "https://pub.dartlang.org"
