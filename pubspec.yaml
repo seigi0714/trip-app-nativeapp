@@ -46,6 +46,8 @@ dev_dependencies:
   json_serializable: ^6.5.4
   riverpod_generator: ^1.0.6
   very_good_analysis: ^3.1.0
+  flutter_datetime_picker: ^1.5.1
+
 
 flutter:
   uses-material-design: true
