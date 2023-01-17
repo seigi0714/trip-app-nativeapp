@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
 import 'package:trip_app_nativeapp/core/exception/exception_code.dart';
 
+@immutable
 class TripPeriod {
   TripPeriod({required this.fromDate, required this.endDate}) {
     if (fromDate.compareTo(endDate) == 1) {
