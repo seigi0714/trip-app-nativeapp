@@ -27,19 +27,6 @@ class TripController {
     VoidCallback? onSuccess,
   }) async {
     try {
-      if (title.isEmpty) {
-        throw const AppException(
-          code: ExceptionCode.invalidFormValue,
-          message: emptyTripTitleMessage,
-        );
-      }
-      if (fromDate.compareTo(endDate) == 1) {
-        throw const AppException(
-          code: ExceptionCode.invalidFormValue,
-          message: tripDateCompareErrorMessage,
-        );
-      }
-
       await _ref
           .read(tripInteractorProvider)
           .createTrip(title, fromDate, endDate);

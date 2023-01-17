@@ -1,3 +1,5 @@
 class ExceptionCode {
-  static const String invalidFormValue = 'invalid_form_value';
+  // entity,value objectバリデーション
+  static const String invalidTripTitle = 'invalid_trip_title';
+  static const String invalidTripPeriod = 'invalid_trip_period';
 }

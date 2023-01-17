@@ -1,12 +1,24 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_period.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_title.dart';
 
-part 'trip.freezed.dart';
+class Trip {
+  Trip._({required this.title, required this.tripPeriod});
 
-@freezed
-class Trip with _$Trip {
-  const factory Trip({
+  // 新規作成時のfactory関数
+  factory Trip.createNewTrip({
     required String title,
     required DateTime fromDate,
     required DateTime endDate,
-  }) = _Trip;
+  }) {
+    return Trip._(
+      title: TripTitle(title),
+      tripPeriod: TripPeriod(
+        fromDate: fromDate,
+        endDate: endDate,
+      ),
+    );
+  }
+
+  final TripTitle title;
+  final TripPeriod tripPeriod;
 }
