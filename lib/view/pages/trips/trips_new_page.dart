@@ -14,7 +14,6 @@ class TripNewPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isMounted = useIsMounted();
     final titleEditingController =
         useTextEditingController.fromValue(TextEditingValue.empty);
     final fromDate = useState(DateTime.now());
@@ -70,11 +69,7 @@ class TripNewPage extends HookConsumerWidget {
                         title: titleEditingController.text,
                         fromDate: fromDate.value,
                         endDate: endDate.value,
-                        onSuccess: () {
-                          if (!isMounted()) return;
-                          //ignore: use_build_context_synchronously
-                          context.pop();
-                        },
+                        onSuccess: () => context.pop(),
                       );
                 },
               ),
