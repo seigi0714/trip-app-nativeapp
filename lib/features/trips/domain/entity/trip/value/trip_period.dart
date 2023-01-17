@@ -6,7 +6,7 @@ class TripPeriod {
     if (fromDate.compareTo(endDate) == 1) {
       throw const AppException(
         code: ExceptionCode.invalidTripPeriod,
-        message: '帰宅日が出発日以前の日付になっています。',
+        message: '帰宅日が出発日過去より日付になっています。',
       );
     }
   }
