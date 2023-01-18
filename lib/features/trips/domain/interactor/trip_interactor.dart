@@ -1,5 +1,4 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 
 part 'trip_interactor.g.dart';
 
