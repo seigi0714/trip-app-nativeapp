@@ -15,6 +15,5 @@ class TripInteractor {
     DateTime endDate,
   ) async {
     // TODO(seigi0714): あとで実装
-    final tripEntity = Trip.createNewTrip(title: title, fromDate: fromDate, endDate: endDate);
   }
 }
