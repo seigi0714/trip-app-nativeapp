@@ -1,10 +1,15 @@
 extension DateTimeExtensions on DateTime {
   String toJsonDateString() {
-    return '${year.toString()}-${month.toString().padLeft(2, "0")}-${day.toString().padLeft(2, "0")}';
+    return '${year.toString()}-$monthStr-$dayStr';
   }
 
+  String get monthStr => month.toString().padLeft(2, '0');
+
+  String get dayStr => day.toString().padLeft(2, '0');
+  
+
   String toDateString() {
-    return '${year.toString()}/${month.toString().padLeft(2, "0")}/${day.toString().padLeft(2, "0")} (${weekdayJpString()})';
+    return '${year.toString()}/$monthStr/$dayStr (${weekdayJpString()})';
   }
 
   String weekdayJpString() {
