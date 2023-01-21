@@ -9,11 +9,11 @@ Future<void> main() async {
 
   group('TripTitle コンストラクタ', () {
     test('正常系', () async {
-      expect(() => TripTitle(validTitle), returnsNormally);
+      expect(() => TripTitle(value: validTitle), returnsNormally);
     });
     test('純正常系 タイトルは空文字は受け付けない', () async {
       expect(
-        () => TripTitle(emptyTitle),
+        () => TripTitle(value: emptyTitle),
         throwsA(
           isA<AppException>()
             ..having(
