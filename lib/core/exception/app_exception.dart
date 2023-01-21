@@ -5,7 +5,6 @@ class AppException implements Exception {
   const AppException({
     this.code,
     this.message,
-    this.defaultMessage = 'エラーが発生しました。',
   });
 
   /// ステータスコードや独自のエラーコードなどのエラー種別を識別するための文字列
@@ -15,13 +14,18 @@ class AppException implements Exception {
   final String? message;
 
   /// message が空の場合に使用されるメッセージ
-  final String defaultMessage;
+  static const String _defaultMessage = 'エラーが発生しました。';
 
   @override
   String toString() {
     if (code == null) {
-      return (message ?? '').ifIsEmpty(defaultMessage);
+      return (message ?? '').ifIsEmpty(_defaultMessage);
     }
-    return '[$code] ${(message ?? '').ifIsEmpty(defaultMessage)}';
+    return '[$code] ${(message ?? '').ifIsEmpty(_defaultMessage)}';
+  }
+
+  // 画面表示用メッセージ
+  String toDisplayMessage() {
+   return (message ?? '').ifIsEmpty(_defaultMessage);
   }
 }

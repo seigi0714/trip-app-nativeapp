@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/constants/string.dart';
 import 'package:trip_app_nativeapp/core/exception/api_exception.dart';
+import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
 import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart';
 
@@ -27,10 +28,16 @@ class ExceptionHandler {
           .replaceAll('Exception: ', '')
           .replaceAll('Exception', '');
     }
+
     if (e is ApiException) {
       _handleApiException(e);
+    } else if (e is AppException) {
+      _ref.read(scaffoldMessengerHelperProvider).showSnackBar(
+            e.toDisplayMessage(),
+          );
+    } else {
+      _ref.read(scaffoldMessengerHelperProvider).showSnackBar(message);
     }
-    _ref.read(scaffoldMessengerHelperProvider).showSnackBar(message);
   }
 
   void _handleApiException(ApiException e) {
