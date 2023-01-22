@@ -11,8 +11,7 @@ class TripInvitation with _$TripInvitation {
     required TripInvitationNum invitationNum,
   }) = NewTripInvitation;
 
-  /// 作成済み旅エンティティのfactory関数
-  /// 現状一緒だけどcreateNewTripと内容変わるはずなので定義しておく
+  /// 招待コード生成後のエンティティのfactory関数
   factory TripInvitation.createGeneratedTripInvitation({
     required int tripId,
     required TripInvitationNum invitationNum,
