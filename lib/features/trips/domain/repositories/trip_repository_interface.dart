@@ -5,7 +5,7 @@ abstract class TripRepositoryInterface {
   /// 旅データ作成
   Future<Trip> createTrip(Trip trip);
   /// 招待状作成
-  Future<GeneratedTripInvitation> generateInvitation(
+  Future<GeneratedTripInvitation> invite(
     NewTripInvitation invitation,
   );
 }
