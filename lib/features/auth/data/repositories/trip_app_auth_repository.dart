@@ -1,4 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
 import 'package:trip_app_nativeapp/features/auth/data/models/post_login_response/post_login_response.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/entity/custom_token.dart';
@@ -20,8 +21,8 @@ class TripAppAuthRepository implements TripAppAuthInterface {
     required this.privateV1Client,
   });
 
-  final ApiClient publicV1Client;
-  final ApiClient privateV1Client;
+  final AbstractApiClient publicV1Client;
+  final AbstractApiClient privateV1Client;
 
   @override
   Future<CustomToken> loginWithIdToken({

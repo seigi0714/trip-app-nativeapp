@@ -3,10 +3,12 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interactor.dart'
+    as _i3;
+import 'package:trip_app_nativeapp/features/trips/domain/repositories/trip_repository_interface.dart'
     as _i2;
 
 // ignore_for_file: type=lint
@@ -20,17 +22,36 @@ import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interac
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeTripRepositoryInterface_0 extends _i1.SmartFake
+    implements _i2.TripRepositoryInterface {
+  _FakeTripRepositoryInterface_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [TripInteractor].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTripInteractor extends _i1.Mock implements _i2.TripInteractor {
+class MockTripInteractor extends _i1.Mock implements _i3.TripInteractor {
   MockTripInteractor() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<void> createTrip(
-    String? name,
+  _i2.TripRepositoryInterface get tripRepo => (super.noSuchMethod(
+        Invocation.getter(#tripRepo),
+        returnValue: _FakeTripRepositoryInterface_0(
+          this,
+          Invocation.getter(#tripRepo),
+        ),
+      ) as _i2.TripRepositoryInterface);
+  @override
+  _i4.Future<void> createTrip(
+    String? title,
     DateTime? fromDate,
     DateTime? endDate,
   ) =>
@@ -38,12 +59,12 @@ class MockTripInteractor extends _i1.Mock implements _i2.TripInteractor {
         Invocation.method(
           #createTrip,
           [
-            name,
+            title,
             fromDate,
             endDate,
           ],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

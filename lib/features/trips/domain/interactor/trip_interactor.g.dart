@@ -31,7 +31,7 @@ class _SystemHash {
   }
 }
 
-String $tripInteractorHash() => r'e0bfb0ed3389322f6f70bd14b218abf5723d303a';
+String $tripInteractorHash() => r'a652d163a62d0bf37feea5675ea5e67ddca1aa23';
 
 /// See also [tripInteractor].
 final tripInteractorProvider = AutoDisposeProvider<TripInteractor>(

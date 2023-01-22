@@ -2,7 +2,7 @@
 
 // ignore_for_file: type=lint, implicit_dynamic_parameter, implicit_dynamic_type, implicit_dynamic_method, strict_raw_type
 
-part of 'router.dart';
+part of 'trip_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -31,13 +31,14 @@ class _SystemHash {
   }
 }
 
-String $routerHash() => r'ef11b67044fa3f59b83ca0247ccea17ab95d402f';
+String $tripRepositoryHash() => r'efd2fdd05eebdcae3167e10a504d71c811c9ebf2';
 
-/// See also [router].
-final routerProvider = AutoDisposeProvider<GoRouter>(
-  router,
-  name: r'routerProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : $routerHash,
+/// See also [tripRepository].
+final tripRepositoryProvider = AutoDisposeProvider<TripRepositoryInterface>(
+  tripRepository,
+  name: r'tripRepositoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : $tripRepositoryHash,
 );
-typedef RouterRef = AutoDisposeProviderRef<GoRouter>;
+typedef TripRepositoryRef = AutoDisposeProviderRef<TripRepositoryInterface>;

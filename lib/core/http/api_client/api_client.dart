@@ -12,7 +12,7 @@ part 'api_client.g.dart';
 
 /// 認証なしTripAppApiのAPIクライアントクラスを提供する。
 @riverpod
-ApiClient publicTripAppV1Client(PublicTripAppV1ClientRef ref) {
+AbstractApiClient publicTripAppV1Client(PublicTripAppV1ClientRef ref) {
   return ApiClient(
     ref.watch(
       dioProvider(ApiDestination.publicTripAppV1),
@@ -22,7 +22,7 @@ ApiClient publicTripAppV1Client(PublicTripAppV1ClientRef ref) {
 
 /// 認証ありTripAppApiのAPIクライアントクラスを提供する。
 @riverpod
-ApiClient privateTripAppV1Client(PrivateTripAppV1ClientRef ref) {
+AbstractApiClient privateTripAppV1Client(PrivateTripAppV1ClientRef ref) {
   return ApiClient(
     ref.watch(
       dioProvider(ApiDestination.privateTripAppV1),

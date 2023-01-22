@@ -1,16 +1,20 @@
-import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
 import 'package:trip_app_nativeapp/core/exception/exception_code.dart';
 
-@immutable
-class TripTitle {
-  TripTitle(this.title) {
-    if (title.isEmpty) {
+part 'trip_title.freezed.dart';
+
+@Freezed(copyWith: false)
+class TripTitle with _$TripTitle {
+  factory TripTitle({required String value}) {
+    if (value.isEmpty) {
       throw const AppException(
         code: ExceptionCode.invalidTripTitle,
         message: '旅のタイトルが空文字です。',
       );
     }
+    return TripTitle._internal(value: value);
   }
-  final String title;
+
+  factory TripTitle._internal({required String value}) = _TripTitle;
 }
