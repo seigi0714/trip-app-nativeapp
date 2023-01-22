@@ -31,16 +31,16 @@ class _SystemHash {
   }
 }
 
-String $firebaseAuthHash() => r'e9b402f7c78fff0de442bc85fa64f91849d0eb45';
+String $firebaseAuthHash() => r'46c40b7c5cf8ab936c0daa96a6af106bd2ae5d51';
 
 /// See also [firebaseAuth].
-final firebaseAuthProvider = AutoDisposeProvider<FirebaseAuth>(
+final firebaseAuthProvider = Provider<FirebaseAuth>(
   firebaseAuth,
   name: r'firebaseAuthProvider',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product') ? null : $firebaseAuthHash,
 );
-typedef FirebaseAuthRef = AutoDisposeProviderRef<FirebaseAuth>;
+typedef FirebaseAuthRef = ProviderRef<FirebaseAuth>;
 String $firebaseAuthRepositoryHash() =>
     r'd15bac294cad72ed28f714e426e86c329a8eb7da';
 

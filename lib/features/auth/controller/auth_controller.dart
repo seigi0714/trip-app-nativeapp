@@ -10,7 +10,7 @@ import 'package:trip_app_nativeapp/view/widgets/loading.dart';
 
 part 'auth_controller.g.dart';
 
-final firebaseAuthUserProvider = StreamProvider.autoDispose<User?>(
+final firebaseAuthUserProvider = StreamProvider<User?>(
   (ref) => ref.watch(firebaseAuthProvider).userChanges(),
 );
 
