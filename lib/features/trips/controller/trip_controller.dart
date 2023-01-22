@@ -49,7 +49,7 @@ class TripController {
       _ref.read(overlayLoadingProvider.notifier).startLoading();
       final invitation = await _ref
           .read(tripInteractorProvider)
-          .generateInvitation(tripId: tripId, invitationNum: invitationNum);
+          .invite(tripId: tripId, invitationNum: invitationNum);
 
       // TODO(seigi0714): ダイナミックリンクをクリップボードにコピー
       final data = ClipboardData(text: invitation.invitationCode);

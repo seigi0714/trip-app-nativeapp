@@ -28,7 +28,7 @@ class TripInteractor {
     await tripRepo.createTrip(trip);
   }
 
-  Future<GeneratedTripInvitation> generateInvitation({
+  Future<GeneratedTripInvitation> invite({
     required int tripId,
     required int invitationNum,
   }) async {
@@ -38,7 +38,7 @@ class TripInteractor {
       invitationNum: tripInvitationNum,
     ) as NewTripInvitation;
 
-    final result = await tripRepo.generateInvitation(invitation);
+    final result = await tripRepo.invite(invitation);
     return result;
   }
 }
