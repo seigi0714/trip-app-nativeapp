@@ -27,7 +27,7 @@ Future<void> main() async {
     endDate: validEndDate,
   );
 
-  final validResult = Trip.createCreatedTrip(
+  final validResult = Trip.createExistingTrip(
     title: validTitle,
     fromDate: validFromDate,
     endDate: validEndDate,

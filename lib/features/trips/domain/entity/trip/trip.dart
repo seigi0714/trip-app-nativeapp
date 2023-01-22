@@ -28,7 +28,7 @@ class Trip with _$Trip {
 
   /// 作成済み旅エンティティのfactory関数
   /// 現状一緒だけどcreateNewTripと内容変わるはずなので定義しておく
-  factory Trip.createCreatedTrip({
+  factory Trip.createExistingTrip({
     required String title,
     required DateTime fromDate,
     required DateTime endDate,

@@ -32,7 +32,7 @@ class TripRepository implements TripRepositoryInterface {
     };
     final res = await privateV1Client.post(_basePath, data: bodyMap);
     final tripRes = CreateTripResponse.fromJson(res.data);
-    return Trip.createCreatedTrip(
+    return Trip.createExistingTrip(
       title: tripRes.name,
       fromDate: tripRes.fromDate,
       endDate: tripRes.endDate,
