@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:trip_app_nativeapp/core/cache/app_user/models/app_user.dart';
+import 'package:trip_app_nativeapp/core/cache/app_user/model/app_user.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
 import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
 
