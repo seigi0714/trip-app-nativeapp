@@ -27,7 +27,6 @@ class HomePage extends ConsumerWidget {
                 onPressed: () => ref.read(authControllerProvider).logOut(),
                 child: const Text('ログアウト'),
               ),
-
               ElevatedButton(
                 onPressed: () => context.go('/trips'),
                 child: const Text('旅一覧ページ'),

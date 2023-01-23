@@ -20,7 +20,7 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AppUser {
-  String get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
 
@@ -34,7 +34,7 @@ abstract class $AppUserCopyWith<$Res> {
   factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) then) =
       _$AppUserCopyWithImpl<$Res, AppUser>;
   @useResult
-  $Res call({String id, String name, String email});
+  $Res call({int id, String name, String email});
 }
 
 /// @nodoc
@@ -58,7 +58,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -78,7 +78,7 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       __$$_AppUserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String email});
+  $Res call({int id, String name, String email});
 }
 
 /// @nodoc
@@ -99,7 +99,7 @@ class __$$_AppUserCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -121,7 +121,7 @@ class _$_AppUser implements _AppUser {
       _$$_AppUserFromJson(json);
 
   @override
-  final String id;
+  final int id;
   @override
   final String name;
   @override
@@ -162,14 +162,14 @@ class _$_AppUser implements _AppUser {
 
 abstract class _AppUser implements AppUser {
   const factory _AppUser(
-      {required final String id,
+      {required final int id,
       required final String name,
       required final String email}) = _$_AppUser;
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
 
   @override
-  String get id;
+  int get id;
   @override
   String get name;
   @override
