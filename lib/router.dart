@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
+import 'package:trip_app_nativeapp/core/cache/app_user/app_user_notifier.dart';
 import 'package:trip_app_nativeapp/view/pages/error_page.dart';
 import 'package:trip_app_nativeapp/view/pages/home_page.dart';
 import 'package:trip_app_nativeapp/view/pages/loading_page.dart';
@@ -13,11 +13,11 @@ part 'router.g.dart';
 
 @riverpod
 GoRouter router(RouterRef ref) {
-  final userAsync = ref.watch(firebaseAuthUserProvider);
+  final appUserAsync = ref.watch(appUserNotifierProvider);
   return GoRouter(
     redirect: (BuildContext context, state) {
       final isAtLoginPage = state.subloc == LoginPage.path;
-      if (userAsync.value == null) {
+      if (appUserAsync.value == null) {
         return isAtLoginPage ? null : LoginPage.path;
       } else if (isAtLoginPage) {
         return HomePage.path;
@@ -29,7 +29,7 @@ GoRouter router(RouterRef ref) {
       GoRoute(
         path: HomePage.path,
         name: HomePage.name,
-        builder: (context, state) => userAsync.when(
+        builder: (context, state) => appUserAsync.when(
           data: (user) {
             if (user == null) {
               return const LoginPage();
