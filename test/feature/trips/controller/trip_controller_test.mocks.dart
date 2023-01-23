@@ -3,11 +3,13 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interactor.dart'
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart'
     as _i3;
+import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interactor.dart'
+    as _i4;
 import 'package:trip_app_nativeapp/features/trips/domain/repositories/trip_repository_interface.dart'
     as _i2;
 
@@ -33,10 +35,21 @@ class _FakeTripRepositoryInterface_0 extends _i1.SmartFake
         );
 }
 
+class _FakeGeneratedTripInvitation_1 extends _i1.SmartFake
+    implements _i3.GeneratedTripInvitation {
+  _FakeGeneratedTripInvitation_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [TripInteractor].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTripInteractor extends _i1.Mock implements _i3.TripInteractor {
+class MockTripInteractor extends _i1.Mock implements _i4.TripInteractor {
   MockTripInteractor() {
     _i1.throwOnMissingStub(this);
   }
@@ -50,7 +63,7 @@ class MockTripInteractor extends _i1.Mock implements _i3.TripInteractor {
         ),
       ) as _i2.TripRepositoryInterface);
   @override
-  _i4.Future<void> createTrip(
+  _i5.Future<void> createTrip(
     String? title,
     DateTime? fromDate,
     DateTime? endDate,
@@ -64,7 +77,34 @@ class MockTripInteractor extends _i1.Mock implements _i3.TripInteractor {
             endDate,
           ],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<_i3.GeneratedTripInvitation> invite({
+    required int? tripId,
+    required int? invitationNum,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #invite,
+          [],
+          {
+            #tripId: tripId,
+            #invitationNum: invitationNum,
+          },
+        ),
+        returnValue: _i5.Future<_i3.GeneratedTripInvitation>.value(
+            _FakeGeneratedTripInvitation_1(
+          this,
+          Invocation.method(
+            #invite,
+            [],
+            {
+              #tripId: tripId,
+              #invitationNum: invitationNum,
+            },
+          ),
+        )),
+      ) as _i5.Future<_i3.GeneratedTripInvitation>);
 }

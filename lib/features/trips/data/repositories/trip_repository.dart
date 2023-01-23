@@ -3,7 +3,10 @@ import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/create_trip_response.dart';
+import 'package:trip_app_nativeapp/features/trips/data/models/invite_trip_response.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_num.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/repositories/trip_repository_interface.dart';
 
 part 'trip_repository.g.dart';
@@ -37,5 +40,25 @@ class TripRepository implements TripRepositoryInterface {
       fromDate: tripRes.fromDate,
       endDate: tripRes.endDate,
     );
+  }
+
+  @override
+  Future<GeneratedTripInvitation> invite(NewTripInvitation invitation) async {
+    final bodyMap = {
+      'invitation_num': invitation.invitationNum.value,
+    };
+
+    final res = await privateV1Client.post(
+      '$_basePath/${invitation.tripId}/invite',
+      data: bodyMap,
+    );
+
+    final inviteRes = InviteTripResponse.fromJson(res.data);
+    final invitationNum = TripInvitationNum(value: inviteRes.invitationNum);
+    return TripInvitation.createGeneratedTripInvitation(
+      tripId: invitation.tripId,
+      invitationNum: invitationNum,
+      invitationCode: inviteRes.invitationCode,
+    ) as GeneratedTripInvitation;
   }
 }

@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interactor.dart';
 import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart';
+import 'package:trip_app_nativeapp/view/widgets/loading.dart';
 
 part 'trip_controller.g.dart';
 
@@ -35,6 +36,28 @@ class TripController {
       onSuccess?.call();
     } on Exception catch (e) {
       _ref.read(exceptionHandlerProvider).handleException(e);
+    }
+  }
+
+  Future<void> generateAndCopyInviteLink({
+    required int tripId,
+    required int invitationNum,
+  }) async {
+    const successMessage = '招待リンクをクリップボードにコピーしました。';
+    try {
+      _ref.read(overlayLoadingProvider.notifier).startLoading();
+      final invitation = await _ref
+          .read(tripInteractorProvider)
+          .invite(tripId: tripId, invitationNum: invitationNum);
+
+      // TODO(seigi0714): ダイナミックリンクをクリップボードにコピー
+      final data = ClipboardData(text: invitation.invitationCode);
+      await Clipboard.setData(data);
+      _ref.read(scaffoldMessengerHelperProvider).showSnackBar(successMessage);
+    } on Exception catch (e) {
+      _ref.read(exceptionHandlerProvider).handleException(e);
+    } finally {
+      _ref.read(overlayLoadingProvider.notifier).endLoading();
     }
   }
 }
