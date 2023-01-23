@@ -8,7 +8,7 @@ part 'app_user_notifier.g.dart';
 @Riverpod(keepAlive: true)
 class AppUserNotifier extends _$AppUserNotifier {
   @override
-  FutureOr<AppUser?> build() async {
+  Future<AppUser?> build() async {
     final authUserAsync = ref.watch(firebaseAuthUserProvider);
     if (authUserAsync.value != null) {
       final res =

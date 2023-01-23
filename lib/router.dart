@@ -17,13 +17,21 @@ GoRouter router(RouterRef ref) {
   return GoRouter(
     redirect: (BuildContext context, state) {
       final isAtLoginPage = state.subloc == LoginPage.path;
-      if (appUserAsync.value == null) {
-        return isAtLoginPage ? null : LoginPage.path;
-      } else if (isAtLoginPage) {
-        return HomePage.path;
-      } else {
-        return null;
-      }
+      return appUserAsync.when(
+        data: (user) {
+          if (user == null) {
+            return isAtLoginPage ? null : LoginPage.path;
+          } else if (isAtLoginPage) {
+            return HomePage.path;
+          } else {
+            return null;
+          }
+        },
+        // HomePage の GoRoute で appUserAsync.when でリダイレクトしているので、
+        // ここでは error, loading は null を返す。
+        error: (error, stackTrace) => null,
+        loading: () => null,
+      );
     },
     routes: [
       GoRoute(
