@@ -102,4 +102,18 @@ class ApiClient implements AbstractApiClient {
     }
     return ApiResponse.fromJson(responseData);
   }
+
+  /// DioError を受けて [ApiException] もしくはそのサブクラスをスローする。
+  Exception _handleDioError(DioError dioError) {
+    final errorType = dioError.type;
+    final dynamic error = dioError.error;
+    if (errorType.isTimeout) {
+      throw const ApiTimeoutException();
+    } else if (error is DioErrorCode &&
+        error == DioErrorCode.networkNotConnected) {
+      throw const NetworkNotConnectedException();
+    } else {
+      throw const ApiException();
+    }
+  }
 }
