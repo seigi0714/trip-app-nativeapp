@@ -44,9 +44,14 @@ GoRouter router(RouterRef ref) {
             }
             return const HomePage();
           },
-          error: (error, stackTrace) =>
-              ErrorPage(errorMessage: state.error.toString()),
           loading: () => const LoadingPage(),
+          error: (error, stackTrace) {
+            if (error is Exception) {
+              return ErrorPage(exception: error);
+            } else {
+              return const ErrorPage(exception: null);
+            }
+          },
         ),
         routes: [
           GoRoute(
@@ -71,7 +76,7 @@ GoRouter router(RouterRef ref) {
     ],
     errorPageBuilder: (context, state) => MaterialPage<Widget>(
       key: state.pageKey,
-      child: ErrorPage(errorMessage: state.error.toString()),
+      child: ErrorPage(exception: state.error),
     ),
   );
 }
