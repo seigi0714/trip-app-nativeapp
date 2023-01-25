@@ -27,10 +27,10 @@ GoRouter router(RouterRef ref) {
             return null;
           }
         },
-        // HomePage の GoRoute で appUserAsync.when でリダイレクトしているので、
-        // ここでは error, loading は null を返す。
-        error: (error, stackTrace) => null,
-        loading: () => null,
+        // HomePage の GoRoute で appUserAsync.when を使ってリダイレクトしているので、
+        // ここでは error, loading であっても HomePage.path にリダイレクトする
+        error: (error, stackTrace) => HomePage.path,
+        loading: () => HomePage.path,
       );
     },
     routes: [
