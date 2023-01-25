@@ -31,6 +31,7 @@ class ExceptionHandler {
 
     if (e is ApiException) {
       _handleApiException(e);
+      _ref.read(scaffoldMessengerHelperProvider).showSnackBar(e.message);
     } else if (e is AppException) {
       _ref.read(scaffoldMessengerHelperProvider).showSnackBar(
             e.toDisplayMessage(),
