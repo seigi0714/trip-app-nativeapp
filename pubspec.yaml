@@ -9,6 +9,7 @@ environment:
   sdk: '>=2.18.0 <3.0.0'
 
 dependencies:
+  connectivity_plus: ^3.0.2
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
   firebase_auth: ^3.11.0
