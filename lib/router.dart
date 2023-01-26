@@ -27,10 +27,9 @@ GoRouter router(RouterRef ref) {
             return null;
           }
         },
-        // HomePage の GoRoute で appUserAsync.when を使ってリダイレクトしているので、
-        // ここでは error, loading であっても HomePage.path にリダイレクトする
-        error: (error, stackTrace) => HomePage.path,
-        loading: () => HomePage.path,
+        // ここを null にしておかないと、アプリ起動時に一瞬 ErrorPage が表示されてしまう
+        loading: () => null,
+        error: (error, stackTrace) => null,
       );
     },
     routes: [
