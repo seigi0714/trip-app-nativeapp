@@ -9,8 +9,10 @@ class LoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: OverlayLoadingWidget(),
+    return const SizedBox.expand(
+      child: Center(
+        child: PrimarySpinkitCircle(),
+      ),
     );
   }
 }
