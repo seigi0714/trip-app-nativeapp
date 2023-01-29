@@ -33,7 +33,9 @@ class _SystemHash {
 
 String $isNetworkConnectedHash() => r'15c19859b29a363b03b2c9976eb6ad0bc59cac5d';
 
-/// See also [isNetworkConnected].
+/// ネットワーク接続状態を ref.read したい場合に使う
+///
+/// Copied from [isNetworkConnected].
 final isNetworkConnectedProvider = AutoDisposeFutureProvider<bool>(
   isNetworkConnected,
   name: r'isNetworkConnectedProvider',
