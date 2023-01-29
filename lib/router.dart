@@ -17,7 +17,7 @@ GoRouter router(RouterRef ref) {
   return GoRouter(
     redirect: (BuildContext context, state) {
       final isAtLoginPage = state.subloc == LoginPage.path;
-      return appUserAsync.when(
+      return appUserAsync.maybeWhen(
         data: (user) {
           if (user == null) {
             return isAtLoginPage ? null : LoginPage.path;
@@ -28,8 +28,7 @@ GoRouter router(RouterRef ref) {
           }
         },
         // ここを null にしておかないと、アプリ起動時に一瞬 ErrorPage が表示されてしまう
-        loading: () => null,
-        error: (error, stackTrace) => null,
+        orElse: () => null,
       );
     },
     routes: [
