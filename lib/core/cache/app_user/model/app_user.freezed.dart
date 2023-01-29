@@ -25,91 +25,6 @@ mixin _$AppUser {
   String get email => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $AppUserCopyWith<AppUser> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $AppUserCopyWith<$Res> {
-  factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) then) =
-      _$AppUserCopyWithImpl<$Res, AppUser>;
-  @useResult
-  $Res call({int id, String name, String email});
-}
-
-/// @nodoc
-class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
-    implements $AppUserCopyWith<$Res> {
-  _$AppUserCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? email = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
-  factory _$$_AppUserCopyWith(
-          _$_AppUser value, $Res Function(_$_AppUser) then) =
-      __$$_AppUserCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int id, String name, String email});
-}
-
-/// @nodoc
-class __$$_AppUserCopyWithImpl<$Res>
-    extends _$AppUserCopyWithImpl<$Res, _$_AppUser>
-    implements _$$_AppUserCopyWith<$Res> {
-  __$$_AppUserCopyWithImpl(_$_AppUser _value, $Res Function(_$_AppUser) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? email = null,
-  }) {
-    return _then(_$_AppUser(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
@@ -146,12 +61,6 @@ class _$_AppUser implements _AppUser {
   @override
   int get hashCode => Object.hash(runtimeType, id, name, email);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_AppUserCopyWith<_$_AppUser> get copyWith =>
-      __$$_AppUserCopyWithImpl<_$_AppUser>(this, _$identity);
-
   @override
   Map<String, dynamic> toJson() {
     return _$$_AppUserToJson(
@@ -174,8 +83,4 @@ abstract class _AppUser implements AppUser {
   String get name;
   @override
   String get email;
-  @override
-  @JsonKey(ignore: true)
-  _$$_AppUserCopyWith<_$_AppUser> get copyWith =>
-      throw _privateConstructorUsedError;
 }

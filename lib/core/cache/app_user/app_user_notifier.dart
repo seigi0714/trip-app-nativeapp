@@ -24,8 +24,7 @@ class AppUserNotifier extends _$AppUserNotifier {
     if (state.value != null) {
       return state.value;
     }
-    final authUserAsync = ref.watch(firebaseAuthUserProvider);
-    if (authUserAsync.value != null) {
+    if (ref.watch(firebaseAuthUserProvider).value != null) {
       final res =
           await ref.read(privateTripAppV1ClientProvider).get('/my/profile');
       return AppUser.fromJson(res.data);
