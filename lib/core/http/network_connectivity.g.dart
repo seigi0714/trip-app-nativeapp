@@ -31,15 +31,14 @@ class _SystemHash {
   }
 }
 
-String $networkConnectivityHash() =>
-    r'0889af6fea9401b49c1e4f0ccda7770528dfb1a3';
+String $isNetworkConnectedHash() => r'15c19859b29a363b03b2c9976eb6ad0bc59cac5d';
 
-/// See also [networkConnectivity].
-final networkConnectivityProvider = AutoDisposeProvider<bool>(
-  networkConnectivity,
-  name: r'networkConnectivityProvider',
+/// See also [isNetworkConnected].
+final isNetworkConnectedProvider = AutoDisposeFutureProvider<bool>(
+  isNetworkConnected,
+  name: r'isNetworkConnectedProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : $networkConnectivityHash,
+      : $isNetworkConnectedHash,
 );
-typedef NetworkConnectivityRef = AutoDisposeProviderRef<bool>;
+typedef IsNetworkConnectedRef = AutoDisposeFutureProviderRef<bool>;

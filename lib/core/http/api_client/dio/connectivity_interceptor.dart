@@ -25,8 +25,9 @@ class ConnectivityInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final isNetworkConnected = _ref.read(networkConnectivityProvider);
-    if (!isNetworkConnected) {
+    final isNetworkConnected =
+        await _ref.read(isNetworkConnectedProvider.future);
+    if (isNetworkConnected) {
       return handler.reject(
         DioError(
           error: DioErrorCode.networkNotConnected,

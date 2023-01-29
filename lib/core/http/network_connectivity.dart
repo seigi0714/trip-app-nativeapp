@@ -5,8 +5,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'network_connectivity.g.dart';
 
 @riverpod
-bool networkConnectivity(NetworkConnectivityRef ref) {
-  return ref.watch(_networkConnectivityStream).value != ConnectivityResult.none;
+Future<bool> isNetworkConnected(IsNetworkConnectedRef ref) async {
+  final result = await Connectivity().checkConnectivity();
+  return result != ConnectivityResult.none;
 }
 
 final _networkConnectivityStream =
