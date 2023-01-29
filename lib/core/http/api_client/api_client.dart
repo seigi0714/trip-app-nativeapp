@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/constants/json.dart';
+import 'package:trip_app_nativeapp/core/debug/logger.dart';
 import 'package:trip_app_nativeapp/core/enum/dio_error_code.dart';
 import 'package:trip_app_nativeapp/core/exception/api_exception.dart';
 import 'package:trip_app_nativeapp/core/extensions/dio.dart';
@@ -121,6 +125,9 @@ class ApiClient implements AbstractApiClient {
     final dynamic error = dioError.error;
     if (errorType.isTimeout) {
       return const ApiTimeoutException();
+    } else if (kDebugMode && dioError.message.contains('SocketException')) {
+      logger.e('SocketException: サーバとの接続を確認してください。');
+      return const SocketException('サーバとの接続を確認してください。');
     } else if (error is DioErrorCode &&
         error == DioErrorCode.networkNotConnected) {
       return const NetworkNotConnectedException();
