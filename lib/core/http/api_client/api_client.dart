@@ -120,6 +120,8 @@ class ApiClient implements AbstractApiClient {
   }
 
   /// DioError を受けて [ApiException] もしくはそのサブクラスを返す。
+  /// デバッグモードの場合は [DioError] の原因が [SocketException] によるものかを判別して、
+  /// そうである場合は、 [SocketException] を返す。
   Exception _handleDioError(DioError dioError) {
     final errorType = dioError.type;
     final dynamic error = dioError.error;
