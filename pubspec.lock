@@ -492,6 +492,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.5.0"
+  google_sign_in_mocks:
+    dependency: "direct dev"
+    description:
+      name: google_sign_in_mocks
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   google_sign_in_platform_interface:
     dependency: transitive
     description:

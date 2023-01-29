@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_sign_in_mocks/google_sign_in_mocks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:trip_app_nativeapp/core/cache/app_user/app_user_notifier.dart';
@@ -19,6 +21,7 @@ Future<void> main() async {
       final dio = Dio(
         BaseOptions(validateStatus: (status) => true),
       );
+
       const name = 'Bob';
       const email = 'bob@somedomain.com';
       final firebaseAuthUser = MockUser(
@@ -36,13 +39,24 @@ Future<void> main() async {
       test(
         '正常系 Firebase Auth がログイン状態の際は AppUser が取得できている',
         () async {
+          // ログインする
+          final googleUser = await MockGoogleSignIn().signIn();
+          final signInAccount = await googleUser?.authentication;
+          final credential = GoogleAuthProvider.credential(
+            accessToken: signInAccount?.accessToken,
+            idToken: signInAccount?.idToken,
+          );
+          final auth = MockFirebaseAuth(mockUser: firebaseAuthUser);
+          await auth.signInWithCredential(credential);
+
           container = ProviderContainer(
             overrides: [
               dioProvider(ApiDestination.privateTripAppV1)
                   .overrideWithValue(dio),
-              firebaseAuthProvider.overrideWithValue(
-                MockFirebaseAuth(mockUser: firebaseAuthUser),
-              ),
+              firebaseAuthProvider.overrideWithValue(auth),
+              // firebaseAuthUserProvider.overrideWith(
+              //   (ref) => auth.userChangedStream,
+              // )
             ],
           );
 
@@ -54,12 +68,28 @@ Future<void> main() async {
             ),
           );
 
+          final appUser = await container.read(appUserNotifierProvider.future);
+          expect(appUser?.name, firebaseAuthUser.displayName);
+          expect(appUser?.email, firebaseAuthUser.email);
+          expect(appUser?.id, tripAppUser.id);
+        },
+      );
+
+      test(
+        '正常系 Firebase Auth が 非ログイン状態の際は AppUser は null',
+        () async {
+          container = ProviderContainer(
+            overrides: [
+              dioProvider(ApiDestination.privateTripAppV1)
+                  .overrideWithValue(dio),
+              firebaseAuthProvider.overrideWithValue(
+                MockFirebaseAuth(),
+              ),
+            ],
+          );
+
           container.read(appUserNotifierProvider).maybeWhen(
-                data: (data) {
-                  expect(data?.name, firebaseAuthUser.displayName);
-                  expect(data?.email, firebaseAuthUser.email);
-                  expect(data?.id, tripAppUser.id);
-                },
+                data: (data) => expect(data, null),
                 orElse: () => null,
               );
         },
