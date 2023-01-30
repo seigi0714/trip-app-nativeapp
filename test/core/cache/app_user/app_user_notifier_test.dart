@@ -24,7 +24,10 @@ Future<void> main() async {
       late DioAdapter dioAdapter;
       late ProviderContainer container;
       final dio = Dio(
-        BaseOptions(validateStatus: (status) => true),
+        BaseOptions(
+          baseUrl: 'https://test.com',
+          validateStatus: (status) => true,
+        ),
       );
 
       const name = 'Bob';
@@ -70,30 +73,39 @@ Future<void> main() async {
               fireImmediately: true,
             );
 
+          final testResponse = <String, dynamic>{
+            'data': tripAppUser.toJson(),
+          };
+
           dioAdapter.onGet(
             '/my/profile',
             (server) => server.reply(
               200,
-              tripAppUser.toJson(),
+              testResponse,
             ),
           );
 
-          container.read(appUserNotifierProvider).when(
-                data: (data) => print(data?.email.toString()),
-                error: (error, stackTrace) => print(error),
-                loading: () => print('loading'),
-              );
+          container.read(appUserNotifierProvider);
 
           verify(
-            () => listener(null, const AsyncLoading<AppUser?>()),
+            () => listener(
+              null,
+              const AsyncLoading<AppUser?>(),
+            ),
           );
 
-          // verify(
-          //   () => listener(
-          //     const AsyncLoading<AppUser?>(),
-          //     const AsyncData<AppUser>(tripAppUser),
-          //   ),
-          // );
+          // /my/profile [get] からの response が 返ってくるまでしばらく待つ
+          // ignore: inference_failure_on_instance_creation
+          await Future.delayed(const Duration(seconds: 3));
+
+          verify(
+            () => listener(
+              const AsyncLoading<AppUser?>(),
+              const AsyncData<AppUser?>(
+                AppUser(id: 1, name: name, email: email),
+              ),
+            ),
+          );
         },
       );
 
