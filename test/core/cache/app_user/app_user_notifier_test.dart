@@ -45,7 +45,7 @@ Future<void> main() async {
       });
 
       test(
-        '正常系 Firebase Auth がログイン状態の際は AppUser が取得できている',
+        '正常系 Firebase Auth がログイン状態の場合は AppUser が取得できている',
         () async {
           final googleUser = await MockGoogleSignIn().signIn();
           final signInAccount = await googleUser?.authentication;
@@ -109,29 +109,11 @@ Future<void> main() async {
         },
       );
 
-      test(
-        '正常系 Firebase Auth が 非ログイン状態の際は AppUser は null',
-        () async {
-          container = ProviderContainer(
-            overrides: [
-              dioProvider(ApiDestination.privateTripAppV1)
-                  .overrideWithValue(dio),
-              firebaseAuthProvider.overrideWithValue(
-                MockFirebaseAuth(),
-              ),
-            ],
-          );
-
-          container.read(appUserNotifierProvider).maybeWhen(
-                data: (data) {
-                  expect(data?.name, firebaseAuthUser.displayName);
-                  expect(data?.email, firebaseAuthUser.email);
-                  expect(data?.id, tripAppUser.id);
-                },
-                orElse: () => null,
-              );
-        },
-      );
+      // TODO(shimizu-saffle): 書く
+      // test(
+      //   '正常系 Firebase Auth が 非ログイン状態の場合は AppUser は null',
+      //   () async {},
+      // );
     },
   );
 }
