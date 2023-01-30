@@ -1,13 +1,21 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_sign_in_mocks/google_sign_in_mocks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:trip_app_nativeapp/core/cache/app_user/app_user_notifier.dart';
 import 'package:trip_app_nativeapp/core/cache/app_user/model/app_user.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/dio.dart';
+import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
+
+class Listener<T> extends Mock {
+  void call(T? previous, T next);
+}
 
 Future<void> main() async {
   group(
@@ -36,25 +44,31 @@ Future<void> main() async {
       test(
         '正常系 Firebase Auth がログイン状態の際は AppUser が取得できている',
         () async {
-          // final googleUser = await MockGoogleSignIn().signIn();
-          // final signInAccount = await googleUser?.authentication;
-          // final credential = GoogleAuthProvider.credential(
-          //   accessToken: signInAccount?.accessToken,
-          //   idToken: signInAccount?.idToken,
-          // );
+          final googleUser = await MockGoogleSignIn().signIn();
+          final signInAccount = await googleUser?.authentication;
+          final credential = GoogleAuthProvider.credential(
+            accessToken: signInAccount?.accessToken,
+            idToken: signInAccount?.idToken,
+          );
           final auth = MockFirebaseAuth(mockUser: firebaseAuthUser);
-          // await auth.signInWithCredential(credential);
+          await auth.signInWithCredential(credential);
+
+          final listener = Listener<AsyncValue<AppUser?>>();
 
           container = ProviderContainer(
             overrides: [
               dioProvider(ApiDestination.privateTripAppV1)
                   .overrideWithValue(dio),
               firebaseAuthProvider.overrideWithValue(auth),
-              // firebaseAuthUserProvider.overrideWith(
-              //   (ref) => auth.userChangedStream,
-              // )
+              firebaseAuthUserProvider.overrideWith(
+                (ref) => auth.userChangedStream,
+              )
             ],
-          );
+          )..listen(
+              appUserNotifierProvider,
+              listener,
+              fireImmediately: true,
+            );
 
           dioAdapter.onGet(
             '/my/profile',
@@ -64,10 +78,22 @@ Future<void> main() async {
             ),
           );
 
-          // final appUser = await container.read(appUserNotifierProvider.future);
-          // expect(appUser?.name, firebaseAuthUser.displayName);
-          // expect(appUser?.email, firebaseAuthUser.email);
-          // expect(appUser?.id, tripAppUser.id);
+          container.read(appUserNotifierProvider).when(
+                data: (data) => print(data?.email.toString()),
+                error: (error, stackTrace) => print(error),
+                loading: () => print('loading'),
+              );
+
+          verify(
+            () => listener(null, const AsyncLoading<AppUser?>()),
+          );
+
+          // verify(
+          //   () => listener(
+          //     const AsyncLoading<AppUser?>(),
+          //     const AsyncData<AppUser>(tripAppUser),
+          //   ),
+          // );
         },
       );
 
