@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/rendering.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/enum/dio_error_code.dart';
-import 'package:trip_app_nativeapp/core/http/network_connectivity.dart';
 
 part 'connectivity_interceptor.g.dart';
 
@@ -25,16 +25,17 @@ class ConnectivityInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final isNetworkConnected =
-        await _ref.read(isNetworkConnectedProvider.future);
-    if (!isNetworkConnected) {
-      return handler.reject(
-        DioError(
-          error: DioErrorCode.networkNotConnected,
-          requestOptions: options,
-        ),
-      );
-    }
+    // final isNetworkConnected =
+    //     await _ref.read(isNetworkConnectedProvider.future);
+    // if (!isNetworkConnected) {
+    //   return handler.reject(
+    //     DioError(
+    //       error: DioErrorCode.networkNotConnected,
+    //       requestOptions: options,
+    //     ),
+    //   );
+    // }
+    debugPrint(_ref.toString());
     return handler.next(options);
   }
 }
