@@ -13,9 +13,7 @@ import 'package:trip_app_nativeapp/core/http/api_client/dio/dio.dart';
 import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
 
-class Listener<T> extends Mock {
-  void call(T? previous, T next);
-}
+import '../../../mock/async_value_listener.dart';
 
 Future<void> main() async {
   group(
@@ -25,18 +23,13 @@ Future<void> main() async {
       late ProviderContainer container;
       final dio = Dio(
         BaseOptions(
-          baseUrl: 'https://test.com',
           validateStatus: (status) => true,
         ),
       );
 
       const name = 'Bob';
       const email = 'bob@somedomain.com';
-      final firebaseAuthUser = MockUser(
-        email: 'bob@somedomain.com',
-        displayName: name,
-      );
-
+      final firebaseAuthUser = MockUser(email: email, displayName: name);
       const tripAppUser = AppUser(id: 1, name: name, email: email);
 
       setUp(() {
@@ -53,22 +46,22 @@ Future<void> main() async {
             accessToken: signInAccount?.accessToken,
             idToken: signInAccount?.idToken,
           );
-          final auth = MockFirebaseAuth(mockUser: firebaseAuthUser);
-          await auth.signInWithCredential(credential);
-          final listener = Listener<AsyncValue<AppUser?>>();
+          final mockAuth = MockFirebaseAuth(mockUser: firebaseAuthUser);
+          await mockAuth.signInWithCredential(credential);
+          final asyncValueListener = AsyncValueListener<AsyncValue<AppUser?>>();
 
           container = ProviderContainer(
             overrides: [
               dioProvider(ApiDestination.privateTripAppV1)
                   .overrideWithValue(dio),
-              firebaseAuthProvider.overrideWithValue(auth),
+              firebaseAuthProvider.overrideWithValue(mockAuth),
               firebaseAuthUserProvider.overrideWith(
-                (ref) => auth.userChangedStream,
+                (ref) => mockAuth.userChangedStream,
               )
             ],
           )..listen(
               appUserNotifierProvider,
-              listener,
+              asyncValueListener,
               fireImmediately: true,
             );
 
@@ -87,17 +80,17 @@ Future<void> main() async {
           container.read(appUserNotifierProvider);
 
           verify(
-            () => listener(
+            () => asyncValueListener(
               null,
               const AsyncLoading<AppUser?>(),
             ),
           );
 
-          // /my/profile [get] からの response が 返ってくるまでしばらく待つ
-          await Future<void>.delayed(const Duration(seconds: 3));
+          // /my/profile [get] からの response が返ってくるまで待つ
+          await Future<void>.delayed(const Duration(seconds: 1));
 
           verify(
-            () => listener(
+            () => asyncValueListener(
               const AsyncLoading<AppUser?>(),
               const AsyncData<AppUser?>(
                 AppUser(id: 1, name: name, email: email),
