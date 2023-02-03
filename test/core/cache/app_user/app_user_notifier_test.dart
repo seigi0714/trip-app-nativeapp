@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
@@ -10,6 +11,7 @@ import 'package:trip_app_nativeapp/core/cache/app_user/app_user_notifier.dart';
 import 'package:trip_app_nativeapp/core/cache/app_user/model/app_user.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/dio.dart';
+import 'package:trip_app_nativeapp/core/http/network_connectivity.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
 
 import '../../../mock/async_value_listener.dart';
@@ -26,6 +28,9 @@ Future<void> main() async {
       final firebaseAuthUser = MockUser(email: email, displayName: name);
       const tripAppUser = AppUser(id: 1, name: name, email: email);
       final asyncValueListener = AsyncValueListener<AsyncValue<AppUser?>>();
+      final mockConnectivity = Stream<ConnectivityResult>.fromIterable(
+        [ConnectivityResult.mobile],
+      );
 
       setUp(() {
         TestWidgetsFlutterBinding.ensureInitialized();
@@ -49,6 +54,8 @@ Future<void> main() async {
               dioProvider(ApiDestination.privateTripAppV1)
                   .overrideWithValue(dio),
               firebaseAuthProvider.overrideWithValue(mockAuth),
+              networkConnectivityProvider
+                  .overrideWith((ref) => mockConnectivity),
             ],
           )..listen(
               appUserNotifierProvider,
@@ -89,6 +96,7 @@ Future<void> main() async {
             ),
           );
 
+          await Future<void>.delayed(const Duration(milliseconds: 500));
           verifyNoMoreInteractions(asyncValueListener);
         },
       );
@@ -103,6 +111,8 @@ Future<void> main() async {
               dioProvider(ApiDestination.privateTripAppV1)
                   .overrideWithValue(dio),
               firebaseAuthProvider.overrideWithValue(mockAuth),
+              networkConnectivityProvider
+                  .overrideWith((ref) => mockConnectivity),
             ],
           )
             ..listen(
@@ -129,6 +139,7 @@ Future<void> main() async {
             ),
           );
 
+          await Future<void>.delayed(const Duration(milliseconds: 500));
           verifyNoMoreInteractions(asyncValueListener);
 
           final appUser = await container.read(appUserNotifierProvider.future);
