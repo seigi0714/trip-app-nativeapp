@@ -127,4 +127,6 @@ Future<void> main() async {
       verifyNever(mockOnSuccess.showSnackBar('成功時コールバック'));
     });
   });
+
+  // TODO(seigi0714): generateAndCopyInviteLinkのテスト実装
 }
