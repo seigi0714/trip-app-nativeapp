@@ -55,7 +55,6 @@ Future<void> main() async {
           );
           final auth = MockFirebaseAuth(mockUser: firebaseAuthUser);
           await auth.signInWithCredential(credential);
-
           final listener = Listener<AsyncValue<AppUser?>>();
 
           container = ProviderContainer(
@@ -95,8 +94,7 @@ Future<void> main() async {
           );
 
           // /my/profile [get] からの response が 返ってくるまでしばらく待つ
-          // ignore: inference_failure_on_instance_creation
-          await Future.delayed(const Duration(seconds: 3));
+          await Future<void>.delayed(const Duration(seconds: 3));
 
           verify(
             () => listener(
