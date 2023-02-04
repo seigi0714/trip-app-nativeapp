@@ -27,7 +27,7 @@ jobs:
         uses: kuhnroyal/flutter-fvm-config-action@121a924f6e02514871f0d3507fbac542ced8cb4b
 
       - name: Setup Flutter SDK
-        uses: subosito/flutter-action@9d48f4efd5460d7013af812069d08b23f37aed20
+        uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: ${{ env.FLUTTER_CHANNEL }}
