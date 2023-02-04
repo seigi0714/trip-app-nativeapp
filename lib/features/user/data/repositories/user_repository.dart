@@ -3,7 +3,7 @@ import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart
 import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
 import 'package:trip_app_nativeapp/features/user/data/models/get_user_response.dart';
 import 'package:trip_app_nativeapp/features/user/domain/entity/app_user.dart';
-import 'package:trip_app_nativeapp/features/user/domain/repositories/user_repository_Interface.dart';
+import 'package:trip_app_nativeapp/features/user/domain/repositories/user_repository_interface.dart';
 
 part 'user_repository.g.dart';
 

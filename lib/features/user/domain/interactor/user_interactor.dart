@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/features/user/data/repositories/user_repository.dart';
 import 'package:trip_app_nativeapp/features/user/domain/entity/app_user.dart';
-import 'package:trip_app_nativeapp/features/user/domain/repositories/user_repository_Interface.dart';
+import 'package:trip_app_nativeapp/features/user/domain/repositories/user_repository_interface.dart';
 
 part 'user_interactor.g.dart';
 
