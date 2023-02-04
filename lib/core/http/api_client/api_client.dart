@@ -27,7 +27,7 @@ AbstractApiClient publicTripAppV1Client(PublicTripAppV1ClientRef ref) {
 }
 
 /// 認証ありTripAppApiのAPIクライアントクラスを提供する。
-@riverpod
+@Riverpod(keepAlive: true)
 AbstractApiClient privateTripAppV1Client(PrivateTripAppV1ClientRef ref) {
   return ApiClient(
     ref.watch(

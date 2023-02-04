@@ -46,16 +46,16 @@ final publicTripAppV1ClientProvider = AutoDisposeProvider<AbstractApiClient>(
 );
 typedef PublicTripAppV1ClientRef = AutoDisposeProviderRef<AbstractApiClient>;
 String $privateTripAppV1ClientHash() =>
-    r'6607602059c90d88ac7a8fca95171acbc0637ad2';
+    r'1dc34ff1cab9ecb3b11d3cd8d43630bd864073ce';
 
 /// 認証ありTripAppApiのAPIクライアントクラスを提供する。
 ///
 /// Copied from [privateTripAppV1Client].
-final privateTripAppV1ClientProvider = AutoDisposeProvider<AbstractApiClient>(
+final privateTripAppV1ClientProvider = Provider<AbstractApiClient>(
   privateTripAppV1Client,
   name: r'privateTripAppV1ClientProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : $privateTripAppV1ClientHash,
 );
-typedef PrivateTripAppV1ClientRef = AutoDisposeProviderRef<AbstractApiClient>;
+typedef PrivateTripAppV1ClientRef = ProviderRef<AbstractApiClient>;

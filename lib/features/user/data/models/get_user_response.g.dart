@@ -2,17 +2,18 @@
 
 // ignore_for_file: type=lint, implicit_dynamic_parameter, implicit_dynamic_type, implicit_dynamic_method, strict_raw_type
 
-part of 'app_user.dart';
+part of 'get_user_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_AppUser _$$_AppUserFromJson(Map<String, dynamic> json) => $checkedCreate(
-      r'_$_AppUser',
+_$_GetUserResponse _$$_GetUserResponseFromJson(Map<String, dynamic> json) =>
+    $checkedCreate(
+      r'_$_GetUserResponse',
       json,
       ($checkedConvert) {
-        final val = _$_AppUser(
+        final val = _$_GetUserResponse(
           id: $checkedConvert('id', (v) => v as int),
           name: $checkedConvert('name', (v) => v as String),
           email: $checkedConvert('email', (v) => v as String),
@@ -21,7 +22,7 @@ _$_AppUser _$$_AppUserFromJson(Map<String, dynamic> json) => $checkedCreate(
       },
     );
 
-Map<String, dynamic> _$$_AppUserToJson(_$_AppUser instance) =>
+Map<String, dynamic> _$$_GetUserResponseToJson(_$_GetUserResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

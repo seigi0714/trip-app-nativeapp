@@ -31,12 +31,12 @@ class _SystemHash {
   }
 }
 
-String $dioHash() => r'14c0fc60e9976bd2e6a1646f1d532f3d6c7b1666';
+String $dioHash() => r'15c8dec4d8e099101ccb68517e691728e88394e6';
 
 /// プロバイダー経由で必要な情報を集め、各種設定済みの Dio インスタンスを提供する。
 ///
 /// Copied from [dio].
-class DioProvider extends AutoDisposeProvider<Dio> {
+class DioProvider extends Provider<Dio> {
   DioProvider(
     this.apiDestination,
   ) : super(
@@ -66,7 +66,7 @@ class DioProvider extends AutoDisposeProvider<Dio> {
   }
 }
 
-typedef DioRef = AutoDisposeProviderRef<Dio>;
+typedef DioRef = ProviderRef<Dio>;
 
 /// プロバイダー経由で必要な情報を集め、各種設定済みの Dio インスタンスを提供する。
 ///
@@ -85,7 +85,7 @@ class DioFamily extends Family<Dio> {
   }
 
   @override
-  AutoDisposeProvider<Dio> getProviderOverride(
+  Provider<Dio> getProviderOverride(
     covariant DioProvider provider,
   ) {
     return call(

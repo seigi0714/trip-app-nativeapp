@@ -2,7 +2,7 @@
 
 // ignore_for_file: type=lint, implicit_dynamic_parameter, implicit_dynamic_type, implicit_dynamic_method, strict_raw_type
 
-part of 'app_user_notifier.dart';
+part of 'app_user_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -31,20 +31,20 @@ class _SystemHash {
   }
 }
 
-String $AppUserNotifierHash() => r'569097557d4dcab81f239dbcd71cc0f74e4929c5';
+String $AppUserControllerHash() => r'078403fbf5a1101522bbb337b2caa11a9101317b';
 
-/// See also [AppUserNotifier].
-final appUserNotifierProvider =
-    AsyncNotifierProvider<AppUserNotifier, AppUser?>(
-  AppUserNotifier.new,
-  name: r'appUserNotifierProvider',
+/// See also [AppUserController].
+final appUserControllerProvider =
+    AsyncNotifierProvider<AppUserController, AppUser?>(
+  AppUserController.new,
+  name: r'appUserControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : $AppUserNotifierHash,
+      : $AppUserControllerHash,
 );
-typedef AppUserNotifierRef = AsyncNotifierProviderRef<AppUser?>;
+typedef AppUserControllerRef = AsyncNotifierProviderRef<AppUser?>;
 
-abstract class _$AppUserNotifier extends AsyncNotifier<AppUser?> {
+abstract class _$AppUserController extends AsyncNotifier<AppUser?> {
   @override
   FutureOr<AppUser?> build();
 }

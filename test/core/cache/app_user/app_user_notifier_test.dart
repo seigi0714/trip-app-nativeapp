@@ -7,12 +7,13 @@ import 'package:google_sign_in_mocks/google_sign_in_mocks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:trip_app_nativeapp/core/cache/app_user/app_user_notifier.dart';
-import 'package:trip_app_nativeapp/core/cache/app_user/model/app_user.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/dio.dart';
 import 'package:trip_app_nativeapp/core/http/network_connectivity.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
+import 'package:trip_app_nativeapp/features/user/controller/app_user_controller.dart';
+import 'package:trip_app_nativeapp/features/user/data/models/get_user_response.dart';
+import 'package:trip_app_nativeapp/features/user/domain/entity/app_user.dart';
 
 import '../../../mock/async_value_listener.dart';
 
@@ -25,13 +26,13 @@ Future<void> main() async {
       const name = 'Bob';
       const email = 'bob@somedomain.com';
       final firebaseAuthUser = MockUser(email: email, displayName: name);
-      const tripAppUser = AppUser(id: 1, name: name, email: email);
+      const userRes = GetUserResponse(id: 1, name: name, email: email);
       final asyncValueListener = AsyncValueListener<AsyncValue<AppUser?>>();
       final mockConnectivity = Stream<ConnectivityResult>.fromIterable(
         [ConnectivityResult.mobile],
       );
       final testResponse = <String, dynamic>{
-        'data': tripAppUser.toJson(),
+        'data': userRes.toJson(),
       };
 
       setUp(() {
@@ -60,11 +61,11 @@ Future<void> main() async {
             ],
           )
             ..listen(
-              appUserNotifierProvider,
+              appUserControllerProvider,
               asyncValueListener,
               fireImmediately: true,
             )
-            ..read(appUserNotifierProvider);
+            ..read(appUserControllerProvider);
 
           verify(
             () => asyncValueListener(
@@ -105,11 +106,11 @@ Future<void> main() async {
             ],
           )
             ..listen(
-              appUserNotifierProvider,
+              appUserControllerProvider,
               asyncValueListener,
               fireImmediately: true,
             )
-            ..read(appUserNotifierProvider);
+            ..read(appUserControllerProvider);
 
           verify(
             () => asyncValueListener(
@@ -131,7 +132,8 @@ Future<void> main() async {
           await Future<void>.delayed(const Duration(milliseconds: 500));
           verifyNoMoreInteractions(asyncValueListener);
 
-          final appUser = await container.read(appUserNotifierProvider.future);
+          final appUser =
+              await container.read(appUserControllerProvider.future);
           expect(appUser, null);
         },
       );

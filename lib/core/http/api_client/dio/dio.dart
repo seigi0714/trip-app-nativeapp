@@ -13,7 +13,7 @@ import 'package:trip_app_nativeapp/core/http/api_client/dio/response_interceptor
 part 'dio.g.dart';
 
 /// プロバイダー経由で必要な情報を集め、各種設定済みの Dio インスタンスを提供する。
-@riverpod
+@Riverpod(keepAlive: true)
 Dio dio(
   DioRef ref,
   ApiDestination apiDestination,

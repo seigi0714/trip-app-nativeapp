@@ -7,7 +7,7 @@ import 'package:trip_app_nativeapp/core/http/network_connectivity.dart';
 
 part 'connectivity_interceptor.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 ConnectivityInterceptor connectivityInterceptor(
   ConnectivityInterceptorRef ref,
 ) {

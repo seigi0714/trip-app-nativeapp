@@ -4,7 +4,7 @@ import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 
 part 'baseurl.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 String baseUrl(
   BaseUrlRef ref,
   ApiDestination apiDestination,

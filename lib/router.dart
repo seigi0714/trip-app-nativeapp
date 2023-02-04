@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:trip_app_nativeapp/core/cache/app_user/app_user_notifier.dart';
+import 'package:trip_app_nativeapp/features/user/controller/app_user_controller.dart';
 import 'package:trip_app_nativeapp/view/pages/error_page.dart';
 import 'package:trip_app_nativeapp/view/pages/home_page.dart';
 import 'package:trip_app_nativeapp/view/pages/loading_page.dart';
@@ -13,7 +13,7 @@ part 'router.g.dart';
 
 @riverpod
 GoRouter router(RouterRef ref) {
-  final appUserAsync = ref.watch(appUserNotifierProvider);
+  final appUserAsync = ref.watch(appUserControllerProvider);
   return GoRouter(
     redirect: (BuildContext context, state) {
       final isAtLoginPage = state.subloc == LoginPage.path;

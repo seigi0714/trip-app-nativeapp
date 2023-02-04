@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:trip_app_nativeapp/core/cache/app_user/app_user_notifier.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
+import 'package:trip_app_nativeapp/features/user/controller/app_user_controller.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -14,7 +14,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     assert(
-      ref.read(appUserNotifierProvider).value != null,
+      ref.read(appUserControllerProvider).value != null,
       'ログイン中はローカルにユーザー情報を保持します。',
     );
     return Scaffold(

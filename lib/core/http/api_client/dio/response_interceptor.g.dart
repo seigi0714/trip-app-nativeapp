@@ -32,14 +32,14 @@ class _SystemHash {
 }
 
 String $responseInterceptorHash() =>
-    r'4ad9e0f10c228829176f566f6876cc792d3f3549';
+    r'39915237d15c2812be35f3ab2f8d6b0b16743441';
 
 /// See also [responseInterceptor].
-final responseInterceptorProvider = AutoDisposeProvider<ResponseInterceptor>(
+final responseInterceptorProvider = Provider<ResponseInterceptor>(
   responseInterceptor,
   name: r'responseInterceptorProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : $responseInterceptorHash,
 );
-typedef ResponseInterceptorRef = AutoDisposeProviderRef<ResponseInterceptor>;
+typedef ResponseInterceptorRef = ProviderRef<ResponseInterceptor>;

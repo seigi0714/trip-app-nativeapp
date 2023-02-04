@@ -2,7 +2,7 @@
 
 // ignore_for_file: type=lint, implicit_dynamic_parameter, implicit_dynamic_type, implicit_dynamic_method, strict_raw_type
 
-part of 'connectivity_interceptor.dart';
+part of 'user_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -31,15 +31,14 @@ class _SystemHash {
   }
 }
 
-String $connectivityInterceptorHash() =>
-    r'934b7ab10684cdb73377d86b93d53cf601720368';
+String $userRepositoryHash() => r'ab1185af5b0ac2dec9134aea23d602b171ba3808';
 
-/// See also [connectivityInterceptor].
-final connectivityInterceptorProvider = Provider<ConnectivityInterceptor>(
-  connectivityInterceptor,
-  name: r'connectivityInterceptorProvider',
+/// See also [userRepository].
+final userRepositoryProvider = Provider<UserRepositoryInterface>(
+  userRepository,
+  name: r'userRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : $connectivityInterceptorHash,
+      : $userRepositoryHash,
 );
-typedef ConnectivityInterceptorRef = ProviderRef<ConnectivityInterceptor>;
+typedef UserRepositoryRef = ProviderRef<UserRepositoryInterface>;
