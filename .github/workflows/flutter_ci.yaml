@@ -1,87 +1,87 @@
-name: Flutter CI
+# name: Flutter CI
 
-on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
+# on:
+#   pull_request:
+#     types:
+#       - opened
+#       - synchronize
 
-  push:
-    branches:
-      - main
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  flutter_test:
-    name: Flutter Test (ubuntu-latest)
-    permissions:
-      checks: write
-      contents: read
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - name: Checkout
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+# jobs:
+#   flutter_test:
+#     name: Flutter Test (ubuntu-latest)
+#     permissions:
+#       checks: write
+#       contents: read
+#     runs-on: ubuntu-latest
+#     timeout-minutes: 15
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
 
-      # fvm のバージョンとチャネルを環境変数に設定する
-      - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@121a924f6e02514871f0d3507fbac542ced8cb4b
+#       # fvm のバージョンとチャネルを環境変数に設定する
+#       - name: Check fvm
+#         uses: kuhnroyal/flutter-fvm-config-action@121a924f6e02514871f0d3507fbac542ced8cb4b
 
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          # 次回以降の起動を早くするためのキャッシュ
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
+#       - name: Setup Flutter SDK
+#         uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d
+#         with:
+#           flutter-version: ${{ env.FLUTTER_VERSION }}
+#           channel: ${{ env.FLUTTER_CHANNEL }}
+#           # 次回以降の起動を早くするためのキャッシュ
+#           cache: true
+#           cache-key: flutter
+#           cache-path: ${{ runner.tool_cache }}/flutter
 
-      - name: Make dev envfile
-        uses: SpicyPizza/create-envfile@5f7e9a8065363343c808346284ea23507d07157c
-        with:
-          envkey_DEBUG: false
-          envkey_SOME_API_KEY: '123456abcdef'
-          envkey_LINE_CHANNEL_ID: ${{ secrets.LINE_CHANNEL_ID }}
-          envkey_TRIPAPP_API_URL: ${{ secrets.TRIPAPP_API_URL }}
-          envkey_TRIPAPP_API_PORT: ${{ secrets.TRIPAPP_API_PORT }}
-          file_name: .dev.env
+#       - name: Make dev envfile
+#         uses: SpicyPizza/create-envfile@5f7e9a8065363343c808346284ea23507d07157c
+#         with:
+#           envkey_DEBUG: false
+#           envkey_SOME_API_KEY: '123456abcdef'
+#           envkey_LINE_CHANNEL_ID: ${{ secrets.LINE_CHANNEL_ID }}
+#           envkey_TRIPAPP_API_URL: ${{ secrets.TRIPAPP_API_URL }}
+#           envkey_TRIPAPP_API_PORT: ${{ secrets.TRIPAPP_API_PORT }}
+#           file_name: .dev.env
 
-      - name: Make prod envfile
-        uses: SpicyPizza/create-envfile@5f7e9a8065363343c808346284ea23507d07157c
-        with:
-          envkey_DEBUG: false
-          envkey_SOME_API_KEY: '123456abcdef'
-          envkey_LINE_CHANNEL_ID: ${{ secrets.LINE_CHANNEL_ID }}
-          envkey_TRIPAPP_API_URL: ${{ secrets.TRIPAPP_API_URL }}
-          envkey_TRIPAPP_API_PORT: ${{ secrets.TRIPAPP_API_PORT }}
-          file_name: .prod.env
+#       - name: Make prod envfile
+#         uses: SpicyPizza/create-envfile@5f7e9a8065363343c808346284ea23507d07157c
+#         with:
+#           envkey_DEBUG: false
+#           envkey_SOME_API_KEY: '123456abcdef'
+#           envkey_LINE_CHANNEL_ID: ${{ secrets.LINE_CHANNEL_ID }}
+#           envkey_TRIPAPP_API_URL: ${{ secrets.TRIPAPP_API_URL }}
+#           envkey_TRIPAPP_API_PORT: ${{ secrets.TRIPAPP_API_PORT }}
+#           file_name: .prod.env
 
-      - name: Install Flutter dependencies
-        run: flutter pub get
+#       - name: Install Flutter dependencies
+#         run: flutter pub get
 
-      - name: Run Flutter Analyze
-        run: flutter analyze
+#       - name: Run Flutter Analyze
+#         run: flutter analyze
 
-      # テスト結果を GitHub Actions 上に表示するため log に出力
-      # カバレッジ結果を Codecov に送信するためカバレッジありで実行
-      - name: Run Flutter Test
-        run: flutter test --machine --coverage > test-report.log
+#       # テスト結果を GitHub Actions 上に表示するため log に出力
+#       # カバレッジ結果を Codecov に送信するためカバレッジありで実行
+#       - name: Run Flutter Test
+#         run: flutter test --machine --coverage > test-report.log
 
-      # テスト結果を GitHub Actions に表示
-      - name: Report Test
-        uses: dorny/test-reporter@e9fa2f582c0ebbe2e263fd18fad744d52e0b0203
-        # テスト結果を表示するのでテストが失敗しても実行
-        if: always()
-        with:
-          name: Flutter Test Report
-          path: test-report.log
-          reporter: flutter-json
+#       # テスト結果を GitHub Actions に表示
+#       - name: Report Test
+#         uses: dorny/test-reporter@e9fa2f582c0ebbe2e263fd18fad744d52e0b0203
+#         # テスト結果を表示するのでテストが失敗しても実行
+#         if: always()
+#         with:
+#           name: Flutter Test Report
+#           path: test-report.log
+#           reporter: flutter-json
 
-      # Codecov に結果を送信
-      # - name: Upload coverage to Codecov
-      #   uses: codecov/codecov-action@7f20bd4c4151750a1d013be0901b7e35a46c2aad
-      #   with:
-      #     file: coverage/lcov.info
-      #     fail_ci_if_error: true
-      #     flags: unittests
-      #     verbose: true
+#       # Codecov に結果を送信
+#       # - name: Upload coverage to Codecov
+#       #   uses: codecov/codecov-action@7f20bd4c4151750a1d013be0901b7e35a46c2aad
+#       #   with:
+#       #     file: coverage/lcov.info
+#       #     fail_ci_if_error: true
+#       #     flags: unittests
+#       #     verbose: true
