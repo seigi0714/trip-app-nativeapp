@@ -31,7 +31,7 @@ class _SystemHash {
   }
 }
 
-String $AppUserNotifierHash() => r'df854a8f945cbf16150bdeb211a1dc2843a2bb17';
+String $AppUserNotifierHash() => r'569097557d4dcab81f239dbcd71cc0f74e4929c5';
 
 /// See also [AppUserNotifier].
 final appUserNotifierProvider =
