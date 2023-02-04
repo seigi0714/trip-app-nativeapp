@@ -62,6 +62,10 @@ jobs:
       - name: Run Flutter Analyze
         run: flutter analyze
 
+      - name: Exit if Flutter Analyze failed
+        if: failure()
+        run: exit 1
+
       # テスト結果を GitHub Actions 上に表示するため log に出力
       # カバレッジ結果を Codecov に送信するためカバレッジありで実行
       - name: Run Flutter Test
