@@ -20,7 +20,6 @@ Future<void> main() async {
   group(
     'AppUserNotifier test',
     () {
-      late DioAdapter dioAdapter;
       late ProviderContainer container;
       final dio = Dio(BaseOptions(validateStatus: (status) => true));
       const name = 'Bob';
@@ -31,23 +30,25 @@ Future<void> main() async {
       final mockConnectivity = Stream<ConnectivityResult>.fromIterable(
         [ConnectivityResult.mobile],
       );
+      final testResponse = <String, dynamic>{
+        'data': tripAppUser.toJson(),
+      };
 
       setUp(() {
         TestWidgetsFlutterBinding.ensureInitialized();
-        dioAdapter = DioAdapter(dio: dio);
+        DioAdapter(dio: dio).onGet(
+          '/my/profile',
+          (server) => server.reply(
+            200,
+            testResponse,
+          ),
+        );
       });
 
       test(
         '正常系 Firebase Auth がログイン状態の場合は AppUser が取得できている',
         () async {
-          final googleUser = await MockGoogleSignIn().signIn();
-          final signInAccount = await googleUser?.authentication;
-          final credential = GoogleAuthProvider.credential(
-            accessToken: signInAccount?.accessToken,
-            idToken: signInAccount?.idToken,
-          );
-          final mockAuth = MockFirebaseAuth(mockUser: firebaseAuthUser);
-          await mockAuth.signInWithCredential(credential);
+          final mockAuth = await _mockSignIn(firebaseAuthUser);
 
           container = ProviderContainer(
             overrides: [
@@ -57,25 +58,13 @@ Future<void> main() async {
               networkConnectivityProvider
                   .overrideWith((ref) => mockConnectivity),
             ],
-          )..listen(
+          )
+            ..listen(
               appUserNotifierProvider,
               asyncValueListener,
               fireImmediately: true,
-            );
-
-          final testResponse = <String, dynamic>{
-            'data': tripAppUser.toJson(),
-          };
-
-          dioAdapter.onGet(
-            '/my/profile',
-            (server) => server.reply(
-              200,
-              testResponse,
-            ),
-          );
-
-          container.read(appUserNotifierProvider);
+            )
+            ..read(appUserNotifierProvider);
 
           verify(
             () => asyncValueListener(
@@ -148,4 +137,16 @@ Future<void> main() async {
       );
     },
   );
+}
+
+Future<MockFirebaseAuth> _mockSignIn(MockUser firebaseAuthUser) async {
+  final googleUser = await MockGoogleSignIn().signIn();
+  final signInAccount = await googleUser?.authentication;
+  final credential = GoogleAuthProvider.credential(
+    accessToken: signInAccount?.accessToken,
+    idToken: signInAccount?.idToken,
+  );
+  final mockAuth = MockFirebaseAuth(mockUser: firebaseAuthUser);
+  await mockAuth.signInWithCredential(credential);
+  return mockAuth;
 }
