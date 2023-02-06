@@ -35,7 +35,7 @@ dependencies:
   mockito: ^5.3.2
   mocktail: ^0.3.0
   nil: ^1.1.1
-  riverpod_annotation: ^1.0.6
+  riverpod_annotation: ^1.1.1
   roggle: ^0.3.0
   shared_preferences: ^2.0.15
 
