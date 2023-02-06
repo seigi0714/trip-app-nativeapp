@@ -6,7 +6,7 @@ import 'package:trip_app_nativeapp/core/debug/logger.dart';
 
 part 'request_interceptor.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 RequestInterceptor requestInterceptor(RequestInterceptorRef ref) {
   return RequestInterceptor();
 }

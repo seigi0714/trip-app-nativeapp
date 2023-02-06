@@ -6,7 +6,7 @@ import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 
 part 'header_interceptor.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 HeaderInterceptor headerInterceptor(
   HeaderInterceptorRef ref,
   ApiDestination apiDestination,

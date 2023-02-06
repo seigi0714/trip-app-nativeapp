@@ -5,7 +5,7 @@ import 'package:trip_app_nativeapp/features/auth/domain/repositories/firebase_au
 
 part 'firebase_auth_repository.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 FirebaseAuth firebaseAuth(FirebaseAuthRef ref) => FirebaseAuth.instance;
 
 @riverpod

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
+import 'package:trip_app_nativeapp/features/user/controller/app_user_controller.dart';
 import 'package:trip_app_nativeapp/view/pages/error_page.dart';
 import 'package:trip_app_nativeapp/view/pages/home_page.dart';
 import 'package:trip_app_nativeapp/view/pages/loading_page.dart';
@@ -13,32 +13,43 @@ part 'router.g.dart';
 
 @riverpod
 GoRouter router(RouterRef ref) {
-  final userAsync = ref.watch(firebaseAuthUserProvider);
+  final appUserAsync = ref.watch(appUserControllerProvider);
   return GoRouter(
     redirect: (BuildContext context, state) {
       final isAtLoginPage = state.subloc == LoginPage.path;
-      if (userAsync.value == null) {
-        return isAtLoginPage ? null : LoginPage.path;
-      } else if (isAtLoginPage) {
-        return HomePage.path;
-      } else {
-        return null;
-      }
+      return appUserAsync.maybeWhen(
+        data: (user) {
+          if (user == null) {
+            return isAtLoginPage ? null : LoginPage.path;
+          } else if (isAtLoginPage) {
+            return HomePage.path;
+          } else {
+            return null;
+          }
+        },
+        // ここを null にしておかないと、アプリ起動時に一瞬 ErrorPage が表示されてしまう
+        orElse: () => null,
+      );
     },
     routes: [
       GoRoute(
         path: HomePage.path,
         name: HomePage.name,
-        builder: (context, state) => userAsync.when(
+        builder: (context, state) => appUserAsync.when(
           data: (user) {
             if (user == null) {
               return const LoginPage();
             }
             return const HomePage();
           },
-          error: (error, stackTrace) =>
-              ErrorPage(errorMessage: state.error.toString()),
           loading: () => const LoadingPage(),
+          error: (error, stackTrace) {
+            if (error is Exception) {
+              return ErrorPage(exception: error);
+            } else {
+              return const ErrorPage(exception: null);
+            }
+          },
         ),
         routes: [
           GoRoute(
@@ -63,7 +74,7 @@ GoRouter router(RouterRef ref) {
     ],
     errorPageBuilder: (context, state) => MaterialPage<Widget>(
       key: state.pageKey,
-      child: ErrorPage(errorMessage: state.error.toString()),
+      child: ErrorPage(exception: state.error),
     ),
   );
 }

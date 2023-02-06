@@ -2,7 +2,7 @@
 
 // ignore_for_file: type=lint, implicit_dynamic_parameter, implicit_dynamic_type, implicit_dynamic_method, strict_raw_type
 
-part of 'api_client.dart';
+part of 'connectivity_interceptor.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -31,31 +31,15 @@ class _SystemHash {
   }
 }
 
-String $publicTripAppV1ClientHash() =>
-    r'e844bf9ae7ff8562d1a4f51c0c09e08b70aa184e';
+String $connectivityInterceptorHash() =>
+    r'934b7ab10684cdb73377d86b93d53cf601720368';
 
-/// 認証なしTripAppApiのAPIクライアントクラスを提供する。
-///
-/// Copied from [publicTripAppV1Client].
-final publicTripAppV1ClientProvider = AutoDisposeProvider<AbstractApiClient>(
-  publicTripAppV1Client,
-  name: r'publicTripAppV1ClientProvider',
+/// See also [connectivityInterceptor].
+final connectivityInterceptorProvider = Provider<ConnectivityInterceptor>(
+  connectivityInterceptor,
+  name: r'connectivityInterceptorProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : $publicTripAppV1ClientHash,
+      : $connectivityInterceptorHash,
 );
-typedef PublicTripAppV1ClientRef = AutoDisposeProviderRef<AbstractApiClient>;
-String $privateTripAppV1ClientHash() =>
-    r'1dc34ff1cab9ecb3b11d3cd8d43630bd864073ce';
-
-/// 認証ありTripAppApiのAPIクライアントクラスを提供する。
-///
-/// Copied from [privateTripAppV1Client].
-final privateTripAppV1ClientProvider = Provider<AbstractApiClient>(
-  privateTripAppV1Client,
-  name: r'privateTripAppV1ClientProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : $privateTripAppV1ClientHash,
-);
-typedef PrivateTripAppV1ClientRef = ProviderRef<AbstractApiClient>;
+typedef ConnectivityInterceptorRef = ProviderRef<ConnectivityInterceptor>;

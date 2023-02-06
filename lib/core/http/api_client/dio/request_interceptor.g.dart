@@ -31,14 +31,14 @@ class _SystemHash {
   }
 }
 
-String $requestInterceptorHash() => r'832db3cae89f1ac2b70168c35c5bdce8bf2562cf';
+String $requestInterceptorHash() => r'dad6b4e5499b977e7eb11840b3d8c6affd217313';
 
 /// See also [requestInterceptor].
-final requestInterceptorProvider = AutoDisposeProvider<RequestInterceptor>(
+final requestInterceptorProvider = Provider<RequestInterceptor>(
   requestInterceptor,
   name: r'requestInterceptorProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : $requestInterceptorHash,
 );
-typedef RequestInterceptorRef = AutoDisposeProviderRef<RequestInterceptor>;
+typedef RequestInterceptorRef = ProviderRef<RequestInterceptor>;

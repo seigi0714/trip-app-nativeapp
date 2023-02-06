@@ -1,7 +1,13 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/constants/json.dart';
+import 'package:trip_app_nativeapp/core/debug/logger.dart';
+import 'package:trip_app_nativeapp/core/enum/dio_error_code.dart';
 import 'package:trip_app_nativeapp/core/exception/api_exception.dart';
+import 'package:trip_app_nativeapp/core/extensions/dio.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/dio.dart';
@@ -21,7 +27,7 @@ AbstractApiClient publicTripAppV1Client(PublicTripAppV1ClientRef ref) {
 }
 
 /// 認証ありTripAppApiのAPIクライアントクラスを提供する。
-@riverpod
+@Riverpod(keepAlive: true)
 AbstractApiClient privateTripAppV1Client(PrivateTripAppV1ClientRef ref) {
   return ApiClient(
     ref.watch(
@@ -44,27 +50,32 @@ class ApiClient implements AbstractApiClient {
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final response = await _dio.get<Json>(
-      path,
-      queryParameters: queryParameters,
-      options: options ?? Options(headers: header),
-      cancelToken: cancelToken,
-      onReceiveProgress: onReceiveProgress,
-    );
-    final responseData = response.data;
-    final statusCode = response.statusCode;
-    if (responseData == null || statusCode == null) {
-      throw const ApiException(statusCode: 500);
-    }
-    if (statusCode >= 400 && statusCode < 600) {
-      final errorResponse = ErrorResponse.fromJson(responseData);
-      throw ApiException(
-        statusCode: statusCode,
-        errorCode: errorResponse.errorCode,
-        description: errorResponse.description,
+    try {
+      final response = await _dio.get<Json>(
+        path,
+        queryParameters: queryParameters,
+        options: options ?? Options(headers: header),
+        cancelToken: cancelToken,
+        onReceiveProgress: onReceiveProgress,
       );
+      final responseData = response.data;
+      final statusCode = response.statusCode;
+      if (responseData == null || statusCode == null) {
+        throw const ApiException(statusCode: 500);
+      }
+      if (statusCode >= 400 && statusCode < 600) {
+        final errorResponse = ErrorResponse.fromJson(responseData);
+        throw ApiException(
+          statusCode: statusCode,
+          errorCode: errorResponse.errorCode,
+          description: errorResponse.description,
+        );
+      }
+      return ApiResponse.fromJson(responseData);
+    } on DioError catch (e) {
+      final exception = _handleDioError(e);
+      throw exception;
     }
-    return ApiResponse.fromJson(responseData);
   }
 
   @override
@@ -78,28 +89,52 @@ class ApiClient implements AbstractApiClient {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final response = await _dio.post<Json>(
-      path,
-      data: data,
-      queryParameters: queryParameters,
-      options: options ?? Options(headers: header),
-      cancelToken: cancelToken,
-      onSendProgress: onSendProgress,
-      onReceiveProgress: onReceiveProgress,
-    );
-    final responseData = response.data;
-    final statusCode = response.statusCode;
-    if (responseData == null || statusCode == null) {
-      throw const ApiException(statusCode: 500);
-    }
-    if (statusCode >= 400 && statusCode < 600) {
-      final errorResponse = ErrorResponse.fromJson(responseData);
-      throw ApiException(
-        statusCode: statusCode,
-        errorCode: errorResponse.errorCode,
-        description: errorResponse.description,
+    try {
+      final response = await _dio.post<Json>(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options ?? Options(headers: header),
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
       );
+      final responseData = response.data;
+      final statusCode = response.statusCode;
+      if (responseData == null || statusCode == null) {
+        throw const ApiException(statusCode: 500);
+      }
+      if (statusCode >= 400 && statusCode < 600) {
+        final errorResponse = ErrorResponse.fromJson(responseData);
+        throw ApiException(
+          statusCode: statusCode,
+          errorCode: errorResponse.errorCode,
+          description: errorResponse.description,
+        );
+      }
+      return ApiResponse.fromJson(responseData);
+    } on DioError catch (e) {
+      final exception = _handleDioError(e);
+      throw exception;
     }
-    return ApiResponse.fromJson(responseData);
+  }
+
+  /// DioError を受けて [ApiException] もしくはそのサブクラスを返す。
+  /// デバッグモードの場合は [DioError] の原因が [SocketException] によるものかを判別して、
+  /// そうである場合は、 [SocketException] を返す。
+  Exception _handleDioError(DioError dioError) {
+    final errorType = dioError.type;
+    final dynamic error = dioError.error;
+    if (errorType.isTimeout) {
+      return const ApiTimeoutException();
+    } else if (kDebugMode && dioError.message.contains('SocketException')) {
+      logger.e('SocketException: サーバとの接続を確認してください。');
+      return const SocketException('サーバとの接続を確認してください。');
+    } else if (error is DioErrorCode &&
+        error == DioErrorCode.networkNotConnected) {
+      return const NetworkNotConnectedException();
+    } else {
+      return const ApiException();
+    }
   }
 }

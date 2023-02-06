@@ -31,10 +31,10 @@ class _SystemHash {
   }
 }
 
-String $headerInterceptorHash() => r'334773dee9eed959495ef0b7a888469d9e94c4ac';
+String $headerInterceptorHash() => r'70fab2e645180399e947741ebd749dc8f1671857';
 
 /// See also [headerInterceptor].
-class HeaderInterceptorProvider extends AutoDisposeProvider<HeaderInterceptor> {
+class HeaderInterceptorProvider extends Provider<HeaderInterceptor> {
   HeaderInterceptorProvider(
     this.apiDestination,
   ) : super(
@@ -67,7 +67,7 @@ class HeaderInterceptorProvider extends AutoDisposeProvider<HeaderInterceptor> {
   }
 }
 
-typedef HeaderInterceptorRef = AutoDisposeProviderRef<HeaderInterceptor>;
+typedef HeaderInterceptorRef = ProviderRef<HeaderInterceptor>;
 
 /// See also [headerInterceptor].
 final headerInterceptorProvider = HeaderInterceptorFamily();
@@ -84,7 +84,7 @@ class HeaderInterceptorFamily extends Family<HeaderInterceptor> {
   }
 
   @override
-  AutoDisposeProvider<HeaderInterceptor> getProviderOverride(
+  Provider<HeaderInterceptor> getProviderOverride(
     covariant HeaderInterceptorProvider provider,
   ) {
     return call(

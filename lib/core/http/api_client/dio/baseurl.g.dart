@@ -31,10 +31,10 @@ class _SystemHash {
   }
 }
 
-String $baseUrlHash() => r'a128f97c4b019081b9565c31e6213b71d95917cb';
+String $baseUrlHash() => r'78fd8bf439744938def536f38451b2e54e394773';
 
 /// See also [baseUrl].
-class BaseUrlProvider extends AutoDisposeProvider<String> {
+class BaseUrlProvider extends Provider<String> {
   BaseUrlProvider(
     this.apiDestination,
   ) : super(
@@ -66,7 +66,7 @@ class BaseUrlProvider extends AutoDisposeProvider<String> {
   }
 }
 
-typedef BaseUrlRef = AutoDisposeProviderRef<String>;
+typedef BaseUrlRef = ProviderRef<String>;
 
 /// See also [baseUrl].
 final baseUrlProvider = BaseUrlFamily();
@@ -83,7 +83,7 @@ class BaseUrlFamily extends Family<String> {
   }
 
   @override
-  AutoDisposeProvider<String> getProviderOverride(
+  Provider<String> getProviderOverride(
     covariant BaseUrlProvider provider,
   ) {
     return call(
