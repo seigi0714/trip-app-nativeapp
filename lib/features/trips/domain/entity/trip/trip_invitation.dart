@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_num.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_status.dart';
 
 part 'trip_invitation.freezed.dart';
 
@@ -25,5 +26,6 @@ class TripInvitation with _$TripInvitation {
     required String invitationUserName, // Userは別集約なので名前だけStringで入れる
     required TripInvitationNum invitationNum,
     required String invitationCode,
+    required TripInvitationStatus status,
   }) = DetailTripInvitation;
 }
