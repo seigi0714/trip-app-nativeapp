@@ -157,16 +157,17 @@ Future<void> main() async {
     final validExpiredDate = DateTime(2022, 08, 1, 10, 15, 11);
 
     final validResult = TripInvitation.createDetailTripInvitation(
-        invitationCode: validInvitationCode,
-        invitationUserName: validInvitationUserName,
-        invitationNum: TripInvitationNum(value: validInvitationNum),
-        trip: Trip.createExistingTrip(
-          title: validTripName,
-          fromDate: validFromDate,
-          endDate: validEndDate,
-        ),
-        status: TripInvitationStatus.open,
-        expiredAt: validExpiredDate) as DetailTripInvitation;
+      invitationCode: validInvitationCode,
+      invitationUserName: validInvitationUserName,
+      invitationNum: TripInvitationNum(value: validInvitationNum),
+      trip: Trip.createExistingTrip(
+        title: validTripName,
+        fromDate: validFromDate,
+        endDate: validEndDate,
+      ),
+      status: TripInvitationStatus.open,
+      expiredAt: validExpiredDate,
+    ) as DetailTripInvitation;
     test('正常系', () async {
       when(
         mockApiClient.get(
