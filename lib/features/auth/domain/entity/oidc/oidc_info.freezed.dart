@@ -27,33 +27,37 @@ mixin _$OidcInfo {
 /// @nodoc
 abstract class $OidcInfoCopyWith<$Res> {
   factory $OidcInfoCopyWith(OidcInfo value, $Res Function(OidcInfo) then) =
-      _$OidcInfoCopyWithImpl<$Res>;
+      _$OidcInfoCopyWithImpl<$Res, OidcInfo>;
+  @useResult
   $Res call({String idToken, String nonce});
 }
 
 /// @nodoc
-class _$OidcInfoCopyWithImpl<$Res> implements $OidcInfoCopyWith<$Res> {
+class _$OidcInfoCopyWithImpl<$Res, $Val extends OidcInfo>
+    implements $OidcInfoCopyWith<$Res> {
   _$OidcInfoCopyWithImpl(this._value, this._then);
 
-  final OidcInfo _value;
   // ignore: unused_field
-  final $Res Function(OidcInfo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? idToken = freezed,
-    Object? nonce = freezed,
+    Object? idToken = null,
+    Object? nonce = null,
   }) {
     return _then(_value.copyWith(
-      idToken: idToken == freezed
+      idToken: null == idToken
           ? _value.idToken
           : idToken // ignore: cast_nullable_to_non_nullable
               as String,
-      nonce: nonce == freezed
+      nonce: null == nonce
           ? _value.nonce
           : nonce // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -63,30 +67,30 @@ abstract class _$$_OidcInfoCopyWith<$Res> implements $OidcInfoCopyWith<$Res> {
           _$_OidcInfo value, $Res Function(_$_OidcInfo) then) =
       __$$_OidcInfoCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String idToken, String nonce});
 }
 
 /// @nodoc
-class __$$_OidcInfoCopyWithImpl<$Res> extends _$OidcInfoCopyWithImpl<$Res>
+class __$$_OidcInfoCopyWithImpl<$Res>
+    extends _$OidcInfoCopyWithImpl<$Res, _$_OidcInfo>
     implements _$$_OidcInfoCopyWith<$Res> {
   __$$_OidcInfoCopyWithImpl(
       _$_OidcInfo _value, $Res Function(_$_OidcInfo) _then)
-      : super(_value, (v) => _then(v as _$_OidcInfo));
+      : super(_value, _then);
 
-  @override
-  _$_OidcInfo get _value => super._value as _$_OidcInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? idToken = freezed,
-    Object? nonce = freezed,
+    Object? idToken = null,
+    Object? nonce = null,
   }) {
     return _then(_$_OidcInfo(
-      idToken: idToken == freezed
+      idToken: null == idToken
           ? _value.idToken
           : idToken // ignore: cast_nullable_to_non_nullable
               as String,
-      nonce: nonce == freezed
+      nonce: null == nonce
           ? _value.nonce
           : nonce // ignore: cast_nullable_to_non_nullable
               as String,
@@ -114,18 +118,16 @@ class _$_OidcInfo implements _OidcInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OidcInfo &&
-            const DeepCollectionEquality().equals(other.idToken, idToken) &&
-            const DeepCollectionEquality().equals(other.nonce, nonce));
+            (identical(other.idToken, idToken) || other.idToken == idToken) &&
+            (identical(other.nonce, nonce) || other.nonce == nonce));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(idToken),
-      const DeepCollectionEquality().hash(nonce));
+  int get hashCode => Object.hash(runtimeType, idToken, nonce);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_OidcInfoCopyWith<_$_OidcInfo> get copyWith =>
       __$$_OidcInfoCopyWithImpl<_$_OidcInfo>(this, _$identity);
 }

@@ -28,42 +28,46 @@ mixin _$GoogleAccount {
 abstract class $GoogleAccountCopyWith<$Res> {
   factory $GoogleAccountCopyWith(
           GoogleAccount value, $Res Function(GoogleAccount) then) =
-      _$GoogleAccountCopyWithImpl<$Res>;
+      _$GoogleAccountCopyWithImpl<$Res, GoogleAccount>;
+  @useResult
   $Res call({String displayName, ThirdPartyCredential credential});
 
   $ThirdPartyCredentialCopyWith<$Res> get credential;
 }
 
 /// @nodoc
-class _$GoogleAccountCopyWithImpl<$Res>
+class _$GoogleAccountCopyWithImpl<$Res, $Val extends GoogleAccount>
     implements $GoogleAccountCopyWith<$Res> {
   _$GoogleAccountCopyWithImpl(this._value, this._then);
 
-  final GoogleAccount _value;
   // ignore: unused_field
-  final $Res Function(GoogleAccount) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? displayName = freezed,
-    Object? credential = freezed,
+    Object? displayName = null,
+    Object? credential = null,
   }) {
     return _then(_value.copyWith(
-      displayName: displayName == freezed
+      displayName: null == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
               as String,
-      credential: credential == freezed
+      credential: null == credential
           ? _value.credential
           : credential // ignore: cast_nullable_to_non_nullable
               as ThirdPartyCredential,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ThirdPartyCredentialCopyWith<$Res> get credential {
     return $ThirdPartyCredentialCopyWith<$Res>(_value.credential, (value) {
-      return _then(_value.copyWith(credential: value));
+      return _then(_value.copyWith(credential: value) as $Val);
     });
   }
 }
@@ -75,6 +79,7 @@ abstract class _$$_GoogleAccountCopyWith<$Res>
           _$_GoogleAccount value, $Res Function(_$_GoogleAccount) then) =
       __$$_GoogleAccountCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String displayName, ThirdPartyCredential credential});
 
   @override
@@ -83,26 +88,24 @@ abstract class _$$_GoogleAccountCopyWith<$Res>
 
 /// @nodoc
 class __$$_GoogleAccountCopyWithImpl<$Res>
-    extends _$GoogleAccountCopyWithImpl<$Res>
+    extends _$GoogleAccountCopyWithImpl<$Res, _$_GoogleAccount>
     implements _$$_GoogleAccountCopyWith<$Res> {
   __$$_GoogleAccountCopyWithImpl(
       _$_GoogleAccount _value, $Res Function(_$_GoogleAccount) _then)
-      : super(_value, (v) => _then(v as _$_GoogleAccount));
+      : super(_value, _then);
 
-  @override
-  _$_GoogleAccount get _value => super._value as _$_GoogleAccount;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? displayName = freezed,
-    Object? credential = freezed,
+    Object? displayName = null,
+    Object? credential = null,
   }) {
     return _then(_$_GoogleAccount(
-      displayName: displayName == freezed
+      displayName: null == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
               as String,
-      credential: credential == freezed
+      credential: null == credential
           ? _value.credential
           : credential // ignore: cast_nullable_to_non_nullable
               as ThirdPartyCredential,
@@ -130,20 +133,18 @@ class _$_GoogleAccount implements _GoogleAccount {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GoogleAccount &&
-            const DeepCollectionEquality()
-                .equals(other.displayName, displayName) &&
-            const DeepCollectionEquality()
-                .equals(other.credential, credential));
+            (identical(other.displayName, displayName) ||
+                other.displayName == displayName) &&
+            (identical(other.credential, credential) ||
+                other.credential == credential));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(displayName),
-      const DeepCollectionEquality().hash(credential));
+  int get hashCode => Object.hash(runtimeType, displayName, credential);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GoogleAccountCopyWith<_$_GoogleAccount> get copyWith =>
       __$$_GoogleAccountCopyWithImpl<_$_GoogleAccount>(this, _$identity);
 }

@@ -31,7 +31,7 @@ class _SystemHash {
   }
 }
 
-String $firebaseAuthHash() => r'46c40b7c5cf8ab936c0daa96a6af106bd2ae5d51';
+String $firebaseAuthHash() => r'c8e57c3e164ad1c2cad48c4508e47f6097e350a7';
 
 /// See also [firebaseAuth].
 final firebaseAuthProvider = Provider<FirebaseAuth>(
