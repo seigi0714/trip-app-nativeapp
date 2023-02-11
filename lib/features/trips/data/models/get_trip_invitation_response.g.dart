@@ -15,9 +15,11 @@ _$_GetTripInvitationResponse _$$_GetTripInvitationResponseFromJson(
       json,
       ($checkedConvert) {
         final val = _$_GetTripInvitationResponse(
-          invitationCode:
-              $checkedConvert('invitation_code', (v) => v as String),
-          invitationNum: $checkedConvert('invitation_num', (v) => v as int),
+          inviteCode: $checkedConvert('invite_code', (v) => v as String),
+          inviteNum: $checkedConvert('invite_num', (v) => v as int),
+          inviteStatus: $checkedConvert('invite_status', (v) => v as String),
+          expiredAt: $checkedConvert('expired_at',
+              (v) => const DateTimeConverter().fromJson(v as String)),
           trip: $checkedConvert(
               'trip', (v) => TripItem.fromJson(v as Map<String, dynamic>)),
           invitationUser: $checkedConvert('invitation_user',
@@ -26,8 +28,10 @@ _$_GetTripInvitationResponse _$$_GetTripInvitationResponseFromJson(
         return val;
       },
       fieldKeyMap: const {
-        'invitationCode': 'invitation_code',
-        'invitationNum': 'invitation_num',
+        'inviteCode': 'invite_code',
+        'inviteNum': 'invite_num',
+        'inviteStatus': 'invite_status',
+        'expiredAt': 'expired_at',
         'invitationUser': 'invitation_user'
       },
     );
@@ -35,8 +39,10 @@ _$_GetTripInvitationResponse _$$_GetTripInvitationResponseFromJson(
 Map<String, dynamic> _$$_GetTripInvitationResponseToJson(
         _$_GetTripInvitationResponse instance) =>
     <String, dynamic>{
-      'invitation_code': instance.invitationCode,
-      'invitation_num': instance.invitationNum,
+      'invite_code': instance.inviteCode,
+      'invite_num': instance.inviteNum,
+      'invite_status': instance.inviteStatus,
+      'expired_at': const DateTimeConverter().toJson(instance.expiredAt),
       'trip': instance.trip,
       'invitation_user': instance.invitationUser,
     };

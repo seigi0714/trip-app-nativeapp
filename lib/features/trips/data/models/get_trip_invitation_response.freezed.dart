@@ -21,8 +21,11 @@ GetTripInvitationResponse _$GetTripInvitationResponseFromJson(
 
 /// @nodoc
 mixin _$GetTripInvitationResponse {
-  String get invitationCode => throw _privateConstructorUsedError;
-  int get invitationNum => throw _privateConstructorUsedError;
+  String get inviteCode => throw _privateConstructorUsedError;
+  int get inviteNum => throw _privateConstructorUsedError;
+  String get inviteStatus => throw _privateConstructorUsedError;
+  @DateTimeConverter()
+  DateTime get expiredAt => throw _privateConstructorUsedError;
   TripItem get trip => throw _privateConstructorUsedError;
   InvitationUserItem get invitationUser => throw _privateConstructorUsedError;
 
@@ -39,8 +42,10 @@ abstract class $GetTripInvitationResponseCopyWith<$Res> {
       _$GetTripInvitationResponseCopyWithImpl<$Res, GetTripInvitationResponse>;
   @useResult
   $Res call(
-      {String invitationCode,
-      int invitationNum,
+      {String inviteCode,
+      int inviteNum,
+      String inviteStatus,
+      @DateTimeConverter() DateTime expiredAt,
       TripItem trip,
       InvitationUserItem invitationUser});
 
@@ -62,20 +67,30 @@ class _$GetTripInvitationResponseCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? invitationCode = null,
-    Object? invitationNum = null,
+    Object? inviteCode = null,
+    Object? inviteNum = null,
+    Object? inviteStatus = null,
+    Object? expiredAt = null,
     Object? trip = null,
     Object? invitationUser = null,
   }) {
     return _then(_value.copyWith(
-      invitationCode: null == invitationCode
-          ? _value.invitationCode
-          : invitationCode // ignore: cast_nullable_to_non_nullable
+      inviteCode: null == inviteCode
+          ? _value.inviteCode
+          : inviteCode // ignore: cast_nullable_to_non_nullable
               as String,
-      invitationNum: null == invitationNum
-          ? _value.invitationNum
-          : invitationNum // ignore: cast_nullable_to_non_nullable
+      inviteNum: null == inviteNum
+          ? _value.inviteNum
+          : inviteNum // ignore: cast_nullable_to_non_nullable
               as int,
+      inviteStatus: null == inviteStatus
+          ? _value.inviteStatus
+          : inviteStatus // ignore: cast_nullable_to_non_nullable
+              as String,
+      expiredAt: null == expiredAt
+          ? _value.expiredAt
+          : expiredAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       trip: null == trip
           ? _value.trip
           : trip // ignore: cast_nullable_to_non_nullable
@@ -114,8 +129,10 @@ abstract class _$$_GetTripInvitationResponseCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String invitationCode,
-      int invitationNum,
+      {String inviteCode,
+      int inviteNum,
+      String inviteStatus,
+      @DateTimeConverter() DateTime expiredAt,
       TripItem trip,
       InvitationUserItem invitationUser});
 
@@ -138,20 +155,30 @@ class __$$_GetTripInvitationResponseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? invitationCode = null,
-    Object? invitationNum = null,
+    Object? inviteCode = null,
+    Object? inviteNum = null,
+    Object? inviteStatus = null,
+    Object? expiredAt = null,
     Object? trip = null,
     Object? invitationUser = null,
   }) {
     return _then(_$_GetTripInvitationResponse(
-      invitationCode: null == invitationCode
-          ? _value.invitationCode
-          : invitationCode // ignore: cast_nullable_to_non_nullable
+      inviteCode: null == inviteCode
+          ? _value.inviteCode
+          : inviteCode // ignore: cast_nullable_to_non_nullable
               as String,
-      invitationNum: null == invitationNum
-          ? _value.invitationNum
-          : invitationNum // ignore: cast_nullable_to_non_nullable
+      inviteNum: null == inviteNum
+          ? _value.inviteNum
+          : inviteNum // ignore: cast_nullable_to_non_nullable
               as int,
+      inviteStatus: null == inviteStatus
+          ? _value.inviteStatus
+          : inviteStatus // ignore: cast_nullable_to_non_nullable
+              as String,
+      expiredAt: null == expiredAt
+          ? _value.expiredAt
+          : expiredAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       trip: null == trip
           ? _value.trip
           : trip // ignore: cast_nullable_to_non_nullable
@@ -168,8 +195,10 @@ class __$$_GetTripInvitationResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_GetTripInvitationResponse implements _GetTripInvitationResponse {
   const _$_GetTripInvitationResponse(
-      {required this.invitationCode,
-      required this.invitationNum,
+      {required this.inviteCode,
+      required this.inviteNum,
+      required this.inviteStatus,
+      @DateTimeConverter() required this.expiredAt,
       required this.trip,
       required this.invitationUser});
 
@@ -177,9 +206,14 @@ class _$_GetTripInvitationResponse implements _GetTripInvitationResponse {
       _$$_GetTripInvitationResponseFromJson(json);
 
   @override
-  final String invitationCode;
+  final String inviteCode;
   @override
-  final int invitationNum;
+  final int inviteNum;
+  @override
+  final String inviteStatus;
+  @override
+  @DateTimeConverter()
+  final DateTime expiredAt;
   @override
   final TripItem trip;
   @override
@@ -187,7 +221,7 @@ class _$_GetTripInvitationResponse implements _GetTripInvitationResponse {
 
   @override
   String toString() {
-    return 'GetTripInvitationResponse(invitationCode: $invitationCode, invitationNum: $invitationNum, trip: $trip, invitationUser: $invitationUser)';
+    return 'GetTripInvitationResponse(inviteCode: $inviteCode, inviteNum: $inviteNum, inviteStatus: $inviteStatus, expiredAt: $expiredAt, trip: $trip, invitationUser: $invitationUser)';
   }
 
   @override
@@ -195,10 +229,14 @@ class _$_GetTripInvitationResponse implements _GetTripInvitationResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetTripInvitationResponse &&
-            (identical(other.invitationCode, invitationCode) ||
-                other.invitationCode == invitationCode) &&
-            (identical(other.invitationNum, invitationNum) ||
-                other.invitationNum == invitationNum) &&
+            (identical(other.inviteCode, inviteCode) ||
+                other.inviteCode == inviteCode) &&
+            (identical(other.inviteNum, inviteNum) ||
+                other.inviteNum == inviteNum) &&
+            (identical(other.inviteStatus, inviteStatus) ||
+                other.inviteStatus == inviteStatus) &&
+            (identical(other.expiredAt, expiredAt) ||
+                other.expiredAt == expiredAt) &&
             (identical(other.trip, trip) || other.trip == trip) &&
             (identical(other.invitationUser, invitationUser) ||
                 other.invitationUser == invitationUser));
@@ -206,8 +244,8 @@ class _$_GetTripInvitationResponse implements _GetTripInvitationResponse {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, invitationCode, invitationNum, trip, invitationUser);
+  int get hashCode => Object.hash(runtimeType, inviteCode, inviteNum,
+      inviteStatus, expiredAt, trip, invitationUser);
 
   @JsonKey(ignore: true)
   @override
@@ -226,8 +264,10 @@ class _$_GetTripInvitationResponse implements _GetTripInvitationResponse {
 
 abstract class _GetTripInvitationResponse implements GetTripInvitationResponse {
   const factory _GetTripInvitationResponse(
-          {required final String invitationCode,
-          required final int invitationNum,
+          {required final String inviteCode,
+          required final int inviteNum,
+          required final String inviteStatus,
+          @DateTimeConverter() required final DateTime expiredAt,
           required final TripItem trip,
           required final InvitationUserItem invitationUser}) =
       _$_GetTripInvitationResponse;
@@ -236,9 +276,14 @@ abstract class _GetTripInvitationResponse implements GetTripInvitationResponse {
       _$_GetTripInvitationResponse.fromJson;
 
   @override
-  String get invitationCode;
+  String get inviteCode;
   @override
-  int get invitationNum;
+  int get inviteNum;
+  @override
+  String get inviteStatus;
+  @override
+  @DateTimeConverter()
+  DateTime get expiredAt;
   @override
   TripItem get trip;
   @override

@@ -1,4 +1,3 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
@@ -9,6 +8,7 @@ import 'package:trip_app_nativeapp/features/trips/data/models/invite_trip_respon
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_num.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_status.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/repositories/trip_repository_interface.dart';
 
 part 'trip_repository.g.dart';
@@ -71,7 +71,10 @@ class TripRepository implements TripRepositoryInterface {
     );
 
     final invitationRes = GetTripInvitationResponse.fromJson(res.data);
-    final invitationNum = TripInvitationNum(value: invitationRes.invitationNum);
+    final invitationNum = TripInvitationNum(value: invitationRes.inviteNum);
+    final invitationStatus = TripInvitationStatus.fromName(
+      invitationRes.inviteStatus,
+    );
 
     return TripInvitation.createDetailTripInvitation(
       trip: Trip.createExistingTrip(
@@ -81,7 +84,9 @@ class TripRepository implements TripRepositoryInterface {
       ),
       invitationUserName: invitationRes.invitationUser.name,
       invitationNum: invitationNum,
-      invitationCode: invitationRes.invitationCode,
+      invitationCode: invitationRes.inviteCode,
+      status: invitationStatus,
+      expiredAt: invitationRes.expiredAt,
     ) as DetailTripInvitation;
   }
 }

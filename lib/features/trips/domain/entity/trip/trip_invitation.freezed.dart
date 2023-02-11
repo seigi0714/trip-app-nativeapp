@@ -29,7 +29,8 @@ mixin _$TripInvitation {
             String invitationUserName,
             TripInvitationNum invitationNum,
             String invitationCode,
-            TripInvitationStatus status)
+            TripInvitationStatus status,
+            DateTime expiredAt)
         createDetailTripInvitation,
   }) =>
       throw _privateConstructorUsedError;
@@ -45,7 +46,8 @@ mixin _$TripInvitation {
             String invitationUserName,
             TripInvitationNum invitationNum,
             String invitationCode,
-            TripInvitationStatus status)?
+            TripInvitationStatus status,
+            DateTime expiredAt)?
         createDetailTripInvitation,
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +63,8 @@ mixin _$TripInvitation {
             String invitationUserName,
             TripInvitationNum invitationNum,
             String invitationCode,
-            TripInvitationStatus status)?
+            TripInvitationStatus status,
+            DateTime expiredAt)?
         createDetailTripInvitation,
     required TResult orElse(),
   }) =>
@@ -135,7 +138,8 @@ class _$NewTripInvitation implements NewTripInvitation {
             String invitationUserName,
             TripInvitationNum invitationNum,
             String invitationCode,
-            TripInvitationStatus status)
+            TripInvitationStatus status,
+            DateTime expiredAt)
         createDetailTripInvitation,
   }) {
     return createNewTripInvitation(tripId, invitationNum);
@@ -154,7 +158,8 @@ class _$NewTripInvitation implements NewTripInvitation {
             String invitationUserName,
             TripInvitationNum invitationNum,
             String invitationCode,
-            TripInvitationStatus status)?
+            TripInvitationStatus status,
+            DateTime expiredAt)?
         createDetailTripInvitation,
   }) {
     return createNewTripInvitation?.call(tripId, invitationNum);
@@ -173,7 +178,8 @@ class _$NewTripInvitation implements NewTripInvitation {
             String invitationUserName,
             TripInvitationNum invitationNum,
             String invitationCode,
-            TripInvitationStatus status)?
+            TripInvitationStatus status,
+            DateTime expiredAt)?
         createDetailTripInvitation,
     required TResult orElse(),
   }) {
@@ -281,7 +287,8 @@ class _$GeneratedTripInvitation implements GeneratedTripInvitation {
             String invitationUserName,
             TripInvitationNum invitationNum,
             String invitationCode,
-            TripInvitationStatus status)
+            TripInvitationStatus status,
+            DateTime expiredAt)
         createDetailTripInvitation,
   }) {
     return createGeneratedTripInvitation(tripId, invitationNum, invitationCode);
@@ -300,7 +307,8 @@ class _$GeneratedTripInvitation implements GeneratedTripInvitation {
             String invitationUserName,
             TripInvitationNum invitationNum,
             String invitationCode,
-            TripInvitationStatus status)?
+            TripInvitationStatus status,
+            DateTime expiredAt)?
         createDetailTripInvitation,
   }) {
     return createGeneratedTripInvitation?.call(
@@ -320,7 +328,8 @@ class _$GeneratedTripInvitation implements GeneratedTripInvitation {
             String invitationUserName,
             TripInvitationNum invitationNum,
             String invitationCode,
-            TripInvitationStatus status)?
+            TripInvitationStatus status,
+            DateTime expiredAt)?
         createDetailTripInvitation,
     required TResult orElse(),
   }) {
@@ -390,7 +399,8 @@ class _$DetailTripInvitation implements DetailTripInvitation {
       required this.invitationUserName,
       required this.invitationNum,
       required this.invitationCode,
-      required this.status});
+      required this.status,
+      required this.expiredAt});
 
   @override
   final Trip trip;
@@ -403,10 +413,12 @@ class _$DetailTripInvitation implements DetailTripInvitation {
   final String invitationCode;
   @override
   final TripInvitationStatus status;
+  @override
+  final DateTime expiredAt;
 
   @override
   String toString() {
-    return 'TripInvitation.createDetailTripInvitation(trip: $trip, invitationUserName: $invitationUserName, invitationNum: $invitationNum, invitationCode: $invitationCode, status: $status)';
+    return 'TripInvitation.createDetailTripInvitation(trip: $trip, invitationUserName: $invitationUserName, invitationNum: $invitationNum, invitationCode: $invitationCode, status: $status, expiredAt: $expiredAt)';
   }
 
   @override
@@ -421,12 +433,14 @@ class _$DetailTripInvitation implements DetailTripInvitation {
                 other.invitationNum == invitationNum) &&
             (identical(other.invitationCode, invitationCode) ||
                 other.invitationCode == invitationCode) &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.expiredAt, expiredAt) ||
+                other.expiredAt == expiredAt));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, trip, invitationUserName,
-      invitationNum, invitationCode, status);
+      invitationNum, invitationCode, status, expiredAt);
 
   @override
   @optionalTypeArgs
@@ -441,11 +455,12 @@ class _$DetailTripInvitation implements DetailTripInvitation {
             String invitationUserName,
             TripInvitationNum invitationNum,
             String invitationCode,
-            TripInvitationStatus status)
+            TripInvitationStatus status,
+            DateTime expiredAt)
         createDetailTripInvitation,
   }) {
-    return createDetailTripInvitation(
-        trip, invitationUserName, invitationNum, invitationCode, status);
+    return createDetailTripInvitation(trip, invitationUserName, invitationNum,
+        invitationCode, status, expiredAt);
   }
 
   @override
@@ -461,11 +476,12 @@ class _$DetailTripInvitation implements DetailTripInvitation {
             String invitationUserName,
             TripInvitationNum invitationNum,
             String invitationCode,
-            TripInvitationStatus status)?
+            TripInvitationStatus status,
+            DateTime expiredAt)?
         createDetailTripInvitation,
   }) {
-    return createDetailTripInvitation?.call(
-        trip, invitationUserName, invitationNum, invitationCode, status);
+    return createDetailTripInvitation?.call(trip, invitationUserName,
+        invitationNum, invitationCode, status, expiredAt);
   }
 
   @override
@@ -481,13 +497,14 @@ class _$DetailTripInvitation implements DetailTripInvitation {
             String invitationUserName,
             TripInvitationNum invitationNum,
             String invitationCode,
-            TripInvitationStatus status)?
+            TripInvitationStatus status,
+            DateTime expiredAt)?
         createDetailTripInvitation,
     required TResult orElse(),
   }) {
     if (createDetailTripInvitation != null) {
-      return createDetailTripInvitation(
-          trip, invitationUserName, invitationNum, invitationCode, status);
+      return createDetailTripInvitation(trip, invitationUserName, invitationNum,
+          invitationCode, status, expiredAt);
     }
     return orElse();
   }
@@ -537,7 +554,8 @@ abstract class DetailTripInvitation implements TripInvitation {
       required final String invitationUserName,
       required final TripInvitationNum invitationNum,
       required final String invitationCode,
-      required final TripInvitationStatus status}) = _$DetailTripInvitation;
+      required final TripInvitationStatus status,
+      required final DateTime expiredAt}) = _$DetailTripInvitation;
 
   Trip get trip;
   String get invitationUserName;
@@ -545,4 +563,5 @@ abstract class DetailTripInvitation implements TripInvitation {
   TripInvitationNum get invitationNum;
   String get invitationCode;
   TripInvitationStatus get status;
+  DateTime get expiredAt;
 }

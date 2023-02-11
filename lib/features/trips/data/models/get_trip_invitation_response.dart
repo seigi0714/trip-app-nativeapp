@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:trip_app_nativeapp/core/json_converter/date_converter.dart';
+import 'package:trip_app_nativeapp/core/json_converter/datetime_converter.dart';
 
 part 'get_trip_invitation_response.freezed.dart';
 part 'get_trip_invitation_response.g.dart';
@@ -7,8 +7,10 @@ part 'get_trip_invitation_response.g.dart';
 @freezed
 class GetTripInvitationResponse with _$GetTripInvitationResponse {
   const factory GetTripInvitationResponse({
-    required String invitationCode,
-    required int invitationNum,
+    required String inviteCode,
+    required int inviteNum,
+    required String inviteStatus,
+    @DateTimeConverter() required DateTime expiredAt,
     required TripItem trip,
     required InvitationUserItem invitationUser,
   }) = _GetTripInvitationResponse;

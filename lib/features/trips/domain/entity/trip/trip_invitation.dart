@@ -27,5 +27,6 @@ class TripInvitation with _$TripInvitation {
     required TripInvitationNum invitationNum,
     required String invitationCode,
     required TripInvitationStatus status,
+    required DateTime expiredAt,
   }) = DetailTripInvitation;
 }
