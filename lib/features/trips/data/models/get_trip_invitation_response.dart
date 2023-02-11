@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:trip_app_nativeapp/core/json_converter/date_converter.dart';
 
 part 'get_trip_invitation_response.freezed.dart';
 part 'get_trip_invitation_response.g.dart';
@@ -32,6 +33,8 @@ class TripItem with _$TripItem {
   const factory TripItem({
     required int id,
     required String name,
+    @DateConverter() required DateTime fromDate,
+    @DateConverter() required DateTime endDate,
   }) = _TripItem;
 
   factory TripItem.fromJson(Map<String, dynamic> json) =>

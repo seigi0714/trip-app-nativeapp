@@ -412,6 +412,10 @@ TripItem _$TripItemFromJson(Map<String, dynamic> json) {
 mixin _$TripItem {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  @DateConverter()
+  DateTime get fromDate => throw _privateConstructorUsedError;
+  @DateConverter()
+  DateTime get endDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -424,7 +428,11 @@ abstract class $TripItemCopyWith<$Res> {
   factory $TripItemCopyWith(TripItem value, $Res Function(TripItem) then) =
       _$TripItemCopyWithImpl<$Res, TripItem>;
   @useResult
-  $Res call({int id, String name});
+  $Res call(
+      {int id,
+      String name,
+      @DateConverter() DateTime fromDate,
+      @DateConverter() DateTime endDate});
 }
 
 /// @nodoc
@@ -442,6 +450,8 @@ class _$TripItemCopyWithImpl<$Res, $Val extends TripItem>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? fromDate = null,
+    Object? endDate = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -452,6 +462,14 @@ class _$TripItemCopyWithImpl<$Res, $Val extends TripItem>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      fromDate: null == fromDate
+          ? _value.fromDate
+          : fromDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      endDate: null == endDate
+          ? _value.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -463,7 +481,11 @@ abstract class _$$_TripItemCopyWith<$Res> implements $TripItemCopyWith<$Res> {
       __$$_TripItemCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name});
+  $Res call(
+      {int id,
+      String name,
+      @DateConverter() DateTime fromDate,
+      @DateConverter() DateTime endDate});
 }
 
 /// @nodoc
@@ -479,6 +501,8 @@ class __$$_TripItemCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? fromDate = null,
+    Object? endDate = null,
   }) {
     return _then(_$_TripItem(
       id: null == id
@@ -489,6 +513,14 @@ class __$$_TripItemCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      fromDate: null == fromDate
+          ? _value.fromDate
+          : fromDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      endDate: null == endDate
+          ? _value.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -496,7 +528,11 @@ class __$$_TripItemCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_TripItem implements _TripItem {
-  const _$_TripItem({required this.id, required this.name});
+  const _$_TripItem(
+      {required this.id,
+      required this.name,
+      @DateConverter() required this.fromDate,
+      @DateConverter() required this.endDate});
 
   factory _$_TripItem.fromJson(Map<String, dynamic> json) =>
       _$$_TripItemFromJson(json);
@@ -505,10 +541,16 @@ class _$_TripItem implements _TripItem {
   final int id;
   @override
   final String name;
+  @override
+  @DateConverter()
+  final DateTime fromDate;
+  @override
+  @DateConverter()
+  final DateTime endDate;
 
   @override
   String toString() {
-    return 'TripItem(id: $id, name: $name)';
+    return 'TripItem(id: $id, name: $name, fromDate: $fromDate, endDate: $endDate)';
   }
 
   @override
@@ -517,12 +559,15 @@ class _$_TripItem implements _TripItem {
         (other.runtimeType == runtimeType &&
             other is _$_TripItem &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.fromDate, fromDate) ||
+                other.fromDate == fromDate) &&
+            (identical(other.endDate, endDate) || other.endDate == endDate));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name);
+  int get hashCode => Object.hash(runtimeType, id, name, fromDate, endDate);
 
   @JsonKey(ignore: true)
   @override
@@ -539,8 +584,11 @@ class _$_TripItem implements _TripItem {
 }
 
 abstract class _TripItem implements TripItem {
-  const factory _TripItem({required final int id, required final String name}) =
-      _$_TripItem;
+  const factory _TripItem(
+      {required final int id,
+      required final String name,
+      @DateConverter() required final DateTime fromDate,
+      @DateConverter() required final DateTime endDate}) = _$_TripItem;
 
   factory _TripItem.fromJson(Map<String, dynamic> json) = _$_TripItem.fromJson;
 
@@ -548,6 +596,12 @@ abstract class _TripItem implements TripItem {
   int get id;
   @override
   String get name;
+  @override
+  @DateConverter()
+  DateTime get fromDate;
+  @override
+  @DateConverter()
+  DateTime get endDate;
   @override
   @JsonKey(ignore: true)
   _$$_TripItemCopyWith<_$_TripItem> get copyWith =>

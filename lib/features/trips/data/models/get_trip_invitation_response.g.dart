@@ -69,13 +69,20 @@ _$_TripItem _$$_TripItemFromJson(Map<String, dynamic> json) => $checkedCreate(
         final val = _$_TripItem(
           id: $checkedConvert('id', (v) => v as int),
           name: $checkedConvert('name', (v) => v as String),
+          fromDate: $checkedConvert(
+              'from_date', (v) => const DateConverter().fromJson(v as String)),
+          endDate: $checkedConvert(
+              'end_date', (v) => const DateConverter().fromJson(v as String)),
         );
         return val;
       },
+      fieldKeyMap: const {'fromDate': 'from_date', 'endDate': 'end_date'},
     );
 
 Map<String, dynamic> _$$_TripItemToJson(_$_TripItem instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'from_date': const DateConverter().toJson(instance.fromDate),
+      'end_date': const DateConverter().toJson(instance.endDate),
     };
