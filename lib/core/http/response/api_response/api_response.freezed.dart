@@ -33,28 +33,32 @@ mixin _$ApiResponse {
 abstract class $ApiResponseCopyWith<$Res> {
   factory $ApiResponseCopyWith(
           ApiResponse value, $Res Function(ApiResponse) then) =
-      _$ApiResponseCopyWithImpl<$Res>;
+      _$ApiResponseCopyWithImpl<$Res, ApiResponse>;
+  @useResult
   $Res call({@DataConverter() Map<String, dynamic> data});
 }
 
 /// @nodoc
-class _$ApiResponseCopyWithImpl<$Res> implements $ApiResponseCopyWith<$Res> {
+class _$ApiResponseCopyWithImpl<$Res, $Val extends ApiResponse>
+    implements $ApiResponseCopyWith<$Res> {
   _$ApiResponseCopyWithImpl(this._value, this._then);
 
-  final ApiResponse _value;
   // ignore: unused_field
-  final $Res Function(ApiResponse) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = freezed,
+    Object? data = null,
   }) {
     return _then(_value.copyWith(
-      data: data == freezed
+      data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -65,25 +69,25 @@ abstract class _$$_ApiResponseCopyWith<$Res>
           _$_ApiResponse value, $Res Function(_$_ApiResponse) then) =
       __$$_ApiResponseCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({@DataConverter() Map<String, dynamic> data});
 }
 
 /// @nodoc
-class __$$_ApiResponseCopyWithImpl<$Res> extends _$ApiResponseCopyWithImpl<$Res>
+class __$$_ApiResponseCopyWithImpl<$Res>
+    extends _$ApiResponseCopyWithImpl<$Res, _$_ApiResponse>
     implements _$$_ApiResponseCopyWith<$Res> {
   __$$_ApiResponseCopyWithImpl(
       _$_ApiResponse _value, $Res Function(_$_ApiResponse) _then)
-      : super(_value, (v) => _then(v as _$_ApiResponse));
+      : super(_value, _then);
 
-  @override
-  _$_ApiResponse get _value => super._value as _$_ApiResponse;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = freezed,
+    Object? data = null,
   }) {
     return _then(_$_ApiResponse(
-      data: data == freezed
+      data: null == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
@@ -129,6 +133,7 @@ class _$_ApiResponse implements _ApiResponse {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ApiResponseCopyWith<_$_ApiResponse> get copyWith =>
       __$$_ApiResponseCopyWithImpl<_$_ApiResponse>(this, _$identity);
 

@@ -32,29 +32,32 @@ mixin _$PostLoginResponse {
 abstract class $PostLoginResponseCopyWith<$Res> {
   factory $PostLoginResponseCopyWith(
           PostLoginResponse value, $Res Function(PostLoginResponse) then) =
-      _$PostLoginResponseCopyWithImpl<$Res>;
+      _$PostLoginResponseCopyWithImpl<$Res, PostLoginResponse>;
+  @useResult
   $Res call({String customToken});
 }
 
 /// @nodoc
-class _$PostLoginResponseCopyWithImpl<$Res>
+class _$PostLoginResponseCopyWithImpl<$Res, $Val extends PostLoginResponse>
     implements $PostLoginResponseCopyWith<$Res> {
   _$PostLoginResponseCopyWithImpl(this._value, this._then);
 
-  final PostLoginResponse _value;
   // ignore: unused_field
-  final $Res Function(PostLoginResponse) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? customToken = freezed,
+    Object? customToken = null,
   }) {
     return _then(_value.copyWith(
-      customToken: customToken == freezed
+      customToken: null == customToken
           ? _value.customToken
           : customToken // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -65,26 +68,25 @@ abstract class _$$_PostLoginResponseCopyWith<$Res>
           $Res Function(_$_PostLoginResponse) then) =
       __$$_PostLoginResponseCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String customToken});
 }
 
 /// @nodoc
 class __$$_PostLoginResponseCopyWithImpl<$Res>
-    extends _$PostLoginResponseCopyWithImpl<$Res>
+    extends _$PostLoginResponseCopyWithImpl<$Res, _$_PostLoginResponse>
     implements _$$_PostLoginResponseCopyWith<$Res> {
   __$$_PostLoginResponseCopyWithImpl(
       _$_PostLoginResponse _value, $Res Function(_$_PostLoginResponse) _then)
-      : super(_value, (v) => _then(v as _$_PostLoginResponse));
+      : super(_value, _then);
 
-  @override
-  _$_PostLoginResponse get _value => super._value as _$_PostLoginResponse;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? customToken = freezed,
+    Object? customToken = null,
   }) {
     return _then(_$_PostLoginResponse(
-      customToken: customToken == freezed
+      customToken: null == customToken
           ? _value.customToken
           : customToken // ignore: cast_nullable_to_non_nullable
               as String,
@@ -113,17 +115,17 @@ class _$_PostLoginResponse implements _PostLoginResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PostLoginResponse &&
-            const DeepCollectionEquality()
-                .equals(other.customToken, customToken));
+            (identical(other.customToken, customToken) ||
+                other.customToken == customToken));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(customToken));
+  int get hashCode => Object.hash(runtimeType, customToken);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PostLoginResponseCopyWith<_$_PostLoginResponse> get copyWith =>
       __$$_PostLoginResponseCopyWithImpl<_$_PostLoginResponse>(
           this, _$identity);

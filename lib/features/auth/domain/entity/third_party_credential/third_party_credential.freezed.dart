@@ -28,34 +28,38 @@ mixin _$ThirdPartyCredential {
 abstract class $ThirdPartyCredentialCopyWith<$Res> {
   factory $ThirdPartyCredentialCopyWith(ThirdPartyCredential value,
           $Res Function(ThirdPartyCredential) then) =
-      _$ThirdPartyCredentialCopyWithImpl<$Res>;
+      _$ThirdPartyCredentialCopyWithImpl<$Res, ThirdPartyCredential>;
+  @useResult
   $Res call({String idToken, String accessToken});
 }
 
 /// @nodoc
-class _$ThirdPartyCredentialCopyWithImpl<$Res>
+class _$ThirdPartyCredentialCopyWithImpl<$Res,
+        $Val extends ThirdPartyCredential>
     implements $ThirdPartyCredentialCopyWith<$Res> {
   _$ThirdPartyCredentialCopyWithImpl(this._value, this._then);
 
-  final ThirdPartyCredential _value;
   // ignore: unused_field
-  final $Res Function(ThirdPartyCredential) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? idToken = freezed,
-    Object? accessToken = freezed,
+    Object? idToken = null,
+    Object? accessToken = null,
   }) {
     return _then(_value.copyWith(
-      idToken: idToken == freezed
+      idToken: null == idToken
           ? _value.idToken
           : idToken // ignore: cast_nullable_to_non_nullable
               as String,
-      accessToken: accessToken == freezed
+      accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -66,31 +70,30 @@ abstract class _$$_ThirdPartyCredentialCopyWith<$Res>
           $Res Function(_$_ThirdPartyCredential) then) =
       __$$_ThirdPartyCredentialCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String idToken, String accessToken});
 }
 
 /// @nodoc
 class __$$_ThirdPartyCredentialCopyWithImpl<$Res>
-    extends _$ThirdPartyCredentialCopyWithImpl<$Res>
+    extends _$ThirdPartyCredentialCopyWithImpl<$Res, _$_ThirdPartyCredential>
     implements _$$_ThirdPartyCredentialCopyWith<$Res> {
   __$$_ThirdPartyCredentialCopyWithImpl(_$_ThirdPartyCredential _value,
       $Res Function(_$_ThirdPartyCredential) _then)
-      : super(_value, (v) => _then(v as _$_ThirdPartyCredential));
+      : super(_value, _then);
 
-  @override
-  _$_ThirdPartyCredential get _value => super._value as _$_ThirdPartyCredential;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? idToken = freezed,
-    Object? accessToken = freezed,
+    Object? idToken = null,
+    Object? accessToken = null,
   }) {
     return _then(_$_ThirdPartyCredential(
-      idToken: idToken == freezed
+      idToken: null == idToken
           ? _value.idToken
           : idToken // ignore: cast_nullable_to_non_nullable
               as String,
-      accessToken: accessToken == freezed
+      accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
               as String,
@@ -119,19 +122,17 @@ class _$_ThirdPartyCredential implements _ThirdPartyCredential {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ThirdPartyCredential &&
-            const DeepCollectionEquality().equals(other.idToken, idToken) &&
-            const DeepCollectionEquality()
-                .equals(other.accessToken, accessToken));
+            (identical(other.idToken, idToken) || other.idToken == idToken) &&
+            (identical(other.accessToken, accessToken) ||
+                other.accessToken == accessToken));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(idToken),
-      const DeepCollectionEquality().hash(accessToken));
+  int get hashCode => Object.hash(runtimeType, idToken, accessToken);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ThirdPartyCredentialCopyWith<_$_ThirdPartyCredential> get copyWith =>
       __$$_ThirdPartyCredentialCopyWithImpl<_$_ThirdPartyCredential>(
           this, _$identity);
