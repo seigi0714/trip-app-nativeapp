@@ -12,9 +12,9 @@ dependencies:
   connectivity_plus: ^3.0.2
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
-  firebase_auth: ^3.11.0
-  firebase_auth_mocks: ^0.8.6
-  firebase_core: ^1.24.0
+  firebase_auth: ^4.2.6
+  firebase_auth_mocks: ^0.10.3
+  firebase_core: ^2.5.0
   flutter:
     sdk: flutter
   flutter_datetime_picker: ^1.5.1
