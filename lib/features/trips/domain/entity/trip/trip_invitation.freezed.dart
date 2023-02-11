@@ -359,6 +359,7 @@ class _$DetailTripInvitation implements DetailTripInvitation {
   final Trip trip;
   @override
   final String invitationUserName;
+// Userは別集約なので名前だけStringで入れる
   @override
   final TripInvitationNum invitationNum;
   @override
@@ -487,7 +488,7 @@ abstract class DetailTripInvitation implements TripInvitation {
 
   Trip get trip;
   String get invitationUserName;
-  @override
+  @override // Userは別集約なので名前だけStringで入れる
   TripInvitationNum get invitationNum;
   String get invitationCode;
 }

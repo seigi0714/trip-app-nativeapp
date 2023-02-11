@@ -1,8 +1,10 @@
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/create_trip_response.dart';
+import 'package:trip_app_nativeapp/features/trips/data/models/get_trip_invitation_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/invite_trip_response.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart';
@@ -60,5 +62,26 @@ class TripRepository implements TripRepositoryInterface {
       invitationNum: invitationNum,
       invitationCode: inviteRes.invitationCode,
     ) as GeneratedTripInvitation;
+  }
+
+  @override
+  Future<DetailTripInvitation> getInvitationByCode(String code) async {
+    final res = await privateV1Client.get(
+      'trip_invitation/$code',
+    );
+
+    final invitationRes = GetTripInvitationResponse.fromJson(res.data);
+    final invitationNum = TripInvitationNum(value: invitationRes.invitationNum);
+
+    return TripInvitation.createDetailTripInvitation(
+      trip: Trip.createExistingTrip(
+        title: invitationRes.trip.name,
+        fromDate: invitationRes.trip.fromDate,
+        endDate: invitationRes.trip.endDate,
+      ),
+      invitationUserName: invitationRes.invitationUser.name,
+      invitationNum: invitationNum,
+      invitationCode: invitationRes.invitationCode,
+    ) as DetailTripInvitation;
   }
 }
