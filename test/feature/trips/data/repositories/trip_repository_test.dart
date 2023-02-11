@@ -10,6 +10,7 @@ import 'package:trip_app_nativeapp/features/trips/data/repositories/trip_reposit
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_num.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_status.dart';
 
 import 'trip_repository_test.mocks.dart';
 
@@ -138,6 +139,76 @@ Future<void> main() async {
 
       await expectLater(
         providerContainer.read(tripRepositoryProvider).invite(testInvitation),
+        throwsA(isA<Exception>()),
+      );
+    });
+  });
+
+  group('getInvitationByCode', () {
+    const validTripId = 1;
+    const validTripName = 'test_trip';
+    const validInvitationNum = 3;
+    const validInvitationCode = 'test_code';
+    const validInvitationStatus = 'open';
+    const validInvitationUserId = 9999;
+    const validInvitationUserName = 'test_invitation_user';
+    final validFromDate = DateTime(2022, 9);
+    final validEndDate = DateTime(2022, 9, 5);
+    final validExpiredDate = DateTime(2022, 08, 1, 10, 15, 11);
+
+    final validResult = TripInvitation.createDetailTripInvitation(
+        invitationCode: validInvitationCode,
+        invitationUserName: validInvitationUserName,
+        invitationNum: TripInvitationNum(value: validInvitationNum),
+        trip: Trip.createExistingTrip(
+          title: validTripName,
+          fromDate: validFromDate,
+          endDate: validEndDate,
+        ),
+        status: TripInvitationStatus.open,
+        expiredAt: validExpiredDate) as DetailTripInvitation;
+    test('正常系', () async {
+      when(
+        mockApiClient.get(
+          '/trip_invitations/$validInvitationCode',
+        ),
+      ).thenAnswer((_) async {
+        return const ApiResponse(
+          data: {
+            'invite_code': validInvitationCode,
+            'invite_num': validInvitationNum,
+            'invite_status': validInvitationStatus,
+            'expired_at': '2022-08-01 10:15:11',
+            'trip': {
+              'from_date': '2022-09-01',
+              'end_date': '2022-09-05',
+              'id': validTripId,
+              'name': validTripName,
+            },
+            'invitation_user': {
+              'id': validInvitationUserId,
+              'name': validInvitationUserName,
+            },
+          },
+        );
+      });
+
+      final result = await providerContainer
+          .read(tripRepositoryProvider)
+          .getInvitationByCode(validInvitationCode);
+      expect(result, validResult);
+    });
+    test('準正常系 招待取得に失敗すると例外発生させる', () async {
+      when(
+        mockApiClient.get(
+          '/trip_invitations/$validInvitationCode',
+        ),
+      ).thenThrow(unexpectedException);
+
+      await expectLater(
+        providerContainer
+            .read(tripRepositoryProvider)
+            .getInvitationByCode(validInvitationCode),
         throwsA(isA<Exception>()),
       );
     });

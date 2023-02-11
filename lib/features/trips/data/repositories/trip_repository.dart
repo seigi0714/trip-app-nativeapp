@@ -27,6 +27,7 @@ class TripRepository implements TripRepositoryInterface {
 
   final AbstractApiClient privateV1Client;
   static const _basePath = '/trips';
+  static const _invitationBasePath = '/trip_invitations';
 
   @override
   Future<Trip> createTrip(Trip trip) async {
@@ -67,7 +68,7 @@ class TripRepository implements TripRepositoryInterface {
   @override
   Future<DetailTripInvitation> getInvitationByCode(String code) async {
     final res = await privateV1Client.get(
-      'trip_invitation/$code',
+      '$_invitationBasePath/$code',
     );
 
     final invitationRes = GetTripInvitationResponse.fromJson(res.data);
