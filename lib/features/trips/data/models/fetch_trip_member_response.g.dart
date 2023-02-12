@@ -16,7 +16,7 @@ _$_FetchTripMemberResponse _$$_FetchTripMemberResponseFromJson(
       ($checkedConvert) {
         final val = _$_FetchTripMemberResponse(
           isHost: $checkedConvert('is_host', (v) => v as bool),
-          user: $checkedConvert('user',
+          member: $checkedConvert('member',
               (v) => GetUserResponse.fromJson(v as Map<String, dynamic>)),
         );
         return val;
@@ -28,5 +28,5 @@ Map<String, dynamic> _$$_FetchTripMemberResponseToJson(
         _$_FetchTripMemberResponse instance) =>
     <String, dynamic>{
       'is_host': instance.isHost,
-      'user': instance.user,
+      'member': instance.member,
     };

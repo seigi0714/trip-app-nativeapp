@@ -70,16 +70,16 @@ class TripRepository implements TripRepositoryInterface {
     final res = await privateV1Client.get('/users/$userId$_basePath');
     final tripsRes = FetchTripsResponse.fromJson(res.data);
     final trips = <Trip>[];
-    for (final trip in tripsRes.trips) {
+    for (final trip in tripsRes.items) {
       final members = <TripMember>[];
-      for (final member in trip.members) {
+      for (final memberRes in trip.members) {
         members.add(
           TripMember.joined(
-            isHost: member.isHost,
+            isHost: memberRes.isHost,
             user: AppUser(
-              id: member.user.id,
-              name: member.user.name,
-              email: member.user.email,
+              id: memberRes.member.id,
+              name: memberRes.member.name,
+              email: memberRes.member.email,
             ),
           ),
         );

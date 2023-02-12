@@ -15,8 +15,8 @@ _$_FetchTripsResponse _$$_FetchTripsResponseFromJson(
       json,
       ($checkedConvert) {
         final val = _$_FetchTripsResponse(
-          trips: $checkedConvert(
-              'trips',
+          items: $checkedConvert(
+              'items',
               (v) => (v as List<dynamic>)
                   .map((e) =>
                       FetchTripResponse.fromJson(e as Map<String, dynamic>))
@@ -29,5 +29,5 @@ _$_FetchTripsResponse _$$_FetchTripsResponseFromJson(
 Map<String, dynamic> _$$_FetchTripsResponseToJson(
         _$_FetchTripsResponse instance) =>
     <String, dynamic>{
-      'trips': instance.trips,
+      'items': instance.items,
     };

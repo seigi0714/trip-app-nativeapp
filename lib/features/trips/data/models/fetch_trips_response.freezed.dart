@@ -20,7 +20,7 @@ FetchTripsResponse _$FetchTripsResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$FetchTripsResponse {
-  List<FetchTripResponse> get trips => throw _privateConstructorUsedError;
+  List<FetchTripResponse> get items => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +34,7 @@ abstract class $FetchTripsResponseCopyWith<$Res> {
           FetchTripsResponse value, $Res Function(FetchTripsResponse) then) =
       _$FetchTripsResponseCopyWithImpl<$Res, FetchTripsResponse>;
   @useResult
-  $Res call({List<FetchTripResponse> trips});
+  $Res call({List<FetchTripResponse> items});
 }
 
 /// @nodoc
@@ -50,12 +50,12 @@ class _$FetchTripsResponseCopyWithImpl<$Res, $Val extends FetchTripsResponse>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? trips = null,
+    Object? items = null,
   }) {
     return _then(_value.copyWith(
-      trips: null == trips
-          ? _value.trips
-          : trips // ignore: cast_nullable_to_non_nullable
+      items: null == items
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
               as List<FetchTripResponse>,
     ) as $Val);
   }
@@ -69,7 +69,7 @@ abstract class _$$_FetchTripsResponseCopyWith<$Res>
       __$$_FetchTripsResponseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<FetchTripResponse> trips});
+  $Res call({List<FetchTripResponse> items});
 }
 
 /// @nodoc
@@ -83,12 +83,12 @@ class __$$_FetchTripsResponseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? trips = null,
+    Object? items = null,
   }) {
     return _then(_$_FetchTripsResponse(
-      trips: null == trips
-          ? _value._trips
-          : trips // ignore: cast_nullable_to_non_nullable
+      items: null == items
+          ? _value._items
+          : items // ignore: cast_nullable_to_non_nullable
               as List<FetchTripResponse>,
     ));
   }
@@ -97,22 +97,22 @@ class __$$_FetchTripsResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_FetchTripsResponse implements _FetchTripsResponse {
-  const _$_FetchTripsResponse({required final List<FetchTripResponse> trips})
-      : _trips = trips;
+  const _$_FetchTripsResponse({required final List<FetchTripResponse> items})
+      : _items = items;
 
   factory _$_FetchTripsResponse.fromJson(Map<String, dynamic> json) =>
       _$$_FetchTripsResponseFromJson(json);
 
-  final List<FetchTripResponse> _trips;
+  final List<FetchTripResponse> _items;
   @override
-  List<FetchTripResponse> get trips {
+  List<FetchTripResponse> get items {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_trips);
+    return EqualUnmodifiableListView(_items);
   }
 
   @override
   String toString() {
-    return 'FetchTripsResponse(trips: $trips)';
+    return 'FetchTripsResponse(items: $items)';
   }
 
   @override
@@ -120,13 +120,13 @@ class _$_FetchTripsResponse implements _FetchTripsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FetchTripsResponse &&
-            const DeepCollectionEquality().equals(other._trips, _trips));
+            const DeepCollectionEquality().equals(other._items, _items));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_trips));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_items));
 
   @JsonKey(ignore: true)
   @override
@@ -145,13 +145,13 @@ class _$_FetchTripsResponse implements _FetchTripsResponse {
 
 abstract class _FetchTripsResponse implements FetchTripsResponse {
   const factory _FetchTripsResponse(
-      {required final List<FetchTripResponse> trips}) = _$_FetchTripsResponse;
+      {required final List<FetchTripResponse> items}) = _$_FetchTripsResponse;
 
   factory _FetchTripsResponse.fromJson(Map<String, dynamic> json) =
       _$_FetchTripsResponse.fromJson;
 
   @override
-  List<FetchTripResponse> get trips;
+  List<FetchTripResponse> get items;
   @override
   @JsonKey(ignore: true)
   _$$_FetchTripsResponseCopyWith<_$_FetchTripsResponse> get copyWith =>

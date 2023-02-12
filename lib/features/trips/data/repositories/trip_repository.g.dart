@@ -31,7 +31,7 @@ class _SystemHash {
   }
 }
 
-String $tripRepositoryHash() => r'efd2fdd05eebdcae3167e10a504d71c811c9ebf2';
+String _$tripRepositoryHash() => r'efd2fdd05eebdcae3167e10a504d71c811c9ebf2';
 
 /// See also [tripRepository].
 final tripRepositoryProvider = AutoDisposeProvider<TripRepositoryInterface>(
@@ -39,6 +39,6 @@ final tripRepositoryProvider = AutoDisposeProvider<TripRepositoryInterface>(
   name: r'tripRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : $tripRepositoryHash,
+      : _$tripRepositoryHash,
 );
 typedef TripRepositoryRef = AutoDisposeProviderRef<TripRepositoryInterface>;

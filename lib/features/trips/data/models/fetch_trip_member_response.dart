@@ -8,7 +8,7 @@ part 'fetch_trip_member_response.g.dart';
 class FetchTripMemberResponse with _$FetchTripMemberResponse {
   const factory FetchTripMemberResponse({
     required bool isHost,
-    required GetUserResponse user,
+    required GetUserResponse member,
   }) = _FetchTripMemberResponse;
 
   factory FetchTripMemberResponse.fromJson(Map<String, dynamic> json) =>

@@ -22,7 +22,7 @@ FetchTripMemberResponse _$FetchTripMemberResponseFromJson(
 /// @nodoc
 mixin _$FetchTripMemberResponse {
   bool get isHost => throw _privateConstructorUsedError;
-  GetUserResponse get user => throw _privateConstructorUsedError;
+  GetUserResponse get member => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
@@ -30,7 +30,8 @@ mixin _$FetchTripMemberResponse {
 /// @nodoc
 @JsonSerializable()
 class _$_FetchTripMemberResponse implements _FetchTripMemberResponse {
-  const _$_FetchTripMemberResponse({required this.isHost, required this.user});
+  const _$_FetchTripMemberResponse(
+      {required this.isHost, required this.member});
 
   factory _$_FetchTripMemberResponse.fromJson(Map<String, dynamic> json) =>
       _$$_FetchTripMemberResponseFromJson(json);
@@ -38,11 +39,11 @@ class _$_FetchTripMemberResponse implements _FetchTripMemberResponse {
   @override
   final bool isHost;
   @override
-  final GetUserResponse user;
+  final GetUserResponse member;
 
   @override
   String toString() {
-    return 'FetchTripMemberResponse(isHost: $isHost, user: $user)';
+    return 'FetchTripMemberResponse(isHost: $isHost, member: $member)';
   }
 
   @override
@@ -51,12 +52,12 @@ class _$_FetchTripMemberResponse implements _FetchTripMemberResponse {
         (other.runtimeType == runtimeType &&
             other is _$_FetchTripMemberResponse &&
             (identical(other.isHost, isHost) || other.isHost == isHost) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.member, member) || other.member == member));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, isHost, user);
+  int get hashCode => Object.hash(runtimeType, isHost, member);
 
   @override
   Map<String, dynamic> toJson() {
@@ -69,7 +70,7 @@ class _$_FetchTripMemberResponse implements _FetchTripMemberResponse {
 abstract class _FetchTripMemberResponse implements FetchTripMemberResponse {
   const factory _FetchTripMemberResponse(
       {required final bool isHost,
-      required final GetUserResponse user}) = _$_FetchTripMemberResponse;
+      required final GetUserResponse member}) = _$_FetchTripMemberResponse;
 
   factory _FetchTripMemberResponse.fromJson(Map<String, dynamic> json) =
       _$_FetchTripMemberResponse.fromJson;
@@ -77,5 +78,5 @@ abstract class _FetchTripMemberResponse implements FetchTripMemberResponse {
   @override
   bool get isHost;
   @override
-  GetUserResponse get user;
+  GetUserResponse get member;
 }
