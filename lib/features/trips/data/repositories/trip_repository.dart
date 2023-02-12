@@ -3,11 +3,14 @@ import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/create_trip_response.dart';
+import 'package:trip_app_nativeapp/features/trips/data/models/fetch_trips_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/invite_trip_response.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_member.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_num.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/repositories/trip_repository_interface.dart';
+import 'package:trip_app_nativeapp/features/user/domain/entity/app_user.dart';
 
 part 'trip_repository.g.dart';
 
@@ -60,5 +63,36 @@ class TripRepository implements TripRepositoryInterface {
       invitationNum: invitationNum,
       invitationCode: inviteRes.invitationCode,
     ) as GeneratedTripInvitation;
+  }
+
+  @override
+  Future<List<Trip>> fetchTripsByUserId(int userId) async {
+    final res = await privateV1Client.get('/users/$userId$_basePath');
+    final tripsRes = FetchTripsResponse.fromJson(res.data);
+    final trips = <Trip>[];
+    for (final trip in tripsRes.trips) {
+      final members = <TripMember>[];
+      for (final member in trip.members) {
+        members.add(
+          TripMember.joined(
+            isHost: member.isHost,
+            user: AppUser(
+              id: member.user.id,
+              name: member.user.name,
+              email: member.user.email,
+            ),
+          ),
+        );
+      }
+      trips.add(
+        Trip.createExistingTrip(
+          title: trip.name,
+          fromDate: trip.fromDate,
+          endDate: trip.endDate,
+          members: members,
+        ),
+      );
+    }
+    return trips;
   }
 }
