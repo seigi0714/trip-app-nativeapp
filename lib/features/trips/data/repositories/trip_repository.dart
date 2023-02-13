@@ -3,10 +3,12 @@ import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/create_trip_response.dart';
+import 'package:trip_app_nativeapp/features/trips/data/models/get_trip_invitation_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/invite_trip_response.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_num.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_status.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/repositories/trip_repository_interface.dart';
 
 part 'trip_repository.g.dart';
@@ -25,6 +27,7 @@ class TripRepository implements TripRepositoryInterface {
 
   final AbstractApiClient privateV1Client;
   static const _basePath = '/trips';
+  static const _invitationBasePath = '/trip_invitations';
 
   @override
   Future<Trip> createTrip(Trip trip) async {
@@ -60,5 +63,31 @@ class TripRepository implements TripRepositoryInterface {
       invitationNum: invitationNum,
       invitationCode: inviteRes.invitationCode,
     ) as GeneratedTripInvitation;
+  }
+
+  @override
+  Future<DetailTripInvitation> getInvitationByCode(String code) async {
+    final res = await privateV1Client.get(
+      '$_invitationBasePath/$code',
+    );
+
+    final invitationRes = GetTripInvitationResponse.fromJson(res.data);
+    final invitationNum = TripInvitationNum(value: invitationRes.inviteNum);
+    final invitationStatus = TripInvitationStatus.fromName(
+      invitationRes.inviteStatus,
+    );
+
+    return TripInvitation.createDetailTripInvitation(
+      trip: Trip.createExistingTrip(
+        title: invitationRes.trip.name,
+        fromDate: invitationRes.trip.fromDate,
+        endDate: invitationRes.trip.endDate,
+      ),
+      invitationUserName: invitationRes.invitationUser.name,
+      invitationNum: invitationNum,
+      invitationCode: invitationRes.inviteCode,
+      status: invitationStatus,
+      expiredAt: invitationRes.expiredAt,
+    ) as DetailTripInvitation;
   }
 }
