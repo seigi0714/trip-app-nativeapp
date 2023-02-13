@@ -69,30 +69,26 @@ class TripRepository implements TripRepositoryInterface {
   Future<List<Trip>> fetchTripsByUserId(int userId) async {
     final res = await privateV1Client.get('/users/$userId$_basePath');
     final tripsRes = FetchTripsResponse.fromJson(res.data);
-    final trips = <Trip>[];
-    for (final trip in tripsRes.items) {
-      final members = <TripMember>[];
-      for (final memberRes in trip.members) {
-        members.add(
-          TripMember.joined(
-            isHost: memberRes.isHost,
-            user: AppUser(
-              id: memberRes.member.id,
-              name: memberRes.member.name,
-              email: memberRes.member.email,
-            ),
+    return tripsRes.items
+        .map(
+          (tripRes) => Trip.createExistingTrip(
+            title: tripRes.name,
+            fromDate: tripRes.fromDate,
+            endDate: tripRes.endDate,
+            members: tripRes.members
+                .map(
+                  (memberRes) => TripMember.joined(
+                    isHost: memberRes.isHost,
+                    user: AppUser(
+                      id: memberRes.member.id,
+                      name: memberRes.member.name,
+                      email: memberRes.member.email,
+                    ),
+                  ),
+                )
+                .toList(),
           ),
-        );
-      }
-      trips.add(
-        Trip.createExistingTrip(
-          title: trip.name,
-          fromDate: trip.fromDate,
-          endDate: trip.endDate,
-          members: members,
-        ),
-      );
-    }
-    return trips;
+        )
+        .toList();
   }
 }
