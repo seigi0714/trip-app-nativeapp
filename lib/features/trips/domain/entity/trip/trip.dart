@@ -36,7 +36,7 @@ class Trip with _$Trip {
     required String title,
     required DateTime fromDate,
     required DateTime endDate,
-    List<TripMember>? members,
+    required List<TripMember> members,
   }) {
     return Trip(
       title: TripTitle(value: title),

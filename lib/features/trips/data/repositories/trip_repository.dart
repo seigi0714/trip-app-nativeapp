@@ -72,6 +72,9 @@ class TripRepository implements TripRepositoryInterface {
       title: tripRes.name,
       fromDate: tripRes.fromDate,
       endDate: tripRes.endDate,
+      members: [
+        // post のレスポンスにメンバー情報は含まれないので一旦空配列を入れておく
+      ],
     );
   }
 
@@ -112,6 +115,9 @@ class TripRepository implements TripRepositoryInterface {
         title: invitationRes.trip.name,
         fromDate: invitationRes.trip.fromDate,
         endDate: invitationRes.trip.endDate,
+        members: [
+          // 招待レスポンスにメンバー情報は含まれないので一旦空配列を入れておく
+        ],
       ),
       invitationUserName: invitationRes.invitationUser.name,
       invitationNum: invitationNum,

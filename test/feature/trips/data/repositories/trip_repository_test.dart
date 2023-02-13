@@ -49,6 +49,7 @@ Future<void> main() async {
       title: validTitle,
       fromDate: validFromDate,
       endDate: validEndDate,
+      members: [],
     );
     test('正常系', () async {
       when(
@@ -236,6 +237,7 @@ Future<void> main() async {
         title: validTripName,
         fromDate: validFromDate,
         endDate: validEndDate,
+        members: [],
       ),
       status: TripInvitationStatus.open,
       expiredAt: validExpiredDate,
