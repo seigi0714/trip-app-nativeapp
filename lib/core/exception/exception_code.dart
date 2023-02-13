@@ -3,4 +3,6 @@ class ExceptionCode {
   static const String invalidTripTitle = 'invalid_trip_title';
   static const String invalidTripPeriod = 'invalid_trip_period';
   static const String invalidTripInvitationNum = 'invalid_trip_invitation_num';
+  static const String invalidTripInvitationStatus =
+      'invalid_trip_invitation_status';
 }
