@@ -110,9 +110,10 @@ class MockTripInteractor extends _i1.Mock implements _i4.TripInteractor {
         )),
       ) as _i5.Future<_i3.GeneratedTripInvitation>);
   @override
-  _i5.Future<List<_i6.Trip>> fetchTrips(int? userId) => (super.noSuchMethod(
+  _i5.Future<List<_i6.Trip>> fetchTripsByUserId(int? userId) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #fetchTrips,
+          #fetchTripsByUserId,
           [userId],
         ),
         returnValue: _i5.Future<List<_i6.Trip>>.value(<_i6.Trip>[]),

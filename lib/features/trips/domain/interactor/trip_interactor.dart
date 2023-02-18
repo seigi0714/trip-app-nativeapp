@@ -48,6 +48,6 @@ class TripInteractor {
     return result;
   }
 
-  Future<List<Trip>> fetchTrips(int userId) =>
+  Future<List<Trip>> fetchTripsByUserId(int userId) =>
       tripRepo.fetchTripsByUserId(userId);
 }
