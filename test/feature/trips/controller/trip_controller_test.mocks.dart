@@ -3,18 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
+import 'dart:async' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart'
-    as _i7;
+    as _i6;
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart'
-    as _i4;
-import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interactor.dart'
-    as _i5;
-import 'package:trip_app_nativeapp/features/trips/domain/repositories/trip_repository_interface.dart'
     as _i3;
-import 'package:trip_app_nativeapp/features/user/domain/entity/app_user.dart'
+import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interactor.dart'
+    as _i4;
+import 'package:trip_app_nativeapp/features/trips/domain/repositories/trip_repository_interface.dart'
     as _i2;
 
 // ignore_for_file: type=lint
@@ -28,8 +26,9 @@ import 'package:trip_app_nativeapp/features/user/domain/entity/app_user.dart'
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeAppUser_0 extends _i1.SmartFake implements _i2.AppUser {
-  _FakeAppUser_0(
+class _FakeTripRepositoryInterface_0 extends _i1.SmartFake
+    implements _i2.TripRepositoryInterface {
+  _FakeTripRepositoryInterface_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -38,20 +37,9 @@ class _FakeAppUser_0 extends _i1.SmartFake implements _i2.AppUser {
         );
 }
 
-class _FakeTripRepositoryInterface_1 extends _i1.SmartFake
-    implements _i3.TripRepositoryInterface {
-  _FakeTripRepositoryInterface_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeGeneratedTripInvitation_2 extends _i1.SmartFake
-    implements _i4.GeneratedTripInvitation {
-  _FakeGeneratedTripInvitation_2(
+class _FakeGeneratedTripInvitation_1 extends _i1.SmartFake
+    implements _i3.GeneratedTripInvitation {
+  _FakeGeneratedTripInvitation_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -63,29 +51,21 @@ class _FakeGeneratedTripInvitation_2 extends _i1.SmartFake
 /// A class which mocks [TripInteractor].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTripInteractor extends _i1.Mock implements _i5.TripInteractor {
+class MockTripInteractor extends _i1.Mock implements _i4.TripInteractor {
   MockTripInteractor() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.AppUser get loginUser => (super.noSuchMethod(
-        Invocation.getter(#loginUser),
-        returnValue: _FakeAppUser_0(
-          this,
-          Invocation.getter(#loginUser),
-        ),
-      ) as _i2.AppUser);
-  @override
-  _i3.TripRepositoryInterface get tripRepo => (super.noSuchMethod(
+  _i2.TripRepositoryInterface get tripRepo => (super.noSuchMethod(
         Invocation.getter(#tripRepo),
-        returnValue: _FakeTripRepositoryInterface_1(
+        returnValue: _FakeTripRepositoryInterface_0(
           this,
           Invocation.getter(#tripRepo),
         ),
-      ) as _i3.TripRepositoryInterface);
+      ) as _i2.TripRepositoryInterface);
   @override
-  _i6.Future<void> createTrip(
+  _i5.Future<void> createTrip(
     String? title,
     DateTime? fromDate,
     DateTime? endDate,
@@ -99,11 +79,11 @@ class MockTripInteractor extends _i1.Mock implements _i5.TripInteractor {
             endDate,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
-  _i6.Future<_i4.GeneratedTripInvitation> invite({
+  _i5.Future<_i3.GeneratedTripInvitation> invite({
     required int? tripId,
     required int? invitationNum,
   }) =>
@@ -116,8 +96,8 @@ class MockTripInteractor extends _i1.Mock implements _i5.TripInteractor {
             #invitationNum: invitationNum,
           },
         ),
-        returnValue: _i6.Future<_i4.GeneratedTripInvitation>.value(
-            _FakeGeneratedTripInvitation_2(
+        returnValue: _i5.Future<_i3.GeneratedTripInvitation>.value(
+            _FakeGeneratedTripInvitation_1(
           this,
           Invocation.method(
             #invite,
@@ -128,13 +108,13 @@ class MockTripInteractor extends _i1.Mock implements _i5.TripInteractor {
             },
           ),
         )),
-      ) as _i6.Future<_i4.GeneratedTripInvitation>);
+      ) as _i5.Future<_i3.GeneratedTripInvitation>);
   @override
-  _i6.Future<List<_i7.Trip>> fetchTrips() => (super.noSuchMethod(
+  _i5.Future<List<_i6.Trip>> fetchTrips(int? userId) => (super.noSuchMethod(
         Invocation.method(
           #fetchTrips,
-          [],
+          [userId],
         ),
-        returnValue: _i6.Future<List<_i7.Trip>>.value(<_i7.Trip>[]),
-      ) as _i6.Future<List<_i7.Trip>>);
+        returnValue: _i5.Future<List<_i6.Trip>>.value(<_i6.Trip>[]),
+      ) as _i5.Future<List<_i6.Trip>>);
 }
