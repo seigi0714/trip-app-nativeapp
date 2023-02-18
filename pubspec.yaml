@@ -48,7 +48,7 @@ dev_dependencies:
   freezed: ^2.2.0
   google_sign_in_mocks: ^0.2.1
   http_mock_adapter: ^0.3.3
-  json_serializable: ^6.5.4
+  json_serializable: ^6.6.1
   riverpod_generator: ^1.0.6
   very_good_analysis: ^3.1.0
 
