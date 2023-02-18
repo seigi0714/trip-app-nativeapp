@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TripInvitation {
-  int get tripId => throw _privateConstructorUsedError;
   TripInvitationNum get invitationNum => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -25,6 +24,14 @@ mixin _$TripInvitation {
     required TResult Function(
             int tripId, TripInvitationNum invitationNum, String invitationCode)
         createGeneratedTripInvitation,
+    required TResult Function(
+            Trip trip,
+            String invitationUserName,
+            TripInvitationNum invitationNum,
+            String invitationCode,
+            TripInvitationStatus status,
+            DateTime expiredAt)
+        createDetailTripInvitation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -34,6 +41,14 @@ mixin _$TripInvitation {
     TResult? Function(
             int tripId, TripInvitationNum invitationNum, String invitationCode)?
         createGeneratedTripInvitation,
+    TResult? Function(
+            Trip trip,
+            String invitationUserName,
+            TripInvitationNum invitationNum,
+            String invitationCode,
+            TripInvitationStatus status,
+            DateTime expiredAt)?
+        createDetailTripInvitation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,6 +58,14 @@ mixin _$TripInvitation {
     TResult Function(
             int tripId, TripInvitationNum invitationNum, String invitationCode)?
         createGeneratedTripInvitation,
+    TResult Function(
+            Trip trip,
+            String invitationUserName,
+            TripInvitationNum invitationNum,
+            String invitationCode,
+            TripInvitationStatus status,
+            DateTime expiredAt)?
+        createDetailTripInvitation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -51,6 +74,8 @@ mixin _$TripInvitation {
     required TResult Function(NewTripInvitation value) createNewTripInvitation,
     required TResult Function(GeneratedTripInvitation value)
         createGeneratedTripInvitation,
+    required TResult Function(DetailTripInvitation value)
+        createDetailTripInvitation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,6 +83,7 @@ mixin _$TripInvitation {
     TResult? Function(NewTripInvitation value)? createNewTripInvitation,
     TResult? Function(GeneratedTripInvitation value)?
         createGeneratedTripInvitation,
+    TResult? Function(DetailTripInvitation value)? createDetailTripInvitation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,6 +91,7 @@ mixin _$TripInvitation {
     TResult Function(NewTripInvitation value)? createNewTripInvitation,
     TResult Function(GeneratedTripInvitation value)?
         createGeneratedTripInvitation,
+    TResult Function(DetailTripInvitation value)? createDetailTripInvitation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -106,6 +133,14 @@ class _$NewTripInvitation implements NewTripInvitation {
     required TResult Function(
             int tripId, TripInvitationNum invitationNum, String invitationCode)
         createGeneratedTripInvitation,
+    required TResult Function(
+            Trip trip,
+            String invitationUserName,
+            TripInvitationNum invitationNum,
+            String invitationCode,
+            TripInvitationStatus status,
+            DateTime expiredAt)
+        createDetailTripInvitation,
   }) {
     return createNewTripInvitation(tripId, invitationNum);
   }
@@ -118,6 +153,14 @@ class _$NewTripInvitation implements NewTripInvitation {
     TResult? Function(
             int tripId, TripInvitationNum invitationNum, String invitationCode)?
         createGeneratedTripInvitation,
+    TResult? Function(
+            Trip trip,
+            String invitationUserName,
+            TripInvitationNum invitationNum,
+            String invitationCode,
+            TripInvitationStatus status,
+            DateTime expiredAt)?
+        createDetailTripInvitation,
   }) {
     return createNewTripInvitation?.call(tripId, invitationNum);
   }
@@ -130,6 +173,14 @@ class _$NewTripInvitation implements NewTripInvitation {
     TResult Function(
             int tripId, TripInvitationNum invitationNum, String invitationCode)?
         createGeneratedTripInvitation,
+    TResult Function(
+            Trip trip,
+            String invitationUserName,
+            TripInvitationNum invitationNum,
+            String invitationCode,
+            TripInvitationStatus status,
+            DateTime expiredAt)?
+        createDetailTripInvitation,
     required TResult orElse(),
   }) {
     if (createNewTripInvitation != null) {
@@ -144,6 +195,8 @@ class _$NewTripInvitation implements NewTripInvitation {
     required TResult Function(NewTripInvitation value) createNewTripInvitation,
     required TResult Function(GeneratedTripInvitation value)
         createGeneratedTripInvitation,
+    required TResult Function(DetailTripInvitation value)
+        createDetailTripInvitation,
   }) {
     return createNewTripInvitation(this);
   }
@@ -154,6 +207,7 @@ class _$NewTripInvitation implements NewTripInvitation {
     TResult? Function(NewTripInvitation value)? createNewTripInvitation,
     TResult? Function(GeneratedTripInvitation value)?
         createGeneratedTripInvitation,
+    TResult? Function(DetailTripInvitation value)? createDetailTripInvitation,
   }) {
     return createNewTripInvitation?.call(this);
   }
@@ -164,6 +218,7 @@ class _$NewTripInvitation implements NewTripInvitation {
     TResult Function(NewTripInvitation value)? createNewTripInvitation,
     TResult Function(GeneratedTripInvitation value)?
         createGeneratedTripInvitation,
+    TResult Function(DetailTripInvitation value)? createDetailTripInvitation,
     required TResult orElse(),
   }) {
     if (createNewTripInvitation != null) {
@@ -178,7 +233,6 @@ abstract class NewTripInvitation implements TripInvitation {
       {required final int tripId,
       required final TripInvitationNum invitationNum}) = _$NewTripInvitation;
 
-  @override
   int get tripId;
   @override
   TripInvitationNum get invitationNum;
@@ -228,6 +282,14 @@ class _$GeneratedTripInvitation implements GeneratedTripInvitation {
     required TResult Function(
             int tripId, TripInvitationNum invitationNum, String invitationCode)
         createGeneratedTripInvitation,
+    required TResult Function(
+            Trip trip,
+            String invitationUserName,
+            TripInvitationNum invitationNum,
+            String invitationCode,
+            TripInvitationStatus status,
+            DateTime expiredAt)
+        createDetailTripInvitation,
   }) {
     return createGeneratedTripInvitation(tripId, invitationNum, invitationCode);
   }
@@ -240,6 +302,14 @@ class _$GeneratedTripInvitation implements GeneratedTripInvitation {
     TResult? Function(
             int tripId, TripInvitationNum invitationNum, String invitationCode)?
         createGeneratedTripInvitation,
+    TResult? Function(
+            Trip trip,
+            String invitationUserName,
+            TripInvitationNum invitationNum,
+            String invitationCode,
+            TripInvitationStatus status,
+            DateTime expiredAt)?
+        createDetailTripInvitation,
   }) {
     return createGeneratedTripInvitation?.call(
         tripId, invitationNum, invitationCode);
@@ -253,6 +323,14 @@ class _$GeneratedTripInvitation implements GeneratedTripInvitation {
     TResult Function(
             int tripId, TripInvitationNum invitationNum, String invitationCode)?
         createGeneratedTripInvitation,
+    TResult Function(
+            Trip trip,
+            String invitationUserName,
+            TripInvitationNum invitationNum,
+            String invitationCode,
+            TripInvitationStatus status,
+            DateTime expiredAt)?
+        createDetailTripInvitation,
     required TResult orElse(),
   }) {
     if (createGeneratedTripInvitation != null) {
@@ -268,6 +346,8 @@ class _$GeneratedTripInvitation implements GeneratedTripInvitation {
     required TResult Function(NewTripInvitation value) createNewTripInvitation,
     required TResult Function(GeneratedTripInvitation value)
         createGeneratedTripInvitation,
+    required TResult Function(DetailTripInvitation value)
+        createDetailTripInvitation,
   }) {
     return createGeneratedTripInvitation(this);
   }
@@ -278,6 +358,7 @@ class _$GeneratedTripInvitation implements GeneratedTripInvitation {
     TResult? Function(NewTripInvitation value)? createNewTripInvitation,
     TResult? Function(GeneratedTripInvitation value)?
         createGeneratedTripInvitation,
+    TResult? Function(DetailTripInvitation value)? createDetailTripInvitation,
   }) {
     return createGeneratedTripInvitation?.call(this);
   }
@@ -288,6 +369,7 @@ class _$GeneratedTripInvitation implements GeneratedTripInvitation {
     TResult Function(NewTripInvitation value)? createNewTripInvitation,
     TResult Function(GeneratedTripInvitation value)?
         createGeneratedTripInvitation,
+    TResult Function(DetailTripInvitation value)? createDetailTripInvitation,
     required TResult orElse(),
   }) {
     if (createGeneratedTripInvitation != null) {
@@ -303,9 +385,183 @@ abstract class GeneratedTripInvitation implements TripInvitation {
       required final TripInvitationNum invitationNum,
       required final String invitationCode}) = _$GeneratedTripInvitation;
 
-  @override
   int get tripId;
   @override
   TripInvitationNum get invitationNum;
   String get invitationCode;
+}
+
+/// @nodoc
+
+class _$DetailTripInvitation implements DetailTripInvitation {
+  _$DetailTripInvitation(
+      {required this.trip,
+      required this.invitationUserName,
+      required this.invitationNum,
+      required this.invitationCode,
+      required this.status,
+      required this.expiredAt});
+
+  @override
+  final Trip trip;
+  @override
+  final String invitationUserName;
+// Userは別集約なので名前だけStringで入れる
+  @override
+  final TripInvitationNum invitationNum;
+  @override
+  final String invitationCode;
+  @override
+  final TripInvitationStatus status;
+  @override
+  final DateTime expiredAt;
+
+  @override
+  String toString() {
+    return 'TripInvitation.createDetailTripInvitation(trip: $trip, invitationUserName: $invitationUserName, invitationNum: $invitationNum, invitationCode: $invitationCode, status: $status, expiredAt: $expiredAt)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DetailTripInvitation &&
+            (identical(other.trip, trip) || other.trip == trip) &&
+            (identical(other.invitationUserName, invitationUserName) ||
+                other.invitationUserName == invitationUserName) &&
+            (identical(other.invitationNum, invitationNum) ||
+                other.invitationNum == invitationNum) &&
+            (identical(other.invitationCode, invitationCode) ||
+                other.invitationCode == invitationCode) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.expiredAt, expiredAt) ||
+                other.expiredAt == expiredAt));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, trip, invitationUserName,
+      invitationNum, invitationCode, status, expiredAt);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int tripId, TripInvitationNum invitationNum)
+        createNewTripInvitation,
+    required TResult Function(
+            int tripId, TripInvitationNum invitationNum, String invitationCode)
+        createGeneratedTripInvitation,
+    required TResult Function(
+            Trip trip,
+            String invitationUserName,
+            TripInvitationNum invitationNum,
+            String invitationCode,
+            TripInvitationStatus status,
+            DateTime expiredAt)
+        createDetailTripInvitation,
+  }) {
+    return createDetailTripInvitation(trip, invitationUserName, invitationNum,
+        invitationCode, status, expiredAt);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int tripId, TripInvitationNum invitationNum)?
+        createNewTripInvitation,
+    TResult? Function(
+            int tripId, TripInvitationNum invitationNum, String invitationCode)?
+        createGeneratedTripInvitation,
+    TResult? Function(
+            Trip trip,
+            String invitationUserName,
+            TripInvitationNum invitationNum,
+            String invitationCode,
+            TripInvitationStatus status,
+            DateTime expiredAt)?
+        createDetailTripInvitation,
+  }) {
+    return createDetailTripInvitation?.call(trip, invitationUserName,
+        invitationNum, invitationCode, status, expiredAt);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int tripId, TripInvitationNum invitationNum)?
+        createNewTripInvitation,
+    TResult Function(
+            int tripId, TripInvitationNum invitationNum, String invitationCode)?
+        createGeneratedTripInvitation,
+    TResult Function(
+            Trip trip,
+            String invitationUserName,
+            TripInvitationNum invitationNum,
+            String invitationCode,
+            TripInvitationStatus status,
+            DateTime expiredAt)?
+        createDetailTripInvitation,
+    required TResult orElse(),
+  }) {
+    if (createDetailTripInvitation != null) {
+      return createDetailTripInvitation(trip, invitationUserName, invitationNum,
+          invitationCode, status, expiredAt);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NewTripInvitation value) createNewTripInvitation,
+    required TResult Function(GeneratedTripInvitation value)
+        createGeneratedTripInvitation,
+    required TResult Function(DetailTripInvitation value)
+        createDetailTripInvitation,
+  }) {
+    return createDetailTripInvitation(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(NewTripInvitation value)? createNewTripInvitation,
+    TResult? Function(GeneratedTripInvitation value)?
+        createGeneratedTripInvitation,
+    TResult? Function(DetailTripInvitation value)? createDetailTripInvitation,
+  }) {
+    return createDetailTripInvitation?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NewTripInvitation value)? createNewTripInvitation,
+    TResult Function(GeneratedTripInvitation value)?
+        createGeneratedTripInvitation,
+    TResult Function(DetailTripInvitation value)? createDetailTripInvitation,
+    required TResult orElse(),
+  }) {
+    if (createDetailTripInvitation != null) {
+      return createDetailTripInvitation(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DetailTripInvitation implements TripInvitation {
+  factory DetailTripInvitation(
+      {required final Trip trip,
+      required final String invitationUserName,
+      required final TripInvitationNum invitationNum,
+      required final String invitationCode,
+      required final TripInvitationStatus status,
+      required final DateTime expiredAt}) = _$DetailTripInvitation;
+
+  Trip get trip;
+  String get invitationUserName;
+  @override // Userは別集約なので名前だけStringで入れる
+  TripInvitationNum get invitationNum;
+  String get invitationCode;
+  TripInvitationStatus get status;
+  DateTime get expiredAt;
 }

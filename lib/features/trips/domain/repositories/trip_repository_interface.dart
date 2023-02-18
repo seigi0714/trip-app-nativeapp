@@ -13,4 +13,8 @@ abstract class TripRepositoryInterface {
   Future<GeneratedTripInvitation> invite(
     NewTripInvitation invitation,
   );
+  /// 招待コードから招待を取得
+  Future<DetailTripInvitation> getInvitationByCode(
+    String code,
+  );
 }

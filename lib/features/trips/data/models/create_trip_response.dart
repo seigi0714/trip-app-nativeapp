@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:trip_app_nativeapp/core/json_converter/date_converter.dart';
+import 'package:trip_app_nativeapp/core/json_converter/datetime_converter.dart';
 
 part 'create_trip_response.freezed.dart';
 part 'create_trip_response.g.dart';
