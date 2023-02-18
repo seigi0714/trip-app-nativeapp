@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_member.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_period.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_title.dart';
 
@@ -9,6 +10,9 @@ class Trip with _$Trip {
   const factory Trip({
     required TripTitle title,
     required TripPeriod tripPeriod,
+
+    /// 新規作成時はメンバーがいないので null 許容
+    List<TripMember>? members,
   }) = _Trip;
 
   /// 新規作成時のfactory関数
@@ -32,6 +36,7 @@ class Trip with _$Trip {
     required String title,
     required DateTime fromDate,
     required DateTime endDate,
+    required List<TripMember> members,
   }) {
     return Trip(
       title: TripTitle(value: title),
@@ -39,6 +44,7 @@ class Trip with _$Trip {
         fromDate: fromDate,
         endDate: endDate,
       ),
+      members: members,
     );
   }
 }

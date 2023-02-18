@@ -9,8 +9,10 @@ import 'package:trip_app_nativeapp/core/http/response/api_response/api_response.
 import 'package:trip_app_nativeapp/features/trips/data/repositories/trip_repository.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_member.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_num.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_status.dart';
+import 'package:trip_app_nativeapp/features/user/domain/entity/app_user.dart';
 
 import 'trip_repository_test.mocks.dart';
 
@@ -47,6 +49,7 @@ Future<void> main() async {
       title: validTitle,
       fromDate: validFromDate,
       endDate: validEndDate,
+      members: [],
     );
     test('正常系', () async {
       when(
@@ -144,6 +147,76 @@ Future<void> main() async {
     });
   });
 
+  group(
+    'fetchTripsByUserId',
+    () {
+      const validUserId = 1;
+      const validName = 'Bob';
+      const validEmail = 'bob@somedomain.com';
+      const validMember = TripMember.joined(
+        isHost: true,
+        user: AppUser(id: validUserId, name: validName, email: validEmail),
+      );
+      final validResult = [
+        Trip.createExistingTrip(
+          title: validTitle,
+          fromDate: validFromDate,
+          endDate: validEndDate,
+          members: [validMember],
+        ),
+      ];
+
+      test('正常系', () async {
+        when(
+          mockApiClient.get(
+            '/users/$validUserId/trips',
+          ),
+        ).thenAnswer((_) async {
+          return ApiResponse(
+            data: {
+              'items': [
+                {
+                  'id': 1,
+                  'name': validTitle,
+                  'members': [
+                    {
+                      'member': {
+                        'id': validUserId,
+                        'name': validName,
+                        'email': validEmail,
+                      },
+                      'is_host': true,
+                    },
+                  ],
+                  'from_date': validFromDate.toJsonDateString(),
+                  'end_date': validEndDate.toJsonDateString(),
+                },
+              ]
+            },
+          );
+        });
+
+        final result = await providerContainer
+            .read(tripRepositoryProvider)
+            .fetchTripsByUserId(validUserId);
+        expect(result, validResult);
+      });
+      test('準正常系 旅取得APIへのリクエスト時の例外はそのままリスローされるはず', () async {
+        when(
+          mockApiClient.get(
+            '/users/$validUserId/trips',
+          ),
+        ).thenThrow(unexpectedException);
+
+        await expectLater(
+          providerContainer
+              .read(tripRepositoryProvider)
+              .fetchTripsByUserId(validUserId),
+          throwsA(isA<Exception>()),
+        );
+      });
+    },
+  );
   group('getInvitationByCode', () {
     const validTripId = 1;
     const validTripName = 'test_trip';
@@ -164,6 +237,7 @@ Future<void> main() async {
         title: validTripName,
         fromDate: validFromDate,
         endDate: validEndDate,
+        members: [],
       ),
       status: TripInvitationStatus.open,
       expiredAt: validExpiredDate,

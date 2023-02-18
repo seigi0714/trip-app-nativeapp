@@ -31,7 +31,7 @@ class _SystemHash {
   }
 }
 
-String $tripInteractorHash() => r'a652d163a62d0bf37feea5675ea5e67ddca1aa23';
+String _$tripInteractorHash() => r'a652d163a62d0bf37feea5675ea5e67ddca1aa23';
 
 /// See also [tripInteractor].
 final tripInteractorProvider = AutoDisposeProvider<TripInteractor>(
@@ -39,6 +39,6 @@ final tripInteractorProvider = AutoDisposeProvider<TripInteractor>(
   name: r'tripInteractorProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : $tripInteractorHash,
+      : _$tripInteractorHash,
 );
 typedef TripInteractorRef = AutoDisposeProviderRef<TripInteractor>;

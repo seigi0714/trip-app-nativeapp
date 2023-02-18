@@ -18,21 +18,40 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Trip {
   TripTitle get title => throw _privateConstructorUsedError;
   TripPeriod get tripPeriod => throw _privateConstructorUsedError;
+
+  /// 新規作成時はメンバーがいないので null 許容
+  List<TripMember>? get members => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 
 class _$_Trip implements _Trip {
-  const _$_Trip({required this.title, required this.tripPeriod});
+  const _$_Trip(
+      {required this.title,
+      required this.tripPeriod,
+      final List<TripMember>? members})
+      : _members = members;
 
   @override
   final TripTitle title;
   @override
   final TripPeriod tripPeriod;
 
+  /// 新規作成時はメンバーがいないので null 許容
+  final List<TripMember>? _members;
+
+  /// 新規作成時はメンバーがいないので null 許容
+  @override
+  List<TripMember>? get members {
+    final value = _members;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'Trip(title: $title, tripPeriod: $tripPeriod)';
+    return 'Trip(title: $title, tripPeriod: $tripPeriod, members: $members)';
   }
 
   @override
@@ -42,20 +61,27 @@ class _$_Trip implements _Trip {
             other is _$_Trip &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.tripPeriod, tripPeriod) ||
-                other.tripPeriod == tripPeriod));
+                other.tripPeriod == tripPeriod) &&
+            const DeepCollectionEquality().equals(other._members, _members));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, title, tripPeriod);
+  int get hashCode => Object.hash(runtimeType, title, tripPeriod,
+      const DeepCollectionEquality().hash(_members));
 }
 
 abstract class _Trip implements Trip {
   const factory _Trip(
       {required final TripTitle title,
-      required final TripPeriod tripPeriod}) = _$_Trip;
+      required final TripPeriod tripPeriod,
+      final List<TripMember>? members}) = _$_Trip;
 
   @override
   TripTitle get title;
   @override
   TripPeriod get tripPeriod;
+  @override
+
+  /// 新規作成時はメンバーがいないので null 許容
+  List<TripMember>? get members;
 }
