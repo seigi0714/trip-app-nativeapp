@@ -7,7 +7,7 @@ part 'fetch_trips_response.g.dart';
 @freezed
 class FetchTripsResponse with _$FetchTripsResponse {
   const factory FetchTripsResponse({
-    required List<FetchTripResponse> items,
+    @Default([]) List<FetchTripResponse> items,
   }) = _FetchTripsResponse;
 
   factory FetchTripsResponse.fromJson(Map<String, dynamic> json) =>

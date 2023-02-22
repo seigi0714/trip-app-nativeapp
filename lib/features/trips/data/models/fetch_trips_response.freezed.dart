@@ -97,7 +97,7 @@ class __$$_FetchTripsResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_FetchTripsResponse implements _FetchTripsResponse {
-  const _$_FetchTripsResponse({required final List<FetchTripResponse> items})
+  const _$_FetchTripsResponse({final List<FetchTripResponse> items = const []})
       : _items = items;
 
   factory _$_FetchTripsResponse.fromJson(Map<String, dynamic> json) =>
@@ -105,6 +105,7 @@ class _$_FetchTripsResponse implements _FetchTripsResponse {
 
   final List<FetchTripResponse> _items;
   @override
+  @JsonKey()
   List<FetchTripResponse> get items {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
@@ -144,8 +145,8 @@ class _$_FetchTripsResponse implements _FetchTripsResponse {
 }
 
 abstract class _FetchTripsResponse implements FetchTripsResponse {
-  const factory _FetchTripsResponse(
-      {required final List<FetchTripResponse> items}) = _$_FetchTripsResponse;
+  const factory _FetchTripsResponse({final List<FetchTripResponse> items}) =
+      _$_FetchTripsResponse;
 
   factory _FetchTripsResponse.fromJson(Map<String, dynamic> json) =
       _$_FetchTripsResponse.fromJson;
