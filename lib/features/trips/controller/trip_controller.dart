@@ -17,7 +17,7 @@ const tripDateCompareErrorMessage = '帰宅日は出発日以降に設定して�
 @riverpod
 Future<List<Trip>> trips(TripsRef ref) async {
   final trips = await ref
-      .watch(tripInteractorProvider)
+      .watch(tripControllerProvider)
       .fetchTripsByUserId(ref.watch(appUserControllerProvider).value!.id);
   return trips;
 }
@@ -46,6 +46,15 @@ class TripController {
       onSuccess?.call();
     } on Exception catch (e) {
       _ref.read(exceptionHandlerProvider).handleException(e);
+    }
+  }
+
+  Future<List<Trip>> fetchTripsByUserId(int userId) async {
+    try {
+      return _ref.read(tripInteractorProvider).fetchTripsByUserId(userId);
+    } on Exception catch (e) {
+      _ref.read(exceptionHandlerProvider).handleException(e);
+      rethrow;
     }
   }
 
