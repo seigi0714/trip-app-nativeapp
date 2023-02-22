@@ -49,7 +49,7 @@ class TripController {
     }
   }
 
-  Future<List<Trip>> fetchTripsByUserId(int userId) async {
+  Future<List<Trip>> fetchTripsByUserId(int userId) {
     try {
       return _ref.read(tripInteractorProvider).fetchTripsByUserId(userId);
     } on Exception catch (e) {

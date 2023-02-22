@@ -128,5 +128,22 @@ Future<void> main() async {
     });
   });
 
+  group('fetchTripsByUserId', () {
+    test('正常系', () async {
+      when(
+        mockTripInteractor.fetchTripsByUserId(1),
+      ).thenAnswer((_) async => []);
+
+      await expectLater(
+        providerContainer.read(tripControllerProvider).fetchTripsByUserId(1),
+        completes,
+      );
+
+      verify(
+        mockTripInteractor.fetchTripsByUserId(1),
+      ).called(1);
+    });
+  });
+
   // TODO(seigi0714): generateAndCopyInviteLinkのテスト実装
 }
