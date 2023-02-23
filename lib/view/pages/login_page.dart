@@ -25,7 +25,7 @@ class LoginPage extends HookConsumerWidget {
               const Spacer(flex: 2),
               Text(
                 'さあ、旅に出よう',
-                style: context.textTheme.headline4?.copyWith(
+                style: context.textTheme.headlineMedium?.copyWith(
                   color: kPrimaryColor,
                 ),
               ),
