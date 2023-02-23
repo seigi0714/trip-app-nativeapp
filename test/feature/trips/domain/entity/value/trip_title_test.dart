@@ -16,15 +16,16 @@ Future<void> main() async {
         () => TripTitle(value: emptyTitle),
         throwsA(
           isA<AppException>()
-            ..having(
-              (e) => e.code,
-              'errorCode',
-              ExceptionCode.invalidTripTitle,
-            ).having(
-              (e) => e.message,
-              'errorMessage',
-              '旅のタイトルが空文字です。',
-            ),
+              .having(
+                (e) => e.code,
+                'errorCode',
+                ExceptionCode.invalidTripTitle,
+              )
+              .having(
+                (e) => e.message,
+                'errorMessage',
+                '旅のタイトルが空文字です。',
+              ),
         ),
       );
     });
