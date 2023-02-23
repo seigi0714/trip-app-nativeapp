@@ -152,15 +152,16 @@ Future<void> main() async {
         },
         throwsA(
           isA<AppException>()
-            ..having(
-              (e) => e.code,
-              'errorCode',
-              unAuthorizationErrorCode,
-            ).having(
-              (e) => e.message,
-              'errorMessage',
-              lineLoginErrorMessage,
-            ),
+              .having(
+                (e) => e.code,
+                'errorCode',
+                unAuthorizationErrorCode,
+              )
+              .having(
+                (e) => e.message,
+                'errorMessage',
+                lineLoginErrorMessage,
+              ),
         ),
       );
 
@@ -198,15 +199,16 @@ Future<void> main() async {
         },
         throwsA(
           isA<AppException>()
-            ..having(
-              (e) => e.code,
-              'errorCode',
-              unAuthorizationErrorCode,
-            ).having(
-              (e) => e.message,
-              'errorMessage',
-              tripAppLoginErrorMessage,
-            ),
+              .having(
+                (e) => e.code,
+                'errorCode',
+                unAuthorizationErrorCode,
+              )
+              .having(
+                (e) => e.message,
+                'errorMessage',
+                tripAppLoginErrorMessage,
+              ),
         ),
       );
 
@@ -250,15 +252,16 @@ Future<void> main() async {
         },
         throwsA(
           isA<AppException>()
-            ..having(
-              (e) => e.code,
-              'errorCode',
-              unAuthorizationErrorCode,
-            ).having(
-              (e) => e.message,
-              'errorMessage',
-              firebaseLoginErrorMessage,
-            ),
+              .having(
+                (e) => e.code,
+                'errorCode',
+                unAuthorizationErrorCode,
+              )
+              .having(
+                (e) => e.message,
+                'errorMessage',
+                firebaseLoginErrorMessage,
+              ),
         ),
       );
 
@@ -328,15 +331,16 @@ Future<void> main() async {
         },
         throwsA(
           isA<AppException>()
-            ..having(
-              (e) => e.code,
-              'errorCode',
-              unAuthorizationErrorCode,
-            ).having(
-              (e) => e.message,
-              'errorMessage',
-              googleLoginErrorMessage,
-            ),
+              .having(
+                (e) => e.code,
+                'errorCode',
+                unAuthorizationErrorCode,
+              )
+              .having(
+                (e) => e.message,
+                'errorMessage',
+                googleLoginErrorMessage,
+              ),
         ),
       );
 
@@ -368,15 +372,16 @@ Future<void> main() async {
         },
         throwsA(
           isA<AppException>()
-            ..having(
-              (e) => e.code,
-              'errorCode',
-              unAuthorizationErrorCode,
-            ).having(
-              (e) => e.message,
-              'errorMessage',
-              firebaseLoginErrorMessage,
-            ),
+              .having(
+                (e) => e.code,
+                'errorCode',
+                unAuthorizationErrorCode,
+              )
+              .having(
+                (e) => e.message,
+                'errorMessage',
+                firebaseLoginErrorMessage,
+              ),
         ),
       );
 
@@ -416,15 +421,16 @@ Future<void> main() async {
         },
         throwsA(
           isA<AppException>()
-            ..having(
-              (e) => e.code,
-              'errorCode',
-              unAuthorizationErrorCode,
-            ).having(
-              (e) => e.message,
-              'errorMessage',
-              tripAppLoginErrorMessage,
-            ),
+              .having(
+                (e) => e.code,
+                'errorCode',
+                unAuthorizationErrorCode,
+              )
+              .having(
+                (e) => e.message,
+                'errorMessage',
+                tripAppLoginErrorMessage,
+              ),
         ),
       );
 
