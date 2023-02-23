@@ -32,15 +32,16 @@ Future<void> main() async {
         ),
         throwsA(
           isA<AppException>()
-            ..having(
-              (e) => e.code,
-              'errorCode',
-              ExceptionCode.invalidTripInvitationNum,
-            ).having(
-              (e) => e.message,
-              'errorMessage',
-              '招待人数は1~10人を指定してください。',
-            ),
+              .having(
+                (e) => e.code,
+                'errorCode',
+                ExceptionCode.invalidTripInvitationNum,
+              )
+              .having(
+                (e) => e.message,
+                'errorMessage',
+                '招待人数は1~10人を指定してください。',
+              ),
         ),
       );
       expect(
@@ -49,15 +50,16 @@ Future<void> main() async {
         ),
         throwsA(
           isA<AppException>()
-            ..having(
-              (e) => e.code,
-              'errorCode',
-              ExceptionCode.invalidTripInvitationNum,
-            ).having(
-              (e) => e.message,
-              'errorMessage',
-              '招待人数は1~10人を指定してください。',
-            ),
+              .having(
+                (e) => e.code,
+                'errorCode',
+                ExceptionCode.invalidTripInvitationNum,
+              )
+              .having(
+                (e) => e.message,
+                'errorMessage',
+                '招待人数は1~10人を指定してください。',
+              ),
         ),
       );
     });

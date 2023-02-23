@@ -33,15 +33,16 @@ Future<void> main() async {
         ),
         throwsA(
           isA<AppException>()
-            ..having(
-              (e) => e.code,
-              'errorCode',
-              ExceptionCode.invalidTripPeriod,
-            ).having(
-              (e) => e.message,
-              'errorMessage',
-              '帰宅日が出発日過去より日付になっています。',
-            ),
+              .having(
+                (e) => e.code,
+                'errorCode',
+                ExceptionCode.invalidTripPeriod,
+              )
+              .having(
+                (e) => e.message,
+                'errorMessage',
+                '帰宅日が出発日過去より日付になっています。',
+              ),
         ),
       );
     });
