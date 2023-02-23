@@ -17,12 +17,10 @@ _$_FetchTripsResponse _$$_FetchTripsResponseFromJson(
         final val = _$_FetchTripsResponse(
           items: $checkedConvert(
               'items',
-              (v) =>
-                  (v as List<dynamic>?)
-                      ?.map((e) =>
-                          FetchTripResponse.fromJson(e as Map<String, dynamic>))
-                      .toList() ??
-                  const []),
+              (v) => (v as List<dynamic>)
+                  .map((e) =>
+                      FetchTripResponse.fromJson(e as Map<String, dynamic>))
+                  .toList()),
         );
         return val;
       },
