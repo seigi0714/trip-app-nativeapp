@@ -31,7 +31,7 @@ class _SystemHash {
   }
 }
 
-String _$tripsHash() => r'd5d4820bac706c0e680f0fd366f2e223ccacf86f';
+String _$tripsHash() => r'0a9d9323cdd4187af222e1599618e05bd9e89e1e';
 
 /// See also [trips].
 final tripsProvider = AutoDisposeFutureProvider<List<Trip>>(
