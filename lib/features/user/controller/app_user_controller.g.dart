@@ -31,16 +31,19 @@ class _SystemHash {
   }
 }
 
-String $AppUserControllerHash() => r'078403fbf5a1101522bbb337b2caa11a9101317b';
+String _$AppUserControllerHash() => r'078403fbf5a1101522bbb337b2caa11a9101317b';
 
-/// See also [AppUserController].
+/// ログイン中は、ユーザー情報をキャッシュする
+/// ログイン中に実行される処理で、[AppUser] の値を使用する場合は、非null表明演算子を使ってnullチェックを省略する
+///
+/// Copied from [AppUserController].
 final appUserControllerProvider =
     AsyncNotifierProvider<AppUserController, AppUser?>(
   AppUserController.new,
   name: r'appUserControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : $AppUserControllerHash,
+      : _$AppUserControllerHash,
 );
 typedef AppUserControllerRef = AsyncNotifierProviderRef<AppUser?>;
 

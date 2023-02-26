@@ -9,12 +9,18 @@ part 'trip_interactor.g.dart';
 
 @riverpod
 TripInteractor tripInteractor(TripInteractorRef ref) {
-  return TripInteractor(tripRepo: ref.watch(tripRepositoryProvider));
+  return TripInteractor(
+    tripRepo: ref.watch(tripRepositoryProvider),
+  );
 }
 
 class TripInteractor {
-  TripInteractor({required this.tripRepo});
+  TripInteractor({
+    required this.tripRepo,
+  });
+
   final TripRepositoryInterface tripRepo;
+
   Future<void> createTrip(
     String title,
     DateTime fromDate,
@@ -41,4 +47,7 @@ class TripInteractor {
     final result = await tripRepo.invite(invitation);
     return result;
   }
+
+  Future<List<Trip>> fetchTripsByUserId(int userId) =>
+      tripRepo.fetchTripsByUserId(userId);
 }

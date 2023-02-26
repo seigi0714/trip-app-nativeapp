@@ -128,5 +128,57 @@ Future<void> main() async {
     });
   });
 
+  group('fetchTripsByUserId', () {
+    test('正常系', () async {
+      when(
+        mockTripInteractor.fetchTripsByUserId(1),
+      ).thenAnswer((_) async => []);
+
+      await expectLater(
+        providerContainer.read(tripControllerProvider).fetchTripsByUserId(1),
+        completes,
+      );
+
+      verify(
+        mockTripInteractor.fetchTripsByUserId(1),
+      ).called(1);
+    });
+
+    test('準正常系 インタラクターがスローする例外のハンドリング', () async {
+      when(
+        mockExceptionHandler.handleException(
+          unexpectedException,
+        ),
+      ).thenReturn(null);
+
+      when(
+        mockTripInteractor.fetchTripsByUserId(1),
+      ).thenThrow(unexpectedException);
+
+      await expectLater(
+        () async {
+          await providerContainer
+              .read(tripControllerProvider)
+              .fetchTripsByUserId(1);
+        },
+        throwsA(
+          isA<Exception>().having(
+            (e) => e.toString(),
+            'インタラクターが投げた例外をリスローしているか検証',
+            unexpectedException.toString(),
+          ),
+        ),
+      );
+
+      verify(
+        mockTripInteractor.fetchTripsByUserId(1),
+      ).called(1);
+
+      verify(
+        mockExceptionHandler.handleException(unexpectedException),
+      ).called(1);
+    });
+  });
+
   // TODO(seigi0714): generateAndCopyInviteLinkのテスト実装
 }

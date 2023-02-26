@@ -6,6 +6,8 @@ import 'package:trip_app_nativeapp/features/user/domain/interactor/user_interact
 
 part 'app_user_controller.g.dart';
 
+/// ログイン中は、ユーザー情報をキャッシュする
+/// ログイン中に実行される処理で、[AppUser] の値を使用する場合は、非null表明演算子を使ってnullチェックを省略する
 @Riverpod(keepAlive: true)
 class AppUserController extends _$AppUserController {
   @override

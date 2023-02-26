@@ -6,6 +6,8 @@
 import 'dart:async' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart'
+    as _i6;
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart'
     as _i3;
 import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interactor.dart'
@@ -107,4 +109,13 @@ class MockTripInteractor extends _i1.Mock implements _i4.TripInteractor {
           ),
         )),
       ) as _i5.Future<_i3.GeneratedTripInvitation>);
+  @override
+  _i5.Future<List<_i6.Trip>> fetchTripsByUserId(int? userId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchTripsByUserId,
+          [userId],
+        ),
+        returnValue: _i5.Future<List<_i6.Trip>>.value(<_i6.Trip>[]),
+      ) as _i5.Future<List<_i6.Trip>>);
 }

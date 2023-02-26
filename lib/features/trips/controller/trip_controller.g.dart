@@ -31,6 +31,16 @@ class _SystemHash {
   }
 }
 
+String _$tripsHash() => r'0a9d9323cdd4187af222e1599618e05bd9e89e1e';
+
+/// See also [trips].
+final tripsProvider = AutoDisposeFutureProvider<List<Trip>>(
+  trips,
+  name: r'tripsProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$tripsHash,
+);
+typedef TripsRef = AutoDisposeFutureProviderRef<List<Trip>>;
 String _$tripControllerHash() => r'ecb9d08395accfaf9687b15c2b145bb9a666d1d1';
 
 /// See also [tripController].
