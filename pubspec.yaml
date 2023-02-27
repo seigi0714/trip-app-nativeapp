@@ -36,7 +36,7 @@ dependencies:
   mocktail: ^0.3.0
   nil: ^1.1.1
   riverpod_annotation: ^1.0.6
-  roggle: ^0.3.0
+  roggle: ^0.3.1
   shared_preferences: ^2.0.15
 
 dev_dependencies:
