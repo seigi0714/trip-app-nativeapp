@@ -56,6 +56,7 @@ class _TripApp extends ConsumerWidget {
       routerDelegate: router.routerDelegate,
       scaffoldMessengerKey: ref.watch(scaffoldMessengerKeyProvider),
       theme: ThemeData(
+        useMaterial3: true,
         primaryColor: kPrimaryColor,
         textTheme: GoogleFonts.zenMaruGothicTextTheme(
           Theme.of(context).textTheme,
