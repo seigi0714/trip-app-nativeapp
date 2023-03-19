@@ -13,7 +13,6 @@ class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
 
   static const path = '/login';
-  static const name = 'LoginPage';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

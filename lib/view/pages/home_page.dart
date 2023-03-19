@@ -9,7 +9,6 @@ class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   static const path = '/';
-  static const name = 'HomePage';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

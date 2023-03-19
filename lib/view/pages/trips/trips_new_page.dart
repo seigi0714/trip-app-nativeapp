@@ -10,7 +10,6 @@ class TripNewPage extends HookConsumerWidget {
   const TripNewPage({super.key});
 
   static const path = 'new_trips';
-  static const name = 'NewTripPage';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

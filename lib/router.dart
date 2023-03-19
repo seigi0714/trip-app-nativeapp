@@ -34,7 +34,6 @@ GoRouter router(RouterRef ref) {
     routes: [
       GoRoute(
         path: HomePage.path,
-        name: HomePage.name,
         builder: (context, state) => appUserAsync.when(
           data: (user) {
             if (user == null) {
@@ -54,12 +53,10 @@ GoRouter router(RouterRef ref) {
         routes: [
           GoRoute(
             path: TripListPage.path,
-            name: TripListPage.name,
             builder: (context, state) => const TripListPage(),
             routes: [
               GoRoute(
                 path: TripNewPage.path,
-                name: TripNewPage.name,
                 builder: (context, state) => const TripNewPage(),
               ),
             ],
@@ -68,7 +65,6 @@ GoRouter router(RouterRef ref) {
       ),
       GoRoute(
         path: LoginPage.path,
-        name: LoginPage.name,
         builder: (context, state) => const LoginPage(),
       ),
     ],
