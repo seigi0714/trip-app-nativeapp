@@ -8,7 +8,7 @@ part of 'baseurl.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-// ignore_for_file: avoid_private_typedef_functions, non_constant_identifier_names, subtype_of_sealed_class, invalid_use_of_internal_member, unused_element, constant_identifier_names, unnecessary_raw_strings, library_private_types_in_public_api
+String _$baseUrlHash() => r'78fd8bf439744938def536f38451b2e54e394773';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,13 +31,56 @@ class _SystemHash {
   }
 }
 
-String $baseUrlHash() => r'78fd8bf439744938def536f38451b2e54e394773';
+typedef BaseUrlRef = ProviderRef<String>;
+
+/// See also [baseUrl].
+@ProviderFor(baseUrl)
+const baseUrlProvider = BaseUrlFamily();
+
+/// See also [baseUrl].
+class BaseUrlFamily extends Family<String> {
+  /// See also [baseUrl].
+  const BaseUrlFamily();
+
+  /// See also [baseUrl].
+  BaseUrlProvider call(
+    ApiDestination apiDestination,
+  ) {
+    return BaseUrlProvider(
+      apiDestination,
+    );
+  }
+
+  @override
+  BaseUrlProvider getProviderOverride(
+    covariant BaseUrlProvider provider,
+  ) {
+    return call(
+      provider.apiDestination,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'baseUrlProvider';
+}
 
 /// See also [baseUrl].
 class BaseUrlProvider extends Provider<String> {
+  /// See also [baseUrl].
   BaseUrlProvider(
     this.apiDestination,
-  ) : super(
+  ) : super.internal(
           (ref) => baseUrl(
             ref,
             apiDestination,
@@ -47,7 +90,9 @@ class BaseUrlProvider extends Provider<String> {
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : $baseUrlHash,
+                  : _$baseUrlHash,
+          dependencies: BaseUrlFamily._dependencies,
+          allTransitiveDependencies: BaseUrlFamily._allTransitiveDependencies,
         );
 
   final ApiDestination apiDestination;
@@ -65,38 +110,4 @@ class BaseUrlProvider extends Provider<String> {
     return _SystemHash.finish(hash);
   }
 }
-
-typedef BaseUrlRef = ProviderRef<String>;
-
-/// See also [baseUrl].
-final baseUrlProvider = BaseUrlFamily();
-
-class BaseUrlFamily extends Family<String> {
-  BaseUrlFamily();
-
-  BaseUrlProvider call(
-    ApiDestination apiDestination,
-  ) {
-    return BaseUrlProvider(
-      apiDestination,
-    );
-  }
-
-  @override
-  Provider<String> getProviderOverride(
-    covariant BaseUrlProvider provider,
-  ) {
-    return call(
-      provider.apiDestination,
-    );
-  }
-
-  @override
-  List<ProviderOrFamily>? get allTransitiveDependencies => null;
-
-  @override
-  List<ProviderOrFamily>? get dependencies => null;
-
-  @override
-  String? get name => r'baseUrlProvider';
-}
+// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
