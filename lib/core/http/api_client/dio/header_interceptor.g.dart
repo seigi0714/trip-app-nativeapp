@@ -8,7 +8,7 @@ part of 'header_interceptor.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-// ignore_for_file: avoid_private_typedef_functions, non_constant_identifier_names, subtype_of_sealed_class, invalid_use_of_internal_member, unused_element, constant_identifier_names, unnecessary_raw_strings, library_private_types_in_public_api
+String _$headerInterceptorHash() => r'70fab2e645180399e947741ebd749dc8f1671857';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,13 +31,56 @@ class _SystemHash {
   }
 }
 
-String $headerInterceptorHash() => r'70fab2e645180399e947741ebd749dc8f1671857';
+typedef HeaderInterceptorRef = ProviderRef<HeaderInterceptor>;
+
+/// See also [headerInterceptor].
+@ProviderFor(headerInterceptor)
+const headerInterceptorProvider = HeaderInterceptorFamily();
+
+/// See also [headerInterceptor].
+class HeaderInterceptorFamily extends Family<HeaderInterceptor> {
+  /// See also [headerInterceptor].
+  const HeaderInterceptorFamily();
+
+  /// See also [headerInterceptor].
+  HeaderInterceptorProvider call(
+    ApiDestination apiDestination,
+  ) {
+    return HeaderInterceptorProvider(
+      apiDestination,
+    );
+  }
+
+  @override
+  HeaderInterceptorProvider getProviderOverride(
+    covariant HeaderInterceptorProvider provider,
+  ) {
+    return call(
+      provider.apiDestination,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'headerInterceptorProvider';
+}
 
 /// See also [headerInterceptor].
 class HeaderInterceptorProvider extends Provider<HeaderInterceptor> {
+  /// See also [headerInterceptor].
   HeaderInterceptorProvider(
     this.apiDestination,
-  ) : super(
+  ) : super.internal(
           (ref) => headerInterceptor(
             ref,
             apiDestination,
@@ -47,7 +90,10 @@ class HeaderInterceptorProvider extends Provider<HeaderInterceptor> {
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : $headerInterceptorHash,
+                  : _$headerInterceptorHash,
+          dependencies: HeaderInterceptorFamily._dependencies,
+          allTransitiveDependencies:
+              HeaderInterceptorFamily._allTransitiveDependencies,
         );
 
   final ApiDestination apiDestination;
@@ -66,38 +112,4 @@ class HeaderInterceptorProvider extends Provider<HeaderInterceptor> {
     return _SystemHash.finish(hash);
   }
 }
-
-typedef HeaderInterceptorRef = ProviderRef<HeaderInterceptor>;
-
-/// See also [headerInterceptor].
-final headerInterceptorProvider = HeaderInterceptorFamily();
-
-class HeaderInterceptorFamily extends Family<HeaderInterceptor> {
-  HeaderInterceptorFamily();
-
-  HeaderInterceptorProvider call(
-    ApiDestination apiDestination,
-  ) {
-    return HeaderInterceptorProvider(
-      apiDestination,
-    );
-  }
-
-  @override
-  Provider<HeaderInterceptor> getProviderOverride(
-    covariant HeaderInterceptorProvider provider,
-  ) {
-    return call(
-      provider.apiDestination,
-    );
-  }
-
-  @override
-  List<ProviderOrFamily>? get allTransitiveDependencies => null;
-
-  @override
-  List<ProviderOrFamily>? get dependencies => null;
-
-  @override
-  String? get name => r'headerInterceptorProvider';
-}
+// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
