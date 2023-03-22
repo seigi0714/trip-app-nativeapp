@@ -6,9 +6,8 @@ import 'package:lottie/lottie.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
 import 'package:trip_app_nativeapp/core/gen/assets.gen.dart';
+import 'package:trip_app_nativeapp/features/trips/controller/trip_controller.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
-import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_period.dart';
-import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_title.dart';
 import 'package:trip_app_nativeapp/view/pages/trips/trips_new_page.dart';
 
 class TripListPage extends HookConsumerWidget {
@@ -21,21 +20,27 @@ class TripListPage extends HookConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: GridView.count(
-            crossAxisCount: 2,
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
-            padding: const EdgeInsets.all(16),
-            childAspectRatio: 0.66,
-            children: [
-              _TripCard(_mockTrip),
-              _TripCard(_mockTrip),
-              _TripCard(_mockTrip),
-              _TripCard(_mockTrip),
-              _TripCard(_mockTrip),
-              _TripCard(_mockTrip),
-            ],
-          ),
+          child: ref.watch(tripsProvider).when(
+                data: (trips) {
+                  return GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 16,
+                      crossAxisSpacing: 16,
+                      childAspectRatio: 0.66,
+                    ),
+                    padding: const EdgeInsets.all(16),
+                    itemCount: trips.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return _TripCard(trips[index]);
+                    },
+                  );
+                },
+                // TODO(shimizu-saffle):  デザイン良い感じにする
+                error: (error, stackTrace) => const Text('エラーが発生しました。'),
+                loading: () => const CircularProgressIndicator(),
+              ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -48,16 +53,6 @@ class TripListPage extends HookConsumerWidget {
     );
   }
 }
-
-final _mockTrip = Trip(
-  title: TripTitle(
-    value: 'ベトナム旅行',
-  ),
-  tripPeriod: TripPeriod(
-    fromDate: DateTime.now(),
-    endDate: DateTime.now().add(const Duration(days: 3)),
-  ),
-);
 
 class _TripCard extends StatelessWidget {
   const _TripCard(this.trip);
@@ -74,6 +69,7 @@ class _TripCard extends StatelessWidget {
       child: Column(
         children: [
           const Gap(8),
+          // TODO(shimizu-saffle): 良い感じのアニメーションに変える
           Lottie.asset(
             Assets.lotties.travelLoading,
             height: context.displaySize.height * 0.18,
