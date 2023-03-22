@@ -9,7 +9,7 @@ import 'package:trip_app_nativeapp/view/pages/trips/trips_list_page.dart';
 class DebugPage extends ConsumerWidget {
   const DebugPage({super.key});
 
-  static const path = '/debug';
+  static const path = '/';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,7 +36,7 @@ class DebugPage extends ConsumerWidget {
                 child: const Text('ログアウト'),
               ),
               ElevatedButton(
-                onPressed: () => context.go(TripListPage.path),
+                onPressed: () => context.go('/${TripListPage.path}'),
                 child: const Text('旅一覧ページ'),
               ),
             ],

@@ -16,7 +16,7 @@ part 'router.g.dart';
 GoRouter router(RouterRef ref) {
   final appUserAsync = ref.watch(appUserControllerProvider);
   return GoRouter(
-    initialLocation: kDebugMode ? DebugPage.path : TripListPage.path,
+    initialLocation: kDebugMode ? DebugPage.path : '/${TripListPage.path}',
     redirect: (BuildContext context, state) {
       final isAtLoginPage = state.subloc == LoginPage.path;
       return appUserAsync.maybeWhen(
