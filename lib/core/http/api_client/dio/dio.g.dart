@@ -8,7 +8,7 @@ part of 'dio.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-// ignore_for_file: avoid_private_typedef_functions, non_constant_identifier_names, subtype_of_sealed_class, invalid_use_of_internal_member, unused_element, constant_identifier_names, unnecessary_raw_strings, library_private_types_in_public_api
+String _$dioHash() => r'15c8dec4d8e099101ccb68517e691728e88394e6';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,15 +31,68 @@ class _SystemHash {
   }
 }
 
-String $dioHash() => r'15c8dec4d8e099101ccb68517e691728e88394e6';
+typedef DioRef = ProviderRef<Dio>;
+
+/// プロバイダー経由で必要な情報を集め、各種設定済みの Dio インスタンスを提供する。
+///
+/// Copied from [dio].
+@ProviderFor(dio)
+const dioProvider = DioFamily();
+
+/// プロバイダー経由で必要な情報を集め、各種設定済みの Dio インスタンスを提供する。
+///
+/// Copied from [dio].
+class DioFamily extends Family<Dio> {
+  /// プロバイダー経由で必要な情報を集め、各種設定済みの Dio インスタンスを提供する。
+  ///
+  /// Copied from [dio].
+  const DioFamily();
+
+  /// プロバイダー経由で必要な情報を集め、各種設定済みの Dio インスタンスを提供する。
+  ///
+  /// Copied from [dio].
+  DioProvider call(
+    ApiDestination apiDestination,
+  ) {
+    return DioProvider(
+      apiDestination,
+    );
+  }
+
+  @override
+  DioProvider getProviderOverride(
+    covariant DioProvider provider,
+  ) {
+    return call(
+      provider.apiDestination,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'dioProvider';
+}
 
 /// プロバイダー経由で必要な情報を集め、各種設定済みの Dio インスタンスを提供する。
 ///
 /// Copied from [dio].
 class DioProvider extends Provider<Dio> {
+  /// プロバイダー経由で必要な情報を集め、各種設定済みの Dio インスタンスを提供する。
+  ///
+  /// Copied from [dio].
   DioProvider(
     this.apiDestination,
-  ) : super(
+  ) : super.internal(
           (ref) => dio(
             ref,
             apiDestination,
@@ -47,7 +100,9 @@ class DioProvider extends Provider<Dio> {
           from: dioProvider,
           name: r'dioProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : $dioHash,
+              const bool.fromEnvironment('dart.vm.product') ? null : _$dioHash,
+          dependencies: DioFamily._dependencies,
+          allTransitiveDependencies: DioFamily._allTransitiveDependencies,
         );
 
   final ApiDestination apiDestination;
@@ -65,40 +120,4 @@ class DioProvider extends Provider<Dio> {
     return _SystemHash.finish(hash);
   }
 }
-
-typedef DioRef = ProviderRef<Dio>;
-
-/// プロバイダー経由で必要な情報を集め、各種設定済みの Dio インスタンスを提供する。
-///
-/// Copied from [dio].
-final dioProvider = DioFamily();
-
-class DioFamily extends Family<Dio> {
-  DioFamily();
-
-  DioProvider call(
-    ApiDestination apiDestination,
-  ) {
-    return DioProvider(
-      apiDestination,
-    );
-  }
-
-  @override
-  Provider<Dio> getProviderOverride(
-    covariant DioProvider provider,
-  ) {
-    return call(
-      provider.apiDestination,
-    );
-  }
-
-  @override
-  List<ProviderOrFamily>? get allTransitiveDependencies => null;
-
-  @override
-  List<ProviderOrFamily>? get dependencies => null;
-
-  @override
-  String? get name => r'dioProvider';
-}
+// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
