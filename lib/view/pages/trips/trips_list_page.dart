@@ -10,6 +10,7 @@ import 'package:trip_app_nativeapp/features/trips/controller/trip_controller.dar
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/view/pages/trips/trips_new_page.dart';
 import 'package:trip_app_nativeapp/view/widgets/car_driving_loading.dart';
+import 'package:trip_app_nativeapp/view/widgets/error_cat.dart';
 
 class TripListPage extends HookConsumerWidget {
   const TripListPage({super.key});
@@ -38,8 +39,7 @@ class TripListPage extends HookConsumerWidget {
                     },
                   );
                 },
-                // TODO(shimizu-saffle):  デザイン良い感じにする
-                error: (error, stackTrace) => const Text('エラーが発生しました。'),
+                error: ErrorCat.new,
                 loading: CarDrivingLoading.new,
               ),
         ),
