@@ -24,7 +24,7 @@ class LoginPage extends HookConsumerWidget {
               const Spacer(flex: 2),
               Text(
                 '旅のしおり',
-                style: context.textTheme.headlineMedium,
+                style: context.textTheme.headlineLarge,
               ),
               const Spacer(),
               Lottie.asset(

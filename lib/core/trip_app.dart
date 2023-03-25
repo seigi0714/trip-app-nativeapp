@@ -67,7 +67,12 @@ class _TripApp extends ConsumerWidget {
           builder: (context, child) {
             return DevicePreview.appBuilder(
               context,
-              child == null ? nil : ConstantPage(child: child),
+              child == null
+                  ? nil
+                  : MediaQuery(
+                      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+                      child: ConstantPage(child: child),
+                    ),
             );
           },
           useInheritedMediaQuery: true,
