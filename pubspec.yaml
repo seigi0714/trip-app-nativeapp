@@ -37,7 +37,7 @@ dependencies:
   nil: ^1.1.1
   riverpod_annotation: ^1.0.6
   roggle: ^0.3.0
-  shared_preferences: ^2.0.18
+  shared_preferences: ^2.0.20
 
 dev_dependencies:
   build_runner: ^2.3.0
