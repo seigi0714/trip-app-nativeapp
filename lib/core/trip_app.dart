@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nil/nil.dart';
@@ -48,20 +49,31 @@ class _TripApp extends ConsumerWidget {
     }
 
     final router = ref.watch(routerProvider);
-    return MaterialApp.router(
-      title: 'Trip App',
-      routeInformationProvider: router.routeInformationProvider,
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
-      scaffoldMessengerKey: ref.watch(scaffoldMessengerKeyProvider),
-      theme: ref.watch(
-        themeDataProvider(context, isDark: false),
-      ),
-      darkTheme: ref.watch(
-        themeDataProvider(context, isDark: true),
-      ),
-      builder: (context, child) =>
-          child == null ? nil : ConstantPage(child: child),
+    return DevicePreview(
+      enabled: const bool.fromEnvironment('ENABLE_DEVICE_PREVIEW'),
+      builder: (context) {
+        return MaterialApp.router(
+          title: 'Trip App',
+          routeInformationProvider: router.routeInformationProvider,
+          routeInformationParser: router.routeInformationParser,
+          routerDelegate: router.routerDelegate,
+          scaffoldMessengerKey: ref.watch(scaffoldMessengerKeyProvider),
+          theme: ref.watch(
+            themeDataProvider(context, isDark: false),
+          ),
+          darkTheme: ref.watch(
+            themeDataProvider(context, isDark: true),
+          ),
+          builder: (context, child) {
+            return DevicePreview.appBuilder(
+              context,
+              child == null ? nil : ConstantPage(child: child),
+            );
+          },
+          useInheritedMediaQuery: true,
+          locale: DevicePreview.locale(context),
+        );
+      },
     );
   }
 }
