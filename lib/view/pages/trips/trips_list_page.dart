@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/features/trips/controller/trip_controller.dart';
 import 'package:trip_app_nativeapp/view/pages/trips/trips_new_page.dart';
-import 'package:trip_app_nativeapp/view/responsive_utils.dart';
 import 'package:trip_app_nativeapp/view/widgets/car_driving_loading.dart';
 import 'package:trip_app_nativeapp/view/widgets/error_cat.dart';
 import 'package:trip_app_nativeapp/view/widgets/trip_card.dart';
@@ -23,8 +23,8 @@ class TripListPage extends HookConsumerWidget {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
-                    crossAxisCount: getCrossAxisCount(context),
-                    childAspectRatio: getAspectRatio(context),
+                    crossAxisCount: context.getCrossAxisCount,
+                    childAspectRatio: context.responsiveAspectRatio,
                   ),
                   padding: const EdgeInsets.all(16),
                   itemCount: trips.length,

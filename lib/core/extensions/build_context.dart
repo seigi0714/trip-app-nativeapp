@@ -60,4 +60,26 @@ extension BuildContextExtension on BuildContext {
 
   /// Android かどうか
   bool get isAndroid => Theme.of(this).platform == TargetPlatform.android;
+
+  int get getCrossAxisCount {
+    final screenWidth = displaySize.width;
+    if (screenWidth >= 1280) {
+      return 4;
+    } else if (screenWidth >= 768) {
+      return 3;
+    } else {
+      return 2;
+    }
+  }
+
+  double get responsiveAspectRatio =>
+      displaySize.width / (displaySize.height * 0.65);
+
+  TextStyle? get responsiveDisplayTextStyle => displaySize.width > 400
+      ? textTheme.displayMedium
+      : textTheme.displaySmall;
+
+  TextStyle? get responsiveBodyTextStyle => displaySize.width > 400
+      ? textTheme.headlineMedium
+      : textTheme.headlineSmall;
 }

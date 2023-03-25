@@ -39,7 +39,7 @@ class BrandButton extends StatelessWidget {
             const Spacer(),
             Text(
               label,
-              style: context.headlineSmall?.copyWith(
+              style: context.responsiveBodyTextStyle?.copyWith(
                 color: labelColor ?? Colors.white,
                 fontWeight: FontWeight.bold,
               ),
