@@ -39,7 +39,10 @@ class TripListPage extends HookConsumerWidget {
                 },
                 // TODO(shimizu-saffle):  デザイン良い感じにする
                 error: (error, stackTrace) => const Text('エラーが発生しました。'),
-                loading: () => const CircularProgressIndicator(),
+                loading: () => Lottie.asset(
+                  Assets.lotties.carDrivingLandscape,
+                  height: context.displaySize.height * 0.18,
+                ),
               ),
         ),
       ),

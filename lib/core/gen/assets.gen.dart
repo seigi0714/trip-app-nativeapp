@@ -20,6 +20,9 @@ class $AssetsImagesGen {
 class $AssetsLottiesGen {
   const $AssetsLottiesGen();
 
+  /// File path: assets/lotties/car-driving-landscape.json
+  String get carDrivingLandscape => 'assets/lotties/car-driving-landscape.json';
+
   /// File path: assets/lotties/travel-loading.json
   String get travelLoading => 'assets/lotties/travel-loading.json';
 }
