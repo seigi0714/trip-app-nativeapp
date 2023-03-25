@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nil/nil.dart';
-import 'package:trip_app_nativeapp/core/constants/color.dart';
 import 'package:trip_app_nativeapp/router.dart';
 import 'package:trip_app_nativeapp/view/pages/constant_page.dart';
+import 'package:trip_app_nativeapp/view/theme.dart';
 import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart';
 
 class TripApp extends StatelessWidget {
@@ -55,12 +54,11 @@ class _TripApp extends ConsumerWidget {
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
       scaffoldMessengerKey: ref.watch(scaffoldMessengerKeyProvider),
-      theme: ThemeData(
-        useMaterial3: true,
-        primaryColor: kPrimaryColor,
-        textTheme: GoogleFonts.zenMaruGothicTextTheme(
-          Theme.of(context).textTheme,
-        ),
+      theme: ref.watch(
+        themeDataProvider(context, isDark: false),
+      ),
+      darkTheme: ref.watch(
+        themeDataProvider(context, isDark: true),
       ),
       builder: (context, child) =>
           child == null ? nil : ConstantPage(child: child),
