@@ -60,3 +60,6 @@ flutter:
     - assets/lotties/
     - .prod.env
     - .dev.env
+
+flutter_gen:
+  output: lib/core/gen
