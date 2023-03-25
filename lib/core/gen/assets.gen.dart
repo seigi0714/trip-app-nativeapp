@@ -28,6 +28,9 @@ class $AssetsLottiesGen {
 
   /// File path: assets/lotties/travel-loading.json
   String get travelLoading => 'assets/lotties/travel-loading.json';
+
+  /// File path: assets/lotties/trip-card.json
+  String get tripCard => 'assets/lotties/trip-card.json';
 }
 
 class Assets {

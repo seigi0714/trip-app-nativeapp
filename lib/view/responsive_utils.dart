@@ -12,13 +12,5 @@ int getCrossAxisCount(BuildContext context) {
   }
 }
 
-double getAspectRatio(BuildContext context) {
-  final screenWidth = context.displaySize.width;
-  if (screenWidth >= 1280) {
-    return 0.7;
-  } else if (screenWidth >= 768) {
-    return 0.8;
-  } else {
-    return 0.66;
-  }
-}
+double getAspectRatio(BuildContext context) =>
+    context.displaySize.width / (context.displaySize.height * 0.65);

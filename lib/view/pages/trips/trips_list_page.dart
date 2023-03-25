@@ -17,26 +17,24 @@ class TripListPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: ref.watch(tripsProvider).when(
-                data: (trips) {
-                  return GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 16,
-                      crossAxisCount: getCrossAxisCount(context),
-                      childAspectRatio: getAspectRatio(context),
-                    ),
-                    padding: const EdgeInsets.all(16),
-                    itemCount: trips.length,
-                    itemBuilder: (BuildContext context, int index) =>
-                        TripCard(trips[index]),
-                  );
-                },
-                error: ErrorCat.new,
-                loading: CarDrivingLoading.new,
-              ),
-        ),
+        child: ref.watch(tripsProvider).when(
+              data: (trips) {
+                return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
+                    crossAxisCount: getCrossAxisCount(context),
+                    childAspectRatio: getAspectRatio(context),
+                  ),
+                  padding: const EdgeInsets.all(16),
+                  itemCount: trips.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      TripCard(trips[index]),
+                );
+              },
+              error: ErrorCat.new,
+              loading: CarDrivingLoading.new,
+            ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.go('/$path/${TripNewPage.path}'),
