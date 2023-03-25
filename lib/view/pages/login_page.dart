@@ -23,10 +23,8 @@ class LoginPage extends HookConsumerWidget {
             children: [
               const Spacer(flex: 2),
               Text(
-                'さあ、旅に出よう',
-                style: context.textTheme.headlineMedium?.copyWith(
-                  color: kPrimaryColor,
-                ),
+                '旅のしおり',
+                style: context.textTheme.headlineMedium,
               ),
               const Spacer(),
               Lottie.asset(
@@ -38,6 +36,7 @@ class LoginPage extends HookConsumerWidget {
                 label: 'LINE ログイン',
                 brandLogo: Icon(
                   FontAwesomeIcons.line,
+                  color: Colors.white,
                   size: context.displaySize.width * 0.08,
                 ),
                 backgroundColor: lineGreen,
@@ -60,6 +59,7 @@ class LoginPage extends HookConsumerWidget {
                 label: 'Apple ログイン',
                 brandLogo: Icon(
                   FontAwesomeIcons.apple,
+                  color: Colors.white,
                   size: context.displaySize.width * 0.08,
                 ),
                 backgroundColor: Colors.black,
