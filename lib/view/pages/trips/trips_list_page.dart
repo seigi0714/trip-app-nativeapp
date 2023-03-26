@@ -28,9 +28,8 @@ class TripListPage extends HookConsumerWidget {
                   ),
                   padding: const EdgeInsets.all(16),
                   itemCount: trips.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return TripCard(trips[index]);
-                  },
+                  itemBuilder: (BuildContext context, int index) =>
+                      TripCard(trips[index]),
                 );
               },
               error: ErrorCat.new,

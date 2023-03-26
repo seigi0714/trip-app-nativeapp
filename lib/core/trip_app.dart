@@ -58,12 +58,8 @@ class _TripApp extends ConsumerWidget {
           routeInformationParser: router.routeInformationParser,
           routerDelegate: router.routerDelegate,
           scaffoldMessengerKey: ref.watch(scaffoldMessengerKeyProvider),
-          theme: ref.watch(
-            themeDataProvider(context, isDark: false),
-          ),
-          darkTheme: ref.watch(
-            themeDataProvider(context, isDark: true),
-          ),
+          theme: ref.watch(lightThemeDataProvider(context)),
+          darkTheme: ref.watch(darkThemeDataProvider(context)),
           builder: (context, child) {
             return DevicePreview.appBuilder(
               context,

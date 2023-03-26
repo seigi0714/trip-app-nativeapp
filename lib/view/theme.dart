@@ -6,20 +6,37 @@ import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 part 'theme.g.dart';
 
 @riverpod
-ThemeData themeData(
-  ThemeDataRef ref,
-  BuildContext context, {
-  required bool isDark,
-}) {
+ThemeData lightThemeData(
+  LightThemeDataRef ref,
+  BuildContext context,
+) {
   return ThemeData(
-    brightness: isDark ? Brightness.dark : Brightness.light,
+    brightness: Brightness.light,
     useMaterial3: true,
     colorSchemeSeed: const Color.fromRGBO(29, 233, 182, 1),
     textTheme: GoogleFonts.zenMaruGothicTextTheme(
       context.textTheme,
     ).apply(
-      bodyColor: isDark ? Colors.white : Colors.black,
-      displayColor: isDark ? Colors.white : Colors.black,
+      bodyColor: Colors.black,
+      displayColor: Colors.black,
+    ),
+  );
+}
+
+@riverpod
+ThemeData darkThemeData(
+  DarkThemeDataRef ref,
+  BuildContext context,
+) {
+  return ThemeData(
+    brightness: Brightness.dark,
+    useMaterial3: true,
+    colorSchemeSeed: const Color.fromRGBO(29, 233, 182, 1),
+    textTheme: GoogleFonts.zenMaruGothicTextTheme(
+      context.textTheme,
+    ).apply(
+      bodyColor: Colors.white,
+      displayColor: Colors.white,
     ),
   );
 }

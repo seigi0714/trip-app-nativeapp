@@ -8,7 +8,7 @@ part of 'theme.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$themeDataHash() => r'eee79aa51dae82bd2b15329a9ca47099f934b8ee';
+String _$lightThemeDataHash() => r'b5f5bd981d2a607f4890d3c39074654b038068e7';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,35 +31,32 @@ class _SystemHash {
   }
 }
 
-typedef ThemeDataRef = AutoDisposeProviderRef<ThemeData>;
+typedef LightThemeDataRef = AutoDisposeProviderRef<ThemeData>;
 
-/// See also [themeData].
-@ProviderFor(themeData)
-const themeDataProvider = ThemeDataFamily();
+/// See also [lightThemeData].
+@ProviderFor(lightThemeData)
+const lightThemeDataProvider = LightThemeDataFamily();
 
-/// See also [themeData].
-class ThemeDataFamily extends Family<ThemeData> {
-  /// See also [themeData].
-  const ThemeDataFamily();
+/// See also [lightThemeData].
+class LightThemeDataFamily extends Family<ThemeData> {
+  /// See also [lightThemeData].
+  const LightThemeDataFamily();
 
-  /// See also [themeData].
-  ThemeDataProvider call(
-    BuildContext context, {
-    required bool isDark,
-  }) {
-    return ThemeDataProvider(
+  /// See also [lightThemeData].
+  LightThemeDataProvider call(
+    BuildContext context,
+  ) {
+    return LightThemeDataProvider(
       context,
-      isDark: isDark,
     );
   }
 
   @override
-  ThemeDataProvider getProviderOverride(
-    covariant ThemeDataProvider provider,
+  LightThemeDataProvider getProviderOverride(
+    covariant LightThemeDataProvider provider,
   ) {
     return call(
       provider.context,
-      isDark: provider.isDark,
     );
   }
 
@@ -75,46 +72,123 @@ class ThemeDataFamily extends Family<ThemeData> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'themeDataProvider';
+  String? get name => r'lightThemeDataProvider';
 }
 
-/// See also [themeData].
-class ThemeDataProvider extends AutoDisposeProvider<ThemeData> {
-  /// See also [themeData].
-  ThemeDataProvider(
-    this.context, {
-    required this.isDark,
-  }) : super.internal(
-          (ref) => themeData(
+/// See also [lightThemeData].
+class LightThemeDataProvider extends AutoDisposeProvider<ThemeData> {
+  /// See also [lightThemeData].
+  LightThemeDataProvider(
+    this.context,
+  ) : super.internal(
+          (ref) => lightThemeData(
             ref,
             context,
-            isDark: isDark,
           ),
-          from: themeDataProvider,
-          name: r'themeDataProvider',
+          from: lightThemeDataProvider,
+          name: r'lightThemeDataProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$themeDataHash,
-          dependencies: ThemeDataFamily._dependencies,
-          allTransitiveDependencies: ThemeDataFamily._allTransitiveDependencies,
+                  : _$lightThemeDataHash,
+          dependencies: LightThemeDataFamily._dependencies,
+          allTransitiveDependencies:
+              LightThemeDataFamily._allTransitiveDependencies,
         );
 
   final BuildContext context;
-  final bool isDark;
 
   @override
   bool operator ==(Object other) {
-    return other is ThemeDataProvider &&
-        other.context == context &&
-        other.isDark == isDark;
+    return other is LightThemeDataProvider && other.context == context;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, context.hashCode);
-    hash = _SystemHash.combine(hash, isDark.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+String _$darkThemeDataHash() => r'8f22fe3d2b8c1fac6f02c9d038c8b19ffae7bb74';
+typedef DarkThemeDataRef = AutoDisposeProviderRef<ThemeData>;
+
+/// See also [darkThemeData].
+@ProviderFor(darkThemeData)
+const darkThemeDataProvider = DarkThemeDataFamily();
+
+/// See also [darkThemeData].
+class DarkThemeDataFamily extends Family<ThemeData> {
+  /// See also [darkThemeData].
+  const DarkThemeDataFamily();
+
+  /// See also [darkThemeData].
+  DarkThemeDataProvider call(
+    BuildContext context,
+  ) {
+    return DarkThemeDataProvider(
+      context,
+    );
+  }
+
+  @override
+  DarkThemeDataProvider getProviderOverride(
+    covariant DarkThemeDataProvider provider,
+  ) {
+    return call(
+      provider.context,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'darkThemeDataProvider';
+}
+
+/// See also [darkThemeData].
+class DarkThemeDataProvider extends AutoDisposeProvider<ThemeData> {
+  /// See also [darkThemeData].
+  DarkThemeDataProvider(
+    this.context,
+  ) : super.internal(
+          (ref) => darkThemeData(
+            ref,
+            context,
+          ),
+          from: darkThemeDataProvider,
+          name: r'darkThemeDataProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$darkThemeDataHash,
+          dependencies: DarkThemeDataFamily._dependencies,
+          allTransitiveDependencies:
+              DarkThemeDataFamily._allTransitiveDependencies,
+        );
+
+  final BuildContext context;
+
+  @override
+  bool operator ==(Object other) {
+    return other is DarkThemeDataProvider && other.context == context;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, context.hashCode);
 
     return _SystemHash.finish(hash);
   }
