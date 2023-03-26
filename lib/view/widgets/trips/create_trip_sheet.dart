@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
+import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
 import 'package:trip_app_nativeapp/core/gen/assets.gen.dart';
 import 'package:trip_app_nativeapp/features/trips/controller/trip_controller.dart';
 
@@ -26,24 +26,33 @@ class CreateTripSheet extends HookConsumerWidget {
             Assets.lotties.natureVisitTravel,
             height: context.displaySize.height * 0.3,
           ),
-          _buildTitleTextField(titleEditingController, context),
-          _buildDateRangeRow(context, fromDate, endDate),
-          _buildCreateButton(
-            ref,
-            context,
-            titleEditingController,
-            fromDate,
-            endDate,
+          _TitleTextField(
+            controller: titleEditingController,
+          ),
+          _DateRangeRow(
+            fromDate: fromDate,
+            endDate: endDate,
+          ),
+          _CreateButton(
+            titleEditingController: titleEditingController,
+            fromDate: fromDate,
+            endDate: endDate,
           ),
         ],
       ),
     );
   }
+}
 
-  Widget _buildTitleTextField(
-    TextEditingController titleEditingController,
-    BuildContext context,
-  ) {
+class _TitleTextField extends StatelessWidget {
+  const _TitleTextField({
+    required this.controller,
+  });
+
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: DecoratedBox(
@@ -54,7 +63,7 @@ class CreateTripSheet extends HookConsumerWidget {
           ),
         ),
         child: TextField(
-          controller: titleEditingController,
+          controller: controller,
           decoration: const InputDecoration(
             hintText: 'どこへ旅行する？ 🗺️',
             border: InputBorder.none,
@@ -64,12 +73,19 @@ class CreateTripSheet extends HookConsumerWidget {
       ),
     );
   }
+}
 
-  Widget _buildDateRangeRow(
-    BuildContext context,
-    ValueNotifier<DateTime> fromDate,
-    ValueNotifier<DateTime> endDate,
-  ) {
+class _DateRangeRow extends StatelessWidget {
+  const _DateRangeRow({
+    required this.fromDate,
+    required this.endDate,
+  });
+
+  final ValueNotifier<DateTime> fromDate;
+  final ValueNotifier<DateTime> endDate;
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
@@ -81,8 +97,8 @@ class CreateTripSheet extends HookConsumerWidget {
                 DatePicker.showDatePicker(
                   context,
                   minTime: DateTime.now(),
-                  onConfirm: (date) => endDate.value = date,
-                  currentTime: endDate.value,
+                  onConfirm: (date) => fromDate.value = date,
+                  currentTime: fromDate.value,
                   locale: LocaleType.jp,
                 );
               },
@@ -95,7 +111,7 @@ class CreateTripSheet extends HookConsumerWidget {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
-                  DateFormat.yMMMd().add_jm().format(fromDate.value),
+                  fromDate.value.toDateString(),
                 ),
               ),
             ),
@@ -122,7 +138,7 @@ class CreateTripSheet extends HookConsumerWidget {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
-                  DateFormat.yMMMd().add_jm().format(endDate.value),
+                  endDate.value.toDateString(),
                 ),
               ),
             ),
@@ -131,24 +147,37 @@ class CreateTripSheet extends HookConsumerWidget {
       ),
     );
   }
+}
 
-  Widget _buildCreateButton(
-    WidgetRef ref,
-    BuildContext context,
-    TextEditingController titleEditingController,
-    ValueNotifier<DateTime> fromDate,
-    ValueNotifier<DateTime> endDate,
-  ) {
-    return ElevatedButton(
-      onPressed: () {
-        ref.read(tripControllerProvider).createTrip(
-              title: titleEditingController.text,
-              fromDate: fromDate.value,
-              endDate: endDate.value,
-              onSuccess: () => Navigator.pop(context),
-            );
-      },
-      child: const Text('作成'),
+class _CreateButton extends ConsumerWidget {
+  const _CreateButton({
+    required this.titleEditingController,
+    required this.fromDate,
+    required this.endDate,
+  });
+
+  final TextEditingController titleEditingController;
+  final ValueNotifier<DateTime> fromDate;
+  final ValueNotifier<DateTime> endDate;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return SizedBox(
+      width: context.displaySize.width * 0.5,
+      child: ElevatedButton(
+        onPressed: () {
+          ref.read(tripControllerProvider).createTrip(
+                title: titleEditingController.text,
+                fromDate: fromDate.value,
+                endDate: endDate.value,
+                onSuccess: () => Navigator.pop(context),
+              );
+        },
+        style: ElevatedButton.styleFrom(
+          elevation: 3,
+        ),
+        child: const Text('作成'),
+      ),
     );
   }
 }
