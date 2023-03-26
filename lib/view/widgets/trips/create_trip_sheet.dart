@@ -13,10 +13,21 @@ class CreateTripSheet extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final titleEditingController =
-        useTextEditingController.fromValue(TextEditingValue.empty);
+    final titleEditingController = useTextEditingController();
+    final isTitleEmpty = useState<bool>(true);
     final fromDate = useState(DateTime.now());
     final endDate = useState(DateTime.now());
+
+    useEffect(
+      () {
+        titleEditingController.addListener(
+          () => isTitleEmpty.value = titleEditingController.text.isEmpty,
+        );
+        return titleEditingController.dispose;
+      },
+      [titleEditingController],
+    );
+
     return SizedBox(
       height: context.displaySize.height,
       child: Column(
@@ -37,6 +48,7 @@ class CreateTripSheet extends HookConsumerWidget {
             titleEditingController: titleEditingController,
             fromDate: fromDate,
             endDate: endDate,
+            isTitleEmpty: isTitleEmpty,
           ),
         ],
       ),
@@ -154,30 +166,28 @@ class _CreateButton extends ConsumerWidget {
     required this.titleEditingController,
     required this.fromDate,
     required this.endDate,
+    required this.isTitleEmpty,
   });
 
   final TextEditingController titleEditingController;
   final ValueNotifier<DateTime> fromDate;
   final ValueNotifier<DateTime> endDate;
+  final ValueNotifier<bool> isTitleEmpty;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-      width: context.displaySize.width * 0.5,
-      child: ElevatedButton(
-        onPressed: () {
-          ref.read(tripControllerProvider).createTrip(
-                title: titleEditingController.text,
-                fromDate: fromDate.value,
-                endDate: endDate.value,
-                onSuccess: () => Navigator.pop(context),
-              );
-        },
-        style: ElevatedButton.styleFrom(
-          elevation: 3,
-        ),
-        child: const Text('作成'),
-      ),
+    return ElevatedButton(
+      onPressed: isTitleEmpty.value
+          ? null
+          : () {
+              ref.read(tripControllerProvider).createTrip(
+                    title: titleEditingController.text,
+                    fromDate: fromDate.value,
+                    endDate: endDate.value,
+                    onSuccess: () => Navigator.pop(context),
+                  );
+            },
+      child: const Text('作成'),
     );
   }
 }
