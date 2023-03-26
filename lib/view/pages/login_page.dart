@@ -7,7 +7,7 @@ import 'package:trip_app_nativeapp/core/enum/login_type.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/core/gen/assets.gen.dart';
 import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
-import 'package:trip_app_nativeapp/view/widgets/brand_button.dart';
+import 'package:trip_app_nativeapp/view/widgets/common/brand_button.dart';
 
 class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});

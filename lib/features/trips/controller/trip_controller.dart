@@ -5,8 +5,8 @@ import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interactor.dart';
 import 'package:trip_app_nativeapp/features/user/controller/app_user_controller.dart';
+import 'package:trip_app_nativeapp/view/widgets/common/loading.dart';
 import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart';
-import 'package:trip_app_nativeapp/view/widgets/loading.dart';
 
 part 'trip_controller.g.dart';
 

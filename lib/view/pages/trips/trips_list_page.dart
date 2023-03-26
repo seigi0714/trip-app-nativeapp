@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/features/trips/controller/trip_controller.dart';
-import 'package:trip_app_nativeapp/view/pages/trips/trips_new_page.dart';
-import 'package:trip_app_nativeapp/view/widgets/car_driving_loading.dart';
-import 'package:trip_app_nativeapp/view/widgets/error_cat.dart';
-import 'package:trip_app_nativeapp/view/widgets/trip_card.dart';
+import 'package:trip_app_nativeapp/view/widgets/common/car_driving_loading.dart';
+import 'package:trip_app_nativeapp/view/widgets/common/error_cat.dart';
+import 'package:trip_app_nativeapp/view/widgets/trips/create_trip_sheet.dart';
+import 'package:trip_app_nativeapp/view/widgets/trips/trip_card.dart';
 
 class TripListPage extends HookConsumerWidget {
   const TripListPage({super.key});
@@ -39,7 +39,7 @@ class TripListPage extends HookConsumerWidget {
         onPressed: () => showModalBottomSheet<void>(
           context: context,
           isScrollControlled: true,
-          builder: (_) => const TripNewPage(),
+          builder: (context) => const CreateTripSheet(),
         ),
         child: const Icon(Icons.add, color: Colors.white),
       ),

@@ -8,8 +8,8 @@ import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
 import 'package:trip_app_nativeapp/features/auth/controller/auth_controller.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/interactor/auth_interactor.dart';
+import 'package:trip_app_nativeapp/view/widgets/common/loading.dart';
 import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart';
-import 'package:trip_app_nativeapp/view/widgets/loading.dart';
 
 import '../../../mock/loading_provider_listener.dart';
 import '../../../mock/mock_exception_handler.dart';
