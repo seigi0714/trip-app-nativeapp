@@ -23,7 +23,7 @@ class CreateTripSheet extends HookConsumerWidget {
         titleEditingController.addListener(
           () => isTitleEmpty.value = titleEditingController.text.isEmpty,
         );
-        return titleEditingController.dispose;
+        return null;
       },
       [titleEditingController],
     );
