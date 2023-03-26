@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
@@ -7,6 +6,7 @@ import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
 import 'package:trip_app_nativeapp/core/gen/assets.gen.dart';
 import 'package:trip_app_nativeapp/features/trips/controller/trip_controller.dart';
+import 'package:trip_app_nativeapp/view/ui_utils.dart';
 
 class CreateTripSheet extends HookConsumerWidget {
   const CreateTripSheet({super.key});
@@ -107,7 +107,7 @@ class _DateRangeRow extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final isSelectedFrom = useState(false);
-    final isSelectedTo = useState(false);
+    final isSelectedEnd = useState(false);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -116,18 +116,11 @@ class _DateRangeRow extends HookWidget {
           Expanded(
             child: InkWell(
               borderRadius: BorderRadius.circular(16),
-              onTap: () {
-                DatePicker.showDatePicker(
-                  context,
-                  minTime: DateTime.now(),
-                  onConfirm: (date) {
-                    isSelectedFrom.value = true;
-                    fromDate.value = date;
-                  },
-                  currentTime: fromDate.value,
-                  locale: LocaleType.jp,
-                );
-              },
+              onTap: () => showTripAppDatePicker(
+                context,
+                dateTimeNotifier: fromDate,
+                isSelectedNotifier: isSelectedFrom,
+              ),
               child: Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
@@ -153,32 +146,25 @@ class _DateRangeRow extends HookWidget {
           Expanded(
             child: InkWell(
               borderRadius: BorderRadius.circular(16),
-              onTap: () {
-                DatePicker.showDatePicker(
-                  context,
-                  minTime: DateTime.now(),
-                  onConfirm: (date) {
-                    isSelectedTo.value = true;
-                    endDate.value = date;
-                  },
-                  currentTime: endDate.value,
-                  locale: LocaleType.jp,
-                );
-              },
+              onTap: () => showTripAppDatePicker(
+                context,
+                dateTimeNotifier: endDate,
+                isSelectedNotifier: isSelectedEnd,
+              ),
               child: Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: isSelectedTo.value
+                    color: isSelectedEnd.value
                         ? context.theme.colorScheme.primary
                         : context.theme.colorScheme.secondaryContainer,
                   ),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
-                  isSelectedTo.value ? fromDate.value.toDateString() : '帰着日',
+                  isSelectedEnd.value ? endDate.value.toDateString() : '帰着日',
                   style: TextStyle(
-                    color: isSelectedTo.value
+                    color: isSelectedEnd.value
                         ? context.theme.colorScheme.primary
                         : context.theme.colorScheme.onBackground,
                   ),
