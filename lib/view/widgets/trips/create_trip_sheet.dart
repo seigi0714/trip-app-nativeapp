@@ -3,7 +3,9 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
+import 'package:trip_app_nativeapp/core/gen/assets.gen.dart';
 import 'package:trip_app_nativeapp/features/trips/controller/trip_controller.dart';
 
 class CreateTripSheet extends HookConsumerWidget {
@@ -20,7 +22,11 @@ class CreateTripSheet extends HookConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildTitleTextField(titleEditingController),
+          Lottie.asset(
+            Assets.lotties.natureVisitTravel,
+            height: context.displaySize.height * 0.3,
+          ),
+          _buildTitleTextField(titleEditingController, context),
           _buildDateRangeRow(context, fromDate, endDate),
           _buildCreateButton(
             ref,
@@ -34,14 +40,26 @@ class CreateTripSheet extends HookConsumerWidget {
     );
   }
 
-  Widget _buildTitleTextField(TextEditingController titleEditingController) {
+  Widget _buildTitleTextField(
+    TextEditingController titleEditingController,
+    BuildContext context,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: TextField(
-        controller: titleEditingController,
-        decoration: const InputDecoration(
-          hintText: 'どこへ旅行する？ 🗺️',
-          border: OutlineInputBorder(),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: context.theme.colorScheme.secondaryContainer,
+          ),
+        ),
+        child: TextField(
+          controller: titleEditingController,
+          decoration: const InputDecoration(
+            hintText: 'どこへ旅行する？ 🗺️',
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(16),
+          ),
         ),
       ),
     );
@@ -58,25 +76,7 @@ class CreateTripSheet extends HookConsumerWidget {
         children: [
           Expanded(
             child: InkWell(
-              onTap: () {
-                DatePicker.showDatePicker(
-                  context,
-                  minTime: DateTime.now(),
-                  onConfirm: (date) => fromDate.value = date,
-                  currentTime: fromDate.value,
-                  locale: LocaleType.jp,
-                );
-              },
-              child: _buildDateBox(
-                context: context,
-                date: fromDate.value,
-                label: 'From',
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: InkWell(
+              borderRadius: BorderRadius.circular(16),
               onTap: () {
                 DatePicker.showDatePicker(
                   context,
@@ -86,34 +86,47 @@ class CreateTripSheet extends HookConsumerWidget {
                   locale: LocaleType.jp,
                 );
               },
-              child: _buildDateBox(
-                context: context,
-                date: endDate.value,
-                label: 'To',
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: context.theme.colorScheme.secondaryContainer,
+                  ),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Text(
+                  DateFormat.yMMMd().add_jm().format(fromDate.value),
+                ),
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDateBox({
-    required BuildContext context,
-    required DateTime date,
-    required String label,
-  }) {
-    final dateFormatter = DateFormat.yMMMd().add_jm();
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        border: Border.all(),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Column(
-        children: [
-          Text(label, style: Theme.of(context).textTheme.bodySmall),
-          Text(dateFormatter.format(date)),
+          const SizedBox(width: 8),
+          Expanded(
+            child: InkWell(
+              borderRadius: BorderRadius.circular(16),
+              onTap: () {
+                DatePicker.showDatePicker(
+                  context,
+                  minTime: DateTime.now(),
+                  onConfirm: (date) => endDate.value = date,
+                  currentTime: endDate.value,
+                  locale: LocaleType.jp,
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: context.theme.colorScheme.secondaryContainer,
+                  ),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Text(
+                  DateFormat.yMMMd().add_jm().format(endDate.value),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -135,7 +148,7 @@ class CreateTripSheet extends HookConsumerWidget {
               onSuccess: () => Navigator.pop(context),
             );
       },
-      child: const Text('Create'),
+      child: const Text('作成'),
     );
   }
 }

@@ -26,6 +26,9 @@ class $AssetsLottiesGen {
   /// File path: assets/lotties/error-cat.json
   String get errorCat => 'assets/lotties/error-cat.json';
 
+  /// File path: assets/lotties/nature_visit_travel.json
+  String get natureVisitTravel => 'assets/lotties/nature_visit_travel.json';
+
   /// File path: assets/lotties/travel-loading.json
   String get travelLoading => 'assets/lotties/travel-loading.json';
 
