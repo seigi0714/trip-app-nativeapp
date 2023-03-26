@@ -9,7 +9,7 @@ import 'package:trip_app_nativeapp/view/pages/trips/trips_list_page.dart';
 class DebugPage extends ConsumerWidget {
   const DebugPage({super.key});
 
-  static const path = '/';
+  static const path = '/debug';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
