@@ -39,6 +39,7 @@ class CreateTripSheet extends HookConsumerWidget {
           ),
           _TitleTextField(
             controller: titleEditingController,
+            isTitleEmpty: isTitleEmpty,
           ),
           _DateRangeRow(
             fromDate: fromDate,
@@ -59,9 +60,11 @@ class CreateTripSheet extends HookConsumerWidget {
 class _TitleTextField extends StatelessWidget {
   const _TitleTextField({
     required this.controller,
+    required this.isTitleEmpty,
   });
 
   final TextEditingController controller;
+  final ValueNotifier<bool> isTitleEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +74,9 @@ class _TitleTextField extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: context.theme.colorScheme.secondaryContainer,
+            color: isTitleEmpty.value
+                ? context.theme.colorScheme.secondaryContainer
+                : context.theme.colorScheme.primary,
           ),
         ),
         child: TextField(
@@ -81,13 +86,16 @@ class _TitleTextField extends StatelessWidget {
             border: InputBorder.none,
             contentPadding: EdgeInsets.all(16),
           ),
+          style: TextStyle(
+            color: context.theme.colorScheme.primary,
+          ),
         ),
       ),
     );
   }
 }
 
-class _DateRangeRow extends StatelessWidget {
+class _DateRangeRow extends HookWidget {
   const _DateRangeRow({
     required this.fromDate,
     required this.endDate,
@@ -98,6 +106,9 @@ class _DateRangeRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isSelectedFrom = useState(false);
+    final isSelectedTo = useState(false);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
@@ -109,7 +120,10 @@ class _DateRangeRow extends StatelessWidget {
                 DatePicker.showDatePicker(
                   context,
                   minTime: DateTime.now(),
-                  onConfirm: (date) => fromDate.value = date,
+                  onConfirm: (date) {
+                    isSelectedFrom.value = true;
+                    fromDate.value = date;
+                  },
                   currentTime: fromDate.value,
                   locale: LocaleType.jp,
                 );
@@ -118,12 +132,19 @@ class _DateRangeRow extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: context.theme.colorScheme.secondaryContainer,
+                    color: isSelectedFrom.value
+                        ? context.theme.colorScheme.primary
+                        : context.theme.colorScheme.secondaryContainer,
                   ),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
-                  fromDate.value.toDateString(),
+                  isSelectedFrom.value ? fromDate.value.toDateString() : '出発日',
+                  style: TextStyle(
+                    color: isSelectedFrom.value
+                        ? context.theme.colorScheme.primary
+                        : context.theme.colorScheme.onBackground,
+                  ),
                 ),
               ),
             ),
@@ -136,7 +157,10 @@ class _DateRangeRow extends StatelessWidget {
                 DatePicker.showDatePicker(
                   context,
                   minTime: DateTime.now(),
-                  onConfirm: (date) => endDate.value = date,
+                  onConfirm: (date) {
+                    isSelectedTo.value = true;
+                    endDate.value = date;
+                  },
                   currentTime: endDate.value,
                   locale: LocaleType.jp,
                 );
@@ -145,12 +169,19 @@ class _DateRangeRow extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: context.theme.colorScheme.secondaryContainer,
+                    color: isSelectedTo.value
+                        ? context.theme.colorScheme.primary
+                        : context.theme.colorScheme.secondaryContainer,
                   ),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
-                  endDate.value.toDateString(),
+                  isSelectedTo.value ? fromDate.value.toDateString() : '帰着日',
+                  style: TextStyle(
+                    color: isSelectedTo.value
+                        ? context.theme.colorScheme.primary
+                        : context.theme.colorScheme.onBackground,
+                  ),
                 ),
               ),
             ),
@@ -176,18 +207,21 @@ class _CreateButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ElevatedButton(
-      onPressed: isTitleEmpty.value
-          ? null
-          : () {
-              ref.read(tripControllerProvider).createTrip(
-                    title: titleEditingController.text,
-                    fromDate: fromDate.value,
-                    endDate: endDate.value,
-                    onSuccess: () => Navigator.pop(context),
-                  );
-            },
-      child: const Text('作成'),
+    return SizedBox(
+      width: context.displaySize.width * 0.3,
+      child: ElevatedButton(
+        onPressed: isTitleEmpty.value
+            ? null
+            : () {
+                ref.read(tripControllerProvider).createTrip(
+                      title: titleEditingController.text,
+                      fromDate: fromDate.value,
+                      endDate: endDate.value,
+                      onSuccess: () => Navigator.pop(context),
+                    );
+              },
+        child: const Text('作成'),
+      ),
     );
   }
 }
