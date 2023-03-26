@@ -21,10 +21,13 @@ class TripCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
+          mainAxisSize: MainAxisSize.min, // Columnの高さを最小限にする
           children: [
-            Lottie.asset(
-              Assets.lotties.tripCard,
-              height: context.displaySize.height * 0.14,
+            Expanded(
+              child: Lottie.asset(
+                Assets.lotties.tripCard,
+                height: context.displaySize.height * 0.14,
+              ),
             ),
             Text(
               trip.title.value,

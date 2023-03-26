@@ -23,13 +23,14 @@ class TripListPage extends HookConsumerWidget {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
-                    crossAxisCount: context.getCrossAxisCount,
-                    childAspectRatio: context.responsiveAspectRatio,
+                    crossAxisCount: context.responsiveCrossAxisItemCount,
+                    childAspectRatio: context.responsiveGridCardAspectRatio,
                   ),
                   padding: const EdgeInsets.all(16),
                   itemCount: trips.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      TripCard(trips[index]),
+                  itemBuilder: (BuildContext context, int index) {
+                    return TripCard(trips[index]);
+                  },
                 );
               },
               error: ErrorCat.new,

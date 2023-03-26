@@ -61,7 +61,7 @@ extension BuildContextExtension on BuildContext {
   /// Android かどうか
   bool get isAndroid => Theme.of(this).platform == TargetPlatform.android;
 
-  int get getCrossAxisCount {
+  int get responsiveCrossAxisItemCount {
     final screenWidth = displaySize.width;
     if (screenWidth >= 1280) {
       return 4;
@@ -72,8 +72,20 @@ extension BuildContextExtension on BuildContext {
     }
   }
 
-  double get responsiveAspectRatio =>
-      displaySize.width / (displaySize.height * 0.65);
+  /// グリッド上に表示するアイテムのアスペクト比
+  double get responsiveGridCardAspectRatio {
+    // 画面が横長の場合には、基準となる幅と高さを入れ替える
+    final isLandscape = displaySize.width > displaySize.height;
+    final baseWidth = isLandscape ? displaySize.height : displaySize.width;
+    final baseHeight = isLandscape ? displaySize.width : displaySize.height;
+
+    // アスペクト比を計算する
+    final aspectRatio = baseWidth / (baseHeight * 0.65);
+
+    // 画面が横長の場合には、縦の長さをもう少し狭める
+    final landscapeAspectRatio = aspectRatio * 1.5;
+    return isLandscape ? landscapeAspectRatio : aspectRatio;
+  }
 
   TextStyle? get responsiveDisplayTextStyle => displaySize.width > 400
       ? textTheme.displayMedium

@@ -8,9 +8,11 @@ class CarDrivingLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Lottie.asset(
-      Assets.lotties.carDrivingLandscape,
-      height: context.displaySize.height * 0.18,
+    return Center(
+      child: Lottie.asset(
+        Assets.lotties.carDrivingLandscape,
+        height: context.displaySize.height * 0.18,
+      ),
     );
   }
 }
