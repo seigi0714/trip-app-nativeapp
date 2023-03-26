@@ -26,7 +26,7 @@ class ConstantPage extends HookConsumerWidget with WidgetsBindingObserver {
     useEffect(
       () {
         WidgetsBinding.instance.addObserver(this);
-        return null;
+        return () => WidgetsBinding.instance.removeObserver(this);
       },
     );
     return Scaffold(

@@ -16,7 +16,7 @@ class TripApp extends StatelessWidget {
 
   final List<Override>? overrides;
 
-  /// Widget テストの際に、コンストラクタの引数にテスト対象の Widget を渡す。
+  /// Widget テストの際は、テスト対象の Widget を渡す。
   @visibleForTesting
   final Widget? testWidget;
 
@@ -40,6 +40,7 @@ class _TripApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
     if (testWidget != null) {
       return MaterialApp(
         scaffoldMessengerKey: ref.watch(scaffoldMessengerKeyProvider),
@@ -47,8 +48,6 @@ class _TripApp extends ConsumerWidget {
         home: testWidget,
       );
     }
-
-    final router = ref.watch(routerProvider);
     return DevicePreview(
       enabled: const bool.fromEnvironment('ENABLE_DEVICE_PREVIEW'),
       builder: (context) {

@@ -8,7 +8,6 @@ import 'package:trip_app_nativeapp/view/pages/error_page.dart';
 import 'package:trip_app_nativeapp/view/pages/loading_page.dart';
 import 'package:trip_app_nativeapp/view/pages/login_page.dart';
 import 'package:trip_app_nativeapp/view/pages/trips/trips_list_page.dart';
-import 'package:trip_app_nativeapp/view/pages/trips/trips_new_page.dart';
 
 part 'router.g.dart';
 
@@ -16,7 +15,7 @@ part 'router.g.dart';
 GoRouter router(RouterRef ref) {
   final appUserAsync = ref.watch(appUserControllerProvider);
   return GoRouter(
-    initialLocation: kDebugMode ? DebugPage.path : '/${TripListPage.path}',
+    initialLocation: kDebugMode ? DebugPage.path : TripListPage.path,
     redirect: (BuildContext context, state) {
       final isAtLoginPage = state.subloc == LoginPage.path;
       return appUserAsync.maybeWhen(
@@ -52,18 +51,10 @@ GoRouter router(RouterRef ref) {
             }
           },
         ),
-        routes: [
-          GoRoute(
-            path: TripListPage.path,
-            builder: (context, state) => const TripListPage(),
-            routes: [
-              GoRoute(
-                path: TripNewPage.path,
-                builder: (context, state) => const TripNewPage(),
-              ),
-            ],
-          ),
-        ],
+      ),
+      GoRoute(
+        path: TripListPage.path,
+        builder: (context, state) => const TripListPage(),
       ),
       GoRoute(
         path: LoginPage.path,

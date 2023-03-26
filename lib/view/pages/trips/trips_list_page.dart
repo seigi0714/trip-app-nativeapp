@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/features/trips/controller/trip_controller.dart';
@@ -11,7 +10,7 @@ import 'package:trip_app_nativeapp/view/widgets/trip_card.dart';
 class TripListPage extends HookConsumerWidget {
   const TripListPage({super.key});
 
-  static const path = 'trips';
+  static const path = '/trips';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,11 +36,12 @@ class TripListPage extends HookConsumerWidget {
             ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go('/$path/${TripNewPage.path}'),
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
+        onPressed: () => showModalBottomSheet<void>(
+          context: context,
+          isScrollControlled: true,
+          builder: (_) => const TripNewPage(),
         ),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

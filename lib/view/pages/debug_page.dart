@@ -36,7 +36,7 @@ class DebugPage extends ConsumerWidget {
                 child: const Text('ログアウト'),
               ),
               ElevatedButton(
-                onPressed: () => context.go('/${TripListPage.path}'),
+                onPressed: () => context.go(TripListPage.path),
                 child: const Text('旅一覧ページ'),
               ),
             ],
