@@ -45,7 +45,6 @@ app.*.map.json
 
 # VSCode
 .vscode/settings.json
-.vscode/launch.json
 
 # Env
 .dev.env

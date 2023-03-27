@@ -5,8 +5,8 @@ import 'package:trip_app_nativeapp/core/enum/login_type.dart';
 import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
 import 'package:trip_app_nativeapp/features/auth/domain/interactor/auth_interactor.dart';
+import 'package:trip_app_nativeapp/view/widgets/common/loading.dart';
 import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart';
-import 'package:trip_app_nativeapp/view/widgets/loading.dart';
 
 part 'auth_controller.g.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trip_app_nativeapp/view/widgets/loading.dart';
+import 'package:trip_app_nativeapp/view/widgets/common/loading.dart';
 
 class LoadingPage extends StatelessWidget {
   const LoadingPage({super.key});

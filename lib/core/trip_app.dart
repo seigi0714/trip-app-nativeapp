@@ -1,10 +1,10 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nil/nil.dart';
-import 'package:trip_app_nativeapp/core/constants/color.dart';
 import 'package:trip_app_nativeapp/router.dart';
 import 'package:trip_app_nativeapp/view/pages/constant_page.dart';
+import 'package:trip_app_nativeapp/view/theme.dart';
 import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart';
 
 class TripApp extends StatelessWidget {
@@ -16,7 +16,7 @@ class TripApp extends StatelessWidget {
 
   final List<Override>? overrides;
 
-  /// Widget テストの際に、コンストラクタの引数にテスト対象の Widget を渡す。
+  /// Widget テストの際は、テスト対象の Widget を渡す。
   @visibleForTesting
   final Widget? testWidget;
 
@@ -40,6 +40,7 @@ class _TripApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
     if (testWidget != null) {
       return MaterialApp(
         scaffoldMessengerKey: ref.watch(scaffoldMessengerKeyProvider),
@@ -47,22 +48,32 @@ class _TripApp extends ConsumerWidget {
         home: testWidget,
       );
     }
-
-    final router = ref.watch(routerProvider);
-    return MaterialApp.router(
-      title: 'Trip App',
-      routeInformationProvider: router.routeInformationProvider,
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
-      scaffoldMessengerKey: ref.watch(scaffoldMessengerKeyProvider),
-      theme: ThemeData(
-        primaryColor: kPrimaryColor,
-        textTheme: GoogleFonts.zenMaruGothicTextTheme(
-          Theme.of(context).textTheme,
-        ),
-      ),
-      builder: (context, child) =>
-          child == null ? nil : ConstantPage(child: child),
+    return DevicePreview(
+      enabled: const bool.fromEnvironment('ENABLE_DEVICE_PREVIEW'),
+      builder: (context) {
+        return MaterialApp.router(
+          title: 'Trip App',
+          routeInformationProvider: router.routeInformationProvider,
+          routeInformationParser: router.routeInformationParser,
+          routerDelegate: router.routerDelegate,
+          scaffoldMessengerKey: ref.watch(scaffoldMessengerKeyProvider),
+          theme: ref.watch(lightThemeDataProvider(context)),
+          darkTheme: ref.watch(darkThemeDataProvider(context)),
+          builder: (context, child) {
+            return DevicePreview.appBuilder(
+              context,
+              child == null
+                  ? nil
+                  : MediaQuery(
+                      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+                      child: ConstantPage(child: child),
+                    ),
+            );
+          },
+          useInheritedMediaQuery: true,
+          locale: DevicePreview.locale(context),
+        );
+      },
     );
   }
 }
