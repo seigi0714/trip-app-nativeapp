@@ -32,7 +32,7 @@ dependencies:
   google_sign_in: ^5.4.2
   hooks_riverpod: ^2.1.1
   intl: ^0.17.0
-  lottie: ^1.4.3
+  lottie: ^2.3.0
   mockito: ^5.3.2
   mocktail: ^0.3.0
   nil: ^1.1.1
