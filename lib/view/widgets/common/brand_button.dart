@@ -5,12 +5,12 @@ import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 /// ログインボタンなどに使用する。
 class BrandButton extends StatelessWidget {
   const BrandButton({
-    super.key,
     required this.label,
     required this.brandLogo,
     required this.onPressed,
     required this.backgroundColor,
     this.labelColor,
+    super.key,
   });
 
   final String label;

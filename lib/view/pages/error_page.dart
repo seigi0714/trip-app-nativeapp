@@ -10,8 +10,8 @@ import 'package:trip_app_nativeapp/core/gen/assets.gen.dart';
 
 class ErrorPage extends HookWidget {
   const ErrorPage({
-    super.key,
     required this.exception,
+    super.key,
   });
 
   static const path = '/error';
