@@ -57,7 +57,7 @@ Future<void> main() async {
     // プロバイダ内の値を監視する
     providerContainer.listen<bool>(
       overlayLoadingProvider,
-      loadingProviderListener,
+      loadingProviderListener.call,
       fireImmediately: true,
     );
 

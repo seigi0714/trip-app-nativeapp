@@ -62,7 +62,7 @@ Future<void> main() async {
           )
             ..listen(
               appUserControllerProvider,
-              asyncValueListener,
+              asyncValueListener.call,
               fireImmediately: true,
             )
             ..read(appUserControllerProvider);
@@ -107,7 +107,7 @@ Future<void> main() async {
           )
             ..listen(
               appUserControllerProvider,
-              asyncValueListener,
+              asyncValueListener.call,
               fireImmediately: true,
             )
             ..read(appUserControllerProvider);
