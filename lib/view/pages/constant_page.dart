@@ -9,8 +9,8 @@ import 'package:trip_app_nativeapp/view/widgets/common/loading.dart';
 /// どこからでもモーダル付きインジケーターの表示や、画面タップによるアンフォーカスができる。
 class ConstantPage extends HookConsumerWidget with WidgetsBindingObserver {
   const ConstantPage({
-    super.key,
     required this.child,
+    super.key,
   });
 
   final Widget child;
