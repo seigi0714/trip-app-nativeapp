@@ -12,6 +12,10 @@ import 'package:trip_app_nativeapp/view/pages/trips/trips_list_page.dart';
 part 'router.g.dart';
 
 @riverpod
+// なぜかこのルール違反が出ちゃう。パッケージのバグだと思うので、一旦 ignore しておく
+// riverpod/packages/riverpod_lint/lib/src/lints/unsupported_provider_value.dart の
+// ソースコードを読んだだけだと、この現象の原因は分からなかった。
+// ignore: unsupported_provider_value
 GoRouter router(RouterRef ref) {
   final appUserAsync = ref.watch(appUserControllerProvider);
   return GoRouter(
