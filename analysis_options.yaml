@@ -10,6 +10,12 @@ analyzer:
     public_member_api_docs: ignore
     one_member_abstracts: ignore
 
+custom_lint:
+  rules:
+    # Widget Test を書きやすくするため、[TripApp] ウィジェットの build() メソッドで、
+    # [ProviderScope] を返している。
+    - missing_provider_scope: false
+
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`
