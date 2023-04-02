@@ -13,7 +13,7 @@ class AppUserController extends _$AppUserController {
   @override
   FutureOr<AppUser?> build() async {
     // AppUser が null 且つネットワーク接続がない状態で、build がコールされると ErrorPage に遷移する
-    // その場合に、ネットワークに接続した時にアプリを再起動しなくても、ユーザー情報を再取得できるように
+    // その場合に、ネットワークに再接続した際、アプリを再起動しなくてもユーザー情報を再取得できるように、
     // ネットワーク接続状態を watch する
     ref.watch(networkConnectivityProvider);
     if (ref.watch(firebaseAuthUserProvider).value == null) {
