@@ -1,5 +1,4 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/debug/logger.dart';
 
@@ -13,9 +12,10 @@ Future<bool> isNetworkConnected(IsNetworkConnectedRef ref) async {
 }
 
 /// ネットワーク接続状態を ref.watch したい場合に使う
-final networkConnectivityProvider = StreamProvider((_) {
-  if (kDebugMode) {
-    logger.i('NetworkConnectivity: ${Connectivity().onConnectivityChanged}');
-  }
+@Riverpod(keepAlive: true)
+Stream<ConnectivityResult> networkConnectivity(
+  NetworkConnectivityRef ref,
+) {
+  logger.i('NetworkConnectivity Changed');
   return Connectivity().onConnectivityChanged;
-});
+}
