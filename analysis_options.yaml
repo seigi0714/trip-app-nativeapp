@@ -1,12 +1,20 @@
 include: package:very_good_analysis/analysis_options.yaml
 
 analyzer:
+  plugins:
+    - custom_lint
   exclude:
     - 'lib/env/env.dart'
     - 'lib/firebase_options.dart'
   errors:
     public_member_api_docs: ignore
     one_member_abstracts: ignore
+
+custom_lint:
+  rules:
+    # Widget Test を書きやすくするため、[TripApp] ウィジェットの build() メソッドで、
+    # [ProviderScope] を返している。
+    - missing_provider_scope: false
 
 linter:
   # The lint rules applied to this project can be customized in the

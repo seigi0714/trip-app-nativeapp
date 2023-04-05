@@ -8,6 +8,21 @@ part of 'auth_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$firebaseAuthUserHash() => r'ffb1a892262d80f60d87e9c52c4ad030773b68c0';
+
+/// See also [firebaseAuthUser].
+@ProviderFor(firebaseAuthUser)
+final firebaseAuthUserProvider = StreamProvider<User?>.internal(
+  firebaseAuthUser,
+  name: r'firebaseAuthUserProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$firebaseAuthUserHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FirebaseAuthUserRef = StreamProviderRef<User?>;
 String _$authControllerHash() => r'59574e6e1cdcabbe18cb9e242363875abd753473';
 
 /// See also [authController].

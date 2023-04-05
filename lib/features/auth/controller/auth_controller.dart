@@ -10,9 +10,9 @@ import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart'
 
 part 'auth_controller.g.dart';
 
-final firebaseAuthUserProvider = StreamProvider<User?>(
-  (ref) => ref.watch(firebaseAuthProvider).userChanges(),
-);
+@Riverpod(keepAlive: true)
+Stream<User?> firebaseAuthUser(FirebaseAuthUserRef ref) =>
+    ref.watch(firebaseAuthProvider).userChanges();
 
 @riverpod
 AuthController authController(AuthControllerRef ref) => AuthController(ref);

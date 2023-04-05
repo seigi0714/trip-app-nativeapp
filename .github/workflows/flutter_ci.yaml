@@ -56,11 +56,17 @@ jobs:
           envkey_TRIPAPP_API_PORT: ${{ secrets.TRIPAPP_API_PORT }}
           file_name: .prod.env
 
+      - name: Install custom_lint
+        run: dart pub global activate custom_lint
+
       - name: Install Flutter dependencies
         run: flutter pub get
 
       - name: Run Flutter Analyze
         run: flutter analyze
+
+      - name: Run riverpod_lint
+        run: custom_lint
 
       # テスト結果を GitHub Actions 上に表示するため log に出力
       # カバレッジ結果を Codecov に送信するためカバレッジありで実行
