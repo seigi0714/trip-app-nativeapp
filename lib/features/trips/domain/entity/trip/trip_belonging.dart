@@ -6,18 +6,11 @@ part 'trip_belonging.freezed.dart';
 
 @Freezed(copyWith: false, fromJson: false, toJson: false)
 class TripBelonging with _$TripBelonging {
-  const factory TripBelonging({
-    required int id,
-    required TripBelongingName name,
-    required TripBelongingNum numOf,
-    required bool isSharedAmongMember,
-  }) = _TripBelonging;
-
   /// 新規追加時持ち物のエンティティのfactory関数
   factory TripBelonging.createNewTripBelonging({
     required TripBelongingName name,
     required TripBelongingNum numOf,
-    required bool isSharedAmongMember,
+    required bool isShareAmongMember,
   }) = NewTripBelonging;
 
   /// 追加済み持ち物エンティティのfactory関数
@@ -25,6 +18,6 @@ class TripBelonging with _$TripBelonging {
     required int id,
     required TripBelongingName name,
     required TripBelongingNum numOf,
-    required bool isSharedAmongMember,
+    required bool isShareAmongMember,
   }) = AddedTripBelonging;
 }

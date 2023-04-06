@@ -300,14 +300,14 @@ Future<void> main() async {
     final validBelonging = TripBelonging.createNewTripBelonging(
       name: TripBelongingName(value: validBelongingName),
       numOf: TripBelongingNum(value: validBelongingNumOf),
-      isSharedAmongMember: true,
+      isShareAmongMember: true,
     ) as NewTripBelonging;
 
     final validResult = TripBelonging.createAddedTripBelonging(
       id: validBelongingId,
       name: TripBelongingName(value: validBelongingName),
       numOf: TripBelongingNum(value: validBelongingNumOf),
-      isSharedAmongMember: true,
+      isShareAmongMember: true,
     ) as AddedTripBelonging;
     test('正常系', () async {
       when(

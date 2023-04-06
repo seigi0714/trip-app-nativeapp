@@ -139,7 +139,7 @@ class TripRepository implements TripRepositoryInterface {
     final bodyMap = {
       'name': belonging.name.value,
       'num_of': belonging.numOf.value,
-      'is_share_among_member': belonging.isSharedAmongMember,
+      'is_share_among_member': belonging.isShareAmongMember,
     };
 
     final res = await privateV1Client.post(
@@ -155,7 +155,7 @@ class TripRepository implements TripRepositoryInterface {
       id: belongingRes.id,
       name: belongingName,
       numOf: belongingNum,
-      isSharedAmongMember: belongingRes.isShareAmongMember,
+      isShareAmongMember: belongingRes.isShareAmongMember,
     ) as AddedTripBelonging;
   }
 }
