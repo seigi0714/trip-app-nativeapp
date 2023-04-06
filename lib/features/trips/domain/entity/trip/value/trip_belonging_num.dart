@@ -9,8 +9,8 @@ class TripBelongingNum with _$TripBelongingNum {
   factory TripBelongingNum({required int value}) {
     if (minNum > value) {
       throw const AppException(
-        code: ExceptionCode.invalidTripInvitationNum,
-        message: '持ち物の個数を1個以上指定してください。',
+        code: ExceptionCode.invalidTripBelongingNum,
+        message: '持ち物の個数を1個以上指定してください',
       );
     }
     return TripBelongingNum._internal(value: value);

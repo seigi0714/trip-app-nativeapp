@@ -9,8 +9,8 @@ class TripBelongingName with _$TripBelongingName {
   factory TripBelongingName({required String value}) {
     if (value.isEmpty) {
       throw const AppException(
-        code: ExceptionCode.invalidTripInvitationNum,
-        message: '持ち物名が空文字です。',
+        code: ExceptionCode.invalidTripBelongingName,
+        message: '持ち物名が空文字です',
       );
     }
     return TripBelongingName._internal(value: value);

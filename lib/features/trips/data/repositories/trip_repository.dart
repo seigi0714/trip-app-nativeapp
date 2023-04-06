@@ -155,7 +155,7 @@ class TripRepository implements TripRepositoryInterface {
       id: belongingRes.id,
       name: belongingName,
       numOf: belongingNum,
-      isSharedAmongMember: belongingRes.isSharedAmongMember,
+      isSharedAmongMember: belongingRes.isShareAmongMember,
     ) as AddedTripBelonging;
   }
 }
