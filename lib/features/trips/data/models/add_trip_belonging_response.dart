@@ -9,7 +9,7 @@ class AddTripBelongingResponse with _$AddTripBelongingResponse {
     required int id,
     required String name,
     required int numOf,
-    required bool isSharedAmongMember,
+    required bool isShareAmongMember,
   }) = _AddTripBelongingResponse;
 
   factory AddTripBelongingResponse.fromJson(Map<String, dynamic> json) =>

@@ -24,7 +24,7 @@ mixin _$AddTripBelongingResponse {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   int get numOf => throw _privateConstructorUsedError;
-  bool get isSharedAmongMember => throw _privateConstructorUsedError;
+  bool get isShareAmongMember => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
@@ -36,7 +36,7 @@ class _$_AddTripBelongingResponse implements _AddTripBelongingResponse {
       {required this.id,
       required this.name,
       required this.numOf,
-      required this.isSharedAmongMember});
+      required this.isShareAmongMember});
 
   factory _$_AddTripBelongingResponse.fromJson(Map<String, dynamic> json) =>
       _$$_AddTripBelongingResponseFromJson(json);
@@ -48,11 +48,11 @@ class _$_AddTripBelongingResponse implements _AddTripBelongingResponse {
   @override
   final int numOf;
   @override
-  final bool isSharedAmongMember;
+  final bool isShareAmongMember;
 
   @override
   String toString() {
-    return 'AddTripBelongingResponse(id: $id, name: $name, numOf: $numOf, isSharedAmongMember: $isSharedAmongMember)';
+    return 'AddTripBelongingResponse(id: $id, name: $name, numOf: $numOf, isShareAmongMember: $isShareAmongMember)';
   }
 
   @override
@@ -63,14 +63,14 @@ class _$_AddTripBelongingResponse implements _AddTripBelongingResponse {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.numOf, numOf) || other.numOf == numOf) &&
-            (identical(other.isSharedAmongMember, isSharedAmongMember) ||
-                other.isSharedAmongMember == isSharedAmongMember));
+            (identical(other.isShareAmongMember, isShareAmongMember) ||
+                other.isShareAmongMember == isShareAmongMember));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, name, numOf, isSharedAmongMember);
+      Object.hash(runtimeType, id, name, numOf, isShareAmongMember);
 
   @override
   Map<String, dynamic> toJson() {
@@ -85,7 +85,7 @@ abstract class _AddTripBelongingResponse implements AddTripBelongingResponse {
       {required final int id,
       required final String name,
       required final int numOf,
-      required final bool isSharedAmongMember}) = _$_AddTripBelongingResponse;
+      required final bool isShareAmongMember}) = _$_AddTripBelongingResponse;
 
   factory _AddTripBelongingResponse.fromJson(Map<String, dynamic> json) =
       _$_AddTripBelongingResponse.fromJson;
@@ -97,5 +97,5 @@ abstract class _AddTripBelongingResponse implements AddTripBelongingResponse {
   @override
   int get numOf;
   @override
-  bool get isSharedAmongMember;
+  bool get isShareAmongMember;
 }
