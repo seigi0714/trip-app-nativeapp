@@ -12,4 +12,19 @@ class TripBelonging with _$TripBelonging {
     required TripBelongingNum numOf,
     required bool isSharedAmongMember,
   }) = _TripBelonging;
+
+  /// 新規追加時持ち物のエンティティのfactory関数
+  factory TripBelonging.createNewTripBelonging({
+    required TripBelongingName name,
+    required TripBelongingNum numOf,
+    required bool isSharedAmongMember,
+  }) = NewTripBelonging;
+
+  /// 追加済み持ち物エンティティのfactory関数
+  factory TripBelonging.createAddedTripBelonging({
+    required int id,
+    required TripBelongingName name,
+    required TripBelongingNum numOf,
+    required bool isSharedAmongMember,
+  }) = AddedTripBelonging;
 }

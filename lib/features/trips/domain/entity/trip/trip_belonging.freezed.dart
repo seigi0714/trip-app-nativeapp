@@ -16,10 +16,72 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TripBelonging {
-  int get id => throw _privateConstructorUsedError;
   TripBelongingName get name => throw _privateConstructorUsedError;
   TripBelongingNum get numOf => throw _privateConstructorUsedError;
   bool get isSharedAmongMember => throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)
+        $default, {
+    required TResult Function(TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)
+        createNewTripBelonging,
+    required TResult Function(int id, TripBelongingName name,
+            TripBelongingNum numOf, bool isSharedAmongMember)
+        createAddedTripBelonging,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        $default, {
+    TResult? Function(TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createNewTripBelonging,
+    TResult? Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createAddedTripBelonging,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        $default, {
+    TResult Function(TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createNewTripBelonging,
+    TResult Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createAddedTripBelonging,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_TripBelonging value) $default, {
+    required TResult Function(NewTripBelonging value) createNewTripBelonging,
+    required TResult Function(AddedTripBelonging value)
+        createAddedTripBelonging,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_TripBelonging value)? $default, {
+    TResult? Function(NewTripBelonging value)? createNewTripBelonging,
+    TResult? Function(AddedTripBelonging value)? createAddedTripBelonging,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_TripBelonging value)? $default, {
+    TResult Function(NewTripBelonging value)? createNewTripBelonging,
+    TResult Function(AddedTripBelonging value)? createAddedTripBelonging,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -60,6 +122,93 @@ class _$_TripBelonging implements _TripBelonging {
   @override
   int get hashCode =>
       Object.hash(runtimeType, id, name, numOf, isSharedAmongMember);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)
+        $default, {
+    required TResult Function(TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)
+        createNewTripBelonging,
+    required TResult Function(int id, TripBelongingName name,
+            TripBelongingNum numOf, bool isSharedAmongMember)
+        createAddedTripBelonging,
+  }) {
+    return $default(id, name, numOf, isSharedAmongMember);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        $default, {
+    TResult? Function(TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createNewTripBelonging,
+    TResult? Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createAddedTripBelonging,
+  }) {
+    return $default?.call(id, name, numOf, isSharedAmongMember);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        $default, {
+    TResult Function(TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createNewTripBelonging,
+    TResult Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createAddedTripBelonging,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(id, name, numOf, isSharedAmongMember);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_TripBelonging value) $default, {
+    required TResult Function(NewTripBelonging value) createNewTripBelonging,
+    required TResult Function(AddedTripBelonging value)
+        createAddedTripBelonging,
+  }) {
+    return $default(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_TripBelonging value)? $default, {
+    TResult? Function(NewTripBelonging value)? createNewTripBelonging,
+    TResult? Function(AddedTripBelonging value)? createAddedTripBelonging,
+  }) {
+    return $default?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_TripBelonging value)? $default, {
+    TResult Function(NewTripBelonging value)? createNewTripBelonging,
+    TResult Function(AddedTripBelonging value)? createAddedTripBelonging,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(this);
+    }
+    return orElse();
+  }
 }
 
 abstract class _TripBelonging implements TripBelonging {
@@ -69,7 +218,286 @@ abstract class _TripBelonging implements TripBelonging {
       required final TripBelongingNum numOf,
       required final bool isSharedAmongMember}) = _$_TripBelonging;
 
+  int get id;
   @override
+  TripBelongingName get name;
+  @override
+  TripBelongingNum get numOf;
+  @override
+  bool get isSharedAmongMember;
+}
+
+/// @nodoc
+
+class _$NewTripBelonging implements NewTripBelonging {
+  _$NewTripBelonging(
+      {required this.name,
+      required this.numOf,
+      required this.isSharedAmongMember});
+
+  @override
+  final TripBelongingName name;
+  @override
+  final TripBelongingNum numOf;
+  @override
+  final bool isSharedAmongMember;
+
+  @override
+  String toString() {
+    return 'TripBelonging.createNewTripBelonging(name: $name, numOf: $numOf, isSharedAmongMember: $isSharedAmongMember)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NewTripBelonging &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.numOf, numOf) || other.numOf == numOf) &&
+            (identical(other.isSharedAmongMember, isSharedAmongMember) ||
+                other.isSharedAmongMember == isSharedAmongMember));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, name, numOf, isSharedAmongMember);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)
+        $default, {
+    required TResult Function(TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)
+        createNewTripBelonging,
+    required TResult Function(int id, TripBelongingName name,
+            TripBelongingNum numOf, bool isSharedAmongMember)
+        createAddedTripBelonging,
+  }) {
+    return createNewTripBelonging(name, numOf, isSharedAmongMember);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        $default, {
+    TResult? Function(TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createNewTripBelonging,
+    TResult? Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createAddedTripBelonging,
+  }) {
+    return createNewTripBelonging?.call(name, numOf, isSharedAmongMember);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        $default, {
+    TResult Function(TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createNewTripBelonging,
+    TResult Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createAddedTripBelonging,
+    required TResult orElse(),
+  }) {
+    if (createNewTripBelonging != null) {
+      return createNewTripBelonging(name, numOf, isSharedAmongMember);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_TripBelonging value) $default, {
+    required TResult Function(NewTripBelonging value) createNewTripBelonging,
+    required TResult Function(AddedTripBelonging value)
+        createAddedTripBelonging,
+  }) {
+    return createNewTripBelonging(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_TripBelonging value)? $default, {
+    TResult? Function(NewTripBelonging value)? createNewTripBelonging,
+    TResult? Function(AddedTripBelonging value)? createAddedTripBelonging,
+  }) {
+    return createNewTripBelonging?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_TripBelonging value)? $default, {
+    TResult Function(NewTripBelonging value)? createNewTripBelonging,
+    TResult Function(AddedTripBelonging value)? createAddedTripBelonging,
+    required TResult orElse(),
+  }) {
+    if (createNewTripBelonging != null) {
+      return createNewTripBelonging(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NewTripBelonging implements TripBelonging {
+  factory NewTripBelonging(
+      {required final TripBelongingName name,
+      required final TripBelongingNum numOf,
+      required final bool isSharedAmongMember}) = _$NewTripBelonging;
+
+  @override
+  TripBelongingName get name;
+  @override
+  TripBelongingNum get numOf;
+  @override
+  bool get isSharedAmongMember;
+}
+
+/// @nodoc
+
+class _$AddedTripBelonging implements AddedTripBelonging {
+  _$AddedTripBelonging(
+      {required this.id,
+      required this.name,
+      required this.numOf,
+      required this.isSharedAmongMember});
+
+  @override
+  final int id;
+  @override
+  final TripBelongingName name;
+  @override
+  final TripBelongingNum numOf;
+  @override
+  final bool isSharedAmongMember;
+
+  @override
+  String toString() {
+    return 'TripBelonging.createAddedTripBelonging(id: $id, name: $name, numOf: $numOf, isSharedAmongMember: $isSharedAmongMember)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddedTripBelonging &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.numOf, numOf) || other.numOf == numOf) &&
+            (identical(other.isSharedAmongMember, isSharedAmongMember) ||
+                other.isSharedAmongMember == isSharedAmongMember));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, numOf, isSharedAmongMember);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)
+        $default, {
+    required TResult Function(TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)
+        createNewTripBelonging,
+    required TResult Function(int id, TripBelongingName name,
+            TripBelongingNum numOf, bool isSharedAmongMember)
+        createAddedTripBelonging,
+  }) {
+    return createAddedTripBelonging(id, name, numOf, isSharedAmongMember);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        $default, {
+    TResult? Function(TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createNewTripBelonging,
+    TResult? Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createAddedTripBelonging,
+  }) {
+    return createAddedTripBelonging?.call(id, name, numOf, isSharedAmongMember);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        $default, {
+    TResult Function(TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createNewTripBelonging,
+    TResult Function(int id, TripBelongingName name, TripBelongingNum numOf,
+            bool isSharedAmongMember)?
+        createAddedTripBelonging,
+    required TResult orElse(),
+  }) {
+    if (createAddedTripBelonging != null) {
+      return createAddedTripBelonging(id, name, numOf, isSharedAmongMember);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_TripBelonging value) $default, {
+    required TResult Function(NewTripBelonging value) createNewTripBelonging,
+    required TResult Function(AddedTripBelonging value)
+        createAddedTripBelonging,
+  }) {
+    return createAddedTripBelonging(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_TripBelonging value)? $default, {
+    TResult? Function(NewTripBelonging value)? createNewTripBelonging,
+    TResult? Function(AddedTripBelonging value)? createAddedTripBelonging,
+  }) {
+    return createAddedTripBelonging?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_TripBelonging value)? $default, {
+    TResult Function(NewTripBelonging value)? createNewTripBelonging,
+    TResult Function(AddedTripBelonging value)? createAddedTripBelonging,
+    required TResult orElse(),
+  }) {
+    if (createAddedTripBelonging != null) {
+      return createAddedTripBelonging(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AddedTripBelonging implements TripBelonging {
+  factory AddedTripBelonging(
+      {required final int id,
+      required final TripBelongingName name,
+      required final TripBelongingNum numOf,
+      required final bool isSharedAmongMember}) = _$AddedTripBelonging;
+
   int get id;
   @override
   TripBelongingName get name;

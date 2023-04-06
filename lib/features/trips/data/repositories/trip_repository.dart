@@ -2,13 +2,17 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
+import 'package:trip_app_nativeapp/features/trips/data/models/add_trip_belonging_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/create_trip_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/fetch_trips_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/get_trip_invitation_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/invite_trip_response.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_belonging.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_member.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_belonging_name.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_belonging_num.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_num.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_status.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/repositories/trip_repository_interface.dart';
@@ -125,5 +129,33 @@ class TripRepository implements TripRepositoryInterface {
       status: invitationStatus,
       expiredAt: invitationRes.expiredAt,
     ) as DetailTripInvitation;
+  }
+
+  @override
+  Future<AddedTripBelonging> addTripBelonging(
+    int tripId,
+    NewTripBelonging belonging,
+  ) async {
+    final bodyMap = {
+      'name': belonging.name.value,
+      'num_of': belonging.numOf.value,
+      'is_share_among_member': belonging.isSharedAmongMember,
+    };
+
+    final res = await privateV1Client.post(
+      '$_basePath/$tripId/belongings',
+      data: bodyMap,
+    );
+
+    final belongingRes = AddTripBelongingResponse.fromJson(res.data);
+    final belongingNum = TripBelongingNum(value: belongingRes.numOf);
+    final belongingName = TripBelongingName(value: belongingRes.name);
+
+    return TripBelonging.createAddedTripBelonging(
+      id: belongingRes.id,
+      name: belongingName,
+      numOf: belongingNum,
+      isSharedAmongMember: belongingRes.isSharedAmongMember,
+    ) as AddedTripBelonging;
   }
 }
