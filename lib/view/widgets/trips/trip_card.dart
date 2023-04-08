@@ -37,12 +37,12 @@ class TripCard extends StatelessWidget {
             ),
             const Gap(8),
             Text(
-              '🛫 ${trip.tripPeriod.fromDate.toJsonDateString()}',
+              '🛫 ${trip.period.fromDate.toJsonDateString()}',
               style: context.textTheme.titleMedium,
             ),
             const Gap(8),
             Text(
-              '${trip.tripPeriod.endDate.toJsonDateString()} 🔚',
+              '${trip.period.endDate.toJsonDateString()} 🔚',
               style: context.textTheme.titleMedium,
             ),
           ],

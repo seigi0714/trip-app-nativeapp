@@ -15,6 +15,8 @@ import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_belonging_num.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_num.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_status.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_period.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_title.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/repositories/trip_repository_interface.dart';
 import 'package:trip_app_nativeapp/features/user/domain/entity/app_user.dart';
 
@@ -37,15 +39,18 @@ class TripRepository implements TripRepositoryInterface {
   static const _invitationBasePath = '/trip_invitations';
 
   @override
-  Future<List<Trip>> fetchTripsByUserId(int userId) async {
+  Future<List<ExistingTrip>> fetchTripsByUserId(int userId) async {
     final res = await privateV1Client.get('/users/$userId$_basePath');
     final tripsRes = FetchTripsResponse.fromJson(res.data);
     return tripsRes.items
         .map(
           (tripRes) => Trip.createExistingTrip(
-            title: tripRes.name,
-            fromDate: tripRes.fromDate,
-            endDate: tripRes.endDate,
+            id: tripRes.id,
+            title: TripTitle(value: tripRes.name),
+            period: TripPeriod(
+              fromDate: tripRes.fromDate,
+              endDate: tripRes.endDate,
+            ),
             members: tripRes.members
                 .map(
                   (memberRes) => TripMember.joined(
@@ -58,28 +63,31 @@ class TripRepository implements TripRepositoryInterface {
                   ),
                 )
                 .toList(),
-          ),
+          ) as ExistingTrip,
         )
         .toList();
   }
 
   @override
-  Future<Trip> createTrip(Trip trip) async {
+  Future<ExistingTrip> createTrip(NewTrip trip) async {
     final bodyMap = {
       'name': trip.title.value,
-      'from_date': trip.tripPeriod.fromDate.toJsonDateString(),
-      'end_date': trip.tripPeriod.endDate.toJsonDateString(),
+      'from_date': trip.period.fromDate.toJsonDateString(),
+      'end_date': trip.period.endDate.toJsonDateString(),
     };
     final res = await privateV1Client.post(_basePath, data: bodyMap);
     final tripRes = CreateTripResponse.fromJson(res.data);
     return Trip.createExistingTrip(
-      title: tripRes.name,
-      fromDate: tripRes.fromDate,
-      endDate: tripRes.endDate,
+      id: tripRes.id,
+      title: TripTitle(value: tripRes.name),
+      period: TripPeriod(
+        fromDate: tripRes.fromDate,
+        endDate: tripRes.endDate,
+      ),
       members: [
         // post のレスポンスにメンバー情報は含まれないので一旦空配列を入れておく
       ],
-    );
+    ) as ExistingTrip;
   }
 
   @override
@@ -116,9 +124,12 @@ class TripRepository implements TripRepositoryInterface {
 
     return TripInvitation.createDetailTripInvitation(
       trip: Trip.createExistingTrip(
-        title: invitationRes.trip.name,
-        fromDate: invitationRes.trip.fromDate,
-        endDate: invitationRes.trip.endDate,
+        id: invitationRes.trip.id,
+        title: TripTitle(value: invitationRes.trip.name),
+        period: TripPeriod(
+          fromDate: invitationRes.trip.fromDate,
+          endDate: invitationRes.trip.endDate,
+        ),
         members: [
           // 招待レスポンスにメンバー情報は含まれないので一旦空配列を入れておく
         ],
