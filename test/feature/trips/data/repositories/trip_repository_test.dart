@@ -8,8 +8,11 @@ import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
 import 'package:trip_app_nativeapp/core/http/response/api_response/api_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/repositories/trip_repository.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_belonging.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_member.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_belonging_name.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_belonging_num.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_num.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_status.dart';
 import 'package:trip_app_nativeapp/features/user/domain/entity/app_user.dart';
@@ -284,6 +287,70 @@ Future<void> main() async {
         providerContainer
             .read(tripRepositoryProvider)
             .getInvitationByCode(validInvitationCode),
+        throwsA(isA<Exception>()),
+      );
+    });
+  });
+
+  group('addTripBelonging', () {
+    const validTripId = 1;
+    const validBelongingId = 99;
+    const validBelongingName = '持ち物１';
+    const validBelongingNumOf = 10;
+    final validBelonging = TripBelonging.createNewTripBelonging(
+      name: TripBelongingName(value: validBelongingName),
+      numOf: TripBelongingNum(value: validBelongingNumOf),
+      isShareAmongMember: true,
+    ) as NewTripBelonging;
+
+    final validResult = TripBelonging.createAddedTripBelonging(
+      id: validBelongingId,
+      name: TripBelongingName(value: validBelongingName),
+      numOf: TripBelongingNum(value: validBelongingNumOf),
+      isShareAmongMember: true,
+    ) as AddedTripBelonging;
+    test('正常系', () async {
+      when(
+        mockApiClient.post(
+          '/trips/$validTripId/belongings',
+          data: {
+            'name': validBelongingName,
+            'num_of': validBelongingNumOf,
+            'is_share_among_member': true,
+          },
+        ),
+      ).thenAnswer((_) async {
+        return const ApiResponse(
+          data: {
+            'id': validBelongingId,
+            'name': validBelongingName,
+            'num_of': validBelongingNumOf,
+            'is_share_among_member': true,
+          },
+        );
+      });
+
+      final result = await providerContainer
+          .read(tripRepositoryProvider)
+          .addTripBelonging(validTripId, validBelonging);
+      expect(result, validResult);
+    });
+    test('準正常系 持ち物追加に失敗すると例外を返却', () async {
+      when(
+        mockApiClient.post(
+          '/trips/$validTripId/belongings',
+          data: {
+            'name': validBelongingName,
+            'num_of': validBelongingNumOf,
+            'is_share_among_member': true,
+          },
+        ),
+      ).thenThrow(unexpectedException);
+
+      await expectLater(
+        providerContainer
+            .read(tripRepositoryProvider)
+            .addTripBelonging(validTripId, validBelonging),
         throwsA(isA<Exception>()),
       );
     });

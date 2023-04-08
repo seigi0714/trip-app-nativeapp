@@ -5,4 +5,6 @@ class ExceptionCode {
   static const String invalidTripInvitationNum = 'invalid_trip_invitation_num';
   static const String invalidTripInvitationStatus =
       'invalid_trip_invitation_status';
+  static const String invalidTripBelongingName = 'invalid_trip_belonging_name';
+  static const String invalidTripBelongingNum = 'invalid_trip_belonging_num';
 }
