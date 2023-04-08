@@ -27,6 +27,7 @@ Future<void> main() async {
 
   final mockApiClient = MockAbstractApiClient();
 
+  const validTripId = 999;
   const validTitle = 'test_user';
   final validFromDate = DateTime(2023);
   final validEndDate = DateTime(2023, 1, 2);
@@ -53,7 +54,7 @@ Future<void> main() async {
     ) as NewTrip;
 
     final validResult = Trip.createExistingTrip(
-      id: 0,
+      id: validTripId,
       title: TripTitle(value: validTitle),
       period: TripPeriod(
         fromDate: validFromDate,
@@ -75,6 +76,7 @@ Future<void> main() async {
       ).thenAnswer((_) async {
         return ApiResponse(
           data: {
+            'id': validTripId,
             'name': testNewTrip.title.value,
             'from_date': testNewTrip.period.fromDate.toJsonDateString(),
             'end_date': testNewTrip.period.endDate.toJsonDateString(),
@@ -161,6 +163,7 @@ Future<void> main() async {
   group(
     'fetchTripsByUserId',
     () {
+      const validTripId = 999;
       const validUserId = 1;
       const validName = 'Bob';
       const validEmail = 'bob@somedomain.com';
@@ -170,7 +173,7 @@ Future<void> main() async {
       );
       final validResult = [
         Trip.createExistingTrip(
-          id: 0,
+          id: validTripId,
           title: TripTitle(value: validTitle),
           period: TripPeriod(
             fromDate: validFromDate,
@@ -191,7 +194,7 @@ Future<void> main() async {
             data: {
               'items': [
                 {
-                  'id': 1,
+                  'id': validTripId,
                   'name': validTitle,
                   'members': [
                     {
