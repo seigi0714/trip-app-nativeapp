@@ -9,7 +9,7 @@ import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 class TripCard extends StatelessWidget {
   const TripCard(this.trip, {super.key});
 
-  final Trip trip;
+  final ExistingTrip trip;
 
   @override
   Widget build(BuildContext context) {

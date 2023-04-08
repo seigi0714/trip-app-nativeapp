@@ -52,6 +52,6 @@ class TripInteractor {
     return result;
   }
 
-  Future<List<Trip>> fetchTripsByUserId(int userId) =>
+  Future<List<ExistingTrip>> fetchTripsByUserId(int userId) =>
       tripRepo.fetchTripsByUserId(userId);
 }
