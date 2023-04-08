@@ -22,7 +22,7 @@ mixin _$Trip {
   TResult when<TResult extends Object?>({
     required TResult Function(TripTitle title, TripPeriod period) createNewTrip,
     required TResult Function(int id, TripTitle title, TripPeriod period,
-            List<TripMember> members)
+            List<TripMember> members, List<AddedTripBelonging> belongings)
         createExistingTrip,
   }) =>
       throw _privateConstructorUsedError;
@@ -30,7 +30,7 @@ mixin _$Trip {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(TripTitle title, TripPeriod period)? createNewTrip,
     TResult? Function(int id, TripTitle title, TripPeriod period,
-            List<TripMember> members)?
+            List<TripMember> members, List<AddedTripBelonging> belongings)?
         createExistingTrip,
   }) =>
       throw _privateConstructorUsedError;
@@ -38,7 +38,7 @@ mixin _$Trip {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(TripTitle title, TripPeriod period)? createNewTrip,
     TResult Function(int id, TripTitle title, TripPeriod period,
-            List<TripMember> members)?
+            List<TripMember> members, List<AddedTripBelonging> belongings)?
         createExistingTrip,
     required TResult orElse(),
   }) =>
@@ -96,7 +96,7 @@ class _$NewTrip implements NewTrip {
   TResult when<TResult extends Object?>({
     required TResult Function(TripTitle title, TripPeriod period) createNewTrip,
     required TResult Function(int id, TripTitle title, TripPeriod period,
-            List<TripMember> members)
+            List<TripMember> members, List<AddedTripBelonging> belongings)
         createExistingTrip,
   }) {
     return createNewTrip(title, period);
@@ -107,7 +107,7 @@ class _$NewTrip implements NewTrip {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(TripTitle title, TripPeriod period)? createNewTrip,
     TResult? Function(int id, TripTitle title, TripPeriod period,
-            List<TripMember> members)?
+            List<TripMember> members, List<AddedTripBelonging> belongings)?
         createExistingTrip,
   }) {
     return createNewTrip?.call(title, period);
@@ -118,7 +118,7 @@ class _$NewTrip implements NewTrip {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(TripTitle title, TripPeriod period)? createNewTrip,
     TResult Function(int id, TripTitle title, TripPeriod period,
-            List<TripMember> members)?
+            List<TripMember> members, List<AddedTripBelonging> belongings)?
         createExistingTrip,
     required TResult orElse(),
   }) {
@@ -178,8 +178,10 @@ class _$ExistingTrip implements ExistingTrip {
       {required this.id,
       required this.title,
       required this.period,
-      required final List<TripMember> members})
-      : _members = members;
+      required final List<TripMember> members,
+      required final List<AddedTripBelonging> belongings})
+      : _members = members,
+        _belongings = belongings;
 
   @override
   final int id;
@@ -195,9 +197,17 @@ class _$ExistingTrip implements ExistingTrip {
     return EqualUnmodifiableListView(_members);
   }
 
+  final List<AddedTripBelonging> _belongings;
+  @override
+  List<AddedTripBelonging> get belongings {
+    if (_belongings is EqualUnmodifiableListView) return _belongings;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_belongings);
+  }
+
   @override
   String toString() {
-    return 'Trip.createExistingTrip(id: $id, title: $title, period: $period, members: $members)';
+    return 'Trip.createExistingTrip(id: $id, title: $title, period: $period, members: $members, belongings: $belongings)';
   }
 
   @override
@@ -208,22 +218,29 @@ class _$ExistingTrip implements ExistingTrip {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.period, period) || other.period == period) &&
-            const DeepCollectionEquality().equals(other._members, _members));
+            const DeepCollectionEquality().equals(other._members, _members) &&
+            const DeepCollectionEquality()
+                .equals(other._belongings, _belongings));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, period,
-      const DeepCollectionEquality().hash(_members));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      title,
+      period,
+      const DeepCollectionEquality().hash(_members),
+      const DeepCollectionEquality().hash(_belongings));
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(TripTitle title, TripPeriod period) createNewTrip,
     required TResult Function(int id, TripTitle title, TripPeriod period,
-            List<TripMember> members)
+            List<TripMember> members, List<AddedTripBelonging> belongings)
         createExistingTrip,
   }) {
-    return createExistingTrip(id, title, period, members);
+    return createExistingTrip(id, title, period, members, belongings);
   }
 
   @override
@@ -231,10 +248,10 @@ class _$ExistingTrip implements ExistingTrip {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(TripTitle title, TripPeriod period)? createNewTrip,
     TResult? Function(int id, TripTitle title, TripPeriod period,
-            List<TripMember> members)?
+            List<TripMember> members, List<AddedTripBelonging> belongings)?
         createExistingTrip,
   }) {
-    return createExistingTrip?.call(id, title, period, members);
+    return createExistingTrip?.call(id, title, period, members, belongings);
   }
 
   @override
@@ -242,12 +259,12 @@ class _$ExistingTrip implements ExistingTrip {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(TripTitle title, TripPeriod period)? createNewTrip,
     TResult Function(int id, TripTitle title, TripPeriod period,
-            List<TripMember> members)?
+            List<TripMember> members, List<AddedTripBelonging> belongings)?
         createExistingTrip,
     required TResult orElse(),
   }) {
     if (createExistingTrip != null) {
-      return createExistingTrip(id, title, period, members);
+      return createExistingTrip(id, title, period, members, belongings);
     }
     return orElse();
   }
@@ -289,7 +306,8 @@ abstract class ExistingTrip implements Trip {
       {required final int id,
       required final TripTitle title,
       required final TripPeriod period,
-      required final List<TripMember> members}) = _$ExistingTrip;
+      required final List<TripMember> members,
+      required final List<AddedTripBelonging> belongings}) = _$ExistingTrip;
 
   int get id;
   @override
@@ -297,4 +315,5 @@ abstract class ExistingTrip implements Trip {
   @override
   TripPeriod get period;
   List<TripMember> get members;
+  List<AddedTripBelonging> get belongings;
 }

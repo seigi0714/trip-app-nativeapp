@@ -60,6 +60,7 @@ Future<void> main() async {
         endDate: validEndDate,
       ),
       members: [],
+      belongings: [],
     ) as ExistingTrip;
     test('正常系', () async {
       when(
@@ -176,6 +177,7 @@ Future<void> main() async {
             endDate: validEndDate,
           ),
           members: [validMember],
+          belongings: [],
         ),
       ];
 
@@ -254,6 +256,7 @@ Future<void> main() async {
           endDate: validEndDate,
         ),
         members: [],
+        belongings: [],
       ),
       status: TripInvitationStatus.open,
       expiredAt: validExpiredDate,

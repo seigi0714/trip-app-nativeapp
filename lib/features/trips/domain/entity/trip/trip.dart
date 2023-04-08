@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_belonging.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_member.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_period.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_title.dart';
@@ -20,5 +21,6 @@ class Trip with _$Trip {
     required TripTitle title,
     required TripPeriod period,
     required List<TripMember> members,
+    required List<AddedTripBelonging> belongings,
   }) = ExistingTrip;
 }

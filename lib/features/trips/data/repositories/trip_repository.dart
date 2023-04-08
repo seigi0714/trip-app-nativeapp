@@ -63,6 +63,8 @@ class TripRepository implements TripRepositoryInterface {
                   ),
                 )
                 .toList(),
+            // TODO(seigi0714): fetchの際持ち物を追加
+            belongings: [],
           ) as ExistingTrip,
         )
         .toList();
@@ -87,6 +89,7 @@ class TripRepository implements TripRepositoryInterface {
       members: [
         // post のレスポンスにメンバー情報は含まれないので一旦空配列を入れておく
       ],
+      belongings: [], // post のレスポンスにメンバー情報は含まれないので一旦空配列を入れておく
     ) as ExistingTrip;
   }
 
@@ -133,6 +136,7 @@ class TripRepository implements TripRepositoryInterface {
         members: [
           // 招待レスポンスにメンバー情報は含まれないので一旦空配列を入れておく
         ],
+        belongings: [], // 招待レスポンスに持ち物は含まれないので一旦空配列を入れておく
       ),
       invitationUserName: invitationRes.invitationUser.name,
       invitationNum: invitationNum,

@@ -46,6 +46,7 @@ void main() {
                 ),
               ),
             ],
+            belongings: [],
           ) as ExistingTrip
         ]),
       );
