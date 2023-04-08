@@ -7,44 +7,18 @@ part 'trip.freezed.dart';
 
 @Freezed(copyWith: false, fromJson: false, toJson: false)
 class Trip with _$Trip {
-  const factory Trip({
-    required TripTitle title,
-    required TripPeriod tripPeriod,
-
-    /// 新規作成時はメンバーがいないので null 許容
-    List<TripMember>? members,
-  }) = _Trip;
-
   /// 新規作成時のfactory関数
   factory Trip.createNewTrip({
-    required String title,
-    required DateTime fromDate,
-    required DateTime endDate,
-  }) {
-    return Trip(
-      title: TripTitle(value: title),
-      tripPeriod: TripPeriod(
-        fromDate: fromDate,
-        endDate: endDate,
-      ),
-    );
-  }
+    required TripTitle title,
+    required TripPeriod period,
+  }) = NewTrip;
 
   /// 作成済み旅エンティティのfactory関数
   /// 現状一緒だけどcreateNewTripと内容変わるはずなので定義しておく
   factory Trip.createExistingTrip({
-    required String title,
-    required DateTime fromDate,
-    required DateTime endDate,
+    required int id,
+    required TripTitle title,
+    required TripPeriod period,
     required List<TripMember> members,
-  }) {
-    return Trip(
-      title: TripTitle(value: title),
-      tripPeriod: TripPeriod(
-        fromDate: fromDate,
-        endDate: endDate,
-      ),
-      members: members,
-    );
-  }
+  }) = ExistingTrip;
 }
