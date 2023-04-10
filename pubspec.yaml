@@ -51,7 +51,7 @@ dev_dependencies:
   http_mock_adapter: ^0.3.3
   json_serializable: ^6.5.4
   riverpod_generator: ^2.1.4
-  riverpod_lint: ^1.1.6
+  riverpod_lint: ^1.2.0
   very_good_analysis: ^4.0.0+1
 
 flutter:
