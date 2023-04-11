@@ -20,6 +20,7 @@ CreateTripResponse _$CreateTripResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CreateTripResponse {
+  int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   @DateConverter()
   DateTime get fromDate => throw _privateConstructorUsedError;
@@ -39,7 +40,8 @@ abstract class $CreateTripResponseCopyWith<$Res> {
       _$CreateTripResponseCopyWithImpl<$Res, CreateTripResponse>;
   @useResult
   $Res call(
-      {String name,
+      {int id,
+      String name,
       @DateConverter() DateTime fromDate,
       @DateConverter() DateTime endDate});
 }
@@ -57,11 +59,16 @@ class _$CreateTripResponseCopyWithImpl<$Res, $Val extends CreateTripResponse>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? fromDate = null,
     Object? endDate = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -87,7 +94,8 @@ abstract class _$$_CreateTripResponseCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String name,
+      {int id,
+      String name,
       @DateConverter() DateTime fromDate,
       @DateConverter() DateTime endDate});
 }
@@ -103,11 +111,16 @@ class __$$_CreateTripResponseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? fromDate = null,
     Object? endDate = null,
   }) {
     return _then(_$_CreateTripResponse(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -128,13 +141,16 @@ class __$$_CreateTripResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CreateTripResponse implements _CreateTripResponse {
   const _$_CreateTripResponse(
-      {required this.name,
+      {required this.id,
+      required this.name,
       @DateConverter() required this.fromDate,
       @DateConverter() required this.endDate});
 
   factory _$_CreateTripResponse.fromJson(Map<String, dynamic> json) =>
       _$$_CreateTripResponseFromJson(json);
 
+  @override
+  final int id;
   @override
   final String name;
   @override
@@ -146,7 +162,7 @@ class _$_CreateTripResponse implements _CreateTripResponse {
 
   @override
   String toString() {
-    return 'CreateTripResponse(name: $name, fromDate: $fromDate, endDate: $endDate)';
+    return 'CreateTripResponse(id: $id, name: $name, fromDate: $fromDate, endDate: $endDate)';
   }
 
   @override
@@ -154,6 +170,7 @@ class _$_CreateTripResponse implements _CreateTripResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CreateTripResponse &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.fromDate, fromDate) ||
                 other.fromDate == fromDate) &&
@@ -162,7 +179,7 @@ class _$_CreateTripResponse implements _CreateTripResponse {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, fromDate, endDate);
+  int get hashCode => Object.hash(runtimeType, id, name, fromDate, endDate);
 
   @JsonKey(ignore: true)
   @override
@@ -181,7 +198,8 @@ class _$_CreateTripResponse implements _CreateTripResponse {
 
 abstract class _CreateTripResponse implements CreateTripResponse {
   const factory _CreateTripResponse(
-          {required final String name,
+          {required final int id,
+          required final String name,
           @DateConverter() required final DateTime fromDate,
           @DateConverter() required final DateTime endDate}) =
       _$_CreateTripResponse;
@@ -189,6 +207,8 @@ abstract class _CreateTripResponse implements CreateTripResponse {
   factory _CreateTripResponse.fromJson(Map<String, dynamic> json) =
       _$_CreateTripResponse.fromJson;
 
+  @override
+  int get id;
   @override
   String get name;
   @override

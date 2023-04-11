@@ -15,6 +15,7 @@ _$_CreateTripResponse _$$_CreateTripResponseFromJson(
       json,
       ($checkedConvert) {
         final val = _$_CreateTripResponse(
+          id: $checkedConvert('id', (v) => v as int),
           name: $checkedConvert('name', (v) => v as String),
           fromDate: $checkedConvert(
               'from_date', (v) => const DateConverter().fromJson(v as String)),
@@ -29,6 +30,7 @@ _$_CreateTripResponse _$$_CreateTripResponseFromJson(
 Map<String, dynamic> _$$_CreateTripResponseToJson(
         _$_CreateTripResponse instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'from_date': const DateConverter().toJson(instance.fromDate),
       'end_date': const DateConverter().toJson(instance.endDate),

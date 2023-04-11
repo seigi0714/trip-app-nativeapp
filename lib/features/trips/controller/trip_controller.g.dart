@@ -8,11 +8,11 @@ part of 'trip_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tripsHash() => r'0a9d9323cdd4187af222e1599618e05bd9e89e1e';
+String _$tripsHash() => r'847da4f84e77c3cc4324e388e4e85cdee38eab89';
 
 /// See also [trips].
 @ProviderFor(trips)
-final tripsProvider = AutoDisposeFutureProvider<List<Trip>>.internal(
+final tripsProvider = AutoDisposeFutureProvider<List<ExistingTrip>>.internal(
   trips,
   name: r'tripsProvider',
   debugGetCreateSourceHash:
@@ -21,7 +21,7 @@ final tripsProvider = AutoDisposeFutureProvider<List<Trip>>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef TripsRef = AutoDisposeFutureProviderRef<List<Trip>>;
+typedef TripsRef = AutoDisposeFutureProviderRef<List<ExistingTrip>>;
 String _$tripControllerHash() => r'ecb9d08395accfaf9687b15c2b145bb9a666d1d1';
 
 /// See also [tripController].

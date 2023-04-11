@@ -5,6 +5,8 @@ import 'package:mockito/mockito.dart';
 import 'package:trip_app_nativeapp/features/trips/data/repositories/trip_repository.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_member.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_period.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_title.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interactor.dart';
 import 'package:trip_app_nativeapp/features/user/domain/entity/app_user.dart';
 
@@ -28,9 +30,12 @@ void main() {
       when(mockTripRepo.fetchTripsByUserId(1)).thenAnswer(
         (_) => Future.value([
           Trip.createExistingTrip(
-            title: 'title',
-            fromDate: DateTime(2023, 2, 25),
-            endDate: DateTime(2023, 3, 3),
+            id: 1,
+            title: TripTitle(value: 'title'),
+            period: TripPeriod(
+              fromDate: DateTime(2023, 2, 25),
+              endDate: DateTime(2023, 3, 3),
+            ),
             members: [
               const TripMember.joined(
                 isHost: true,
@@ -41,7 +46,8 @@ void main() {
                 ),
               ),
             ],
-          )
+            belongings: [],
+          ) as ExistingTrip
         ]),
       );
       await expectLater(

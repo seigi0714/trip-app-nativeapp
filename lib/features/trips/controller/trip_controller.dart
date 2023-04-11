@@ -15,7 +15,7 @@ const emptyTripTitleMessage = '旅のタイトルを入力してください。'
 const tripDateCompareErrorMessage = '帰宅日は出発日以降に設定してください。';
 
 @riverpod
-Future<List<Trip>> trips(TripsRef ref) => ref
+Future<List<ExistingTrip>> trips(TripsRef ref) => ref
     .watch(tripControllerProvider)
     .fetchTripsByUserId(ref.watch(appUserControllerProvider).value!.id);
 
@@ -46,7 +46,7 @@ class TripController {
     }
   }
 
-  Future<List<Trip>> fetchTripsByUserId(int userId) {
+  Future<List<ExistingTrip>> fetchTripsByUserId(int userId) {
     try {
       return _ref.read(tripInteractorProvider).fetchTripsByUserId(userId);
     } on Exception catch (e) {

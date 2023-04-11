@@ -7,9 +7,10 @@ part 'create_trip_response.g.dart';
 @freezed
 class CreateTripResponse with _$CreateTripResponse {
   const factory CreateTripResponse({
+    required int id,
     required String name,
-    @DateConverter() required DateTime  fromDate,
-    @DateConverter() required DateTime  endDate, 
+    @DateConverter() required DateTime fromDate,
+    @DateConverter() required DateTime endDate,
   }) = _CreateTripResponse;
 
   factory CreateTripResponse.fromJson(Map<String, dynamic> json) =>

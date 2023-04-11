@@ -15,6 +15,8 @@ import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_belonging_num.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_num.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_status.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_period.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_title.dart';
 import 'package:trip_app_nativeapp/features/user/domain/entity/app_user.dart';
 
 import 'trip_repository_test.mocks.dart';
@@ -25,6 +27,7 @@ Future<void> main() async {
 
   final mockApiClient = MockAbstractApiClient();
 
+  const validTripId = 999;
   const validTitle = 'test_user';
   final validFromDate = DateTime(2023);
   final validEndDate = DateTime(2023, 1, 2);
@@ -43,17 +46,23 @@ Future<void> main() async {
 
   group('createTrip', () {
     final testNewTrip = Trip.createNewTrip(
-      title: validTitle,
-      fromDate: validFromDate,
-      endDate: validEndDate,
-    );
+      title: TripTitle(value: validTitle),
+      period: TripPeriod(
+        fromDate: validFromDate,
+        endDate: validEndDate,
+      ),
+    ) as NewTrip;
 
     final validResult = Trip.createExistingTrip(
-      title: validTitle,
-      fromDate: validFromDate,
-      endDate: validEndDate,
+      id: validTripId,
+      title: TripTitle(value: validTitle),
+      period: TripPeriod(
+        fromDate: validFromDate,
+        endDate: validEndDate,
+      ),
       members: [],
-    );
+      belongings: [],
+    ) as ExistingTrip;
     test('正常系', () async {
       when(
         mockApiClient.post(
@@ -67,9 +76,10 @@ Future<void> main() async {
       ).thenAnswer((_) async {
         return ApiResponse(
           data: {
+            'id': validTripId,
             'name': testNewTrip.title.value,
-            'from_date': testNewTrip.tripPeriod.fromDate.toJsonDateString(),
-            'end_date': testNewTrip.tripPeriod.endDate.toJsonDateString(),
+            'from_date': testNewTrip.period.fromDate.toJsonDateString(),
+            'end_date': testNewTrip.period.endDate.toJsonDateString(),
           },
         );
       });
@@ -153,6 +163,7 @@ Future<void> main() async {
   group(
     'fetchTripsByUserId',
     () {
+      const validTripId = 999;
       const validUserId = 1;
       const validName = 'Bob';
       const validEmail = 'bob@somedomain.com';
@@ -162,10 +173,14 @@ Future<void> main() async {
       );
       final validResult = [
         Trip.createExistingTrip(
-          title: validTitle,
-          fromDate: validFromDate,
-          endDate: validEndDate,
+          id: validTripId,
+          title: TripTitle(value: validTitle),
+          period: TripPeriod(
+            fromDate: validFromDate,
+            endDate: validEndDate,
+          ),
           members: [validMember],
+          belongings: [],
         ),
       ];
 
@@ -179,7 +194,7 @@ Future<void> main() async {
             data: {
               'items': [
                 {
-                  'id': 1,
+                  'id': validTripId,
                   'name': validTitle,
                   'members': [
                     {
@@ -237,10 +252,14 @@ Future<void> main() async {
       invitationUserName: validInvitationUserName,
       invitationNum: TripInvitationNum(value: validInvitationNum),
       trip: Trip.createExistingTrip(
-        title: validTripName,
-        fromDate: validFromDate,
-        endDate: validEndDate,
+        id: validTripId,
+        title: TripTitle(value: validTripName),
+        period: TripPeriod(
+          fromDate: validFromDate,
+          endDate: validEndDate,
+        ),
         members: [],
+        belongings: [],
       ),
       status: TripInvitationStatus.open,
       expiredAt: validExpiredDate,

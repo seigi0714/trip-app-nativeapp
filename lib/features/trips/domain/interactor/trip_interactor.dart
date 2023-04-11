@@ -3,6 +3,8 @@ import 'package:trip_app_nativeapp/features/trips/data/repositories/trip_reposit
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_num.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_period.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_title.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/repositories/trip_repository_interface.dart';
 
 part 'trip_interactor.g.dart';
@@ -27,10 +29,12 @@ class TripInteractor {
     DateTime endDate,
   ) async {
     final trip = Trip.createNewTrip(
-      title: title,
-      fromDate: fromDate,
-      endDate: endDate,
-    );
+      title: TripTitle(value: title),
+      period: TripPeriod(
+        fromDate: fromDate,
+        endDate: endDate,
+      ),
+    ) as NewTrip;
     await tripRepo.createTrip(trip);
   }
 
@@ -48,6 +52,6 @@ class TripInteractor {
     return result;
   }
 
-  Future<List<Trip>> fetchTripsByUserId(int userId) =>
+  Future<List<ExistingTrip>> fetchTripsByUserId(int userId) =>
       tripRepo.fetchTripsByUserId(userId);
 }

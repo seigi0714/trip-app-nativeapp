@@ -39,8 +39,8 @@ class _FakeAbstractApiClient_0 extends _i1.SmartFake
         );
 }
 
-class _FakeTrip_1 extends _i1.SmartFake implements _i3.Trip {
-  _FakeTrip_1(
+class _FakeExistingTrip_1 extends _i1.SmartFake implements _i3.ExistingTrip {
+  _FakeExistingTrip_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -99,28 +99,30 @@ class MockTripRepository extends _i1.Mock implements _i6.TripRepository {
         ),
       ) as _i2.AbstractApiClient);
   @override
-  _i7.Future<List<_i3.Trip>> fetchTripsByUserId(int? userId) =>
+  _i7.Future<List<_i3.ExistingTrip>> fetchTripsByUserId(int? userId) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchTripsByUserId,
           [userId],
         ),
-        returnValue: _i7.Future<List<_i3.Trip>>.value(<_i3.Trip>[]),
-      ) as _i7.Future<List<_i3.Trip>>);
+        returnValue:
+            _i7.Future<List<_i3.ExistingTrip>>.value(<_i3.ExistingTrip>[]),
+      ) as _i7.Future<List<_i3.ExistingTrip>>);
   @override
-  _i7.Future<_i3.Trip> createTrip(_i3.Trip? trip) => (super.noSuchMethod(
+  _i7.Future<_i3.ExistingTrip> createTrip(_i3.NewTrip? trip) =>
+      (super.noSuchMethod(
         Invocation.method(
           #createTrip,
           [trip],
         ),
-        returnValue: _i7.Future<_i3.Trip>.value(_FakeTrip_1(
+        returnValue: _i7.Future<_i3.ExistingTrip>.value(_FakeExistingTrip_1(
           this,
           Invocation.method(
             #createTrip,
             [trip],
           ),
         )),
-      ) as _i7.Future<_i3.Trip>);
+      ) as _i7.Future<_i3.ExistingTrip>);
   @override
   _i7.Future<_i4.GeneratedTripInvitation> invite(
           _i4.NewTripInvitation? invitation) =>
