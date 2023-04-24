@@ -1,6 +1,8 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/features/trips/controller/trip_controller.dart';
 import 'package:trip_app_nativeapp/view/widgets/common/car_driving_loading.dart';
@@ -27,7 +29,19 @@ class TripDetailPage extends HookConsumerWidget {
         top: false,
         child: ref.watch(tripsProvider).when(
               data: (trips) {
-                final trip = trips.firstWhere((trip) => trip.id == id);
+                final trip = trips.firstWhereOrNull((trip) => trip.id == id);
+                if (trip == null) {
+                  return const Center(
+                    child: ErrorCat(
+                      AppException(
+                        code: 'not_found',
+                        message: '選択した旅の予定が見つかりませんでした。',
+                      ),
+                      null,
+                    ),
+                  );
+                }
+
                 return NestedScrollView(
                   headerSliverBuilder:
                       (BuildContext context, bool innerBoxIsScrolled) {
@@ -94,7 +108,7 @@ class TripDetailPage extends HookConsumerWidget {
                     ];
                   },
                   body: tabIndex.value == scheduleTabIndex
-                      ? TripSchedule(trip)
+                      ? const TripSchedule()
                       : const TripBelongingList(),
                 );
               },
