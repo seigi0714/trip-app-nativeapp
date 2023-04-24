@@ -26,47 +26,58 @@ class TripOverviewCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Center(
+                  child: Container(
+                    alignment: Alignment.centerLeft,
                     child: Text(
                       trip.title.value,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: context.textTheme.titleLarge,
+                      style: context.textTheme.headlineMedium,
                     ),
                   ),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Column(
-                      children: [
-                        Text(
-                          '🛫 ${trip.period.fromDate.toJsonDateString()}',
-                          style: context.textTheme.titleMedium,
-                        ),
-                        Text(
-                          '${trip.period.endDate.toJsonDateString()} 🔚',
-                          style: context.textTheme.titleMedium,
-                        ),
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '🛫 ${trip.period.fromDate.toJsonDateString()}',
+                            style: context.textTheme.titleMedium,
+                          ),
+                          Text(
+                            '${trip.period.endDate.toJsonDateString()} 🔚',
+                            style: context.textTheme.titleMedium,
+                          ),
+                        ],
+                      ),
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () => log('share'),
-                          icon: const Icon(
-                            Icons.share,
-                          ),
+                    SizedBox(
+                      width: 36,
+                      height: 36,
+                      child: IconButton(
+                        onPressed: () => log('share'),
+                        icon: const Icon(
+                          Icons.share,
                         ),
-                        IconButton(
-                          onPressed: () => log('edit'),
-                          icon: const Icon(
-                            Icons.edit,
-                          ),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 36,
+                      height: 36,
+                      child: IconButton(
+                        onPressed: () => log('edit'),
+                        icon: const Icon(
+                          Icons.edit,
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
