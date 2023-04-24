@@ -65,8 +65,6 @@ class TripOverviewCard extends StatelessWidget {
                         icon: const Icon(
                           Icons.share,
                         ),
-                        padding: EdgeInsets.zero,
-                        constraints: const BoxConstraints(),
                       ),
                     ),
                     SizedBox(
