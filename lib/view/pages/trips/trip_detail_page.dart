@@ -11,8 +11,6 @@ import 'package:trip_app_nativeapp/view/widgets/trips/trip_belonging_list.dart';
 import 'package:trip_app_nativeapp/view/widgets/trips/trip_overview_card.dart';
 import 'package:trip_app_nativeapp/view/widgets/trips/trip_schedule.dart';
 
-final tabStateProvider = StateProvider<int>((ref) => 0);
-
 class TripDetailPage extends HookConsumerWidget {
   const TripDetailPage(this.id, {super.key});
 
