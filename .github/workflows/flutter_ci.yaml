@@ -69,6 +69,16 @@ jobs:
         id: set-matrix
         run: echo "::set-output name=matrix::[\"lint\", \"test\"]"
 
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: setup-data
+          path: |
+            ${runner.workspace}/.dart_tool/
+            ${runner.workspace}/.packages
+            ${runner.workspace}/analysis_options.yaml
+
   lint:
     needs: setup
     runs-on: ubuntu-latest
