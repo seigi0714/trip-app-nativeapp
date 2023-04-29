@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
 
       - name: Check fvm
-        uses: kuhnroyal/flutter-fvm-config-action@121a924f6e02514871f0d3507fbac542ced8cb4b
+        uses: kuhnroyal/flutter-fvm-config-action@e91317131a2da710b9cd9b7a24f2c0ade9eeb61d
 
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d
