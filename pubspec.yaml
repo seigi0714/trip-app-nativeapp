@@ -9,7 +9,8 @@ environment:
   sdk: '>=2.18.0 <3.0.0'
 
 dependencies:
-  connectivity_plus: ^3.0.2
+  collection: ^1.17.0
+  connectivity_plus: ^3.0.6
   cupertino_icons: ^1.0.2
   device_preview: ^1.1.0
   dio: ^4.0.6
@@ -20,7 +21,7 @@ dependencies:
     sdk: flutter
   flutter_datetime_picker: ^1.5.1
   flutter_dotenv: ^5.0.2
-  flutter_gen: ^5.1.0+1
+  flutter_gen: ^5.3.0
   flutter_hooks: ^0.18.5+1
   flutter_line_sdk: ^2.3.2
   flutter_spinkit: ^5.1.0
@@ -30,10 +31,10 @@ dependencies:
   go_router: ^5.0.5
   google_fonts: ^4.0.3
   google_sign_in: ^5.4.2
-  hooks_riverpod: ^2.3.2
+  hooks_riverpod: ^2.3.6
   intl: ^0.17.0
-  lottie: ^2.3.1
-  mockito: ^5.3.2
+  lottie: ^2.3.2
+  mockito: ^5.4.0
   mocktail: ^0.3.0
   nil: ^1.1.1
   riverpod_annotation: ^2.0.2
@@ -50,7 +51,7 @@ dev_dependencies:
   google_sign_in_mocks: ^0.2.1
   http_mock_adapter: ^0.3.3
   json_serializable: ^6.5.4
-  riverpod_generator: ^2.1.4
+  riverpod_generator: ^2.2.1
   riverpod_lint: ^1.1.6
   very_good_analysis: ^4.0.0+1
 
