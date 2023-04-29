@@ -127,7 +127,7 @@ jobs:
         uses: dorny/test-reporter@e9fa2f582c0ebbe2e263fd18fad744d52e0b0203
         if: always()
         with:
-          name: Flutter Test Report
+          name: test report
           path: test-report.log
           reporter: flutter-json
 
