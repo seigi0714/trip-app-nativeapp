@@ -92,7 +92,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
-          name: ${{ matrix.jobname }}-data
+          name: lint-data
 
       - name: Run Flutter Analyze
         run: flutter analyze
@@ -113,7 +113,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
-          name: ${{ matrix.jobname }}-data
+          name: test-data
 
       - name: Run Flutter Test
         run: flutter test --machine --coverage > test-report.log
