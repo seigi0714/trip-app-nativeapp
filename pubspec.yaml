@@ -9,6 +9,7 @@ environment:
   sdk: '>=2.18.0 <3.0.0'
 
 dependencies:
+  collection: ^1.17.0
   connectivity_plus: ^3.0.2
   cupertino_icons: ^1.0.2
   device_preview: ^1.1.0
