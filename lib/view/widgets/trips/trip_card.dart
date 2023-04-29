@@ -6,7 +6,7 @@ import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
 import 'package:trip_app_nativeapp/core/gen/assets.gen.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
-import 'package:trip_app_nativeapp/view/pages/trips/trips_list_page.dart';
+import 'package:trip_app_nativeapp/view/pages/trips/trip_detail_page.dart';
 
 class TripCard extends StatelessWidget {
   const TripCard(this.trip, {super.key});
@@ -16,7 +16,7 @@ class TripCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.go('${TripListPage.path}/${trip.id}'),
+      onTap: () => context.push(TripDetailPage.path(id: trip.id)),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),

@@ -63,7 +63,7 @@ GoRouter router(RouterRef ref) {
         builder: (context, state) => const TripListPage(),
         routes: [
           GoRoute(
-            path: TripDetailPage.path,
+            path: TripDetailPage.pathParam,
             builder: (context, state) {
               final id = int.tryParse(state.params['id'] ?? '');
               if (id != null) {
