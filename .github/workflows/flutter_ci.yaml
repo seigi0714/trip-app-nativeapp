@@ -45,6 +45,26 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-flutter-
 
+      - name: Make dev envfile
+        uses: SpicyPizza/create-envfile@5f7e9a8065363343c808346284ea23507d07157c
+        with:
+          envkey_DEBUG: false
+          envkey_SOME_API_KEY: '123456abcdef'
+          envkey_LINE_CHANNEL_ID: ${{ secrets.LINE_CHANNEL_ID }}
+          envkey_TRIPAPP_API_URL: ${{ secrets.TRIPAPP_API_URL }}
+          envkey_TRIPAPP_API_PORT: ${{ secrets.TRIPAPP_API_PORT }}
+          file_name: .dev.env
+
+      - name: Make prod envfile
+        uses: SpicyPizza/create-envfile@5f7e9a8065363343c808346284ea23507d07157c
+        with:
+          envkey_DEBUG: false
+          envkey_SOME_API_KEY: '123456abcdef'
+          envkey_LINE_CHANNEL_ID: ${{ secrets.LINE_CHANNEL_ID }}
+          envkey_TRIPAPP_API_URL: ${{ secrets.TRIPAPP_API_URL }}
+          envkey_TRIPAPP_API_PORT: ${{ secrets.TRIPAPP_API_PORT }}
+          file_name: .prod.env
+
       - name: Set matrix for dependent jobs
         id: set-matrix
         run: echo "::set-output name=matrix::[\"lint\", \"test\"]"
