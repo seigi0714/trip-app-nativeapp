@@ -73,7 +73,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: setup-data
+          name: ${{ matrix.jobname }}-data
           path: |
             ${runner.workspace}/.dart_tool/
             ${runner.workspace}/.packages
@@ -92,7 +92,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
-          name: setup-data
+          name: ${{ matrix.jobname }}-data
 
       - name: Run Flutter Analyze
         run: flutter analyze
@@ -113,7 +113,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
-          name: setup-data
+          name: ${{ matrix.jobname }}-data
 
       - name: Run Flutter Test
         run: flutter test --machine --coverage > test-report.log
