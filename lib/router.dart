@@ -2,11 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
 import 'package:trip_app_nativeapp/features/user/controller/app_user_controller.dart';
 import 'package:trip_app_nativeapp/view/pages/debug_page.dart';
 import 'package:trip_app_nativeapp/view/pages/error_page.dart';
 import 'package:trip_app_nativeapp/view/pages/loading_page.dart';
 import 'package:trip_app_nativeapp/view/pages/login_page.dart';
+import 'package:trip_app_nativeapp/view/pages/trips/trip_detail_page.dart';
 import 'package:trip_app_nativeapp/view/pages/trips/trips_list_page.dart';
 
 part 'router.g.dart';
@@ -59,6 +61,21 @@ GoRouter router(RouterRef ref) {
       GoRoute(
         path: TripListPage.path,
         builder: (context, state) => const TripListPage(),
+        routes: [
+          GoRoute(
+            path: TripDetailPage.pathParam,
+            builder: (context, state) {
+              final id = int.tryParse(state.params['id'] ?? '');
+              if (id != null) {
+                return TripDetailPage(id);
+              } else {
+                return const ErrorPage(
+                  exception: AppException(message: '旅の選択に失敗しました。'),
+                );
+              }
+            },
+          ),
+        ],
       ),
       GoRoute(
         path: LoginPage.path,
