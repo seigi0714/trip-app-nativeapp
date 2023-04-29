@@ -43,60 +43,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-flutter-
 
-  analyze:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      - name: Run Flutter Analyze
-        run: flutter analyze
-
-  lint:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      - name: Run riverpod_lint
-        run: custom_lint
-
-  test:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@dbf1fa04f4d2e52c
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: flutter
-          cache-path: ${{ runner.tool_cache }}/flutter
-
       - name: Make dev envfile
         uses: SpicyPizza/create-envfile@5f7e9a8065363343c808346284ea23507d07157c
         with:
@@ -117,6 +63,20 @@ jobs:
           envkey_TRIPAPP_API_PORT: ${{ secrets.TRIPAPP_API_PORT }}
           file_name: .prod.env
 
+  lint:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Flutter Analyze
+        run: flutter analyze
+
+      - name: Run riverpod_lint
+        run: custom_lint
+
+  test:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
       - name: Run Flutter Test
         run: flutter test --machine --coverage > test-report.log
 
