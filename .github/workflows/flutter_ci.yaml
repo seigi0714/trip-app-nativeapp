@@ -11,10 +11,13 @@ on:
       - main
 
 jobs:
-  setup:
+  ci:
+    name: Flutter CI
+    permissions:
+      checks: write
+      contents: read
     runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
@@ -23,7 +26,7 @@ jobs:
         uses: kuhnroyal/flutter-fvm-config-action@e91317131a2da710b9cd9b7a24f2c0ade9eeb61d
 
       - name: Setup Flutter SDK
-        uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d
+        uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: ${{ env.FLUTTER_CHANNEL }}
@@ -31,22 +34,8 @@ jobs:
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
 
-      - name: Install custom_lint
-        run: dart pub global activate custom_lint
-
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      - name: Cache Flutter dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ runner.tool_cache }}/flutter
-          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-flutter-
-
       - name: Make dev envfile
-        uses: SpicyPizza/create-envfile@5f7e9a8065363343c808346284ea23507d07157c
+        uses: SpicyPizza/create-envfile@041383d6577d09916e24632ef274f18ec2909b4f
         with:
           envkey_DEBUG: false
           envkey_SOME_API_KEY: '123456abcdef'
@@ -56,7 +45,7 @@ jobs:
           file_name: .dev.env
 
       - name: Make prod envfile
-        uses: SpicyPizza/create-envfile@5f7e9a8065363343c808346284ea23507d07157c
+        uses: SpicyPizza/create-envfile@041383d6577d09916e24632ef274f18ec2909b4f
         with:
           envkey_DEBUG: false
           envkey_SOME_API_KEY: '123456abcdef'
@@ -65,34 +54,21 @@ jobs:
           envkey_TRIPAPP_API_PORT: ${{ secrets.TRIPAPP_API_PORT }}
           file_name: .prod.env
 
-      - name: Set matrix for dependent jobs
-        id: set-matrix
-        run: echo "::set-output name=matrix::[\"lint\", \"test\"]"
+      - name: Install custom_lint
+        run: dart pub global activate custom_lint
 
-      - name: Upload artifacts
-        if: always()
-        uses: actions/upload-artifact@v2
+      - name: Install Flutter dependencies
+        run: flutter pub get
+
+      - name: Cache Flutter dependencies
+        uses: actions/cache@77eb7eb198e1383478da175398ace52efd5464d0
         with:
-          name: shared-data
           path: |
-            ${runner.workspace}/.dart_tool/
-            ${runner.workspace}/.packages
-            ${runner.workspace}/analysis_options.yaml
-
-  lint:
-    needs: setup
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        jobname: ${{fromJson(needs.setup.outputs.matrix)}}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: shared-data
+            .dart_tool/package_config.json
+            .pub-cache
+          key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-cache-
 
       - name: Run Flutter Analyze
         run: flutter analyze
@@ -100,28 +76,13 @@ jobs:
       - name: Run riverpod_lint
         run: custom_lint
 
-  test:
-    needs: setup
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        jobname: ${{fromJson(needs.setup.outputs.matrix)}}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: shared-data
-
       - name: Run Flutter Test
         run: flutter test --machine --coverage > test-report.log
 
       - name: Report Test
-        uses: dorny/test-reporter@e9fa2f582c0ebbe2e263fd18fad744d52e0b0203
+        uses: dorny/test-reporter@19aaf9016ed662cee850ab18a3224cfdada01699
         if: always()
         with:
-          name: test report
+          name: Flutter Test Report
           path: test-report.log
           reporter: flutter-json
