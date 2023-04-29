@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/features/trips/controller/trip_controller.dart';
+import 'package:trip_app_nativeapp/view/pages/trips/trips_list_page.dart';
 import 'package:trip_app_nativeapp/view/widgets/common/car_driving_loading.dart';
 import 'package:trip_app_nativeapp/view/widgets/common/error_cat.dart';
 import 'package:trip_app_nativeapp/view/widgets/trips/trip_belonging_list.dart';
@@ -14,7 +15,8 @@ import 'package:trip_app_nativeapp/view/widgets/trips/trip_schedule.dart';
 class TripDetailPage extends HookConsumerWidget {
   const TripDetailPage(this.id, {super.key});
 
-  static const path = ':id';
+  static String path({required int id}) => '${TripListPage.path}/$id';
+  static const pathParam = ':id';
   static const scheduleTabIndex = 0;
   final int id;
 
