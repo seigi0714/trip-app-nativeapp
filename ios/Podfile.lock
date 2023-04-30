@@ -8,24 +8,24 @@ PODS:
   - connectivity_plus (0.0.1):
     - Flutter
     - ReachabilitySwift
-  - Firebase/Auth (10.6.0):
+  - Firebase/Auth (10.7.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 10.6.0)
-  - Firebase/CoreOnly (10.6.0):
-    - FirebaseCore (= 10.6.0)
-  - firebase_auth (4.3.0):
-    - Firebase/Auth (= 10.6.0)
+    - FirebaseAuth (~> 10.7.0)
+  - Firebase/CoreOnly (10.7.0):
+    - FirebaseCore (= 10.7.0)
+  - firebase_auth (4.4.2):
+    - Firebase/Auth (= 10.7.0)
     - firebase_core
     - Flutter
-  - firebase_core (2.8.0):
-    - Firebase/CoreOnly (= 10.6.0)
+  - firebase_core (2.10.0):
+    - Firebase/CoreOnly (= 10.7.0)
     - Flutter
-  - FirebaseAuth (10.6.0):
+  - FirebaseAuth (10.7.0):
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
     - GoogleUtilities/Environment (~> 7.8)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
-  - FirebaseCore (10.6.0):
+  - FirebaseCore (10.7.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/Logger (~> 7.8)
@@ -119,11 +119,11 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AppAuth: e48b432bb4ba88b10cb2bcc50d7f3af21e78b9c2
   connectivity_plus: 413a8857dd5d9f1c399a39130850d02fe0feaf7e
-  Firebase: f13680471b021937f2230ea8503c7809d8c29806
-  firebase_auth: aa94601a07cad33a3f95c8c1ce8ba86d00ca3d9a
-  firebase_core: 58542d7399889ebdbb034baa72d081e54c5c814d
-  FirebaseAuth: 743e5cd568af59d6d99a91ea9300843672515cf7
-  FirebaseCore: fa80ad16a62d52f67274b5b88304c3a318bbf9a4
+  Firebase: 0219acf760880eeec8ce479895bd7767466d9f81
+  firebase_auth: 98778cde4127b34d2d006f8bd049d3a8131f37bd
+  firebase_core: 18d44f087248303a4a8f05d0099a000c46e3c77a
+  FirebaseAuth: dd64c01631df724b09f33e584625775c52f7d71f
+  FirebaseCore: e317665b9d744727a97e623edbbed009320afdd7
   FirebaseCoreInternal: d2b4acb827908e72eca47a9fd896767c3053921e
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_line_sdk: ec4b8b8ea31a7a373e3e2f7c11f46ad0f3c6135a
