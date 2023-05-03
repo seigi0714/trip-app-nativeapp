@@ -25,7 +25,7 @@ mixin _$TripBelonging {
             bool isShareAmongMember)
         createNewTripBelonging,
     required TResult Function(int id, TripBelongingName name,
-            TripBelongingNum numOf, bool isShareAmongMember)
+            TripBelongingNum numOf, bool isShareAmongMember, bool isChecked)
         createAddedTripBelonging,
   }) =>
       throw _privateConstructorUsedError;
@@ -35,7 +35,7 @@ mixin _$TripBelonging {
             bool isShareAmongMember)?
         createNewTripBelonging,
     TResult? Function(int id, TripBelongingName name, TripBelongingNum numOf,
-            bool isShareAmongMember)?
+            bool isShareAmongMember, bool isChecked)?
         createAddedTripBelonging,
   }) =>
       throw _privateConstructorUsedError;
@@ -45,7 +45,7 @@ mixin _$TripBelonging {
             bool isShareAmongMember)?
         createNewTripBelonging,
     TResult Function(int id, TripBelongingName name, TripBelongingNum numOf,
-            bool isShareAmongMember)?
+            bool isShareAmongMember, bool isChecked)?
         createAddedTripBelonging,
     required TResult orElse(),
   }) =>
@@ -113,7 +113,7 @@ class _$NewTripBelonging implements NewTripBelonging {
             bool isShareAmongMember)
         createNewTripBelonging,
     required TResult Function(int id, TripBelongingName name,
-            TripBelongingNum numOf, bool isShareAmongMember)
+            TripBelongingNum numOf, bool isShareAmongMember, bool isChecked)
         createAddedTripBelonging,
   }) {
     return createNewTripBelonging(name, numOf, isShareAmongMember);
@@ -126,7 +126,7 @@ class _$NewTripBelonging implements NewTripBelonging {
             bool isShareAmongMember)?
         createNewTripBelonging,
     TResult? Function(int id, TripBelongingName name, TripBelongingNum numOf,
-            bool isShareAmongMember)?
+            bool isShareAmongMember, bool isChecked)?
         createAddedTripBelonging,
   }) {
     return createNewTripBelonging?.call(name, numOf, isShareAmongMember);
@@ -139,7 +139,7 @@ class _$NewTripBelonging implements NewTripBelonging {
             bool isShareAmongMember)?
         createNewTripBelonging,
     TResult Function(int id, TripBelongingName name, TripBelongingNum numOf,
-            bool isShareAmongMember)?
+            bool isShareAmongMember, bool isChecked)?
         createAddedTripBelonging,
     required TResult orElse(),
   }) {
@@ -203,7 +203,8 @@ class _$AddedTripBelonging implements AddedTripBelonging {
       {required this.id,
       required this.name,
       required this.numOf,
-      required this.isShareAmongMember});
+      required this.isShareAmongMember,
+      required this.isChecked});
 
   @override
   final int id;
@@ -213,10 +214,12 @@ class _$AddedTripBelonging implements AddedTripBelonging {
   final TripBelongingNum numOf;
   @override
   final bool isShareAmongMember;
+  @override
+  final bool isChecked;
 
   @override
   String toString() {
-    return 'TripBelonging.createAddedTripBelonging(id: $id, name: $name, numOf: $numOf, isShareAmongMember: $isShareAmongMember)';
+    return 'TripBelonging.createAddedTripBelonging(id: $id, name: $name, numOf: $numOf, isShareAmongMember: $isShareAmongMember, isChecked: $isChecked)';
   }
 
   @override
@@ -228,12 +231,14 @@ class _$AddedTripBelonging implements AddedTripBelonging {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.numOf, numOf) || other.numOf == numOf) &&
             (identical(other.isShareAmongMember, isShareAmongMember) ||
-                other.isShareAmongMember == isShareAmongMember));
+                other.isShareAmongMember == isShareAmongMember) &&
+            (identical(other.isChecked, isChecked) ||
+                other.isChecked == isChecked));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, name, numOf, isShareAmongMember);
+      Object.hash(runtimeType, id, name, numOf, isShareAmongMember, isChecked);
 
   @override
   @optionalTypeArgs
@@ -242,10 +247,11 @@ class _$AddedTripBelonging implements AddedTripBelonging {
             bool isShareAmongMember)
         createNewTripBelonging,
     required TResult Function(int id, TripBelongingName name,
-            TripBelongingNum numOf, bool isShareAmongMember)
+            TripBelongingNum numOf, bool isShareAmongMember, bool isChecked)
         createAddedTripBelonging,
   }) {
-    return createAddedTripBelonging(id, name, numOf, isShareAmongMember);
+    return createAddedTripBelonging(
+        id, name, numOf, isShareAmongMember, isChecked);
   }
 
   @override
@@ -255,10 +261,11 @@ class _$AddedTripBelonging implements AddedTripBelonging {
             bool isShareAmongMember)?
         createNewTripBelonging,
     TResult? Function(int id, TripBelongingName name, TripBelongingNum numOf,
-            bool isShareAmongMember)?
+            bool isShareAmongMember, bool isChecked)?
         createAddedTripBelonging,
   }) {
-    return createAddedTripBelonging?.call(id, name, numOf, isShareAmongMember);
+    return createAddedTripBelonging?.call(
+        id, name, numOf, isShareAmongMember, isChecked);
   }
 
   @override
@@ -268,12 +275,13 @@ class _$AddedTripBelonging implements AddedTripBelonging {
             bool isShareAmongMember)?
         createNewTripBelonging,
     TResult Function(int id, TripBelongingName name, TripBelongingNum numOf,
-            bool isShareAmongMember)?
+            bool isShareAmongMember, bool isChecked)?
         createAddedTripBelonging,
     required TResult orElse(),
   }) {
     if (createAddedTripBelonging != null) {
-      return createAddedTripBelonging(id, name, numOf, isShareAmongMember);
+      return createAddedTripBelonging(
+          id, name, numOf, isShareAmongMember, isChecked);
     }
     return orElse();
   }
@@ -316,7 +324,8 @@ abstract class AddedTripBelonging implements TripBelonging {
       {required final int id,
       required final TripBelongingName name,
       required final TripBelongingNum numOf,
-      required final bool isShareAmongMember}) = _$AddedTripBelonging;
+      required final bool isShareAmongMember,
+      required final bool isChecked}) = _$AddedTripBelonging;
 
   int get id;
   @override
@@ -325,4 +334,5 @@ abstract class AddedTripBelonging implements TripBelonging {
   TripBelongingNum get numOf;
   @override
   bool get isShareAmongMember;
+  bool get isChecked;
 }

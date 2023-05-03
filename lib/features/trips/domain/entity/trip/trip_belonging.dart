@@ -19,5 +19,6 @@ class TripBelonging with _$TripBelonging {
     required TripBelongingName name,
     required TripBelongingNum numOf,
     required bool isShareAmongMember,
+    required bool isChecked,
   }) = AddedTripBelonging;
 }
