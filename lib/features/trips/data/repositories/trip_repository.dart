@@ -178,7 +178,7 @@ class TripRepository implements TripRepositoryInterface {
   }
 
   @override
-  Future<List<AddedTripBelonging>> getTripBelongings(int tripId) async {
+  Future<List<AddedTripBelonging>> fetchTripBelongings(int tripId) async {
     final res = await privateV1Client.get('$_basePath/$tripId/belongings');
     log(res.data.toString());
 

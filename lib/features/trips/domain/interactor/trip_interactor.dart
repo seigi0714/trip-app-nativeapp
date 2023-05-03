@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/features/trips/data/repositories/trip_repository.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_belonging.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_num.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_period.dart';
@@ -54,4 +55,7 @@ class TripInteractor {
 
   Future<List<ExistingTrip>> fetchTripsByUserId(int userId) =>
       tripRepo.fetchTripsByUserId(userId);
+
+  Future<List<AddedTripBelonging>> fetchTripBelongings(int tripId) =>
+      tripRepo.fetchTripBelongings(tripId);
 }
