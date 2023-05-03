@@ -1,7 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_belonging.dart';
-import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_belonging_name.dart';
-import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_belonging_num.dart';
 
 part 'trip_belonging_response.freezed.dart';
 part 'trip_belonging_response.g.dart';
