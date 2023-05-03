@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
@@ -171,6 +173,30 @@ class TripRepository implements TripRepositoryInterface {
       name: belongingName,
       numOf: belongingNum,
       isShareAmongMember: belongingRes.isShareAmongMember,
+      isChecked: false,
     ) as AddedTripBelonging;
+  }
+
+  @override
+  Future<List<AddedTripBelonging>> getTripBelongings(int tripId) async {
+    final res = await privateV1Client.get('$_basePath/$tripId/belongings');
+    log(res.data.toString());
+
+    return [
+      TripBelonging.createAddedTripBelonging(
+        id: 1,
+        name: TripBelongingName(value: '持ち物1'),
+        numOf: TripBelongingNum(value: 2),
+        isShareAmongMember: true,
+        isChecked: false,
+      ) as AddedTripBelonging,
+      TripBelonging.createAddedTripBelonging(
+        id: 2,
+        name: TripBelongingName(value: '持ち物2'),
+        numOf: TripBelongingNum(value: 3),
+        isShareAmongMember: true,
+        isChecked: false,
+      ) as AddedTripBelonging
+    ];
   }
 }
