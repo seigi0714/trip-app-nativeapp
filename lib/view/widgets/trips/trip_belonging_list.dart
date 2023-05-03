@@ -12,7 +12,7 @@ class TripBelongingList extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref
-        .watch(tripBelongingsAsyncControllerProvider(tripId: tripId))
+        .watch(tripBelongingsControllerProvider(tripId: tripId))
         .when(
           data: (belongings) {
             return Column(

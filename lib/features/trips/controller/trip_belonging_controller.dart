@@ -5,7 +5,7 @@ import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interac
 part 'trip_belonging_controller.g.dart';
 
 @riverpod
-class TripBelongingsAsyncController extends _$TripBelongingsAsyncController {
+class TripBelongingsController extends _$TripBelongingsController {
   @override
   FutureOr<List<AddedTripBelonging>> build({required int tripId}) async {
     return ref
