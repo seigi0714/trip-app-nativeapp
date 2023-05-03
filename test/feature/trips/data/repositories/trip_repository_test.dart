@@ -327,6 +327,7 @@ Future<void> main() async {
       name: TripBelongingName(value: validBelongingName),
       numOf: TripBelongingNum(value: validBelongingNumOf),
       isShareAmongMember: true,
+      isChecked: false,
     ) as AddedTripBelonging;
     test('正常系', () async {
       when(
@@ -370,6 +371,75 @@ Future<void> main() async {
         providerContainer
             .read(tripRepositoryProvider)
             .addTripBelonging(validTripId, validBelonging),
+        throwsA(isA<Exception>()),
+      );
+    });
+  });
+
+  group('fetchTripBelongings', () {
+    const validTripId = 1;
+    const validBelongingId = 99;
+    const validBelongingName = '持ち物１';
+    const validBelongingNumOf = 10;
+    const validBelonging2Id = 9999;
+    const validBelonging2Name = '持ち物2';
+    const validBelonging2NumOf = 5;
+
+    final validResult = [
+      TripBelonging.createAddedTripBelonging(
+        id: validBelongingId,
+        name: TripBelongingName(value: validBelongingName),
+        numOf: TripBelongingNum(value: validBelongingNumOf),
+        isShareAmongMember: true,
+        isChecked: false,
+      ) as AddedTripBelonging,
+      TripBelonging.createAddedTripBelonging(
+        id: validBelonging2Id,
+        name: TripBelongingName(value: validBelonging2Name),
+        numOf: TripBelongingNum(value: validBelonging2NumOf),
+        isShareAmongMember: true,
+        isChecked: true,
+      ) as AddedTripBelonging,
+    ];
+    test('正常系', () async {
+      when(
+        mockApiClient.get('/trips/$validTripId/belongings'),
+      ).thenAnswer((_) async {
+        return const ApiResponse(
+          data: {
+            'items': [
+              {
+                'id': validBelongingId,
+                'name': validBelongingName,
+                'num_of': validBelongingNumOf,
+                'is_share_among_member': true,
+              },
+              {
+                'id': validBelonging2Id,
+                'name': validBelonging2Name,
+                'num_of': validBelonging2NumOf,
+                'is_share_among_member': true,
+                'is_checked': true,
+              },
+            ]
+          },
+        );
+      });
+
+      final result = await providerContainer
+          .read(tripRepositoryProvider)
+          .fetchTripBelongings(validTripId);
+      expect(result, validResult);
+    });
+    test('準正常系 持ち物追加に失敗すると例外を返却', () async {
+      when(
+        mockApiClient.get('/trips/$validTripId/belongings'),
+      ).thenThrow(unexpectedException);
+
+      await expectLater(
+        providerContainer
+            .read(tripRepositoryProvider)
+            .fetchTripBelongings(validTripId),
         throwsA(isA<Exception>()),
       );
     });

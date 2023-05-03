@@ -25,4 +25,9 @@ abstract class TripRepositoryInterface {
     int tripId,
     NewTripBelonging belonging,
   );
+
+  /// 持ち物一覧取得
+  Future<List<AddedTripBelonging>> fetchTripBelongings(
+    int tripId,
+  );
 }

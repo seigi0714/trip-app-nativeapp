@@ -2,11 +2,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
-import 'package:trip_app_nativeapp/features/trips/data/models/add_trip_belonging_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/create_trip_response.dart';
+import 'package:trip_app_nativeapp/features/trips/data/models/fetch_trip_belongings_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/fetch_trips_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/get_trip_invitation_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/invite_trip_response.dart';
+import 'package:trip_app_nativeapp/features/trips/data/models/trip_belonging_response.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_belonging.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart';
@@ -162,15 +163,30 @@ class TripRepository implements TripRepositoryInterface {
       data: bodyMap,
     );
 
-    final belongingRes = AddTripBelongingResponse.fromJson(res.data);
-    final belongingNum = TripBelongingNum(value: belongingRes.numOf);
-    final belongingName = TripBelongingName(value: belongingRes.name);
+    final belongingRes = TripBelongingResponse.fromJson(res.data);
 
     return TripBelonging.createAddedTripBelonging(
       id: belongingRes.id,
-      name: belongingName,
-      numOf: belongingNum,
+      name: TripBelongingName(value: belongingRes.name),
+      numOf: TripBelongingNum(value: belongingRes.numOf),
       isShareAmongMember: belongingRes.isShareAmongMember,
+      isChecked: belongingRes.isChecked ?? false,
     ) as AddedTripBelonging;
+  }
+
+  @override
+  Future<List<AddedTripBelonging>> fetchTripBelongings(int tripId) async {
+    final res = await privateV1Client.get('$_basePath/$tripId/belongings');
+    final belongingRes = FetchTripBelongingsResponse.fromJson(res.data);
+
+    return belongingRes.items.map((item) {
+      return TripBelonging.createAddedTripBelonging(
+        id: item.id,
+        name: TripBelongingName(value: item.name),
+        numOf: TripBelongingNum(value: item.numOf),
+        isShareAmongMember: item.isShareAmongMember,
+        isChecked: item.isChecked ?? false,
+      ) as AddedTripBelonging;
+    }).toList();
   }
 }
