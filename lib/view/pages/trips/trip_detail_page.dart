@@ -52,8 +52,8 @@ class TripDetailPage extends HookConsumerWidget {
                           trip.title.value,
                           style: context.textTheme.titleLarge,
                         ),
-                        expandedHeight:
-                            backgroundImageHeight + TripOverviewCard.height / 2,
+                        expandedHeight: backgroundImageHeight +
+                            TripOverviewCard.height / 2,
                         flexibleSpace: FlexibleSpaceBar(
                           background: SizedBox(
                             height: backgroundImageHeight +
@@ -109,7 +109,7 @@ class TripDetailPage extends HookConsumerWidget {
                   },
                   body: tabIndex.value == scheduleTabIndex
                       ? const TripSchedule()
-                      : const TripBelongingList(),
+                      : TripBelongingList(id),
                 );
               },
               error: ErrorCat.new,
