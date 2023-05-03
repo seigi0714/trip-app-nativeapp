@@ -327,6 +327,7 @@ Future<void> main() async {
       name: TripBelongingName(value: validBelongingName),
       numOf: TripBelongingNum(value: validBelongingNumOf),
       isShareAmongMember: true,
+      isChecked: false,
     ) as AddedTripBelonging;
     test('正常系', () async {
       when(
