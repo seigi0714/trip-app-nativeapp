@@ -8,8 +8,8 @@ part of 'trip_belonging_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tripBelongingsAsyncControllerHash() =>
-    r'48bd343764685fc0707c2effe0401471332d8d65';
+String _$tripBelongingsControllerHash() =>
+    r'bb340cfbecab66b713ca8b66f610a42da36ef23b';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -32,7 +32,7 @@ class _SystemHash {
   }
 }
 
-abstract class _$TripBelongingsAsyncController
+abstract class _$TripBelongingsController
     extends BuildlessAutoDisposeAsyncNotifier<List<AddedTripBelonging>> {
   late final int tripId;
 
@@ -41,29 +41,28 @@ abstract class _$TripBelongingsAsyncController
   });
 }
 
-/// See also [TripBelongingsAsyncController].
-@ProviderFor(TripBelongingsAsyncController)
-const tripBelongingsAsyncControllerProvider =
-    TripBelongingsAsyncControllerFamily();
+/// See also [TripBelongingsController].
+@ProviderFor(TripBelongingsController)
+const tripBelongingsControllerProvider = TripBelongingsControllerFamily();
 
-/// See also [TripBelongingsAsyncController].
-class TripBelongingsAsyncControllerFamily
+/// See also [TripBelongingsController].
+class TripBelongingsControllerFamily
     extends Family<AsyncValue<List<AddedTripBelonging>>> {
-  /// See also [TripBelongingsAsyncController].
-  const TripBelongingsAsyncControllerFamily();
+  /// See also [TripBelongingsController].
+  const TripBelongingsControllerFamily();
 
-  /// See also [TripBelongingsAsyncController].
-  TripBelongingsAsyncControllerProvider call({
+  /// See also [TripBelongingsController].
+  TripBelongingsControllerProvider call({
     required int tripId,
   }) {
-    return TripBelongingsAsyncControllerProvider(
+    return TripBelongingsControllerProvider(
       tripId: tripId,
     );
   }
 
   @override
-  TripBelongingsAsyncControllerProvider getProviderOverride(
-    covariant TripBelongingsAsyncControllerProvider provider,
+  TripBelongingsControllerProvider getProviderOverride(
+    covariant TripBelongingsControllerProvider provider,
   ) {
     return call(
       tripId: provider.tripId,
@@ -82,35 +81,34 @@ class TripBelongingsAsyncControllerFamily
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'tripBelongingsAsyncControllerProvider';
+  String? get name => r'tripBelongingsControllerProvider';
 }
 
-/// See also [TripBelongingsAsyncController].
-class TripBelongingsAsyncControllerProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<TripBelongingsAsyncController,
+/// See also [TripBelongingsController].
+class TripBelongingsControllerProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<TripBelongingsController,
         List<AddedTripBelonging>> {
-  /// See also [TripBelongingsAsyncController].
-  TripBelongingsAsyncControllerProvider({
+  /// See also [TripBelongingsController].
+  TripBelongingsControllerProvider({
     required this.tripId,
   }) : super.internal(
-          () => TripBelongingsAsyncController()..tripId = tripId,
-          from: tripBelongingsAsyncControllerProvider,
-          name: r'tripBelongingsAsyncControllerProvider',
+          () => TripBelongingsController()..tripId = tripId,
+          from: tripBelongingsControllerProvider,
+          name: r'tripBelongingsControllerProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$tripBelongingsAsyncControllerHash,
-          dependencies: TripBelongingsAsyncControllerFamily._dependencies,
+                  : _$tripBelongingsControllerHash,
+          dependencies: TripBelongingsControllerFamily._dependencies,
           allTransitiveDependencies:
-              TripBelongingsAsyncControllerFamily._allTransitiveDependencies,
+              TripBelongingsControllerFamily._allTransitiveDependencies,
         );
 
   final int tripId;
 
   @override
   bool operator ==(Object other) {
-    return other is TripBelongingsAsyncControllerProvider &&
-        other.tripId == tripId;
+    return other is TripBelongingsControllerProvider && other.tripId == tripId;
   }
 
   @override
@@ -123,7 +121,7 @@ class TripBelongingsAsyncControllerProvider
 
   @override
   FutureOr<List<AddedTripBelonging>> runNotifierBuild(
-    covariant TripBelongingsAsyncController notifier,
+    covariant TripBelongingsController notifier,
   ) {
     return notifier.build(
       tripId: tripId,
