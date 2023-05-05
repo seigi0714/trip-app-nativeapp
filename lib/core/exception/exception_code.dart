@@ -7,4 +7,9 @@ class ExceptionCode {
       'invalid_trip_invitation_status';
   static const String invalidTripBelongingName = 'invalid_trip_belonging_name';
   static const String invalidTripBelongingNum = 'invalid_trip_belonging_num';
+  // API error code
+  static const String invalidEntityValue = 'invalid_entity_value';
+  static const String invalidBase64Value = 'invalid_base64_value';
+  static const String inviteNumReachedLimit = 'invite_num_reached_limit';
+  static const String invitationExpired = 'invitation_expired';
 }

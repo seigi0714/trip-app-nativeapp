@@ -1,4 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_app_nativeapp/core/exception/api_exception.dart';
+import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
+import 'package:trip_app_nativeapp/core/exception/exception_code.dart';
 import 'package:trip_app_nativeapp/features/trips/data/repositories/trip_repository.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_belonging.dart';
@@ -42,11 +45,23 @@ class TripInteractor {
   Future<GeneratedTripInvitation> invite({
     required int tripId,
   }) async {
-    final invitation = TripInvitation.createNewTripInvitation(
-      tripId: tripId,
-      invitationNum: TripInvitationNum(),
-    ) as NewTripInvitation;
-    return tripRepo.invite(invitation);
+    try {
+      final invitation = TripInvitation.createNewTripInvitation(
+        tripId: tripId,
+        invitationNum: TripInvitationNum(),
+      ) as NewTripInvitation;
+      return tripRepo.invite(invitation);
+    } on ApiException catch (e) {
+      if (e.errorCode == ExceptionCode.invalidBase64Value ||
+          e.errorCode == ExceptionCode.invalidEntityValue) {
+        throw const InvalidInvitationCodeException();
+      } else if (e.errorCode == ExceptionCode.inviteNumReachedLimit) {
+        throw const InviteesReachedLimitException();
+      } else if (e.errorCode == ExceptionCode.invitationExpired) {
+        throw const InvitationExpiredException();
+      }
+      rethrow;
+    }
   }
 
   Future<List<ExistingTrip>> fetchTripsByUserId(int userId) =>
