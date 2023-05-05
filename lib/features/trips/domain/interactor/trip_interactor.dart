@@ -3,6 +3,8 @@ import 'package:trip_app_nativeapp/features/trips/data/repositories/trip_reposit
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_belonging.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_belonging_name.dart';
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_belonging_num.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_invitation_num.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_period.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_title.dart';
@@ -55,6 +57,21 @@ class TripInteractor {
 
   Future<List<ExistingTrip>> fetchTripsByUserId(int userId) =>
       tripRepo.fetchTripsByUserId(userId);
+
+  Future<AddedTripBelonging> addTripBelonging({
+    required int tripId,
+    required String name,
+    required int numOf,
+    required bool isShareAmongMember,
+  }) {
+    final belonging = TripBelonging.createNewTripBelonging(
+     name: TripBelongingName(value: name),
+      numOf: TripBelongingNum(value: numOf),
+      isShareAmongMember: isShareAmongMember,
+    ) as NewTripBelonging;
+
+    return tripRepo.addTripBelonging(tripId, belonging);
+  }
 
   Future<List<AddedTripBelonging>> fetchTripBelongings(int tripId) =>
       tripRepo.fetchTripBelongings(tripId);

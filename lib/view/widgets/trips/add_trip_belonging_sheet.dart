@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
+import 'package:trip_app_nativeapp/features/trips/controller/trip_belonging_controller.dart';
 
 class AddTripBelongingSheet extends HookConsumerWidget {
   const AddTripBelongingSheet(this.tripId, {super.key});
@@ -49,6 +48,7 @@ class AddTripBelongingSheet extends HookConsumerWidget {
           ),
           _IsShareCheckBoxRow(isShareAmongMember: isShareAmongMember),
           _CreateButton(
+            tripId: tripId,
             titleEditingController: titleEditingController,
             numOfEditingController: numOfEditingController,
             isTitleEmpty: isTitleEmpty,
@@ -166,6 +166,7 @@ class _IsShareCheckBoxRow extends HookWidget {
 
 class _CreateButton extends ConsumerWidget {
   const _CreateButton({
+    required this.tripId,
     required this.titleEditingController,
     required this.numOfEditingController,
     required this.isTitleEmpty,
@@ -173,6 +174,7 @@ class _CreateButton extends ConsumerWidget {
     required this.isShareAmongMember,
   });
 
+  final int tripId;
   final TextEditingController titleEditingController;
   final TextEditingController numOfEditingController;
   final ValueNotifier<bool> isTitleEmpty;
@@ -187,7 +189,17 @@ class _CreateButton extends ConsumerWidget {
         onPressed: isTitleEmpty.value || isNumOfEmpty.value
             ? null
             : () {
-                log(titleEditingController.text);
+                ref
+                    .read(
+                      tripBelongingsControllerProvider(tripId: tripId).notifier,
+                    )
+                    .addBelonging(
+                      tripId: tripId,
+                      name: titleEditingController.text,
+                      numOf: int.parse(numOfEditingController.text),
+                      isShareAmongMember: isShareAmongMember.value,
+                      onSuccess: () => Navigator.pop(context),
+                    );
               },
         child: const Text('作成'),
       ),
