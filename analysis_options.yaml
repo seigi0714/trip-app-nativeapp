@@ -5,7 +5,7 @@ analyzer:
     - custom_lint
   exclude:
     - 'lib/env/env.dart'
-    - 'lib/firebase_options.dart'
+    - 'lib/core/firebase_options.dart'
   errors:
     public_member_api_docs: ignore
     one_member_abstracts: ignore
