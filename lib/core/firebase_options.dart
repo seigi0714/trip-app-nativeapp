@@ -25,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -36,7 +39,6 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions have not been configured for linux - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
-      // ignore: no_default_cases
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -64,23 +66,14 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAKoxY3_D8xhSfQn0an3ClIuRfd599dakA',
-    appId: '1:274154645467:ios:4b2681de234aa7a420a9fe',
+    appId: '1:274154645467:ios:79c45384908764cb20a9fe',
     messagingSenderId: '274154645467',
     projectId: 'trip-app-dev',
     storageBucket: 'trip-app-dev.appspot.com',
+    androidClientId:
+        '274154645467-p34l37fbu6m8t1dbamq1q0mfd5m69627.apps.googleusercontent.com',
     iosClientId:
-        '274154645467-9eacjmei6kajirgfad6lbac6ri186lm4.apps.googleusercontent.com',
-    iosBundleId: 'com.seigiruka.tripAppNativeapp',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAKoxY3_D8xhSfQn0an3ClIuRfd599dakA',
-    appId: '1:274154645467:ios:4b2681de234aa7a420a9fe',
-    messagingSenderId: '274154645467',
-    projectId: 'trip-app-dev',
-    storageBucket: 'trip-app-dev.appspot.com',
-    iosClientId:
-        '274154645467-9eacjmei6kajirgfad6lbac6ri186lm4.apps.googleusercontent.com',
-    iosBundleId: 'com.seigiruka.tripAppNativeapp',
+        '274154645467-shdsfi756l8mtds2fgdu3dm2j4n5pqu8.apps.googleusercontent.com',
+    iosBundleId: 'com.seigiruka.tripapp',
   );
 }
