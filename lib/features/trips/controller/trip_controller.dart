@@ -57,14 +57,12 @@ class TripController {
 
   Future<void> generateAndCopyInviteLink({
     required int tripId,
-    required int invitationNum,
   }) async {
     const successMessage = '招待リンクをクリップボードにコピーしました。';
     try {
       _ref.read(overlayLoadingProvider.notifier).startLoading();
-      final invitation = await _ref
-          .read(tripInteractorProvider)
-          .invite(tripId: tripId, invitationNum: invitationNum);
+      final invitation =
+          await _ref.read(tripInteractorProvider).invite(tripId: tripId);
 
       // TODO(seigi0714): ダイナミックリンクをクリップボードにコピー
       final data = ClipboardData(text: invitation.invitationCode);

@@ -41,16 +41,12 @@ class TripInteractor {
 
   Future<GeneratedTripInvitation> invite({
     required int tripId,
-    required int invitationNum,
   }) async {
-    final tripInvitationNum = TripInvitationNum(value: invitationNum);
     final invitation = TripInvitation.createNewTripInvitation(
       tripId: tripId,
-      invitationNum: tripInvitationNum,
+      invitationNum: TripInvitationNum(),
     ) as NewTripInvitation;
-
-    final result = await tripRepo.invite(invitation);
-    return result;
+    return tripRepo.invite(invitation);
   }
 
   Future<List<ExistingTrip>> fetchTripsByUserId(int userId) =>

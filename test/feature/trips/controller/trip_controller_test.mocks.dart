@@ -85,18 +85,12 @@ class MockTripInteractor extends _i1.Mock implements _i4.TripInteractor {
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
-  _i5.Future<_i3.GeneratedTripInvitation> invite({
-    required int? tripId,
-    required int? invitationNum,
-  }) =>
+  _i5.Future<_i3.GeneratedTripInvitation> invite({required int? tripId}) =>
       (super.noSuchMethod(
         Invocation.method(
           #invite,
           [],
-          {
-            #tripId: tripId,
-            #invitationNum: invitationNum,
-          },
+          {#tripId: tripId},
         ),
         returnValue: _i5.Future<_i3.GeneratedTripInvitation>.value(
             _FakeGeneratedTripInvitation_1(
@@ -104,10 +98,7 @@ class MockTripInteractor extends _i1.Mock implements _i4.TripInteractor {
           Invocation.method(
             #invite,
             [],
-            {
-              #tripId: tripId,
-              #invitationNum: invitationNum,
-            },
+            {#tripId: tripId},
           ),
         )),
       ) as _i5.Future<_i3.GeneratedTripInvitation>);
