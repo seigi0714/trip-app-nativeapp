@@ -198,7 +198,7 @@ class _CreateButton extends ConsumerWidget {
                       name: titleEditingController.text,
                       numOf: int.parse(numOfEditingController.text),
                       isShareAmongMember: isShareAmongMember.value,
-                      onSuccess: () => Navigator.pop(context),
+                      onFinished: () => Navigator.pop(context),
                     );
               },
         child: const Text('作成'),

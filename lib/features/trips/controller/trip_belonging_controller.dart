@@ -18,7 +18,7 @@ class TripBelongingsController extends _$TripBelongingsController {
     required String name,
     required int numOf,
     required bool isShareAmongMember,
-    VoidCallback? onSuccess,
+    VoidCallback? onFinished,
   }) async {
     ref.read(overlayLoadingProvider.notifier).startLoading();
     state = await AsyncValue.guard(() async {
@@ -31,6 +31,6 @@ class TripBelongingsController extends _$TripBelongingsController {
       return [result, ...state.value ?? []];
     });
     ref.read(overlayLoadingProvider.notifier).endLoading();
-    onSuccess?.call();
+    onFinished?.call();
   }
 }
