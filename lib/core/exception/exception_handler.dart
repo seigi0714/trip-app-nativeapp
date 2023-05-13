@@ -6,6 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/constants/string.dart';
 import 'package:trip_app_nativeapp/core/exception/api_exception.dart';
 import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
+import 'package:trip_app_nativeapp/core/exception/exception_code.dart';
 import 'package:trip_app_nativeapp/features/auth/data/repositories/firebase_auth_repository.dart';
 import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart';
 
@@ -44,6 +45,21 @@ class ExceptionHandler {
   void _handleApiException(ApiException e) {
     if (e.statusCode == HttpStatus.unauthorized) {
       _ref.read(firebaseAuthProvider).signOut();
+    }
+  }
+
+  /// [ApiException]のエラーコードに応じた[AppException]のサブクラスを返す。
+  /// エラーコードに応じたサブクラスがない場合は、そのまま[ApiException]を返す。
+  Exception convertApiExceptionToAppException(ApiException e) {
+    if (e.errorCode == ExceptionCode.invalidBase64Value ||
+        e.errorCode == ExceptionCode.invalidEntityValue) {
+      return const InvalidInvitationCodeException();
+    } else if (e.errorCode == ExceptionCode.inviteNumReachedLimit) {
+      return const InviteesReachedLimitException();
+    } else if (e.errorCode == ExceptionCode.invitationExpired) {
+      return const InvitationExpiredException();
+    } else {
+      return e;
     }
   }
 }
