@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_app_nativeapp/core/dynamic_links/dynamic_link_service.dart';
 import 'package:trip_app_nativeapp/core/exception/api_exception.dart';
-import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
-import 'package:trip_app_nativeapp/core/exception/exception_code.dart';
+import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
 import 'package:trip_app_nativeapp/features/trips/data/repositories/trip_repository.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_belonging.dart';
@@ -17,15 +17,21 @@ part 'trip_interactor.g.dart';
 TripInteractor tripInteractor(TripInteractorRef ref) {
   return TripInteractor(
     tripRepo: ref.watch(tripRepositoryProvider),
+    dynamicLinksService: ref.watch(dynamicLinksServiceProvider),
+    exceptionHandler: ref.watch(exceptionHandlerProvider),
   );
 }
 
 class TripInteractor {
   TripInteractor({
     required this.tripRepo,
+    required this.dynamicLinksService,
+    required this.exceptionHandler,
   });
 
   final TripRepositoryInterface tripRepo;
+  final DynamicLinksService dynamicLinksService;
+  final ExceptionHandler exceptionHandler;
 
   Future<void> createTrip(
     String title,
@@ -42,7 +48,7 @@ class TripInteractor {
     await tripRepo.createTrip(trip);
   }
 
-  Future<GeneratedTripInvitation> invite({
+  Future<Uri> invite({
     required int tripId,
   }) async {
     try {
@@ -50,17 +56,10 @@ class TripInteractor {
         tripId: tripId,
         invitationNum: TripInvitationNum(),
       ) as NewTripInvitation;
-      return tripRepo.invite(invitation);
+      final res = await tripRepo.invite(invitation);
+      return dynamicLinksService.createInviteDynamicLink(res.invitationCode);
     } on ApiException catch (e) {
-      if (e.errorCode == ExceptionCode.invalidBase64Value ||
-          e.errorCode == ExceptionCode.invalidEntityValue) {
-        throw const InvalidInvitationCodeException();
-      } else if (e.errorCode == ExceptionCode.inviteNumReachedLimit) {
-        throw const InviteesReachedLimitException();
-      } else if (e.errorCode == ExceptionCode.invitationExpired) {
-        throw const InvitationExpiredException();
-      }
-      rethrow;
+      throw exceptionHandler.convertApiExceptionToAppException(e);
     }
   }
 

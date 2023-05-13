@@ -8,7 +8,7 @@ part of 'trip_interactor.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tripInteractorHash() => r'a652d163a62d0bf37feea5675ea5e67ddca1aa23';
+String _$tripInteractorHash() => r'9addce67a5da701c3609107abd7d053968a1f86a';
 
 /// See also [tripInteractor].
 @ProviderFor(tripInteractor)
