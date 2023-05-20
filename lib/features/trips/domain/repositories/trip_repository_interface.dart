@@ -30,4 +30,10 @@ abstract class TripRepositoryInterface {
   Future<List<AddedTripBelonging>> fetchTripBelongings(
     int tripId,
   );
+
+  /// 持ち物チェックステータスを変更
+  Future<bool> changeBelongingCheckStatus({
+    required int belongingId,
+    required bool isChecked,
+  });
 }
