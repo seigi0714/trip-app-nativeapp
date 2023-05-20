@@ -19,22 +19,21 @@ Future<void> main() async {
   final dioAdapter = DioAdapter(dio: dio);
 
   const testTripId = 1;
-  final testFetchBelongings = [
-    AddedTripBelonging(
-      id: 1,
-      name: TripBelongingName(value: '持ち物1'),
-      numOf: TripBelongingNum(value: 5),
-      isShareAmongMember: true,
-      isChecked: false,
-    ),
-    AddedTripBelonging(
-      id: 2,
-      name: TripBelongingName(value: '持ち物2'),
-      numOf: TripBelongingNum(value: 10),
-      isShareAmongMember: true,
-      isChecked: true,
-    ),
-  ];
+  final testBelonging1 = AddedTripBelonging(
+    id: 1,
+    name: TripBelongingName(value: '持ち物1'),
+    numOf: TripBelongingNum(value: 5),
+    isShareAmongMember: true,
+    isChecked: false,
+  );
+  final testBelonging2 = AddedTripBelonging(
+    id: 2,
+    name: TripBelongingName(value: '持ち物2'),
+    numOf: TripBelongingNum(value: 10),
+    isShareAmongMember: true,
+    isChecked: true,
+  );
+  final testFetchBelongings = [testBelonging1, testBelonging2];
 
   final testAddBelonging = AddedTripBelonging(
     id: 3,
@@ -132,6 +131,36 @@ Future<void> main() async {
         tripBelongingsControllerProvider(tripId: testTripId).future,
       );
       expect(result, [testAddBelonging, ...testFetchBelongings]);
+    });
+  });
+
+  group('changeCheckStatus', () {
+    test('正常系', () async {
+      dioAdapter.onPut(
+        '/trip_belongings/${testBelonging1.id}/check_status',
+        data: {'is_checked': true},
+        (server) => server.reply(
+          201,
+          <String, dynamic>{
+            'data': {
+              'is_checked': true,
+            },
+          },
+        ),
+      );
+      await providerContainer
+          .read(tripBelongingsControllerProvider(tripId: testTripId).notifier)
+          .changeCheckStatus(testBelonging1);
+      final result = await providerContainer.read(
+        tripBelongingsControllerProvider(tripId: testTripId).future,
+      );
+      expect(
+        result,
+        [
+          testBelonging1.copyWith(isChecked: true),
+          testBelonging2,
+        ],
+      );
     });
   });
 }

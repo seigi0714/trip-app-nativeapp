@@ -175,4 +175,23 @@ class MockTripInteractor extends _i1.Mock implements _i5.TripInteractor {
         returnValue: _i6.Future<List<_i4.AddedTripBelonging>>.value(
             <_i4.AddedTripBelonging>[]),
       ) as _i6.Future<List<_i4.AddedTripBelonging>>);
+  @override
+  _i6.Future<_i4.AddedTripBelonging> changeBelongingCheckStatus(
+          {required _i4.AddedTripBelonging? belonging}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #changeBelongingCheckStatus,
+          [],
+          {#belonging: belonging},
+        ),
+        returnValue:
+            _i6.Future<_i4.AddedTripBelonging>.value(_FakeAddedTripBelonging_2(
+          this,
+          Invocation.method(
+            #changeBelongingCheckStatus,
+            [],
+            {#belonging: belonging},
+          ),
+        )),
+      ) as _i6.Future<_i4.AddedTripBelonging>);
 }
