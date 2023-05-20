@@ -4,6 +4,7 @@ import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/features/trips/controller/trip_belonging_controller.dart';
 import 'package:trip_app_nativeapp/view/widgets/common/car_driving_loading.dart';
 import 'package:trip_app_nativeapp/view/widgets/common/error_cat.dart';
+import 'package:trip_app_nativeapp/view/widgets/trips/add_trip_belonging_sheet.dart';
 
 class TripBelongingList extends HookConsumerWidget {
   const TripBelongingList(this.tripId, {super.key});
@@ -11,9 +12,7 @@ class TripBelongingList extends HookConsumerWidget {
   final int tripId;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ref
-        .watch(tripBelongingsControllerProvider(tripId: tripId))
-        .when(
+    return ref.watch(tripBelongingsControllerProvider(tripId: tripId)).when(
           data: (belongings) {
             return Column(
               children: [
@@ -39,6 +38,17 @@ class TripBelongingList extends HookConsumerWidget {
                         ],
                       );
                     },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: FloatingActionButton(
+                    onPressed: () => showModalBottomSheet<void>(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (context) => AddTripBelongingSheet(tripId),
+                    ),
+                    child: const Icon(Icons.add, color: Colors.white),
                   ),
                 ),
               ],
