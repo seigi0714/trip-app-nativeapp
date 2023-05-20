@@ -23,4 +23,15 @@ abstract class AbstractApiClient {
     ProgressCallback onSendProgress,
     ProgressCallback onReceiveProgress,
   });
+
+  Future<ApiResponse> put(
+    String path, {
+    Map<String, dynamic> data,
+    Map<String, dynamic> queryParameters,
+    Map<String, dynamic> header,
+    Options options,
+    CancelToken cancelToken,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  });
 }
