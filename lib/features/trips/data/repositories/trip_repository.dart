@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
+import 'package:trip_app_nativeapp/features/trips/data/models/change_check_status_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/create_trip_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/fetch_trip_belongings_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/fetch_trips_response.dart';
@@ -38,6 +39,7 @@ class TripRepository implements TripRepositoryInterface {
   final AbstractApiClient privateV1Client;
   static const _basePath = '/trips';
   static const _invitationBasePath = '/trip_invitations';
+  static const _belongingBasePath = '/trip_belongings';
 
   @override
   Future<List<ExistingTrip>> fetchTripsByUserId(int userId) async {
@@ -188,5 +190,21 @@ class TripRepository implements TripRepositoryInterface {
         isChecked: item.isChecked ?? false,
       ) as AddedTripBelonging;
     }).toList();
+  }
+
+  @override
+  Future<bool> changeBelongingCheckStatus({
+    required int belongingId,
+    required bool isChecked,
+  }) async {
+    final res = await privateV1Client.put(
+      '$_belongingBasePath/$belongingId/check_status',
+      data: {
+        'is_checked': isChecked,
+      },
+    );
+
+    final changeStatusRes = ChangeCheckStatusResponse.fromJson(res.data);
+    return changeStatusRes.isChecked;
   }
 }

@@ -58,20 +58,7 @@ class ApiClient implements AbstractApiClient {
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
       );
-      final responseData = response.data;
-      final statusCode = response.statusCode;
-      if (responseData == null || statusCode == null) {
-        throw const ApiException(statusCode: 500);
-      }
-      if (statusCode >= 400 && statusCode < 600) {
-        final errorResponse = ErrorResponse.fromJson(responseData);
-        throw ApiException(
-          statusCode: statusCode,
-          errorCode: errorResponse.errorCode,
-          description: errorResponse.description,
-        );
-      }
-      return ApiResponse.fromJson(responseData);
+      return _toApiResponse(response);
     } on DioError catch (e) {
       final exception = _handleDioError(e);
       throw exception;
@@ -99,24 +86,56 @@ class ApiClient implements AbstractApiClient {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-      final responseData = response.data;
-      final statusCode = response.statusCode;
-      if (responseData == null || statusCode == null) {
-        throw const ApiException(statusCode: 500);
-      }
-      if (statusCode >= 400 && statusCode < 600) {
-        final errorResponse = ErrorResponse.fromJson(responseData);
-        throw ApiException(
-          statusCode: statusCode,
-          errorCode: errorResponse.errorCode,
-          description: errorResponse.description,
-        );
-      }
-      return ApiResponse.fromJson(responseData);
+      return _toApiResponse(response);
     } on DioError catch (e) {
       final exception = _handleDioError(e);
       throw exception;
     }
+  }
+
+  @override
+  Future<ApiResponse> put(
+    String path, {
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? header,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    try {
+      final response = await _dio.put<Json>(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options ?? Options(headers: header),
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      );
+      return _toApiResponse(response);
+    } on DioError catch (e) {
+      final exception = _handleDioError(e);
+      throw exception;
+    }
+  }
+
+  ApiResponse _toApiResponse(Response<Map<String, dynamic>> res) {
+    final responseData = res.data;
+    final statusCode = res.statusCode;
+    if (responseData == null || statusCode == null) {
+      throw const ApiException(statusCode: 500);
+    }
+    if (statusCode >= 400 && statusCode < 600) {
+      final errorResponse = ErrorResponse.fromJson(responseData);
+      throw ApiException(
+        statusCode: statusCode,
+        errorCode: errorResponse.errorCode,
+        description: errorResponse.description,
+      );
+    }
+    return ApiResponse.fromJson(responseData);
   }
 
   /// DioError を受けて [ApiException] もしくはそのサブクラスを返す。
