@@ -9,7 +9,7 @@ part of 'trip_belonging_controller.dart';
 // **************************************************************************
 
 String _$tripBelongingsControllerHash() =>
-    r'bb340cfbecab66b713ca8b66f610a42da36ef23b';
+    r'a60704a08ad5243284142df6a152e13131eafb9e';
 
 /// Copied from Dart SDK
 class _SystemHash {

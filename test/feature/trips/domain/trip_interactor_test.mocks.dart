@@ -191,4 +191,20 @@ class MockTripRepository extends _i1.Mock implements _i6.TripRepository {
         returnValue: _i7.Future<List<_i5.AddedTripBelonging>>.value(
             <_i5.AddedTripBelonging>[]),
       ) as _i7.Future<List<_i5.AddedTripBelonging>>);
+  @override
+  _i7.Future<bool> changeBelongingCheckStatus({
+    required int? belongingId,
+    required bool? isChecked,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #changeBelongingCheckStatus,
+          [],
+          {
+            #belongingId: belongingId,
+            #isChecked: isChecked,
+          },
+        ),
+        returnValue: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
 }

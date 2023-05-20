@@ -444,4 +444,53 @@ Future<void> main() async {
       );
     });
   });
+
+  group('changeBelongingCheckStatus', () {
+    const validBelongingId = 99;
+    test('正常系', () async {
+      when(
+        mockApiClient.put(
+          '/trip_belongings/$validBelongingId/check_status',
+          data: {
+            'is_checked': true,
+          },
+        ),
+      ).thenAnswer((_) async {
+        return const ApiResponse(
+          data: {'is_checked': true},
+        );
+      });
+
+      final result = await providerContainer
+          .read(tripRepositoryProvider)
+          .changeBelongingCheckStatus(
+            belongingId: validBelongingId,
+            isChecked: true,
+          );
+      expect(result, true);
+    });
+
+    test('正常系', () async {
+      when(
+        mockApiClient.put(
+          '/trip_belongings/$validBelongingId/check_status',
+          data: {
+            'is_checked': true,
+          },
+        ),
+      ).thenThrow(unexpectedException);
+
+      await expectLater(
+        providerContainer
+            .read(tripRepositoryProvider)
+            .changeBelongingCheckStatus(
+              belongingId: validBelongingId,
+              isChecked: true,
+            ),
+        throwsA(
+          isA<Exception>(),
+        ),
+      );
+    });
+  });
 }
