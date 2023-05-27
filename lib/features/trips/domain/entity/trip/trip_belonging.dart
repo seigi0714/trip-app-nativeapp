@@ -4,7 +4,7 @@ import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/value/trip_
 
 part 'trip_belonging.freezed.dart';
 
-@Freezed(copyWith: false, fromJson: false, toJson: false)
+@Freezed(fromJson: false, toJson: false)
 class TripBelonging with _$TripBelonging {
   /// 新規追加時持ち物のエンティティのfactory関数
   factory TripBelonging.createNewTripBelonging({

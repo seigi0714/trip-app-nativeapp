@@ -36,4 +36,23 @@ class TripBelongingsController extends _$TripBelongingsController {
       onFinished?.call();
     }
   }
+
+  Future<void> changeCheckStatus(AddedTripBelonging belonging) async {
+    final result = await ref
+        .read(tripInteractorProvider)
+        .changeBelongingCheckStatus(belonging: belonging);
+
+    _changeSome(result);
+  }
+
+  void _changeSome(AddedTripBelonging newBelonging) {
+    state = AsyncValue.data(
+      state.value?.map(
+            (belonging) {
+              return belonging.id == newBelonging.id ? newBelonging : belonging;
+            },
+          ).toList() ??
+          [],
+    );
+  }
 }
