@@ -65,7 +65,7 @@ class TripInteractor {
     required bool isShareAmongMember,
   }) {
     final belonging = TripBelonging.createNewTripBelonging(
-     name: TripBelongingName(value: name),
+      name: TripBelongingName(value: name),
       numOf: TripBelongingNum(value: numOf),
       isShareAmongMember: isShareAmongMember,
     ) as NewTripBelonging;
@@ -75,4 +75,14 @@ class TripInteractor {
 
   Future<List<AddedTripBelonging>> fetchTripBelongings(int tripId) =>
       tripRepo.fetchTripBelongings(tripId);
+
+  Future<AddedTripBelonging> changeBelongingCheckStatus({
+    required AddedTripBelonging belonging,
+  }) async {
+    final result = await tripRepo.changeBelongingCheckStatus(
+      belongingId: belonging.id,
+      isChecked: !belonging.isChecked,
+    );
+    return belonging.copyWith(isChecked: result);
+  }
 }
