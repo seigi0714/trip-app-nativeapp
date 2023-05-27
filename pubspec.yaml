@@ -13,7 +13,7 @@ dependencies:
   connectivity_plus: ^3.0.6
   cupertino_icons: ^1.0.2
   device_preview: ^1.1.0
-  dio: ^4.0.6
+  dio: ^5.1.2
   firebase_auth: ^4.2.6
   firebase_auth_mocks: ^0.11.0
   firebase_core: ^2.13.0
@@ -49,7 +49,7 @@ dev_dependencies:
     sdk: flutter
   freezed: ^2.2.0
   google_sign_in_mocks: ^0.2.1
-  http_mock_adapter: ^0.3.3
+  http_mock_adapter: ^0.4.4
   json_serializable: ^6.5.4
   riverpod_generator: ^2.2.1
   riverpod_lint: ^1.1.6
