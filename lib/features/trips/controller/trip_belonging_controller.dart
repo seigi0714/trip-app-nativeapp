@@ -42,17 +42,15 @@ class TripBelongingsController extends _$TripBelongingsController {
         .read(tripInteractorProvider)
         .changeBelongingCheckStatus(belonging: belonging);
 
-    _changeSome(result);
+    state = AsyncValue.data(_changeSome(result));
   }
 
-  void _changeSome(AddedTripBelonging newBelonging) {
-    state = AsyncValue.data(
-      state.value?.map(
-            (belonging) {
-              return belonging.id == newBelonging.id ? newBelonging : belonging;
-            },
-          ).toList() ??
-          [],
-    );
+  List<AddedTripBelonging> _changeSome(AddedTripBelonging newBelonging) {
+    return state.value?.map(
+          (belonging) {
+            return belonging.id == newBelonging.id ? newBelonging : belonging;
+          },
+        ).toList() ??
+        [];
   }
 }
