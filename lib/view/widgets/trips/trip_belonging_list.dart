@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/features/trips/controller/trip_belonging_controller.dart';
 import 'package:trip_app_nativeapp/view/widgets/common/car_driving_loading.dart';
 import 'package:trip_app_nativeapp/view/widgets/common/error_cat.dart';
 import 'package:trip_app_nativeapp/view/widgets/trips/add_trip_belonging_sheet.dart';
+import 'package:trip_app_nativeapp/view/widgets/trips/trip_belonging_item.dart';
 
 class TripBelongingList extends HookConsumerWidget {
   const TripBelongingList(this.tripId, {super.key});
@@ -20,35 +20,25 @@ class TripBelongingList extends HookConsumerWidget {
                   child: ListView.builder(
                     itemCount: belongings.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'isCheck: ${belongings[index].isChecked}  ',
-                            style: context.textTheme.titleSmall,
-                          ),
-                          Text(
-                            belongings[index].name.value,
-                            style: context.textTheme.titleMedium,
-                          ),
-                          Text(
-                            ' isShare: ${belongings[index].isShareAmongMember}',
-                            style: context.textTheme.titleSmall,
-                          ),
-                        ],
+                      return TripBelongingItem(
+                        tripId: tripId,
+                        belonging: belongings[index],
                       );
                     },
                   ),
                 ),
-                Padding(
+                Container(
+                  width: 52,
                   padding: const EdgeInsets.all(8),
-                  child: FloatingActionButton(
-                    onPressed: () => showModalBottomSheet<void>(
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (context) => AddTripBelongingSheet(tripId),
+                  child: FittedBox(
+                    child: FloatingActionButton(
+                      onPressed: () => showModalBottomSheet<void>(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => AddTripBelongingSheet(tripId),
+                      ),
+                      child: const Icon(Icons.add, color: Colors.white),
                     ),
-                    child: const Icon(Icons.add, color: Colors.white),
                   ),
                 ),
               ],
