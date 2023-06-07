@@ -1,6 +1,6 @@
 import 'package:trip_app_nativeapp/features/auth/domain/entity/third_party_credential/third_party_credential.dart';
 
-abstract class FirebaseAuthInterface {
+abstract interface class FirebaseAuthInterface {
   /// Firebaseカスタムトークンを用いたログイン
   Future<void> signInWithCustomToken({
     required String customToken,

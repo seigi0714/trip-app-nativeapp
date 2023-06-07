@@ -2,7 +2,7 @@ import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_belonging.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart';
 
-abstract class TripRepositoryInterface {
+abstract interface class TripRepositoryInterface {
   /// 旅データ作成
   Future<ExistingTrip> createTrip(NewTrip trip);
 
