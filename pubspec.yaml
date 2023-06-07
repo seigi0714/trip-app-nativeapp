@@ -6,7 +6,8 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.3.0'
 
 dependencies:
   collection: ^1.17.0
@@ -32,7 +33,7 @@ dependencies:
   google_fonts: ^4.0.3
   google_sign_in: ^5.4.2
   hooks_riverpod: ^2.3.6
-  intl: ^0.17.0
+  intl: ^0.18.0
   lottie: ^2.3.2
   mockito: ^5.4.0
   mocktail: ^0.3.0
