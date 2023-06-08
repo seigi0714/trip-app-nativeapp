@@ -7,7 +7,7 @@ import 'dart:async' as _i4;
 
 import 'package:dio/dio.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart'
+import 'package:trip_app_nativeapp/core/http/api_client/api_client_interface.dart'
     as _i3;
 import 'package:trip_app_nativeapp/core/http/response/api_response/api_response.dart'
     as _i2;
@@ -36,7 +36,7 @@ class _FakeApiResponse_0 extends _i1.SmartFake implements _i2.ApiResponse {
 /// A class which mocks [AbstractApiClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAbstractApiClient extends _i1.Mock implements _i3.AbstractApiClient {
+class MockAbstractApiClient extends _i1.Mock implements _i3.ApiClientInterface {
   MockAbstractApiClient() {
     _i1.throwOnMissingStub(this);
   }

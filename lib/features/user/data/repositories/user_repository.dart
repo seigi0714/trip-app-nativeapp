@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
+import 'package:trip_app_nativeapp/core/http/api_client/api_client_interface.dart';
 import 'package:trip_app_nativeapp/features/user/data/models/get_user_response.dart';
 import 'package:trip_app_nativeapp/features/user/domain/entity/app_user.dart';
 import 'package:trip_app_nativeapp/features/user/domain/repositories/user_repository_interface.dart';
@@ -18,7 +18,7 @@ class UserRepository implements UserRepositoryInterface {
   UserRepository({
     required this.privateV1Client,
   });
-  final AbstractApiClient privateV1Client;
+  final ApiClientInterface privateV1Client;
   static const _basePath = '/my/profile';
 
   @override

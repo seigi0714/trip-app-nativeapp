@@ -9,14 +9,14 @@ part of 'api_client.dart';
 // **************************************************************************
 
 String _$publicTripAppV1ClientHash() =>
-    r'e844bf9ae7ff8562d1a4f51c0c09e08b70aa184e';
+    r'6e754f23af11ead12aed9e82d1239aefead2a224';
 
 /// 認証なしTripAppApiのAPIクライアントクラスを提供する。
 ///
 /// Copied from [publicTripAppV1Client].
 @ProviderFor(publicTripAppV1Client)
 final publicTripAppV1ClientProvider =
-    AutoDisposeProvider<AbstractApiClient>.internal(
+    AutoDisposeProvider<ApiClientInterface>.internal(
   publicTripAppV1Client,
   name: r'publicTripAppV1ClientProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -26,15 +26,15 @@ final publicTripAppV1ClientProvider =
   allTransitiveDependencies: null,
 );
 
-typedef PublicTripAppV1ClientRef = AutoDisposeProviderRef<AbstractApiClient>;
+typedef PublicTripAppV1ClientRef = AutoDisposeProviderRef<ApiClientInterface>;
 String _$privateTripAppV1ClientHash() =>
-    r'1dc34ff1cab9ecb3b11d3cd8d43630bd864073ce';
+    r'54646d0b82d97984396f952fb2412f243b6094c8';
 
 /// 認証ありTripAppApiのAPIクライアントクラスを提供する。
 ///
 /// Copied from [privateTripAppV1Client].
 @ProviderFor(privateTripAppV1Client)
-final privateTripAppV1ClientProvider = Provider<AbstractApiClient>.internal(
+final privateTripAppV1ClientProvider = Provider<ApiClientInterface>.internal(
   privateTripAppV1Client,
   name: r'privateTripAppV1ClientProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -44,5 +44,5 @@ final privateTripAppV1ClientProvider = Provider<AbstractApiClient>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef PrivateTripAppV1ClientRef = ProviderRef<AbstractApiClient>;
+typedef PrivateTripAppV1ClientRef = ProviderRef<ApiClientInterface>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

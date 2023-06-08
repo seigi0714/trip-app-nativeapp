@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
-import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
+import 'package:trip_app_nativeapp/core/http/api_client/api_client_interface.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/change_check_status_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/create_trip_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/fetch_trip_belongings_response.dart';
@@ -36,7 +36,7 @@ class TripRepository implements TripRepositoryInterface {
     required this.privateV1Client,
   });
 
-  final AbstractApiClient privateV1Client;
+  final ApiClientInterface privateV1Client;
   static const _basePath = '/trips';
   static const _invitationBasePath = '/trip_invitations';
   static const _belongingBasePath = '/trip_belongings';

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:trip_app_nativeapp/core/http/response/api_response/api_response.dart';
 
-abstract interface class AbstractApiClient {
+abstract interface class ApiClientInterface {
   Future<ApiResponse> get(
     String path, {
     Map<String, dynamic> queryParameters,
