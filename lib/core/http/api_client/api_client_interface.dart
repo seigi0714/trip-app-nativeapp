@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:trip_app_nativeapp/core/http/response/api_response/api_response.dart';
 
 abstract interface class ApiClientInterface {
@@ -6,9 +5,6 @@ abstract interface class ApiClientInterface {
     String path, {
     Map<String, dynamic> queryParameters,
     Map<String, dynamic> header,
-    Options options,
-    CancelToken cancelToken,
-    ProgressCallback onReceiveProgress,
   });
 
   Future<ApiResponse> post(
@@ -16,10 +12,6 @@ abstract interface class ApiClientInterface {
     Map<String, dynamic> data,
     Map<String, dynamic> queryParameters,
     Map<String, dynamic> header,
-    Options options,
-    CancelToken cancelToken,
-    ProgressCallback onSendProgress,
-    ProgressCallback onReceiveProgress,
   });
 
   Future<ApiResponse> put(
@@ -27,9 +19,5 @@ abstract interface class ApiClientInterface {
     Map<String, dynamic> data,
     Map<String, dynamic> queryParameters,
     Map<String, dynamic> header,
-    Options options,
-    CancelToken cancelToken,
-    ProgressCallback onSendProgress,
-    ProgressCallback onReceiveProgress,
   });
 }

@@ -46,17 +46,11 @@ class ApiClient implements ApiClientInterface {
     String path, {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? header,
-    Options? options,
-    CancelToken? cancelToken,
-    ProgressCallback? onReceiveProgress,
   }) async {
     try {
       final response = await _dio.get<Json>(
         path,
         queryParameters: queryParameters,
-        options: options ?? Options(headers: header),
-        cancelToken: cancelToken,
-        onReceiveProgress: onReceiveProgress,
       );
       return _toApiResponse(response);
     } on DioError catch (e) {
@@ -71,20 +65,12 @@ class ApiClient implements ApiClientInterface {
     Map<String, dynamic>? data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? header,
-    Options? options,
-    CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
   }) async {
     try {
       final response = await _dio.post<Json>(
         path,
         data: data,
         queryParameters: queryParameters,
-        options: options ?? Options(headers: header),
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
       );
       return _toApiResponse(response);
     } on DioError catch (e) {
@@ -99,20 +85,12 @@ class ApiClient implements ApiClientInterface {
     Map<String, dynamic>? data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? header,
-    Options? options,
-    CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
   }) async {
     try {
       final response = await _dio.put<Json>(
         path,
         data: data,
         queryParameters: queryParameters,
-        options: options ?? Options(headers: header),
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
       );
       return _toApiResponse(response);
     } on DioError catch (e) {
