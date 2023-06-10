@@ -20,7 +20,7 @@ dependencies:
   firebase_core: ^2.13.0
   flutter:
     sdk: flutter
-  flutter_datetime_picker: ^1.5.1
+  flutter_datetime_picker_plus: ^2.0.1
   flutter_dotenv: ^5.0.2
   flutter_gen: ^5.3.1
   flutter_hooks: ^0.18.5+1
