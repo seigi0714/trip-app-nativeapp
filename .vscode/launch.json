@@ -2,29 +2,118 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "debug",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "debug"
-    },
-    {
-      "name": "debug with device preview",
+      "name": "debug (local)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "debug",
-      "args": ["--dart-define=ENABLE_DEVICE_PREVIEW=true"]
+      "args": [
+        "--dart-define=FLAVOR=local"
+      ]
     },
     {
-      "name": "profile",
+      "name": "debug (prism)",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "profile"
+      "flutterMode": "debug",
+      "args": [
+        "--dart-define=FLAVOR=prism"
+      ]
     },
     {
-      "name": "release",
+      "name": "debug (prod)",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "release"
+      "flutterMode": "debug",
+      "args": [
+        "--dart-define=FLAVOR=prod"
+      ]
+    },
+    {
+      "name": "release (local)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "args": [
+        "--dart-define=FLAVOR=local"
+      ]
+    },
+    {
+      "name": "release (prism)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "args": [
+        "--dart-define=FLAVOR=prism"
+      ]
+    },
+    {
+      "name": "release (prod)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "args": [
+        "--dart-define=FLAVOR=prod"
+      ]
+    },
+    {
+      "name": "debug (local) with device preview",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "args": [
+        "--dart-define=FLAVOR=local",
+        "--dart-define=ENABLE_DEVICE_PREVIEW=true"
+      ]
+    },
+    {
+      "name": "debug (prism) with device preview",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "args": [
+        "--dart-define=FLAVOR=prism",
+        "--dart-define=ENABLE_DEVICE_PREVIEW=true"
+      ]
+    },
+    {
+      "name": "debug (prod) with device preview",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "args": [
+        "--dart-define=FLAVOR=prod",
+        "--dart-define=ENABLE_DEVICE_PREVIEW=true"
+      ]
+    },
+    {
+      "name": "release (local) with device preview",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "args": [
+        "--dart-define=FLAVOR=local",
+        "--dart-define=ENABLE_DEVICE_PREVIEW=true"
+      ]
+    },
+    {
+      "name": "release (prism) with device preview",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "args": [
+        "--dart-define=FLAVOR=prism",
+        "--dart-define=ENABLE_DEVICE_PREVIEW=true"
+      ]
+    },
+    {
+      "name": "release (prod) with device preview",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "args": [
+        "--dart-define=FLAVOR=prod",
+        "--dart-define=ENABLE_DEVICE_PREVIEW=true"
+      ]
     }
   ]
 }

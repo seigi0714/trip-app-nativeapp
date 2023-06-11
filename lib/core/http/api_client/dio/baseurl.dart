@@ -9,10 +9,11 @@ String baseUrl(
   BaseUrlRef ref,
   ApiDestination apiDestination,
 ) {
+  final env = ref.watch(envProvider);
   switch (apiDestination) {
     case ApiDestination.publicTripAppV1:
-      return '${Env.protocol}://${Env.tripAppApiUrl}:${Env.tripAppApiPort}/api/v1';
+      return '${env.protocol}://${env.tripAppApiUrl}:${env.tripAppApiPort}/api/v1';
     case ApiDestination.privateTripAppV1:
-      return '${Env.protocol}://${Env.tripAppApiUrl}:${Env.tripAppApiPort}/private_api/v1';
+      return '${env.protocol}://${env.tripAppApiUrl}:${env.tripAppApiPort}/private_api/v1';
   }
 }
