@@ -3,36 +3,28 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'env.g.dart';
 
-sealed class Flavor {
-  Flavor(this.fileName, this.protocol);
+enum Flavor {
+  local(fileName: '.env.local', protocol: 'http'),
+  prism(fileName: '.env.prism', protocol: 'http'),
+  prod(fileName: '.env.prod', protocol: 'https');
+
+  const Flavor({required this.fileName, required this.protocol});
 
   final String fileName;
   final String protocol;
 
   static Flavor fromString(String flavorName) {
     switch (flavorName) {
-      case 'prod':
-        return ProdFlavor();
       case 'local':
-        return LocalFlavor();
+        return Flavor.local;
       case 'prism':
-        return PrismFlavor();
+        return Flavor.prism;
+      case 'prod':
+        return Flavor.prod;
       default:
         throw Exception('Invalid flavor name: $flavorName');
     }
   }
-}
-
-class ProdFlavor extends Flavor {
-  ProdFlavor() : super('.env.prod', 'https');
-}
-
-class LocalFlavor extends Flavor {
-  LocalFlavor() : super('.env.local', 'http');
-}
-
-class PrismFlavor extends Flavor {
-  PrismFlavor() : super('.env.prism', 'http');
 }
 
 @Riverpod(keepAlive: true)
