@@ -1,14 +1,37 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+enum Flavor { local, dev, prod }
+
 class Env {
-  // TODO(seigi0714): リリースモードかどうかではなくflavorで環境変数出し分け
-  static String get fileName => kReleaseMode ? '.prod.env' : '.dev.env';
-  static String get protocol => kReleaseMode ? 'https' : 'http';
-  static String get lineChannelId =>
-      dotenv.env['LINE_CHANNEL_ID'] ?? 'LINE_CHANNEL_ID not found';
-  static String get tripAppApiUrl =>
-      dotenv.env['TRIPAPP_API_URL'] ?? 'TRIPAPP_API_URL not found';
-  static String get tripAppApiPort =>
-      dotenv.env['TRIPAPP_API_PORT'] ?? 'TRIPAPP_API_PORT not found';
+  Env._({
+    required this.fileName,
+    required this.protocol,
+    required this.lineChannelId,
+    required this.tripAppApiUrl,
+    required this.tripAppApiPort,
+  });
+
+  factory Env.byFlavor(Flavor flavor) {
+    final isProd = flavor == Flavor.prod;
+    final isLocal = flavor == Flavor.local;
+
+    return Env._(
+      fileName:
+          isProd ? '.prod.env' : (isLocal ? '.dev.local.env' : '.dev.env'),
+      protocol: isProd ? 'https' : 'http',
+      lineChannelId: _getEnvVar('LINE_CHANNEL_ID'),
+      tripAppApiUrl: _getEnvVar('TRIP_APP_API_URL'),
+      tripAppApiPort: _getEnvVar('TRIP_APP_API_PORT'),
+    );
+  }
+
+  final String fileName;
+  final String protocol;
+  final String lineChannelId;
+  final String tripAppApiUrl;
+  final String tripAppApiPort;
+
+  static String _getEnvVar(String key) {
+    return dotenv.env[key] ?? '$key not found';
+  }
 }
