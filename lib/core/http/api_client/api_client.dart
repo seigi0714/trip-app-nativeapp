@@ -8,7 +8,7 @@ import 'package:trip_app_nativeapp/core/debug/logger.dart';
 import 'package:trip_app_nativeapp/core/enum/dio_error_code.dart';
 import 'package:trip_app_nativeapp/core/exception/api_exception.dart';
 import 'package:trip_app_nativeapp/core/extensions/dio.dart';
-import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
+import 'package:trip_app_nativeapp/core/http/api_client/api_client_interface.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/dio.dart';
 import 'package:trip_app_nativeapp/core/http/response/api_response/api_response.dart';
@@ -18,7 +18,7 @@ part 'api_client.g.dart';
 
 /// 認証なしTripAppApiのAPIクライアントクラスを提供する。
 @riverpod
-AbstractApiClient publicTripAppV1Client(PublicTripAppV1ClientRef ref) {
+ApiClientInterface publicTripAppV1Client(PublicTripAppV1ClientRef ref) {
   return ApiClient(
     ref.watch(
       dioProvider(ApiDestination.publicTripAppV1),
@@ -28,7 +28,7 @@ AbstractApiClient publicTripAppV1Client(PublicTripAppV1ClientRef ref) {
 
 /// 認証ありTripAppApiのAPIクライアントクラスを提供する。
 @Riverpod(keepAlive: true)
-AbstractApiClient privateTripAppV1Client(PrivateTripAppV1ClientRef ref) {
+ApiClientInterface privateTripAppV1Client(PrivateTripAppV1ClientRef ref) {
   return ApiClient(
     ref.watch(
       dioProvider(ApiDestination.privateTripAppV1),
@@ -36,7 +36,7 @@ AbstractApiClient privateTripAppV1Client(PrivateTripAppV1ClientRef ref) {
   );
 }
 
-class ApiClient implements AbstractApiClient {
+class ApiClient implements ApiClientInterface {
   ApiClient(this._dio);
 
   final Dio _dio;
@@ -46,17 +46,11 @@ class ApiClient implements AbstractApiClient {
     String path, {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? header,
-    Options? options,
-    CancelToken? cancelToken,
-    ProgressCallback? onReceiveProgress,
   }) async {
     try {
       final response = await _dio.get<Json>(
         path,
         queryParameters: queryParameters,
-        options: options ?? Options(headers: header),
-        cancelToken: cancelToken,
-        onReceiveProgress: onReceiveProgress,
       );
       return _toApiResponse(response);
     } on DioError catch (e) {
@@ -71,20 +65,12 @@ class ApiClient implements AbstractApiClient {
     Map<String, dynamic>? data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? header,
-    Options? options,
-    CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
   }) async {
     try {
       final response = await _dio.post<Json>(
         path,
         data: data,
         queryParameters: queryParameters,
-        options: options ?? Options(headers: header),
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
       );
       return _toApiResponse(response);
     } on DioError catch (e) {
@@ -99,20 +85,12 @@ class ApiClient implements AbstractApiClient {
     Map<String, dynamic>? data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? header,
-    Options? options,
-    CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
   }) async {
     try {
       final response = await _dio.put<Json>(
         path,
         data: data,
         queryParameters: queryParameters,
-        options: options ?? Options(headers: header),
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
       );
       return _toApiResponse(response);
     } on DioError catch (e) {

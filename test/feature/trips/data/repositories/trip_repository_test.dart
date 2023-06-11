@@ -3,8 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
-import 'package:trip_app_nativeapp/core/http/api_client/abstract_api_client.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_client.dart';
+import 'package:trip_app_nativeapp/core/http/api_client/api_client_interface.dart';
 import 'package:trip_app_nativeapp/core/http/response/api_response/api_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/repositories/trip_repository.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
@@ -21,7 +21,7 @@ import 'package:trip_app_nativeapp/features/user/domain/entity/app_user.dart';
 
 import 'trip_repository_test.mocks.dart';
 
-@GenerateMocks([AbstractApiClient])
+@GenerateMocks([ApiClientInterface])
 Future<void> main() async {
   late ProviderContainer providerContainer;
 

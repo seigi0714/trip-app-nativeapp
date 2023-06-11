@@ -70,6 +70,8 @@ class _TripApp extends ConsumerWidget {
                     ),
             );
           },
+          // https://github.com/aloisdeniel/flutter_device_preview/issues/226
+          // ignore: deprecated_member_use
           useInheritedMediaQuery: true,
           locale: DevicePreview.locale(context),
         );

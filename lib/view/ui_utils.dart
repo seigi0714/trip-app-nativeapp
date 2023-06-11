@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter/material.dart' hide DatePickerTheme;
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 
 Future<DateTime?> showTripAppDatePicker(

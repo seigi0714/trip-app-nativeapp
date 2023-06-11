@@ -22,7 +22,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
 
-      # fvm のバージョンとチャネルを環境変数に設定する
       - name: Check fvm
         uses: kuhnroyal/flutter-fvm-config-action@121a924f6e02514871f0d3507fbac542ced8cb4b
 
@@ -31,9 +30,8 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: ${{ env.FLUTTER_CHANNEL }}
-          # 次回以降の起動を早くするためのキャッシュ
           cache: true
-          cache-key: flutter
+          cache-key: flutter-${{ hashFiles('**/pubspec.yaml') }}
           cache-path: ${{ runner.tool_cache }}/flutter
 
       - name: Make dev envfile
