@@ -25,7 +25,7 @@ import 'trip_repository_test.mocks.dart';
 Future<void> main() async {
   late ProviderContainer providerContainer;
 
-  final mockApiClient = MockAbstractApiClient();
+  final mockApiClient = MockApiClientInterface();
 
   const validTripId = 999;
   const validTitle = 'test_user';
