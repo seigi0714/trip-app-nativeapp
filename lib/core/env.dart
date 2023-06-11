@@ -40,7 +40,7 @@ class Env {
     required this.tripAppApiPort,
   });
 
-  static Future<Env> byFlavor(Flavor flavor) async {
+  static Future<Env> fromFlavor(Flavor flavor) async {
     await dotenv.load(fileName: flavor.fileName);
     return Env._(
       protocol: flavor.protocol,

@@ -8,7 +8,7 @@ import 'package:trip_app_nativeapp/core/trip_app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final env = await Env.byFlavor(
+  final env = await Env.fromFlavor(
     Flavor.fromString(const String.fromEnvironment('FLAVOR')),
   );
   await LineSDK.instance.setup(env.lineChannelId);
