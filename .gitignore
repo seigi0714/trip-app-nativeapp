@@ -47,8 +47,7 @@ app.*.map.json
 .vscode/settings.json
 
 # Env
-.dev.env
-.prod.env
+.env.*
 
 # FVM
 **/.fvm/flutter_sdk

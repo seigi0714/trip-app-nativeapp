@@ -8,7 +8,7 @@ part of 'baseurl.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$baseUrlHash() => r'78fd8bf439744938def536f38451b2e54e394773';
+String _$baseUrlHash() => r'2544f1b3bcc012152d7b1aa1d868aa13773d9596';
 
 /// Copied from Dart SDK
 class _SystemHash {

@@ -61,8 +61,9 @@ flutter:
   assets:
     - assets/images/
     - assets/lotties/
-    - .prod.env
-    - .dev.env
+    - .env.local
+    - .env.prism
+    - .env.prod
 
 flutter_gen:
   output: lib/core/gen
