@@ -21,28 +21,36 @@ class ErrorCat extends HookWidget {
   final StackTrace? stackTrace;
   final String? message;
 
+  void handleError(
+    Object error,
+    ValueNotifier<String> errorMessage,
+    ValueNotifier<String> errorInfo,
+  ) {
+    if (kDebugMode) {
+      logger.e(message, error, stackTrace);
+    }
+    if (error is ApiException) {
+      final exception = error;
+      final description = exception.description ?? '';
+      errorMessage.value = exception.message;
+      errorInfo.value =
+          description.isNotEmpty ? description : exception.errorCode;
+    } else if (error is AppException) {
+      final exception = error;
+      errorMessage.value = exception.message ?? 'エラーが発生しました🙇‍♂️';
+      errorInfo.value = exception.code ?? '';
+    } else {
+      errorMessage.value = 'エラーが発生しました🙇‍♂️';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final errorMessage = useState(''); // ユーザー向けのメッセージ
     final errorInfo = useState(''); // 開発者向けのエラー情報
     useEffect(
       () {
-        if (kDebugMode) {
-          logger.e(message, error, stackTrace);
-        }
-        if (error is ApiException) {
-          final exception = error as ApiException;
-          final description = exception.description ?? '';
-          errorMessage.value = exception.message;
-          errorInfo.value =
-              description.isNotEmpty ? description : exception.errorCode;
-        } else if (error is AppException) {
-          final exception = error as AppException;
-          errorMessage.value = exception.message ?? 'エラーが発生しました🙇‍♂️';
-          errorInfo.value = exception.code ?? '';
-        } else {
-          errorMessage.value = 'エラーが発生しました🙇‍♂️';
-        }
+        handleError(error, errorMessage, errorInfo);
         return null;
       },
       [],
