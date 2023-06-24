@@ -110,7 +110,7 @@ class ApiClient implements ApiClientInterface {
       throw ApiException(
         statusCode: statusCode,
         errorCode: errorResponse.errorCode,
-        description: errorResponse.description,
+        description: errorResponse.errorDescription,
       );
     }
     return ApiResponse.fromJson(responseData);

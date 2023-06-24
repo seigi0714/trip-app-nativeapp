@@ -26,6 +26,6 @@ class AppException implements Exception {
 
   // 画面表示用メッセージ
   String toDisplayMessage() {
-   return (message ?? '').ifIsEmpty(_defaultMessage);
+    return (message ?? '').ifIsEmpty(_defaultMessage);
   }
 }

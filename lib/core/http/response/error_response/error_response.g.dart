@@ -15,16 +15,19 @@ _$_ErrorResponse _$$_ErrorResponseFromJson(Map<String, dynamic> json) =>
       ($checkedConvert) {
         final val = _$_ErrorResponse(
           errorCode: $checkedConvert('error_code', (v) => v as String? ?? ''),
-          description:
-              $checkedConvert('description', (v) => v as String? ?? ''),
+          errorDescription:
+              $checkedConvert('error_description', (v) => v as String? ?? ''),
         );
         return val;
       },
-      fieldKeyMap: const {'errorCode': 'error_code'},
+      fieldKeyMap: const {
+        'errorCode': 'error_code',
+        'errorDescription': 'error_description'
+      },
     );
 
 Map<String, dynamic> _$$_ErrorResponseToJson(_$_ErrorResponse instance) =>
     <String, dynamic>{
       'error_code': instance.errorCode,
-      'description': instance.description,
+      'error_description': instance.errorDescription,
     };

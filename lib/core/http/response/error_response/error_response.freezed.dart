@@ -24,7 +24,7 @@ mixin _$ErrorResponse {
   String get errorCode => throw _privateConstructorUsedError;
 
   /// Trip App API が返すエラーについての説明
-  String get description => throw _privateConstructorUsedError;
+  String get errorDescription => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,7 +38,7 @@ abstract class $ErrorResponseCopyWith<$Res> {
           ErrorResponse value, $Res Function(ErrorResponse) then) =
       _$ErrorResponseCopyWithImpl<$Res, ErrorResponse>;
   @useResult
-  $Res call({String errorCode, String description});
+  $Res call({String errorCode, String errorDescription});
 }
 
 /// @nodoc
@@ -55,16 +55,16 @@ class _$ErrorResponseCopyWithImpl<$Res, $Val extends ErrorResponse>
   @override
   $Res call({
     Object? errorCode = null,
-    Object? description = null,
+    Object? errorDescription = null,
   }) {
     return _then(_value.copyWith(
       errorCode: null == errorCode
           ? _value.errorCode
           : errorCode // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      errorDescription: null == errorDescription
+          ? _value.errorDescription
+          : errorDescription // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -78,7 +78,7 @@ abstract class _$$_ErrorResponseCopyWith<$Res>
       __$$_ErrorResponseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String errorCode, String description});
+  $Res call({String errorCode, String errorDescription});
 }
 
 /// @nodoc
@@ -93,16 +93,16 @@ class __$$_ErrorResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? errorCode = null,
-    Object? description = null,
+    Object? errorDescription = null,
   }) {
     return _then(_$_ErrorResponse(
       errorCode: null == errorCode
           ? _value.errorCode
           : errorCode // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      errorDescription: null == errorDescription
+          ? _value.errorDescription
+          : errorDescription // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -111,7 +111,7 @@ class __$$_ErrorResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ErrorResponse implements _ErrorResponse {
-  const _$_ErrorResponse({this.errorCode = '', this.description = ''});
+  const _$_ErrorResponse({this.errorCode = '', this.errorDescription = ''});
 
   factory _$_ErrorResponse.fromJson(Map<String, dynamic> json) =>
       _$$_ErrorResponseFromJson(json);
@@ -124,11 +124,11 @@ class _$_ErrorResponse implements _ErrorResponse {
   /// Trip App API が返すエラーについての説明
   @override
   @JsonKey()
-  final String description;
+  final String errorDescription;
 
   @override
   String toString() {
-    return 'ErrorResponse(errorCode: $errorCode, description: $description)';
+    return 'ErrorResponse(errorCode: $errorCode, errorDescription: $errorDescription)';
   }
 
   @override
@@ -138,13 +138,13 @@ class _$_ErrorResponse implements _ErrorResponse {
             other is _$_ErrorResponse &&
             (identical(other.errorCode, errorCode) ||
                 other.errorCode == errorCode) &&
-            (identical(other.description, description) ||
-                other.description == description));
+            (identical(other.errorDescription, errorDescription) ||
+                other.errorDescription == errorDescription));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, errorCode, description);
+  int get hashCode => Object.hash(runtimeType, errorCode, errorDescription);
 
   @JsonKey(ignore: true)
   @override
@@ -162,7 +162,8 @@ class _$_ErrorResponse implements _ErrorResponse {
 
 abstract class _ErrorResponse implements ErrorResponse {
   const factory _ErrorResponse(
-      {final String errorCode, final String description}) = _$_ErrorResponse;
+      {final String errorCode,
+      final String errorDescription}) = _$_ErrorResponse;
 
   factory _ErrorResponse.fromJson(Map<String, dynamic> json) =
       _$_ErrorResponse.fromJson;
@@ -174,7 +175,7 @@ abstract class _ErrorResponse implements ErrorResponse {
   @override
 
   /// Trip App API が返すエラーについての説明
-  String get description;
+  String get errorDescription;
   @override
   @JsonKey(ignore: true)
   _$$_ErrorResponseCopyWith<_$_ErrorResponse> get copyWith =>

@@ -1,12 +1,14 @@
 import 'dart:io';
 
+import 'package:trip_app_nativeapp/core/constants/string.dart';
+
 /// Trip App API との HTTP 通信時に使用する例外型。
 class ApiException implements Exception {
   const ApiException({
     this.statusCode,
-    this.errorCode,
+    this.errorCode = 'api_exception',
     this.description,
-    this.message = 'サーバとの通信に失敗しました。',
+    this.message = serverConnectionFailure,
   });
 
   /// HTTP ステータスコード
@@ -15,7 +17,7 @@ class ApiException implements Exception {
   final int? statusCode;
 
   /// Trip App エラーコード
-  final String? errorCode;
+  final String errorCode;
 
   /// 開発者向けのエラー詳細
   final String? description;

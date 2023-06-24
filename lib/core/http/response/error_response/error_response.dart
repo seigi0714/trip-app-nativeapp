@@ -11,7 +11,7 @@ class ErrorResponse with _$ErrorResponse {
     @Default('') String errorCode,
 
     /// Trip App API が返すエラーについての説明
-    @Default('') String description,
+    @Default('') String errorDescription,
   }) = _ErrorResponse;
 
   factory ErrorResponse.fromJson(Map<String, dynamic> json) =>
