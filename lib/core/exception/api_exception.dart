@@ -35,5 +35,5 @@ class ApiTimeoutException extends ApiException {
 }
 
 class NetworkNotConnectedException extends ApiException {
-  const NetworkNotConnectedException() : super(message: 'ネットワーク接続がありません。');
+  const NetworkNotConnectedException() : super(message: networkNotConnected);
 }
