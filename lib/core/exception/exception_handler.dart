@@ -34,7 +34,7 @@ class ExceptionHandler {
       _ref.read(scaffoldMessengerHelperProvider).showSnackBar(e.message);
     } else if (e is AppException) {
       _ref.read(scaffoldMessengerHelperProvider).showSnackBar(
-            e.toDisplayMessage(),
+            e.toString(),
           );
     } else {
       _ref.read(scaffoldMessengerHelperProvider).showSnackBar(message);

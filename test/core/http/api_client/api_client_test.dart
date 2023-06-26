@@ -132,7 +132,7 @@ Future<void> main() async {
                 HttpStatus.unauthorized,
                 <String, dynamic>{
                   'error_code': 'test',
-                  'description': 'test',
+                  'error_description': 'test',
                 },
               ),
             );
