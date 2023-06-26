@@ -66,7 +66,7 @@ class ErrorCat extends HookWidget {
           ),
           Text(errorMessage.value),
           const Gap(16),
-          Text(errorInfo.value)
+          if (kDebugMode) Text(errorInfo.value)
         ],
       ),
     );
