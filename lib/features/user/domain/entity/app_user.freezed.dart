@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+AppUser _$AppUserFromJson(Map<String, dynamic> json) {
+  return _AppUser.fromJson(json);
+}
+
 /// @nodoc
 mixin _$AppUser {
   int get id => throw _privateConstructorUsedError;
@@ -22,9 +26,12 @@ mixin _$AppUser {
 }
 
 /// @nodoc
-
+@JsonSerializable(createToJson: false)
 class _$_AppUser implements _AppUser {
   const _$_AppUser({required this.id, required this.name, required this.email});
+
+  factory _$_AppUser.fromJson(Map<String, dynamic> json) =>
+      _$$_AppUserFromJson(json);
 
   @override
   final int id;
@@ -48,6 +55,7 @@ class _$_AppUser implements _AppUser {
             (identical(other.email, email) || other.email == email));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, email);
 }
@@ -57,6 +65,8 @@ abstract class _AppUser implements AppUser {
       {required final int id,
       required final String name,
       required final String email}) = _$_AppUser;
+
+  factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
 
   @override
   int get id;

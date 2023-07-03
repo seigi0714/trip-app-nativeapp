@@ -9,6 +9,7 @@ import 'package:trip_app_nativeapp/features/trips/data/models/fetch_trips_respon
 import 'package:trip_app_nativeapp/features/trips/data/models/get_trip_invitation_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/invite_trip_response.dart';
 import 'package:trip_app_nativeapp/features/trips/data/models/trip_belonging_response.dart';
+import 'package:trip_app_nativeapp/features/trips/data/models/update_trip_response.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_belonging.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart';
@@ -206,5 +207,36 @@ class TripRepository implements TripRepositoryInterface {
 
     final changeStatusRes = ChangeCheckStatusResponse.fromJson(res.data);
     return changeStatusRes.isChecked;
+  }
+
+  @override
+  Future<ExistingTrip> updateTrip({required ExistingTrip trip}) async {
+    final res = await privateV1Client.put(
+      '$_basePath/${trip.id}',
+      data: {
+        'name': trip.title.value,
+        'from_date': trip.period.fromDate.toJsonDateString(),
+        'end_date': trip.period.endDate.toJsonDateString(),
+      },
+    );
+
+    final tripRes = UpdateTripResponse.fromJson(res.data);
+    return Trip.createExistingTrip(
+      id: tripRes.id,
+      title: TripTitle(value: tripRes.name),
+      period: TripPeriod(
+        fromDate: tripRes.fromDate,
+        endDate: tripRes.endDate,
+      ),
+      members: tripRes.members
+          .map(
+            (member) => TripMember.joined(
+              isHost: member.isHost,
+              user: AppUser.fromJson(member.member.toJson()),
+            ) as JoinedTripMember,
+          )
+          .toList(),
+      belongings: [], // put のレスポンスに持ち物情報は含まれないので一旦空配列を入れておく
+    ) as ExistingTrip;
   }
 }

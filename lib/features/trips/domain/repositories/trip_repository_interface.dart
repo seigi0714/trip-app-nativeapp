@@ -36,4 +36,9 @@ abstract interface class TripRepositoryInterface {
     required int belongingId,
     required bool isChecked,
   });
+
+  /// 旅の基本情報を更新
+  Future<ExistingTrip> updateTrip({
+    required ExistingTrip trip,
+  });
 }

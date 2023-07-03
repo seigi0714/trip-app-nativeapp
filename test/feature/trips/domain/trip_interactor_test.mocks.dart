@@ -207,4 +207,21 @@ class MockTripRepository extends _i1.Mock implements _i6.TripRepository {
         ),
         returnValue: _i7.Future<bool>.value(false),
       ) as _i7.Future<bool>);
+  @override
+  _i7.Future<_i3.ExistingTrip> updateTrip({required _i3.ExistingTrip? trip}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateTrip,
+          [],
+          {#trip: trip},
+        ),
+        returnValue: _i7.Future<_i3.ExistingTrip>.value(_FakeExistingTrip_1(
+          this,
+          Invocation.method(
+            #updateTrip,
+            [],
+            {#trip: trip},
+          ),
+        )),
+      ) as _i7.Future<_i3.ExistingTrip>);
 }
