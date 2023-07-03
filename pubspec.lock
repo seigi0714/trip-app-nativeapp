@@ -482,10 +482,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_line_sdk
-      sha256: "391b3ac04a0e3a4b8bc83929e65dfc7950145c783698f696cac874941bfd2cb8"
+      sha256: d10a3af08ef016fed10ba8d39092bc6a763c22d5286d72c58f88f7f115e11348
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.3.3"
   flutter_lints:
     dependency: "direct dev"
     description:
