@@ -18,6 +18,14 @@ void main() {
   final mockTripRepo = MockTripRepository();
   final unexpectedException = Exception('想定外のエラー');
 
+  const validTripId = 999;
+  const validTripTitle = 'test_trip_title';
+  final validFromDate = DateTime(2023);
+  final validEndDate = DateTime(2023, 1, 2);
+  const validUserId = 1;
+  const validName = 'Bob';
+  const validEmail = 'bob@somedomain.com';
+
   setUp(() {
     providerContainer = ProviderContainer(
       overrides: [tripRepositoryProvider.overrideWithValue(mockTripRepo)],
@@ -30,19 +38,19 @@ void main() {
       when(mockTripRepo.fetchTripsByUserId(1)).thenAnswer(
         (_) => Future.value([
           Trip.createExistingTrip(
-            id: 1,
-            title: TripTitle(value: 'title'),
+            id: validTripId,
+            title: TripTitle(value: validTripTitle),
             period: TripPeriod(
-              fromDate: DateTime(2023, 2, 25),
-              endDate: DateTime(2023, 3, 3),
+              fromDate: validFromDate,
+              endDate: validEndDate,
             ),
             members: [
               const TripMember.joined(
                 isHost: true,
                 user: AppUser(
-                  id: 1,
-                  name: 'Bob',
-                  email: 'bob@somedomain.com',
+                  id: validUserId,
+                  name: validName,
+                  email: validEmail,
                 ),
               ),
             ],
@@ -67,4 +75,62 @@ void main() {
     );
     verify(mockTripRepo.fetchTripsByUserId(1)).called(1);
   });
+
+  group(
+    'updateTrip',
+    () {
+      final testExistingTrip = Trip.createExistingTrip(
+        id: validTripId,
+        title: TripTitle(value: validTripTitle),
+        period: TripPeriod(
+          fromDate: validFromDate,
+          endDate: validEndDate,
+        ),
+        // tripRepo.updateTrip では、メンバーと持ち物の更新はできないので、空の List を渡す。
+        members: [],
+        belongings: [],
+      ) as ExistingTrip;
+
+      const validMember = TripMember.joined(
+        isHost: true,
+        user: AppUser(id: validUserId, name: validName, email: validEmail),
+      );
+
+      final expectedTrip = Trip.createExistingTrip(
+        id: validTripId,
+        title: TripTitle(value: validTripTitle),
+        period: TripPeriod(
+          fromDate: validFromDate,
+          endDate: validEndDate,
+        ),
+        members: [validMember],
+        belongings: [],
+      ) as ExistingTrip;
+
+      test(
+        '正常系',
+        () async {
+          when(
+            mockTripRepo.updateTrip(
+              trip: testExistingTrip,
+            ),
+          ).thenAnswer(
+            (_) {
+              return Future.value(expectedTrip);
+            },
+          );
+
+          final result =
+              await providerContainer.read(tripInteractorProvider).updateTrip(
+                    validTripId,
+                    validTripTitle,
+                    validFromDate,
+                    validEndDate,
+                  );
+          verify(mockTripRepo.updateTrip(trip: testExistingTrip)).called(1);
+          expect(result, expectedTrip);
+        },
+      );
+    },
+  );
 }

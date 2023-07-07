@@ -55,8 +55,8 @@ class TripInteractor {
         endDate: endDate,
       ),
       // tripRepo.updateTrip では、メンバーと持ち物の更新はできないので、空の List を渡す。
-      belongings: [],
       members: [],
+      belongings: [],
     ) as ExistingTrip;
     return tripRepo.updateTrip(trip: trip);
   }
