@@ -120,9 +120,7 @@ void main() {
               trip: testExistingTrip,
             ),
           ).thenAnswer(
-            (_) {
-              return Future.value(expectedTrip);
-            },
+            (_) => Future.value(expectedTrip),
           );
 
           final result =
@@ -134,6 +132,25 @@ void main() {
                   );
           verify(mockTripRepo.updateTrip(trip: testExistingTrip)).called(1);
           expect(result, expectedTrip);
+        },
+      );
+
+      test(
+        '準正常系 tripRepo.updateTrip で例外がスローされた場合、それをリスローする',
+        () async {
+          when(
+            mockTripRepo.updateTrip(trip: testExistingTrip),
+          ).thenAnswer((_) => Future.error(unexpectedException));
+
+          await expectLater(
+            providerContainer.read(tripInteractorProvider).updateTrip(
+                  validTripId,
+                  validTripTitle,
+                  validFromDate,
+                  validEndDate,
+                ),
+            throwsA(isA<Exception>()),
+          );
         },
       );
     },
