@@ -18,7 +18,8 @@ void main() {
   final mockTripRepo = MockTripRepository();
   final unexpectedException = Exception('想定外のエラー');
 
-  const validTripId = 999;
+  const validTripId = 1;
+  const inValidTripId = 0;
   const validTripTitle = 'test_trip_title';
   final validFromDate = DateTime(2023);
   final validEndDate = DateTime(2023, 1, 2);
@@ -35,7 +36,7 @@ void main() {
 
   group('fetchTripsByUserId', () {
     test('正常系 fetchTripsByUserId should call tripRepo.fetchUser', () async {
-      when(mockTripRepo.fetchTripsByUserId(1)).thenAnswer(
+      when(mockTripRepo.fetchTripsByUserId(validTripId)).thenAnswer(
         (_) => Future.value([
           Trip.createExistingTrip(
             id: validTripId,
@@ -59,21 +60,25 @@ void main() {
         ]),
       );
       await expectLater(
-        providerContainer.read(tripInteractorProvider).fetchTripsByUserId(1),
+        providerContainer
+            .read(tripInteractorProvider)
+            .fetchTripsByUserId(validTripId),
         completes,
       );
-      verify(mockTripRepo.fetchTripsByUserId(1)).called(1);
+      verify(mockTripRepo.fetchTripsByUserId(validTripId)).called(1);
     });
   });
 
   test('準正常系 fetchUser should throw exception', () {
-    when(mockTripRepo.fetchTripsByUserId(1)).thenThrow(unexpectedException);
+    when(mockTripRepo.fetchTripsByUserId(inValidTripId))
+        .thenThrow(unexpectedException);
     expect(
-      () =>
-          providerContainer.read(tripInteractorProvider).fetchTripsByUserId(1),
+      () => providerContainer
+          .read(tripInteractorProvider)
+          .fetchTripsByUserId(inValidTripId),
       throwsA(unexpectedException),
     );
-    verify(mockTripRepo.fetchTripsByUserId(1)).called(1);
+    verify(mockTripRepo.fetchTripsByUserId(inValidTripId)).called(1);
   });
 
   group(
