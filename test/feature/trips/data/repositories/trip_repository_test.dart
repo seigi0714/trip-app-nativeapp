@@ -509,11 +509,12 @@ Future<void> main() async {
           fromDate: validFromDate,
           endDate: validEndDate,
         ),
-        members: [validMember],
+        // tripRepo.updateTrip では、メンバーと持ち物の更新はできないので、空の List を渡す。
+        members: [],
         belongings: [],
       ) as ExistingTrip;
 
-      final validResult = Trip.createExistingTrip(
+      final expectedTrip = Trip.createExistingTrip(
         id: validTripId,
         title: TripTitle(value: validTripTitle),
         period: TripPeriod(
@@ -539,7 +540,7 @@ Future<void> main() async {
           ).thenAnswer((_) async {
             return ApiResponse(
               data: {
-                'id': validTripId,
+                'id': testExistingTrip.id,
                 'name': testExistingTrip.title.value,
                 'from_date':
                     testExistingTrip.period.fromDate.toJsonDateString(),
@@ -563,7 +564,7 @@ Future<void> main() async {
           final result = await providerContainer
               .read(tripRepositoryProvider)
               .updateTrip(trip: testExistingTrip);
-          expect(result, validResult);
+          expect(result, expectedTrip);
         },
       );
       test(
