@@ -494,71 +494,102 @@ Future<void> main() async {
     });
   });
 
-  group('updateTrip', () {
-    const validMember = TripMember.joined(
-      isHost: true,
-      user: AppUser(id: validUserId, name: validName, email: validEmail),
-    );
+  group(
+    'updateTrip',
+    () {
+      const validMember = TripMember.joined(
+        isHost: true,
+        user: AppUser(id: validUserId, name: validName, email: validEmail),
+      );
 
-    final testExistingTrip = Trip.createExistingTrip(
-      id: validTripId,
-      title: TripTitle(value: validTripTitle),
-      period: TripPeriod(
-        fromDate: validFromDate,
-        endDate: validEndDate,
-      ),
-      members: [validMember],
-      belongings: [],
-    ) as ExistingTrip;
-
-    final validResult = Trip.createExistingTrip(
-      id: validTripId,
-      title: TripTitle(value: validTripTitle),
-      period: TripPeriod(
-        fromDate: validFromDate,
-        endDate: validEndDate,
-      ),
-      members: [validMember],
-      belongings: [],
-    ) as ExistingTrip;
-
-    test('正常系', () async {
-      when(
-        mockApiClient.put(
-          '/trips/$validTripId',
-          data: {
-            'name': validTripTitle,
-            'from_date': validFromDate.toJsonDateString(),
-            'end_date': validEndDate.toJsonDateString(),
-          },
+      final testExistingTrip = Trip.createExistingTrip(
+        id: validTripId,
+        title: TripTitle(value: validTripTitle),
+        period: TripPeriod(
+          fromDate: validFromDate,
+          endDate: validEndDate,
         ),
-      ).thenAnswer((_) async {
-        return ApiResponse(
-          data: {
-            'id': validTripId,
-            'name': testExistingTrip.title.value,
-            'from_date': testExistingTrip.period.fromDate.toJsonDateString(),
-            'end_date': testExistingTrip.period.endDate.toJsonDateString(),
-            'members': [
-              {
-                'member': {
-                  'id': validMember.user.id,
-                  'auth_uid': 'test_auth_uid',
-                  'auth_provider': 'google',
-                  'name': validMember.user.name,
-                  'email': validMember.user.email,
-                },
-                'is_host': validMember.isHost
-              }
-            ],
-          },
-        );
-      });
+        members: [validMember],
+        belongings: [],
+      ) as ExistingTrip;
 
-      final result = await providerContainer
-          .read(tripRepositoryProvider)
-          .updateTrip(trip: testExistingTrip);
-      expect(result, validResult);
-    });
-  });
+      final validResult = Trip.createExistingTrip(
+        id: validTripId,
+        title: TripTitle(value: validTripTitle),
+        period: TripPeriod(
+          fromDate: validFromDate,
+          endDate: validEndDate,
+        ),
+        members: [validMember],
+        belongings: [],
+      ) as ExistingTrip;
+
+      test(
+        '正常系',
+        () async {
+          when(
+            mockApiClient.put(
+              '/trips/$validTripId',
+              data: {
+                'name': validTripTitle,
+                'from_date': validFromDate.toJsonDateString(),
+                'end_date': validEndDate.toJsonDateString(),
+              },
+            ),
+          ).thenAnswer((_) async {
+            return ApiResponse(
+              data: {
+                'id': validTripId,
+                'name': testExistingTrip.title.value,
+                'from_date':
+                    testExistingTrip.period.fromDate.toJsonDateString(),
+                'end_date': testExistingTrip.period.endDate.toJsonDateString(),
+                'members': [
+                  {
+                    'member': {
+                      'id': validMember.user.id,
+                      'auth_uid': 'test_auth_uid',
+                      'auth_provider': 'google',
+                      'name': validMember.user.name,
+                      'email': validMember.user.email,
+                    },
+                    'is_host': validMember.isHost
+                  }
+                ],
+              },
+            );
+          });
+
+          final result = await providerContainer
+              .read(tripRepositoryProvider)
+              .updateTrip(trip: testExistingTrip);
+          expect(result, validResult);
+        },
+      );
+      test(
+        '準正常系 旅更新 API からエラーが返ってきた場合は例外を投げる',
+        () async {
+          when(
+            mockApiClient.put(
+              '/trips/$validTripId',
+              data: {
+                'name': validTripTitle,
+                'from_date': validFromDate.toJsonDateString(),
+                'end_date': validEndDate.toJsonDateString(),
+              },
+            ),
+          ).thenThrow(unexpectedException);
+
+          await expectLater(
+            providerContainer
+                .read(tripRepositoryProvider)
+                .updateTrip(trip: testExistingTrip),
+            throwsA(
+              isA<Exception>(),
+            ),
+          );
+        },
+      );
+    },
+  );
 }
