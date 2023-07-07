@@ -150,6 +150,8 @@ void main() {
                 ),
             throwsA(isA<Exception>()),
           );
+
+          verify(mockTripRepo.updateTrip(trip: testExistingTrip)).called(1);
         },
       );
     },
