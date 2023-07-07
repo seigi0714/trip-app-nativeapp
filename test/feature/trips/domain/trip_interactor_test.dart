@@ -19,7 +19,6 @@ void main() {
   final unexpectedException = Exception('想定外のエラー');
 
   const validTripId = 1;
-  const inValidTripId = 0;
   const validTripTitle = 'test_trip_title';
   final validFromDate = DateTime(2023);
   final validEndDate = DateTime(2023, 1, 2);
@@ -70,15 +69,15 @@ void main() {
   });
 
   test('準正常系 fetchUser should throw exception', () {
-    when(mockTripRepo.fetchTripsByUserId(inValidTripId))
+    when(mockTripRepo.fetchTripsByUserId(validTripId))
         .thenThrow(unexpectedException);
     expect(
       () => providerContainer
           .read(tripInteractorProvider)
-          .fetchTripsByUserId(inValidTripId),
+          .fetchTripsByUserId(validTripId),
       throwsA(unexpectedException),
     );
-    verify(mockTripRepo.fetchTripsByUserId(inValidTripId)).called(1);
+    verify(mockTripRepo.fetchTripsByUserId(validTripId)).called(1);
   });
 
   group(
