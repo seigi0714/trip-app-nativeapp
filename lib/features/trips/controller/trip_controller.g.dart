@@ -26,7 +26,8 @@ String _$tripControllerHash() => r'ecb9d08395accfaf9687b15c2b145bb9a666d1d1';
 
 /// See also [tripController].
 @ProviderFor(tripController)
-final tripControllerProvider = AutoDisposeProvider<TripController>.internal(
+final tripControllerProvider =
+    AutoDisposeProvider<DuplicatedTripController>.internal(
   tripController,
   name: r'tripControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -36,5 +37,5 @@ final tripControllerProvider = AutoDisposeProvider<TripController>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef TripControllerRef = AutoDisposeProviderRef<TripController>;
+typedef TripControllerRef = AutoDisposeProviderRef<DuplicatedTripController>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

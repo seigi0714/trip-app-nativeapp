@@ -20,10 +20,11 @@ Future<List<ExistingTrip>> trips(TripsRef ref) => ref
     .fetchTripsByUserId(ref.watch(appUserControllerProvider).value!.id);
 
 @riverpod
-TripController tripController(TripControllerRef ref) => TripController(ref);
+DuplicatedTripController tripController(TripControllerRef ref) =>
+    DuplicatedTripController(ref);
 
-class TripController {
-  TripController(this._ref);
+class DuplicatedTripController {
+  DuplicatedTripController(this._ref);
   final Ref _ref;
 
   Future<void> createTrip({
