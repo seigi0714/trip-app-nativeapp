@@ -3,17 +3,17 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
+import 'dart:async' as _i7;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart'
-    as _i7;
-import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_belonging.dart'
-    as _i4;
-import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart'
     as _i3;
-import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interactor.dart'
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_belonging.dart'
     as _i5;
+import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip_invitation.dart'
+    as _i4;
+import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interactor.dart'
+    as _i6;
 import 'package:trip_app_nativeapp/features/trips/domain/repositories/trip_repository_interface.dart'
     as _i2;
 
@@ -39,9 +39,8 @@ class _FakeTripRepositoryInterface_0 extends _i1.SmartFake
         );
 }
 
-class _FakeGeneratedTripInvitation_1 extends _i1.SmartFake
-    implements _i3.GeneratedTripInvitation {
-  _FakeGeneratedTripInvitation_1(
+class _FakeExistingTrip_1 extends _i1.SmartFake implements _i3.ExistingTrip {
+  _FakeExistingTrip_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -50,9 +49,20 @@ class _FakeGeneratedTripInvitation_1 extends _i1.SmartFake
         );
 }
 
-class _FakeAddedTripBelonging_2 extends _i1.SmartFake
-    implements _i4.AddedTripBelonging {
-  _FakeAddedTripBelonging_2(
+class _FakeGeneratedTripInvitation_2 extends _i1.SmartFake
+    implements _i4.GeneratedTripInvitation {
+  _FakeGeneratedTripInvitation_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeAddedTripBelonging_3 extends _i1.SmartFake
+    implements _i5.AddedTripBelonging {
+  _FakeAddedTripBelonging_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -64,7 +74,7 @@ class _FakeAddedTripBelonging_2 extends _i1.SmartFake
 /// A class which mocks [TripInteractor].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTripInteractor extends _i1.Mock implements _i5.TripInteractor {
+class MockTripInteractor extends _i1.Mock implements _i6.TripInteractor {
   MockTripInteractor() {
     _i1.throwOnMissingStub(this);
   }
@@ -78,7 +88,7 @@ class MockTripInteractor extends _i1.Mock implements _i5.TripInteractor {
         ),
       ) as _i2.TripRepositoryInterface);
   @override
-  _i6.Future<void> createTrip(
+  _i7.Future<void> createTrip(
     String? title,
     DateTime? fromDate,
     DateTime? endDate,
@@ -92,11 +102,41 @@ class MockTripInteractor extends _i1.Mock implements _i5.TripInteractor {
             endDate,
           ],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
   @override
-  _i6.Future<_i3.GeneratedTripInvitation> invite({
+  _i7.Future<_i3.ExistingTrip> updateTrip(
+    int? id,
+    String? title,
+    DateTime? fromDate,
+    DateTime? endDate,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateTrip,
+          [
+            id,
+            title,
+            fromDate,
+            endDate,
+          ],
+        ),
+        returnValue: _i7.Future<_i3.ExistingTrip>.value(_FakeExistingTrip_1(
+          this,
+          Invocation.method(
+            #updateTrip,
+            [
+              id,
+              title,
+              fromDate,
+              endDate,
+            ],
+          ),
+        )),
+      ) as _i7.Future<_i3.ExistingTrip>);
+  @override
+  _i7.Future<_i4.GeneratedTripInvitation> invite({
     required int? tripId,
     required int? invitationNum,
   }) =>
@@ -109,8 +149,8 @@ class MockTripInteractor extends _i1.Mock implements _i5.TripInteractor {
             #invitationNum: invitationNum,
           },
         ),
-        returnValue: _i6.Future<_i3.GeneratedTripInvitation>.value(
-            _FakeGeneratedTripInvitation_1(
+        returnValue: _i7.Future<_i4.GeneratedTripInvitation>.value(
+            _FakeGeneratedTripInvitation_2(
           this,
           Invocation.method(
             #invite,
@@ -121,19 +161,19 @@ class MockTripInteractor extends _i1.Mock implements _i5.TripInteractor {
             },
           ),
         )),
-      ) as _i6.Future<_i3.GeneratedTripInvitation>);
+      ) as _i7.Future<_i4.GeneratedTripInvitation>);
   @override
-  _i6.Future<List<_i7.ExistingTrip>> fetchTripsByUserId(int? userId) =>
+  _i7.Future<List<_i3.ExistingTrip>> fetchTripsByUserId(int? userId) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchTripsByUserId,
           [userId],
         ),
         returnValue:
-            _i6.Future<List<_i7.ExistingTrip>>.value(<_i7.ExistingTrip>[]),
-      ) as _i6.Future<List<_i7.ExistingTrip>>);
+            _i7.Future<List<_i3.ExistingTrip>>.value(<_i3.ExistingTrip>[]),
+      ) as _i7.Future<List<_i3.ExistingTrip>>);
   @override
-  _i6.Future<_i4.AddedTripBelonging> addTripBelonging({
+  _i7.Future<_i5.AddedTripBelonging> addTripBelonging({
     required int? tripId,
     required String? name,
     required int? numOf,
@@ -151,7 +191,7 @@ class MockTripInteractor extends _i1.Mock implements _i5.TripInteractor {
           },
         ),
         returnValue:
-            _i6.Future<_i4.AddedTripBelonging>.value(_FakeAddedTripBelonging_2(
+            _i7.Future<_i5.AddedTripBelonging>.value(_FakeAddedTripBelonging_3(
           this,
           Invocation.method(
             #addTripBelonging,
@@ -164,20 +204,20 @@ class MockTripInteractor extends _i1.Mock implements _i5.TripInteractor {
             },
           ),
         )),
-      ) as _i6.Future<_i4.AddedTripBelonging>);
+      ) as _i7.Future<_i5.AddedTripBelonging>);
   @override
-  _i6.Future<List<_i4.AddedTripBelonging>> fetchTripBelongings(int? tripId) =>
+  _i7.Future<List<_i5.AddedTripBelonging>> fetchTripBelongings(int? tripId) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchTripBelongings,
           [tripId],
         ),
-        returnValue: _i6.Future<List<_i4.AddedTripBelonging>>.value(
-            <_i4.AddedTripBelonging>[]),
-      ) as _i6.Future<List<_i4.AddedTripBelonging>>);
+        returnValue: _i7.Future<List<_i5.AddedTripBelonging>>.value(
+            <_i5.AddedTripBelonging>[]),
+      ) as _i7.Future<List<_i5.AddedTripBelonging>>);
   @override
-  _i6.Future<_i4.AddedTripBelonging> changeBelongingCheckStatus(
-          {required _i4.AddedTripBelonging? belonging}) =>
+  _i7.Future<_i5.AddedTripBelonging> changeBelongingCheckStatus(
+          {required _i5.AddedTripBelonging? belonging}) =>
       (super.noSuchMethod(
         Invocation.method(
           #changeBelongingCheckStatus,
@@ -185,7 +225,7 @@ class MockTripInteractor extends _i1.Mock implements _i5.TripInteractor {
           {#belonging: belonging},
         ),
         returnValue:
-            _i6.Future<_i4.AddedTripBelonging>.value(_FakeAddedTripBelonging_2(
+            _i7.Future<_i5.AddedTripBelonging>.value(_FakeAddedTripBelonging_3(
           this,
           Invocation.method(
             #changeBelongingCheckStatus,
@@ -193,5 +233,5 @@ class MockTripInteractor extends _i1.Mock implements _i5.TripInteractor {
             {#belonging: belonging},
           ),
         )),
-      ) as _i6.Future<_i4.AddedTripBelonging>);
+      ) as _i7.Future<_i5.AddedTripBelonging>);
 }
