@@ -27,7 +27,7 @@ class TripDetailPage extends HookConsumerWidget {
     return Scaffold(
       body: SafeArea(
         top: false,
-        child: ref.watch(tripsProvider).when(
+        child: ref.watch(tripsControllerProvider).when(
               data: (trips) {
                 final trip = trips.firstWhereOrNull((trip) => trip.id == id);
                 if (trip == null) {
@@ -52,8 +52,8 @@ class TripDetailPage extends HookConsumerWidget {
                           trip.title.value,
                           style: context.textTheme.titleLarge,
                         ),
-                        expandedHeight: backgroundImageHeight +
-                            TripOverviewCard.height / 2,
+                        expandedHeight:
+                            backgroundImageHeight + TripOverviewCard.height / 2,
                         flexibleSpace: FlexibleSpaceBar(
                           background: SizedBox(
                             height: backgroundImageHeight +

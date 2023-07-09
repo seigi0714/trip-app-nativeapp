@@ -8,20 +8,6 @@ part of 'trip_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tripsHash() => r'8a3992ca76d126ea745ec9522b5b20895197a568';
-
-/// See also [trips].
-@ProviderFor(trips)
-final tripsProvider = AutoDisposeFutureProvider<List<ExistingTrip>>.internal(
-  trips,
-  name: r'tripsProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$tripsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef TripsRef = AutoDisposeFutureProviderRef<List<ExistingTrip>>;
 String _$duplicatedTripControllerHash() =>
     r'bde4c961b5d3bd3cbdc004db9c068c940e76747b';
 
@@ -40,20 +26,20 @@ final duplicatedTripControllerProvider =
 
 typedef DuplicatedTripControllerRef
     = AutoDisposeProviderRef<DuplicatedTripController>;
-String _$tripControllerHash() => r'dbd98791a881a22471a0a43cba12be2d95628aa2';
+String _$tripsControllerHash() => r'6e552673c44d95ed970f9e61c6b3e2e5c6c02973';
 
-/// See also [TripController].
-@ProviderFor(TripController)
-final tripControllerProvider = AutoDisposeAsyncNotifierProvider<TripController,
-    List<ExistingTrip>>.internal(
-  TripController.new,
-  name: r'tripControllerProvider',
+/// See also [TripsController].
+@ProviderFor(TripsController)
+final tripsControllerProvider = AutoDisposeAsyncNotifierProvider<
+    TripsController, List<ExistingTrip>>.internal(
+  TripsController.new,
+  name: r'tripsControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$tripControllerHash,
+      : _$tripsControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$TripController = AutoDisposeAsyncNotifier<List<ExistingTrip>>;
+typedef _$TripsController = AutoDisposeAsyncNotifier<List<ExistingTrip>>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

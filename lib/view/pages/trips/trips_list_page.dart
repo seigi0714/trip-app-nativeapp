@@ -16,7 +16,7 @@ class TripListPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
-        child: ref.watch(tripsProvider).when(
+        child: ref.watch(tripsControllerProvider).when(
               data: (trips) {
                 return GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

@@ -15,18 +15,13 @@ const emptyTripTitleMessage = '旅のタイトルを入力してください。'
 const tripDateCompareErrorMessage = '帰宅日は出発日以降に設定してください。';
 
 @riverpod
-Future<List<ExistingTrip>> trips(TripsRef ref) => ref
-    .watch(duplicatedTripControllerProvider)
-    .fetchTripsByUserId(ref.watch(appUserControllerProvider).value!.id);
-
-@riverpod
 DuplicatedTripController duplicatedTripController(
   DuplicatedTripControllerRef ref,
 ) =>
     DuplicatedTripController(ref);
 
 @riverpod
-class TripController extends _$TripController {
+class TripsController extends _$TripsController {
   @override
   FutureOr<List<ExistingTrip>> build() {
     try {
@@ -61,15 +56,6 @@ class DuplicatedTripController {
       onSuccess?.call();
     } on Exception catch (e) {
       _ref.read(exceptionHandlerProvider).handleException(e);
-    }
-  }
-
-  Future<List<ExistingTrip>> fetchTripsByUserId(int userId) {
-    try {
-      return _ref.read(tripInteractorProvider).fetchTripsByUserId(userId);
-    } on Exception catch (e) {
-      _ref.read(exceptionHandlerProvider).handleException(e);
-      rethrow;
     }
   }
 
