@@ -25,6 +25,21 @@ DuplicatedTripController duplicatedTripController(
 ) =>
     DuplicatedTripController(ref);
 
+@riverpod
+class TripController extends _$TripController {
+  @override
+  FutureOr<List<ExistingTrip>> build() {
+    try {
+      return ref
+          .read(tripInteractorProvider)
+          .fetchTripsByUserId(ref.watch(appUserControllerProvider).value!.id);
+    } on Exception catch (e) {
+      ref.read(exceptionHandlerProvider).handleException(e);
+      rethrow;
+    }
+  }
+}
+
 class DuplicatedTripController {
   DuplicatedTripController(this._ref);
   final Ref _ref;

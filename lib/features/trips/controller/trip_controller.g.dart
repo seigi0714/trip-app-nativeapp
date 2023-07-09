@@ -8,7 +8,7 @@ part of 'trip_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tripsHash() => r'847da4f84e77c3cc4324e388e4e85cdee38eab89';
+String _$tripsHash() => r'8a3992ca76d126ea745ec9522b5b20895197a568';
 
 /// See also [trips].
 @ProviderFor(trips)
@@ -40,4 +40,20 @@ final duplicatedTripControllerProvider =
 
 typedef DuplicatedTripControllerRef
     = AutoDisposeProviderRef<DuplicatedTripController>;
+String _$tripControllerHash() => r'dbd98791a881a22471a0a43cba12be2d95628aa2';
+
+/// See also [TripController].
+@ProviderFor(TripController)
+final tripControllerProvider = AutoDisposeAsyncNotifierProvider<TripController,
+    List<ExistingTrip>>.internal(
+  TripController.new,
+  name: r'tripControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$tripControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$TripController = AutoDisposeAsyncNotifier<List<ExistingTrip>>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
