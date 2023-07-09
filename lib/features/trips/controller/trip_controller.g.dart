@@ -22,20 +22,22 @@ final tripsProvider = AutoDisposeFutureProvider<List<ExistingTrip>>.internal(
 );
 
 typedef TripsRef = AutoDisposeFutureProviderRef<List<ExistingTrip>>;
-String _$tripControllerHash() => r'ecb9d08395accfaf9687b15c2b145bb9a666d1d1';
+String _$duplicatedTripControllerHash() =>
+    r'bde4c961b5d3bd3cbdc004db9c068c940e76747b';
 
-/// See also [tripController].
-@ProviderFor(tripController)
-final tripControllerProvider =
+/// See also [duplicatedTripController].
+@ProviderFor(duplicatedTripController)
+final duplicatedTripControllerProvider =
     AutoDisposeProvider<DuplicatedTripController>.internal(
-  tripController,
-  name: r'tripControllerProvider',
+  duplicatedTripController,
+  name: r'duplicatedTripControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$tripControllerHash,
+      : _$duplicatedTripControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef TripControllerRef = AutoDisposeProviderRef<DuplicatedTripController>;
+typedef DuplicatedTripControllerRef
+    = AutoDisposeProviderRef<DuplicatedTripController>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

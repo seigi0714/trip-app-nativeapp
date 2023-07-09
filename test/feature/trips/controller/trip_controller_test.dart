@@ -61,7 +61,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(tripControllerProvider).createTrip(
+        providerContainer.read(duplicatedTripControllerProvider).createTrip(
               title: validName,
               fromDate: validFromDate,
               endDate: validEndDate,
@@ -100,7 +100,7 @@ Future<void> main() async {
       ).thenThrow(unexpectedException);
 
       await expectLater(
-        providerContainer.read(tripControllerProvider).createTrip(
+        providerContainer.read(duplicatedTripControllerProvider).createTrip(
               title: validName,
               fromDate: validFromDate,
               endDate: validEndDate,
@@ -135,7 +135,9 @@ Future<void> main() async {
       ).thenAnswer((_) async => []);
 
       await expectLater(
-        providerContainer.read(tripControllerProvider).fetchTripsByUserId(1),
+        providerContainer
+            .read(duplicatedTripControllerProvider)
+            .fetchTripsByUserId(1),
         completes,
       );
 
@@ -158,7 +160,7 @@ Future<void> main() async {
       await expectLater(
         () async {
           await providerContainer
-              .read(tripControllerProvider)
+              .read(duplicatedTripControllerProvider)
               .fetchTripsByUserId(1);
         },
         throwsA(

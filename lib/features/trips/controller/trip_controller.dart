@@ -16,11 +16,13 @@ const tripDateCompareErrorMessage = '帰宅日は出発日以降に設定して�
 
 @riverpod
 Future<List<ExistingTrip>> trips(TripsRef ref) => ref
-    .watch(tripControllerProvider)
+    .watch(duplicatedTripControllerProvider)
     .fetchTripsByUserId(ref.watch(appUserControllerProvider).value!.id);
 
 @riverpod
-DuplicatedTripController tripController(TripControllerRef ref) =>
+DuplicatedTripController duplicatedTripController(
+  DuplicatedTripControllerRef ref,
+) =>
     DuplicatedTripController(ref);
 
 class DuplicatedTripController {

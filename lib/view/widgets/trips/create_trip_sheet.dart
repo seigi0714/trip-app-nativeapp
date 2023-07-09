@@ -199,12 +199,12 @@ class _CreateButton extends ConsumerWidget {
         onPressed: isTitleEmpty.value
             ? null
             : () {
-                ref.read(tripControllerProvider).createTrip(
+                ref.read(duplicatedTripControllerProvider).createTrip(
                       title: titleEditingController.text,
                       fromDate: fromDate.value,
                       endDate: endDate.value,
                       onSuccess: () {
-                        ref.invalidate(tripControllerProvider);
+                        ref.invalidate(duplicatedTripControllerProvider);
                         Navigator.pop(context);
                       },
                     );
