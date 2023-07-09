@@ -28,9 +28,12 @@ Future<void> main() async {
   final mockApiClient = MockApiClientInterface();
 
   const validTripId = 999;
-  const validTitle = 'test_user';
+  const validTripTitle = 'test_trip_title';
   final validFromDate = DateTime(2023);
   final validEndDate = DateTime(2023, 1, 2);
+  const validUserId = 1;
+  const validName = 'Bob';
+  const validEmail = 'bob@somedomain.com';
 
   final unexpectedException = Exception('想定外のエラー');
 
@@ -46,7 +49,7 @@ Future<void> main() async {
 
   group('createTrip', () {
     final testNewTrip = Trip.createNewTrip(
-      title: TripTitle(value: validTitle),
+      title: TripTitle(value: validTripTitle),
       period: TripPeriod(
         fromDate: validFromDate,
         endDate: validEndDate,
@@ -55,7 +58,7 @@ Future<void> main() async {
 
     final validResult = Trip.createExistingTrip(
       id: validTripId,
-      title: TripTitle(value: validTitle),
+      title: TripTitle(value: validTripTitle),
       period: TripPeriod(
         fromDate: validFromDate,
         endDate: validEndDate,
@@ -68,7 +71,7 @@ Future<void> main() async {
         mockApiClient.post(
           '/trips',
           data: {
-            'name': validTitle,
+            'name': validTripTitle,
             'from_date': validFromDate.toJsonDateString(),
             'end_date': validEndDate.toJsonDateString(),
           },
@@ -94,7 +97,7 @@ Future<void> main() async {
         mockApiClient.post(
           '/trips',
           data: {
-            'name': validTitle,
+            'name': validTripTitle,
             'from_date': validFromDate.toJsonDateString(),
             'end_date': validEndDate.toJsonDateString(),
           },
@@ -107,6 +110,7 @@ Future<void> main() async {
       );
     });
   });
+
   group('invite', () {
     const validTripId = 1;
     const validInvitationNum = 3;
@@ -163,10 +167,6 @@ Future<void> main() async {
   group(
     'fetchTripsByUserId',
     () {
-      const validTripId = 999;
-      const validUserId = 1;
-      const validName = 'Bob';
-      const validEmail = 'bob@somedomain.com';
       const validMember = TripMember.joined(
         isHost: true,
         user: AppUser(id: validUserId, name: validName, email: validEmail),
@@ -174,7 +174,7 @@ Future<void> main() async {
       final validResult = [
         Trip.createExistingTrip(
           id: validTripId,
-          title: TripTitle(value: validTitle),
+          title: TripTitle(value: validTripTitle),
           period: TripPeriod(
             fromDate: validFromDate,
             endDate: validEndDate,
@@ -195,7 +195,7 @@ Future<void> main() async {
               'items': [
                 {
                   'id': validTripId,
-                  'name': validTitle,
+                  'name': validTripTitle,
                   'members': [
                     {
                       'member': {
@@ -493,4 +493,104 @@ Future<void> main() async {
       );
     });
   });
+
+  group(
+    'updateTrip',
+    () {
+      const validMember = TripMember.joined(
+        isHost: true,
+        user: AppUser(id: validUserId, name: validName, email: validEmail),
+      );
+
+      final testExistingTrip = Trip.createExistingTrip(
+        id: validTripId,
+        title: TripTitle(value: validTripTitle),
+        period: TripPeriod(
+          fromDate: validFromDate,
+          endDate: validEndDate,
+        ),
+        // tripRepo.updateTrip では、メンバーと持ち物の更新はできないので、空の List を渡す。
+        members: [],
+        belongings: [],
+      ) as ExistingTrip;
+
+      final expectedTrip = Trip.createExistingTrip(
+        id: validTripId,
+        title: TripTitle(value: validTripTitle),
+        period: TripPeriod(
+          fromDate: validFromDate,
+          endDate: validEndDate,
+        ),
+        members: [validMember],
+        belongings: [],
+      ) as ExistingTrip;
+
+      test(
+        '正常系',
+        () async {
+          when(
+            mockApiClient.put(
+              '/trips/$validTripId',
+              data: {
+                'name': validTripTitle,
+                'from_date': validFromDate.toJsonDateString(),
+                'end_date': validEndDate.toJsonDateString(),
+              },
+            ),
+          ).thenAnswer((_) async {
+            return ApiResponse(
+              data: {
+                'id': testExistingTrip.id,
+                'name': testExistingTrip.title.value,
+                'from_date':
+                    testExistingTrip.period.fromDate.toJsonDateString(),
+                'end_date': testExistingTrip.period.endDate.toJsonDateString(),
+                'members': [
+                  {
+                    'member': {
+                      'id': validMember.user.id,
+                      'auth_uid': 'test_auth_uid',
+                      'auth_provider': 'google',
+                      'name': validMember.user.name,
+                      'email': validMember.user.email,
+                    },
+                    'is_host': validMember.isHost
+                  }
+                ],
+              },
+            );
+          });
+
+          final result = await providerContainer
+              .read(tripRepositoryProvider)
+              .updateTrip(trip: testExistingTrip);
+          expect(result, expectedTrip);
+        },
+      );
+      test(
+        '準正常系 旅更新 API からエラーが返ってきた場合は例外を投げる',
+        () async {
+          when(
+            mockApiClient.put(
+              '/trips/$validTripId',
+              data: {
+                'name': validTripTitle,
+                'from_date': validFromDate.toJsonDateString(),
+                'end_date': validEndDate.toJsonDateString(),
+              },
+            ),
+          ).thenThrow(unexpectedException);
+
+          await expectLater(
+            providerContainer
+                .read(tripRepositoryProvider)
+                .updateTrip(trip: testExistingTrip),
+            throwsA(
+              isA<Exception>(),
+            ),
+          );
+        },
+      );
+    },
+  );
 }

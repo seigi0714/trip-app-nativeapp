@@ -41,6 +41,26 @@ class TripInteractor {
     await tripRepo.createTrip(trip);
   }
 
+  Future<ExistingTrip> updateTrip(
+    int id,
+    String title,
+    DateTime fromDate,
+    DateTime endDate,
+  ) {
+    final trip = Trip.createExistingTrip(
+      id: id,
+      title: TripTitle(value: title),
+      period: TripPeriod(
+        fromDate: fromDate,
+        endDate: endDate,
+      ),
+      // tripRepo.updateTrip では、メンバーと持ち物の更新はできないので、空の List を渡す。
+      members: [],
+      belongings: [],
+    ) as ExistingTrip;
+    return tripRepo.updateTrip(trip: trip);
+  }
+
   Future<GeneratedTripInvitation> invite({
     required int tripId,
     required int invitationNum,
