@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
@@ -15,12 +14,6 @@ const emptyTripTitleMessage = '旅のタイトルを入力してください。'
 const tripDateCompareErrorMessage = '帰宅日は出発日以降に設定してください。';
 
 @riverpod
-DuplicatedTripController duplicatedTripController(
-  DuplicatedTripControllerRef ref,
-) =>
-    DuplicatedTripController(ref);
-
-@riverpod
 class TripsController extends _$TripsController {
   @override
   FutureOr<List<ExistingTrip>> build() {
@@ -33,11 +26,6 @@ class TripsController extends _$TripsController {
       rethrow;
     }
   }
-}
-
-class DuplicatedTripController {
-  DuplicatedTripController(this._ref);
-  final Ref _ref;
 
   Future<void> createTrip({
     required String title,
@@ -46,16 +34,16 @@ class DuplicatedTripController {
     VoidCallback? onSuccess,
   }) async {
     try {
-      await _ref
+      await ref
           .read(tripInteractorProvider)
           .createTrip(title, fromDate, endDate);
 
-      _ref
+      ref
           .read(scaffoldMessengerHelperProvider)
           .showSnackBar(createTripSuccessMessage);
       onSuccess?.call();
     } on Exception catch (e) {
-      _ref.read(exceptionHandlerProvider).handleException(e);
+      ref.read(exceptionHandlerProvider).handleException(e);
     }
   }
 
@@ -65,19 +53,19 @@ class DuplicatedTripController {
   }) async {
     const successMessage = '招待リンクをクリップボードにコピーしました。';
     try {
-      _ref.read(overlayLoadingProvider.notifier).startLoading();
-      final invitation = await _ref
+      ref.read(overlayLoadingProvider.notifier).startLoading();
+      final invitation = await ref
           .read(tripInteractorProvider)
           .invite(tripId: tripId, invitationNum: invitationNum);
 
       // TODO(seigi0714): ダイナミックリンクをクリップボードにコピー
       final data = ClipboardData(text: invitation.invitationCode);
       await Clipboard.setData(data);
-      _ref.read(scaffoldMessengerHelperProvider).showSnackBar(successMessage);
+      ref.read(scaffoldMessengerHelperProvider).showSnackBar(successMessage);
     } on Exception catch (e) {
-      _ref.read(exceptionHandlerProvider).handleException(e);
+      ref.read(exceptionHandlerProvider).handleException(e);
     } finally {
-      _ref.read(overlayLoadingProvider.notifier).endLoading();
+      ref.read(overlayLoadingProvider.notifier).endLoading();
     }
   }
 }

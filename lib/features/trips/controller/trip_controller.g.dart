@@ -8,25 +8,7 @@ part of 'trip_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$duplicatedTripControllerHash() =>
-    r'bde4c961b5d3bd3cbdc004db9c068c940e76747b';
-
-/// See also [duplicatedTripController].
-@ProviderFor(duplicatedTripController)
-final duplicatedTripControllerProvider =
-    AutoDisposeProvider<DuplicatedTripController>.internal(
-  duplicatedTripController,
-  name: r'duplicatedTripControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$duplicatedTripControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef DuplicatedTripControllerRef
-    = AutoDisposeProviderRef<DuplicatedTripController>;
-String _$tripsControllerHash() => r'6e552673c44d95ed970f9e61c6b3e2e5c6c02973';
+String _$tripsControllerHash() => r'20da33a19fe1b530860736dbb93557739f9a1a3f';
 
 /// See also [TripsController].
 @ProviderFor(TripsController)

@@ -61,7 +61,7 @@ Future<void> main() async {
       ).thenReturn(null);
 
       await expectLater(
-        providerContainer.read(duplicatedTripControllerProvider).createTrip(
+        providerContainer.read(tripsControllerProvider.notifier).createTrip(
               title: validName,
               fromDate: validFromDate,
               endDate: validEndDate,
@@ -100,7 +100,7 @@ Future<void> main() async {
       ).thenThrow(unexpectedException);
 
       await expectLater(
-        providerContainer.read(duplicatedTripControllerProvider).createTrip(
+        providerContainer.read(tripsControllerProvider.notifier).createTrip(
               title: validName,
               fromDate: validFromDate,
               endDate: validEndDate,
