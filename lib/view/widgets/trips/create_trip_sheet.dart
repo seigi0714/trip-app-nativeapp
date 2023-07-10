@@ -203,11 +203,7 @@ class _CreateButton extends ConsumerWidget {
                       title: titleEditingController.text,
                       fromDate: fromDate.value,
                       endDate: endDate.value,
-                      onSuccess: () {
-                        // TODO(shimizu-saffle): invalidate しない
-                        ref.invalidate(tripsControllerProvider);
-                        Navigator.pop(context);
-                      },
+                      onSuccess: () => Navigator.pop(context),
                     );
               },
         child: const Text('作成'),

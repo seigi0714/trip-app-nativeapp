@@ -34,9 +34,11 @@ class TripsController extends _$TripsController {
     VoidCallback? onSuccess,
   }) async {
     try {
-      await ref
+      final newTrip = await ref
           .read(tripInteractorProvider)
           .createTrip(title, fromDate, endDate);
+
+      state = AsyncData([...state.value ?? [], newTrip]);
 
       ref
           .read(scaffoldMessengerHelperProvider)
