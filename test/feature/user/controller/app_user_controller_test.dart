@@ -1,9 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_sign_in_mocks/google_sign_in_mocks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:mocktail/mocktail.dart';
@@ -16,6 +14,7 @@ import 'package:trip_app_nativeapp/features/user/data/models/get_user_response.d
 import 'package:trip_app_nativeapp/features/user/domain/entity/app_user.dart';
 
 import '../../../mock/async_value_listener.dart';
+import '../../../mock/mock_auth_helper.dart';
 
 Future<void> main() async {
   group(
@@ -49,7 +48,7 @@ Future<void> main() async {
       test(
         '正常系 Firebase Auth がログイン状態の場合は AppUser が取得できている',
         () async {
-          final mockAuth = await _mockSignIn(firebaseAuthUser);
+          final mockAuth = await mockSignIn(firebaseAuthUser);
 
           container = ProviderContainer(
             overrides: [
@@ -139,16 +138,4 @@ Future<void> main() async {
       );
     },
   );
-}
-
-Future<MockFirebaseAuth> _mockSignIn(MockUser firebaseAuthUser) async {
-  final googleUser = await MockGoogleSignIn().signIn();
-  final signInAccount = await googleUser?.authentication;
-  final credential = GoogleAuthProvider.credential(
-    accessToken: signInAccount?.accessToken,
-    idToken: signInAccount?.idToken,
-  );
-  final mockAuth = MockFirebaseAuth(mockUser: firebaseAuthUser);
-  await mockAuth.signInWithCredential(credential);
-  return mockAuth;
 }
