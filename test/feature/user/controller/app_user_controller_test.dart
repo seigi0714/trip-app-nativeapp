@@ -58,13 +58,13 @@ Future<void> main() async {
               networkConnectivityProvider
                   .overrideWith((ref) => mockConnectivity),
             ],
-          )
-            ..listen(
+          )..listen(
               appUserControllerProvider,
               asyncValueListener.call,
               fireImmediately: true,
-            )
-            ..read(appUserControllerProvider);
+            );
+
+          await container.read(appUserControllerProvider.future);
 
           verify(
             () => asyncValueListener(
@@ -72,9 +72,6 @@ Future<void> main() async {
               const AsyncLoading<AppUser?>(),
             ),
           );
-
-          // /my/profile [get] からの response が返ってくるまで待つ
-          await Future<void>.delayed(const Duration(seconds: 1));
 
           verify(
             () => asyncValueListener(
