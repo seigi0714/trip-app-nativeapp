@@ -25,6 +25,10 @@ void main() {
   const validUserId = 1;
   const validName = 'Bob';
   const validEmail = 'bob@somedomain.com';
+  const validMember = TripMember.joined(
+    isHost: true,
+    user: AppUser(id: validUserId, name: validName, email: validEmail),
+  );
 
   setUp(() {
     providerContainer = ProviderContainer(
@@ -44,16 +48,7 @@ void main() {
               fromDate: validFromDate,
               endDate: validEndDate,
             ),
-            members: [
-              const TripMember.joined(
-                isHost: true,
-                user: AppUser(
-                  id: validUserId,
-                  name: validName,
-                  email: validEmail,
-                ),
-              ),
-            ],
+            members: [validMember],
             belongings: [],
           ) as ExistingTrip
         ]),
@@ -94,11 +89,6 @@ void main() {
         members: [],
         belongings: [],
       ) as ExistingTrip;
-
-      const validMember = TripMember.joined(
-        isHost: true,
-        user: AppUser(id: validUserId, name: validName, email: validEmail),
-      );
 
       final expectedTrip = Trip.createExistingTrip(
         id: validTripId,

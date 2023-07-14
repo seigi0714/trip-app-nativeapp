@@ -88,7 +88,7 @@ class MockTripInteractor extends _i1.Mock implements _i6.TripInteractor {
         ),
       ) as _i2.TripRepositoryInterface);
   @override
-  _i7.Future<void> createTrip(
+  _i7.Future<_i3.ExistingTrip> createTrip(
     String? title,
     DateTime? fromDate,
     DateTime? endDate,
@@ -102,9 +102,18 @@ class MockTripInteractor extends _i1.Mock implements _i6.TripInteractor {
             endDate,
           ],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i7.Future<_i3.ExistingTrip>.value(_FakeExistingTrip_1(
+          this,
+          Invocation.method(
+            #createTrip,
+            [
+              title,
+              fromDate,
+              endDate,
+            ],
+          ),
+        )),
+      ) as _i7.Future<_i3.ExistingTrip>);
   @override
   _i7.Future<_i3.ExistingTrip> updateTrip(
     int? id,
