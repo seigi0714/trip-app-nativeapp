@@ -103,17 +103,49 @@ Future<void> main() async {
     reset(mockExceptionHandler);
   });
 
-  group('createTrip', () {
-    final existingTrip = ExistingTrip(
-      id: validTripId,
-      title: TripTitle(value: validTitleValue),
-      period: TripPeriod(
-        fromDate: validFromDate,
-        endDate: validEndDate,
-      ),
-      members: [validMember],
-      belongings: [],
-    );
+  group('TripsController.build', () {
+    test('正常系', () async {
+      final testTrip = ExistingTrip(
+        id: validTripId,
+        title: TripTitle(value: validTitleValue),
+        period: TripPeriod(
+          fromDate: validFromDate,
+          endDate: validEndDate,
+        ),
+        members: [validMember],
+        belongings: [],
+      );
+
+      final expectedTripList = [
+        ExistingTrip(
+          id: validTripId,
+          title: TripTitle(value: validTitleValue),
+          period: TripPeriod(
+            fromDate: validFromDate,
+            endDate: validEndDate,
+          ),
+          members: [validMember],
+          belongings: [],
+        )
+      ];
+
+      when(
+        mockTripInteractor.fetchTripsByUserId(validUserId),
+      ).thenAnswer(
+        (_) => Future.value([testTrip]),
+      );
+
+      final result =
+          await providerContainer.read(tripsControllerProvider.future);
+
+      expect(result, expectedTripList);
+      verify(
+        mockTripInteractor.fetchTripsByUserId(validUserId),
+      ).called(1);
+    });
+  });
+
+  group('TripsController.createTrip', () {
     const newTripId = 2;
     final newTrip = ExistingTrip(
       id: newTripId,
@@ -130,7 +162,7 @@ Future<void> main() async {
     test('正常系', () async {
       when(
         mockTripInteractor.fetchTripsByUserId(validUserId),
-      ).thenAnswer((_) => Future.value([existingTrip]));
+      ).thenAnswer((_) async => <ExistingTrip>[]);
 
       when(
         mockTripInteractor.createTrip(
@@ -170,6 +202,7 @@ Future<void> main() async {
       ).called(1);
       verify(mockOnSuccess.showSnackBar('成功時コールバック')).called(1);
     });
+
     test('異常系 旅作成に失敗', () async {
       when(
         mockExceptionHandler.handleException(
