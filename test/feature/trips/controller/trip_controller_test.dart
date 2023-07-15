@@ -145,6 +145,29 @@ Future<void> main() async {
     });
   });
 
+  test('異常系 例外が生じた際は handleException が呼ばれる', () {
+    when(
+      mockTripInteractor.fetchTripsByUserId(validUserId),
+    ).thenThrow(unexpectedException);
+
+    when(
+      mockExceptionHandler.handleException(
+        unexpectedException,
+      ),
+    ).thenReturn(null);
+
+    expect(
+      () => providerContainer.read(tripsControllerProvider.future),
+      throwsA(unexpectedException),
+    );
+
+    verify(
+      mockExceptionHandler.handleException(
+        unexpectedException,
+      ),
+    ).called(1);
+  });
+
   group('TripsController.createTrip', () {
     const newTripId = 2;
     final newTrip = ExistingTrip(
