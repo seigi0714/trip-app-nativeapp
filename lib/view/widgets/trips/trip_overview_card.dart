@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
+import 'package:trip_app_nativeapp/view/widgets/trips/editable_trip_title_text.dart';
 
 class TripOverviewCard extends StatelessWidget {
   const TripOverviewCard(this.trip, {super.key});
@@ -31,11 +32,8 @@ class TripOverviewCard extends StatelessWidget {
                 Expanded(
                   child: Container(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      trip.title.value,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: context.textTheme.headlineMedium,
+                    child: EditableTripTitleText(
+                      tripTitle: trip.title.value,
                     ),
                   ),
                 ),
@@ -64,16 +62,6 @@ class TripOverviewCard extends StatelessWidget {
                         onPressed: () => log('share'),
                         icon: const Icon(
                           Icons.share,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 36,
-                      height: 36,
-                      child: IconButton(
-                        onPressed: () => log('edit'),
-                        icon: const Icon(
-                          Icons.edit,
                         ),
                       ),
                     ),
