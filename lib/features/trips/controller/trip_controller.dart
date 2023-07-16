@@ -49,6 +49,34 @@ class TripsController extends _$TripsController {
     }
   }
 
+  Future<void> updateTrip({
+    required int tripId,
+    required String title,
+    required DateTime fromDate,
+    required DateTime endDate,
+  }) async {
+    try {
+      final updatedTrip = await ref
+          .read(tripInteractorProvider)
+          .updateTrip(tripId, title, fromDate, endDate);
+
+      final updatedTrips = state.value?.map((trip) {
+        if (trip.id == updatedTrip.id) {
+          return updatedTrip;
+        }
+        return trip;
+      }).toList();
+
+      state = AsyncData(updatedTrips ?? []);
+
+      ref
+          .read(scaffoldMessengerHelperProvider)
+          .showSnackBar(createTripSuccessMessage);
+    } on Exception catch (e) {
+      ref.read(exceptionHandlerProvider).handleException(e);
+    }
+  }
+
   Future<void> generateAndCopyInviteLink({
     required int tripId,
     required int invitationNum,
