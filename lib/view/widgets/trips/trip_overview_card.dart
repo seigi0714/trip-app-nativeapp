@@ -38,23 +38,17 @@ class TripOverviewCard extends StatelessWidget {
                   ),
                 ),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '🛫 ${trip.period.fromDate.toJsonDateString()}',
-                            style: context.textTheme.titleMedium,
-                          ),
-                          Text(
-                            '${trip.period.endDate.toJsonDateString()} 🔚',
-                            style: context.textTheme.titleMedium,
-                          ),
-                        ],
-                      ),
+                    Text(
+                      '🛫 ${trip.period.fromDate.toJsonDateString()}',
+                      style: context.textTheme.titleMedium,
                     ),
+                    const Text(' / '),
+                    Text(
+                      '${trip.period.endDate.toJsonDateString()} 🔚',
+                      style: context.textTheme.titleMedium,
+                    ),
+                    const Spacer(),
                     SizedBox(
                       width: 36,
                       height: 36,
