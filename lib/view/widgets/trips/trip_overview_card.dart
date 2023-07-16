@@ -32,9 +32,7 @@ class TripOverviewCard extends StatelessWidget {
                 Expanded(
                   child: Container(
                     alignment: Alignment.centerLeft,
-                    child: EditableTripTitleText(
-                      tripTitle: trip.title.value,
-                    ),
+                    child: EditableTripTitleText(trip: trip),
                   ),
                 ),
                 Row(

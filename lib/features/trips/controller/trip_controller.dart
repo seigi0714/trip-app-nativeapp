@@ -68,10 +68,6 @@ class TripsController extends _$TripsController {
       }).toList();
 
       state = AsyncData(updatedTrips ?? []);
-
-      ref
-          .read(scaffoldMessengerHelperProvider)
-          .showSnackBar(createTripSuccessMessage);
     } on Exception catch (e) {
       ref.read(exceptionHandlerProvider).handleException(e);
     }
