@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
@@ -40,7 +39,6 @@ Future<void> main() async {
   // callbackがちゃんと呼ばれているかチェックするため
   // 実際にはScaffoldMessengerHelperのメソッドが呼ばれているわけでは無い
   final mockOnSuccess = MockScaffoldMessengerHelper();
-
   const validTripId = 1;
   const validTitleValue = 'test_trip';
   final validFromDate = DateTime(2023);
@@ -68,22 +66,17 @@ Future<void> main() async {
 
   setUp(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
-    DioAdapter(dio: dio).onGet(
-      '/my/profile',
-      (server) => server.reply(
-        200,
-        validUserRes,
-      ),
+    final (mockAuth, mockDio) = await mockLogin(
+      dio: dio,
+      mockUserRes: validUserRes,
+      mockFirebaseUser: mockFirebaseAuthUser,
     );
-
-    final mockAuth = await mockSignIn(mockFirebaseAuthUser);
-
     providerContainer = ProviderContainer(
       overrides: [
-        dioProvider(ApiDestination.privateTripAppV1).overrideWithValue(dio),
+        dioProvider(ApiDestination.privateTripAppV1).overrideWithValue(mockDio),
         tripInteractorProvider.overrideWith((_) => mockTripInteractor),
         firebaseAuthProvider.overrideWithValue(mockAuth),
-        networkConnectivityProvider.overrideWith((ref) => mockConnectivity),
+        networkConnectivityProvider.overrideWith((_) => mockConnectivity),
         scaffoldMessengerHelperProvider.overrideWith(
           (_) => mockScaffoldMessengerHelper,
         ),
