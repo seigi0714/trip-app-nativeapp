@@ -54,7 +54,6 @@ Future<void> main() async {
   );
   final mockFirebaseAuthUser =
       MockUser(email: validEmail, displayName: validName);
-  final mockAuth = await mockSignIn(mockFirebaseAuthUser);
   const validUserDataRes =
       GetUserResponse(id: validUserId, name: validName, email: validEmail);
   final validUserRes = <String, dynamic>{
@@ -76,6 +75,8 @@ Future<void> main() async {
         validUserRes,
       ),
     );
+
+    final mockAuth = await mockSignIn(mockFirebaseAuthUser);
 
     providerContainer = ProviderContainer(
       overrides: [
@@ -101,6 +102,7 @@ Future<void> main() async {
     reset(mockTripInteractor);
     reset(mockScaffoldMessengerHelper);
     reset(mockExceptionHandler);
+    reset(mockOnSuccess);
   });
 
   group('TripsController.build', () {
@@ -143,29 +145,29 @@ Future<void> main() async {
         mockTripInteractor.fetchTripsByUserId(validUserId),
       ).called(1);
     });
-  });
 
-  test('異常系 例外が生じた際は handleException が呼ばれる', () {
-    when(
-      mockTripInteractor.fetchTripsByUserId(validUserId),
-    ).thenThrow(unexpectedException);
+    test('異常系 例外が生じた際は handleException が呼ばれる', () {
+      when(
+        mockTripInteractor.fetchTripsByUserId(validUserId),
+      ).thenThrow(unexpectedException);
 
-    when(
-      mockExceptionHandler.handleException(
-        unexpectedException,
-      ),
-    ).thenReturn(null);
+      when(
+        mockExceptionHandler.handleException(
+          unexpectedException,
+        ),
+      ).thenReturn(null);
 
-    expect(
-      () => providerContainer.read(tripsControllerProvider.future),
-      throwsA(unexpectedException),
-    );
+      expect(
+        () => providerContainer.read(tripsControllerProvider.future),
+        throwsA(unexpectedException),
+      );
 
-    verify(
-      mockExceptionHandler.handleException(
-        unexpectedException,
-      ),
-    ).called(1);
+      verify(
+        mockExceptionHandler.handleException(
+          unexpectedException,
+        ),
+      ).called(1);
+    });
   });
 
   group('TripsController.createTrip', () {
