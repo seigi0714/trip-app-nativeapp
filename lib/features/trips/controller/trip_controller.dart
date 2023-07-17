@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
 import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/interactor/trip_interactor.dart';
@@ -51,14 +52,34 @@ class TripsController extends _$TripsController {
 
   Future<void> updateTrip({
     required int tripId,
-    required String title,
-    required DateTime fromDate,
-    required DateTime endDate,
+    String? title,
+    DateTime? fromDate,
+    DateTime? endDate,
   }) async {
+    assert(
+      title != null || fromDate != null || endDate != null,
+      'tripId 以外の引数が全て null だと旅情報を更新できません。',
+    );
     try {
-      final updatedTrip = await ref
-          .read(tripInteractorProvider)
-          .updateTrip(tripId, title, fromDate, endDate);
+      final tripToUpdate = state.value?.firstWhere((trip) => trip.id == tripId);
+      assert(
+        tripToUpdate != null,
+        '''
+        TripsController の state が保持していない旅を更新しようとしています。        
+        ''',
+      );
+      // 以下の例外のメッセージはユーザーに見せるつもりは無いが、
+      // assert だけでは null チェックが効かないので例外を投げている。
+      if (tripToUpdate == null) {
+        throw const AppException(message: '更新しようとしている旅が存在していません🤔');
+      }
+
+      final updatedTrip = await ref.read(tripInteractorProvider).updateTrip(
+            tripId,
+            title ?? tripToUpdate.title.value,
+            fromDate ?? tripToUpdate.period.fromDate,
+            endDate ?? tripToUpdate.period.endDate,
+          );
 
       final updatedTrips = state.value?.map((trip) {
         if (trip.id == updatedTrip.id) {

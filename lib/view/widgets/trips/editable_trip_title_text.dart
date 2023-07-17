@@ -60,8 +60,6 @@ class EditableTripTitleText extends HookConsumerWidget {
           ref.read(tripsControllerProvider.notifier).updateTrip(
                 tripId: trip.id,
                 title: controller.text,
-                fromDate: trip.period.fromDate,
-                endDate: trip.period.endDate,
               );
           previousText.value = controller.text;
           isEditing.value = false;

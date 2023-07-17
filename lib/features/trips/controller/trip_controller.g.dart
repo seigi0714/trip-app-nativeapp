@@ -8,7 +8,7 @@ part of 'trip_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tripsControllerHash() => r'8e0abac9b92207c97b6f06c62f84948d4fcfecc8';
+String _$tripsControllerHash() => r'08d4ad9ce5c1a8abfa5cbdeb1a22e7f8a12bc363';
 
 /// See also [TripsController].
 @ProviderFor(TripsController)
