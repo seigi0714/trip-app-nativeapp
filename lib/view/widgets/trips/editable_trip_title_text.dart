@@ -19,6 +19,9 @@ class EditableTripTitleText extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isEditing = useState(false);
     final focusNode = useFocusNode();
+
+    /// TextField にフォーカスが当たる前のテキストを保持する。
+    /// フォーカスが外れた時にテキストが空文字だった場合に、編集前の旅タイトルに表示を戻すために使用する。
     final previousText = useState(trip.title.value);
     final controller = useTextEditingController(text: trip.title.value);
 
@@ -43,8 +46,16 @@ class EditableTripTitleText extends HookConsumerWidget {
     useEffect(
       () {
         if (!focusNode.hasFocus) {
+          // 旅タイトルが変更されていない場合は、API コールしない。
+          if (previousText.value == controller.text) {
+            isEditing.value = false;
+            return;
+          }
+          // 旅タイトルが空文字になった場合は、編集前のタイトルに戻して API コールしない。
           if (controller.text.isEmpty) {
             controller.text = previousText.value;
+            isEditing.value = false;
+            return;
           }
           ref.read(tripsControllerProvider.notifier).updateTrip(
                 tripId: trip.id,
@@ -52,6 +63,7 @@ class EditableTripTitleText extends HookConsumerWidget {
                 fromDate: trip.period.fromDate,
                 endDate: trip.period.endDate,
               );
+          previousText.value = controller.text;
           isEditing.value = false;
         }
         return null;
