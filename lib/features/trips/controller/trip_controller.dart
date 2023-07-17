@@ -50,6 +50,12 @@ class TripsController extends _$TripsController {
     }
   }
 
+  /// [tripId] に一致する旅行情報を更新します。
+  ///
+  /// 更新する情報は、[title]、[fromDate]、[endDate] のいずれかまたは全てです。
+  /// これらのパラメータは null 許容となっており、null の場合は既存の情報が保持されます。
+  ///
+  /// [tripId] 以外の全てのパラメータが null の場合はアサーションエラーになります。
   Future<void> updateTrip({
     required int tripId,
     String? title,
@@ -91,6 +97,7 @@ class TripsController extends _$TripsController {
       state = AsyncData(updatedTrips ?? []);
     } on Exception catch (e) {
       ref.read(exceptionHandlerProvider).handleException(e);
+      rethrow;
     }
   }
 

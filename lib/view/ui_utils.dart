@@ -2,21 +2,37 @@ import 'package:flutter/material.dart' hide DatePickerTheme;
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 
+/// * [dateTimeNotifier] 選択した日時で呼び出し元の Widget をリビルドするための ValueNotifier。
+/// useState<DateTime>() が渡されることを想定している。
+///
+/// * [isSelectedNotifier] 日時が選択されたか否かのフラグによって、
+/// 呼び出し元の Widget をリビルドするためのValueNotifier。
+/// useState<bool>() が渡されることを想定している。
+///
+/// * [minTime] DatePicker で選択可能な最小の日付。
+///
+/// * [maxTime] DatePicker で選択可能な最大の日付。
 Future<DateTime?> showTripAppDatePicker(
   BuildContext context, {
-  /// DatePicker で選択された日付を通知するための ValueNotifier
-  /// useState<DateTime>() が渡されることを想定。
   required ValueNotifier<DateTime> dateTimeNotifier,
-
-  /// DatePicker で日付が選択されたか否かを通知するための ValueNotifier
-  /// useState<bool>() が渡されることを想定。
-  required ValueNotifier<bool> isSelectedNotifier,
-}) {
-  return DatePicker.showDatePicker(
+  ValueNotifier<bool>? isSelectedNotifier,
+  DateTime? minTime,
+  DateTime? maxTime,
+}) async {
+  // 完了ボタンが押されなくても、変更した日時を返すようにする。
+  DateTime? result;
+  await DatePicker.showDatePicker(
     context,
-    minTime: DateTime.now(),
+    maxTime: maxTime,
+    minTime: minTime,
+    onChanged: (date) {
+      result = date;
+      isSelectedNotifier?.value = true;
+      dateTimeNotifier.value = date;
+    },
     onConfirm: (date) {
-      isSelectedNotifier.value = true;
+      result = date;
+      isSelectedNotifier?.value = true;
       dateTimeNotifier.value = date;
     },
     currentTime: dateTimeNotifier.value,
@@ -32,4 +48,5 @@ Future<DateTime?> showTripAppDatePicker(
       ),
     ),
   );
+  return result;
 }
