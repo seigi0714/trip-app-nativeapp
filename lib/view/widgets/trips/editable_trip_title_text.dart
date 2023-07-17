@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/features/trips/controller/trip_controller.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
+import 'package:trip_app_nativeapp/view/widgets/helpers/text_input_helper.dart';
 
 class EditableTripTitleText extends HookConsumerWidget {
   const EditableTripTitleText({
@@ -42,6 +43,10 @@ class EditableTripTitleText extends HookConsumerWidget {
             controller: controller,
             focusNode: focusNode,
             style: context.textTheme.headlineSmall,
+            // UI に文字数カウンターを表示したくないので、maxLength プロパティを使わない。
+            inputFormatters: [
+              MaxLengthInputFormatterWithSnackBar(ref, 25),
+            ],
           )
         : GestureDetector(
             onTap: () {
