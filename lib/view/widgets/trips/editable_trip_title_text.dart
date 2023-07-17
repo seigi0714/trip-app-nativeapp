@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/features/trips/controller/trip_controller.dart';
 import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
+import 'package:trip_app_nativeapp/view/widgets/helpers/scaffold_messenger.dart';
 import 'package:trip_app_nativeapp/view/widgets/helpers/text_input_helper.dart';
 
 class EditableTripTitleText extends HookConsumerWidget {
@@ -18,12 +19,31 @@ class EditableTripTitleText extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isEditing = useState(false);
     final focusNode = useFocusNode();
+    final previousText = useState(trip.title.value);
     final controller = useTextEditingController(text: trip.title.value);
+    void textEditingListener() {
+      if (controller.text.isEmpty) {
+        ref
+            .read(scaffoldMessengerHelperProvider)
+            .showSnackBar('旅のタイトルが空文字です🫢');
+      }
+    }
+
+    useEffect(
+      () {
+        controller.addListener(textEditingListener);
+        return () => controller.removeListener(textEditingListener);
+      },
+      [],
+    );
 
     useEffect(
       () {
         focusNode.addListener(() {
           if (!focusNode.hasFocus) {
+            if (controller.text.isEmpty) {
+              controller.text = previousText.value;
+            }
             ref.read(tripsControllerProvider.notifier).updateTrip(
                   tripId: trip.id,
                   title: controller.text,

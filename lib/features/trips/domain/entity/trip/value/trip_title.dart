@@ -1,6 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
-import 'package:trip_app_nativeapp/core/exception/exception_code.dart';
 
 part 'trip_title.freezed.dart';
 
@@ -8,16 +6,13 @@ part 'trip_title.freezed.dart';
 class TripTitle with _$TripTitle {
   factory TripTitle({required String value}) {
     assert(
-      value.length <= 25,
-      'Widget のプロパティによる制御で、26文字以上の文字列が入力されないように制限してください💡',
+      value.isNotEmpty,
+      'UIのコードによって、空文字が入力されないように制御してください💡',
     );
-
-    if (value.isEmpty) {
-      throw const AppException(
-        code: ExceptionCode.invalidTripTitle,
-        message: '旅のタイトルが空文字です🫢',
-      );
-    }
+    assert(
+      value.length <= 25,
+      'UIのコードによって、26文字以上の文字列が入力されないように制御してください💡',
+    );
     return TripTitle._internal(value: value);
   }
 
