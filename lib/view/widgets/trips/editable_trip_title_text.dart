@@ -42,7 +42,9 @@ class EditableTripTitleText extends HookConsumerWidget {
         ? TextField(
             controller: controller,
             focusNode: focusNode,
-            style: context.textTheme.headlineSmall,
+            style: controller.text.length < 14
+                ? context.textTheme.headlineSmall
+                : context.textTheme.titleMedium,
             // UI に文字数カウンターを表示したくないので、maxLength プロパティを使わない。
             inputFormatters: [
               MaxLengthInputFormatterWithSnackBar(ref, 25),
@@ -57,7 +59,9 @@ class EditableTripTitleText extends HookConsumerWidget {
               controller.text,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: context.textTheme.headlineSmall,
+              style: controller.text.length < 14
+                  ? context.textTheme.headlineSmall
+                  : context.textTheme.titleMedium,
             ),
           );
   }
