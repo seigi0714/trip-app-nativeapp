@@ -21,6 +21,7 @@ class EditableTripTitleText extends HookConsumerWidget {
     final focusNode = useFocusNode();
     final previousText = useState(trip.title.value);
     final controller = useTextEditingController(text: trip.title.value);
+
     void textEditingListener() {
       if (controller.text.isEmpty) {
         ref
@@ -31,31 +32,31 @@ class EditableTripTitleText extends HookConsumerWidget {
 
     useEffect(
       () {
+        // useEffect で showSnackBar を出すとアサーションエラーになるため、addListener で処理を登録する。
         controller.addListener(textEditingListener);
         return () => controller.removeListener(textEditingListener);
       },
       [],
     );
 
+    useListenable(focusNode);
     useEffect(
       () {
-        focusNode.addListener(() {
-          if (!focusNode.hasFocus) {
-            if (controller.text.isEmpty) {
-              controller.text = previousText.value;
-            }
-            ref.read(tripsControllerProvider.notifier).updateTrip(
-                  tripId: trip.id,
-                  title: controller.text,
-                  fromDate: trip.period.fromDate,
-                  endDate: trip.period.endDate,
-                );
-            isEditing.value = false;
+        if (!focusNode.hasFocus) {
+          if (controller.text.isEmpty) {
+            controller.text = previousText.value;
           }
-        });
-        return focusNode.dispose;
+          ref.read(tripsControllerProvider.notifier).updateTrip(
+                tripId: trip.id,
+                title: controller.text,
+                fromDate: trip.period.fromDate,
+                endDate: trip.period.endDate,
+              );
+          isEditing.value = false;
+        }
+        return null;
       },
-      [],
+      [focusNode.hasFocus],
     );
 
     return isEditing.value
