@@ -77,7 +77,7 @@ class TripDetailPage extends HookConsumerWidget {
                                 Positioned(
                                   top: backgroundImageHeight -
                                       TripOverviewCard.height / 2,
-                                  child: TripOverviewCard(trip),
+                                  child: TripOverviewCard(tripId: id),
                                 ),
                               ],
                             ),
