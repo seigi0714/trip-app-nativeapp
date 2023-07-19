@@ -82,6 +82,7 @@ class TripOverviewCard extends HookConsumerWidget {
                       onTap: () async {
                         final newEndDate = await showTripAppDatePicker(
                           context,
+                          currentTime: selectedTrip.period.endDate,
                           minTime: selectedTrip.period.fromDate,
                         );
                         if (newEndDate != null) {
