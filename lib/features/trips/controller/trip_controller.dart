@@ -68,32 +68,23 @@ class TripsController extends _$TripsController {
     );
     try {
       final tripToUpdate = state.value?.firstWhere((trip) => trip.id == tripId);
-      assert(
-        tripToUpdate != null,
-        '''
-        TripsController の state が保持していない旅を更新しようとしています。        
-        ''',
-      );
       // 以下の例外のメッセージはユーザーに見せるつもりは無いが、
-      // assert だけでは null チェックが効かないので例外を投げている。
+      // assert では null チェックが効かないので例外を投げている。
       if (tripToUpdate == null) {
         throw const AppException(message: '更新しようとしている旅が存在していません🤔');
       }
-
       final updatedTrip = await ref.read(tripInteractorProvider).updateTrip(
             tripId,
             title ?? tripToUpdate.title.value,
             fromDate ?? tripToUpdate.period.fromDate,
             endDate ?? tripToUpdate.period.endDate,
           );
-
       final updatedTrips = state.value?.map((trip) {
         if (trip.id == updatedTrip.id) {
           return updatedTrip;
         }
         return trip;
       }).toList();
-
       state = AsyncData(updatedTrips ?? []);
     } on Exception catch (e) {
       ref.read(exceptionHandlerProvider).handleException(e);
