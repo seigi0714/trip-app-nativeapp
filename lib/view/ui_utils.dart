@@ -2,40 +2,27 @@ import 'package:flutter/material.dart' hide DatePickerTheme;
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 
-/// * [dateTimeNotifier] 選択した日時で呼び出し元の Widget をリビルドするための ValueNotifier。
-/// useState<DateTime>() が渡されることを想定している。
-///
-/// * [isSelectedNotifier] 日時が選択されたか否かのフラグによって、
-/// 呼び出し元の Widget をリビルドするためのValueNotifier。
-/// useState<bool>() が渡されることを想定している。
+/// * [currentTime] DatePicker で初期表示する日時。
 ///
 /// * [minTime] DatePicker で選択可能な最小の日付。
 ///
 /// * [maxTime] DatePicker で選択可能な最大の日付。
+///
+/// 完了ボタンが押されなくても [DatePicker] で選択された日時を返す。
 Future<DateTime?> showTripAppDatePicker(
   BuildContext context, {
-  required ValueNotifier<DateTime> dateTimeNotifier,
-  ValueNotifier<bool>? isSelectedNotifier,
+  DateTime? currentTime,
   DateTime? minTime,
   DateTime? maxTime,
 }) async {
-  // 完了ボタンが押されなくても、変更した日時を返すようにする。
   DateTime? result;
   await DatePicker.showDatePicker(
     context,
+    currentTime: currentTime,
     maxTime: maxTime,
     minTime: minTime,
-    onChanged: (date) {
-      result = date;
-      isSelectedNotifier?.value = true;
-      dateTimeNotifier.value = date;
-    },
-    onConfirm: (date) {
-      result = date;
-      isSelectedNotifier?.value = true;
-      dateTimeNotifier.value = date;
-    },
-    currentTime: dateTimeNotifier.value,
+    onChanged: (date) => result = date,
+    onConfirm: (date) => result = date,
     locale: LocaleType.jp,
     theme: DatePickerTheme(
       backgroundColor: context.theme.colorScheme.onPrimary,

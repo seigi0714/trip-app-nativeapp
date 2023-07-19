@@ -116,11 +116,13 @@ class _DateRangeRow extends HookWidget {
           Expanded(
             child: InkWell(
               borderRadius: BorderRadius.circular(16),
-              onTap: () => showTripAppDatePicker(
-                context,
-                dateTimeNotifier: fromDate,
-                isSelectedNotifier: isSelectedFrom,
-              ),
+              onTap: () async {
+                final selectedDate = await showTripAppDatePicker(context);
+                if (selectedDate != null) {
+                  fromDate.value = selectedDate;
+                  isSelectedFrom.value = true;
+                }
+              },
               child: Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
@@ -146,11 +148,16 @@ class _DateRangeRow extends HookWidget {
           Expanded(
             child: InkWell(
               borderRadius: BorderRadius.circular(16),
-              onTap: () => showTripAppDatePicker(
-                context,
-                dateTimeNotifier: endDate,
-                isSelectedNotifier: isSelectedEnd,
-              ),
+              onTap: () async {
+                final selectedDate = await showTripAppDatePicker(
+                  context,
+                  minTime: fromDate.value,
+                );
+                if (selectedDate != null) {
+                  endDate.value = selectedDate;
+                  isSelectedEnd.value = true;
+                }
+              },
               child: Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
