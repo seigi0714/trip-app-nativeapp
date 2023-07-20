@@ -7,11 +7,11 @@ class TripTitle with _$TripTitle {
   factory TripTitle({required String value}) {
     assert(
       value.isNotEmpty,
-      'UIのコードによって、空文字が入力されないように制御してください💡',
+      'UI のコードによって、空文字が入力されないように制御してください',
     );
     assert(
       value.length <= 25,
-      'UIのコードによって、26文字以上の文字列が入力されないように制御してください💡',
+      'UI のコードによって、26文字以上の文字列が入力されないように制御してください',
     );
     return TripTitle._internal(value: value);
   }
