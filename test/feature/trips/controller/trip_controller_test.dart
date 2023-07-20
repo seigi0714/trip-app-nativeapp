@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:trip_app_nativeapp/core/exception/app_exception.dart';
 import 'package:trip_app_nativeapp/core/exception/exception_handler.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/dio.dart';
@@ -505,6 +506,60 @@ Future<void> main() async {
               unexpectedException,
             ),
           );
+        },
+      );
+
+      test('異常系 引数の tripId に一致する ExistingTrip がない場合は AppException を投げる', () {
+        when(
+          mockTripInteractor.fetchTripsByUserId(validUserId),
+        ).thenAnswer(
+          (_) => Future.value(<ExistingTrip>[]),
+        );
+        expect(
+          providerContainer.read(tripsControllerProvider.notifier).updateTrip(
+                tripId: 999,
+                title: updateTripTitleValue,
+                fromDate: updateFromDate,
+                endDate: updateEndDate,
+              ),
+          throwsA(isA<AppException>()),
+        );
+      });
+
+      test(
+        '異常系 例外が生じた際は handleException がコールされる',
+        () async {
+          when(
+            mockTripInteractor.fetchTripsByUserId(validUserId),
+          ).thenAnswer(
+            (_) => Future.value([existingTrip]),
+          );
+          when(
+            mockTripInteractor.updateTrip(
+              validTripId,
+              updateTripTitleValue,
+              updateFromDate,
+              updateEndDate,
+            ),
+          ).thenThrow(unexpectedException);
+
+          await providerContainer.read(tripsControllerProvider.future);
+          await expectLater(
+            providerContainer.read(tripsControllerProvider.notifier).updateTrip(
+                  tripId: validTripId,
+                  title: updateTripTitleValue,
+                  fromDate: updateFromDate,
+                  endDate: updateEndDate,
+                ),
+            throwsA(
+              isA<Exception>(),
+            ),
+          );
+          verify(
+            mockExceptionHandler.handleException(
+              unexpectedException,
+            ),
+          ).called(1);
         },
       );
     },
