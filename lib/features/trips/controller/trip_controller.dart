@@ -88,7 +88,6 @@ class TripsController extends _$TripsController {
       state = AsyncData(updatedTrips ?? []);
     } on Exception catch (e) {
       ref.read(exceptionHandlerProvider).handleException(e);
-      rethrow;
     }
   }
 
