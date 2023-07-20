@@ -265,5 +265,250 @@ Future<void> main() async {
     });
   });
 
+  group(
+    'TripsController.updateTrip',
+    () {
+      final existingTrip = ExistingTrip(
+        id: validTripId,
+        title: TripTitle(value: validTitleValue),
+        period: TripPeriod(
+          fromDate: validFromDate,
+          endDate: validEndDate,
+        ),
+        members: [validMember],
+        belongings: [],
+      );
+      const updateTripTitleValue = '更新後の旅のタイトル';
+      final updateFromDate = validFromDate.add(const Duration(days: 1));
+      final updateEndDate = validEndDate.add(const Duration(days: 1));
+      final updatedAllTrip = ExistingTrip(
+        id: validTripId,
+        title: TripTitle(value: updateTripTitleValue),
+        period: TripPeriod(
+          fromDate: updateFromDate,
+          endDate: updateEndDate,
+        ),
+        members: [validMember],
+        belongings: [],
+      );
+
+      final updatedTitleOnlyTrip = ExistingTrip(
+        id: validTripId,
+        title: TripTitle(value: updateTripTitleValue),
+        period: TripPeriod(
+          fromDate: validFromDate,
+          endDate: validEndDate,
+        ),
+        members: [validMember],
+        belongings: [],
+      );
+
+      final updatedFromDateOnlyTrip = ExistingTrip(
+        id: validTripId,
+        title: TripTitle(value: validTitleValue),
+        period: TripPeriod(
+          fromDate: updateFromDate,
+          endDate: validEndDate,
+        ),
+        members: [validMember],
+        belongings: [],
+      );
+
+      final updatedEndDateOnlyTrip = ExistingTrip(
+        id: validTripId,
+        title: TripTitle(value: validTitleValue),
+        period: TripPeriod(
+          fromDate: validFromDate,
+          endDate: updateEndDate,
+        ),
+        members: [validMember],
+        belongings: [],
+      );
+
+      test(
+        '正常系 タイトル・出発日・帰着日を一度に更新できる',
+        () async {
+          when(
+            mockTripInteractor.fetchTripsByUserId(validUserId),
+          ).thenAnswer(
+            (_) => Future.value([existingTrip]),
+          );
+          when(
+            mockTripInteractor.updateTrip(
+              validTripId,
+              updateTripTitleValue,
+              updateFromDate,
+              updateEndDate,
+            ),
+          ).thenAnswer((_) => Future.value(updatedAllTrip));
+
+          // TripsController の state に trip をセット
+          await providerContainer.read(tripsControllerProvider.future);
+          await expectLater(
+            providerContainer.read(tripsControllerProvider.notifier).updateTrip(
+                  tripId: validTripId,
+                  title: updateTripTitleValue,
+                  fromDate: updateFromDate,
+                  endDate: updateEndDate,
+                ),
+            completes,
+          );
+          verify(
+            mockTripInteractor.updateTrip(
+              validTripId,
+              updateTripTitleValue,
+              updateFromDate,
+              updateEndDate,
+            ),
+          ).called(1);
+          verifyNever(
+            mockExceptionHandler.handleException(
+              unexpectedException,
+            ),
+          );
+          expect(
+            providerContainer.read(tripsControllerProvider).asData?.value,
+            [updatedAllTrip],
+          );
+        },
+      );
+
+      test(
+        '正常系 タイトルだけを更新できる',
+        () async {
+          when(
+            mockTripInteractor.fetchTripsByUserId(validUserId),
+          ).thenAnswer(
+            (_) => Future.value([existingTrip]),
+          );
+          when(
+            mockTripInteractor.updateTrip(
+              validTripId,
+              updateTripTitleValue,
+              validFromDate,
+              validEndDate,
+            ),
+          ).thenAnswer((_) => Future.value(updatedTitleOnlyTrip));
+
+          await providerContainer.read(tripsControllerProvider.future);
+          await expectLater(
+            providerContainer.read(tripsControllerProvider.notifier).updateTrip(
+                  tripId: validTripId,
+                  title: updateTripTitleValue,
+                ),
+            completes,
+          );
+          expect(
+            providerContainer.read(tripsControllerProvider).asData?.value,
+            [updatedTitleOnlyTrip],
+          );
+          verify(
+            mockTripInteractor.updateTrip(
+              validTripId,
+              updateTripTitleValue,
+              validFromDate,
+              validEndDate,
+            ),
+          ).called(1);
+          verifyNever(
+            mockExceptionHandler.handleException(
+              unexpectedException,
+            ),
+          );
+        },
+      );
+
+      test(
+        '正常系 出発日だけを更新できる',
+        () async {
+          when(
+            mockTripInteractor.fetchTripsByUserId(validUserId),
+          ).thenAnswer(
+            (_) => Future.value([existingTrip]),
+          );
+          when(
+            mockTripInteractor.updateTrip(
+              validTripId,
+              validTitleValue,
+              updateFromDate,
+              validEndDate,
+            ),
+          ).thenAnswer((_) => Future.value(updatedFromDateOnlyTrip));
+
+          await providerContainer.read(tripsControllerProvider.future);
+          await expectLater(
+            providerContainer.read(tripsControllerProvider.notifier).updateTrip(
+                  tripId: validTripId,
+                  fromDate: updateFromDate,
+                ),
+            completes,
+          );
+          expect(
+            providerContainer.read(tripsControllerProvider).asData?.value,
+            [updatedFromDateOnlyTrip],
+          );
+          verify(
+            mockTripInteractor.updateTrip(
+              validTripId,
+              validTitleValue,
+              updateFromDate,
+              validEndDate,
+            ),
+          ).called(1);
+          verifyNever(
+            mockExceptionHandler.handleException(
+              unexpectedException,
+            ),
+          );
+        },
+      );
+
+      test(
+        '正常系 帰着日だけを更新できる',
+        () async {
+          when(
+            mockTripInteractor.fetchTripsByUserId(validUserId),
+          ).thenAnswer(
+            (_) => Future.value([existingTrip]),
+          );
+          when(
+            mockTripInteractor.updateTrip(
+              validTripId,
+              validTitleValue,
+              validFromDate,
+              updateEndDate,
+            ),
+          ).thenAnswer((_) => Future.value(updatedEndDateOnlyTrip));
+
+          await providerContainer.read(tripsControllerProvider.future);
+          await expectLater(
+            providerContainer.read(tripsControllerProvider.notifier).updateTrip(
+                  tripId: validTripId,
+                  endDate: updateEndDate,
+                ),
+            completes,
+          );
+          expect(
+            providerContainer.read(tripsControllerProvider).asData?.value,
+            [updatedEndDateOnlyTrip],
+          );
+          verify(
+            mockTripInteractor.updateTrip(
+              validTripId,
+              validTitleValue,
+              validFromDate,
+              updateEndDate,
+            ),
+          ).called(1);
+          verifyNever(
+            mockExceptionHandler.handleException(
+              unexpectedException,
+            ),
+          );
+        },
+      );
+    },
+  );
+
   // TODO(seigi0714): generateAndCopyInviteLinkのテスト実装
 }
