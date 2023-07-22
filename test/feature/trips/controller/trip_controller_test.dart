@@ -509,21 +509,27 @@ Future<void> main() async {
         },
       );
 
-      test('異常系 引数の tripId に一致する ExistingTrip がない場合は AppException を投げる', () {
+      test('異常系 引数の tripId に一致する ExistingTrip がない場合は AppException を投げる',
+          () async {
         when(
           mockTripInteractor.fetchTripsByUserId(validUserId),
         ).thenAnswer(
           (_) => Future.value(<ExistingTrip>[]),
         );
-        expect(
+        await expectLater(
           providerContainer.read(tripsControllerProvider.notifier).updateTrip(
                 tripId: 999,
                 title: updateTripTitleValue,
                 fromDate: updateFromDate,
                 endDate: updateEndDate,
               ),
-          throwsA(isA<AppException>()),
+          completes,
         );
+        verify(
+          mockExceptionHandler.handleException(
+            const AppException(message: '更新しようとしている旅が存在していません🤔'),
+          ),
+        ).called(1);
       });
 
       test(
@@ -551,10 +557,17 @@ Future<void> main() async {
                   fromDate: updateFromDate,
                   endDate: updateEndDate,
                 ),
-            throwsA(
-              isA<Exception>(),
-            ),
+            completes,
           );
+
+          verify(
+            mockTripInteractor.updateTrip(
+              validTripId,
+              updateTripTitleValue,
+              updateFromDate,
+              updateEndDate,
+            ),
+          ).called(1);
           verify(
             mockExceptionHandler.handleException(
               unexpectedException,
