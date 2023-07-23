@@ -8,33 +8,20 @@ part of 'trip_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tripsHash() => r'847da4f84e77c3cc4324e388e4e85cdee38eab89';
+String _$tripsControllerHash() => r'2bcf7fcfdafa9410823374f98513a453994594d8';
 
-/// See also [trips].
-@ProviderFor(trips)
-final tripsProvider = AutoDisposeFutureProvider<List<ExistingTrip>>.internal(
-  trips,
-  name: r'tripsProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$tripsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef TripsRef = AutoDisposeFutureProviderRef<List<ExistingTrip>>;
-String _$tripControllerHash() => r'ecb9d08395accfaf9687b15c2b145bb9a666d1d1';
-
-/// See also [tripController].
-@ProviderFor(tripController)
-final tripControllerProvider = AutoDisposeProvider<TripController>.internal(
-  tripController,
-  name: r'tripControllerProvider',
+/// See also [TripsController].
+@ProviderFor(TripsController)
+final tripsControllerProvider = AutoDisposeAsyncNotifierProvider<
+    TripsController, List<ExistingTrip>>.internal(
+  TripsController.new,
+  name: r'tripsControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$tripControllerHash,
+      : _$tripsControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef TripControllerRef = AutoDisposeProviderRef<TripController>;
+typedef _$TripsController = AutoDisposeAsyncNotifier<List<ExistingTrip>>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

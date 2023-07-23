@@ -1,11 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_sign_in_mocks/google_sign_in_mocks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/api_destination.dart';
 import 'package:trip_app_nativeapp/core/http/api_client/dio/dio.dart';
@@ -16,6 +13,7 @@ import 'package:trip_app_nativeapp/features/user/data/models/get_user_response.d
 import 'package:trip_app_nativeapp/features/user/domain/entity/app_user.dart';
 
 import '../../../mock/async_value_listener.dart';
+import '../../../mock/mock_auth_helper.dart';
 
 Future<void> main() async {
   group(
@@ -35,37 +33,32 @@ Future<void> main() async {
         'data': userRes.toJson(),
       };
 
-      setUp(() {
-        TestWidgetsFlutterBinding.ensureInitialized();
-        DioAdapter(dio: dio).onGet(
-          '/my/profile',
-          (server) => server.reply(
-            200,
-            testResponse,
-          ),
-        );
-      });
+      setUp(TestWidgetsFlutterBinding.ensureInitialized);
 
       test(
         '正常系 Firebase Auth がログイン状態の場合は AppUser が取得できている',
         () async {
-          final mockAuth = await _mockSignIn(firebaseAuthUser);
+          final (mockAuth, mockDio) = await mockLogin(
+            mockFirebaseUser: firebaseAuthUser,
+            dio: dio,
+            mockUserRes: testResponse,
+          );
 
           container = ProviderContainer(
             overrides: [
               dioProvider(ApiDestination.privateTripAppV1)
-                  .overrideWithValue(dio),
+                  .overrideWithValue(mockDio),
               firebaseAuthProvider.overrideWithValue(mockAuth),
               networkConnectivityProvider
                   .overrideWith((ref) => mockConnectivity),
             ],
-          )
-            ..listen(
+          )..listen(
               appUserControllerProvider,
               asyncValueListener.call,
               fireImmediately: true,
-            )
-            ..read(appUserControllerProvider);
+            );
+
+          await container.read(appUserControllerProvider.future);
 
           verify(
             () => asyncValueListener(
@@ -73,9 +66,6 @@ Future<void> main() async {
               const AsyncLoading<AppUser?>(),
             ),
           );
-
-          // /my/profile [get] からの response が返ってくるまで待つ
-          await Future<void>.delayed(const Duration(seconds: 1));
 
           verify(
             () => asyncValueListener(
@@ -86,16 +76,14 @@ Future<void> main() async {
             ),
           );
 
-          await Future<void>.delayed(const Duration(milliseconds: 500));
           verifyNoMoreInteractions(asyncValueListener);
         },
       );
 
       test(
-        '正常系 Firebase Auth が 非ログイン状態の場合は AppUser は null',
+        '準正常系 非ログイン状態の場合は AppUser は null',
         () async {
           final mockAuth = MockFirebaseAuth(mockUser: firebaseAuthUser);
-
           container = ProviderContainer(
             overrides: [
               dioProvider(ApiDestination.privateTripAppV1)
@@ -104,13 +92,13 @@ Future<void> main() async {
               networkConnectivityProvider
                   .overrideWith((ref) => mockConnectivity),
             ],
-          )
-            ..listen(
+          )..listen(
               appUserControllerProvider,
               asyncValueListener.call,
               fireImmediately: true,
-            )
-            ..read(appUserControllerProvider);
+            );
+
+          await container.read(appUserControllerProvider.future);
 
           verify(
             () => asyncValueListener(
@@ -119,9 +107,6 @@ Future<void> main() async {
             ),
           );
 
-          // AsyncValue の値の変化を待つ
-          await Future<void>.delayed(const Duration(seconds: 1));
-
           verify(
             () => asyncValueListener(
               const AsyncLoading<AppUser?>(),
@@ -129,7 +114,6 @@ Future<void> main() async {
             ),
           );
 
-          await Future<void>.delayed(const Duration(milliseconds: 500));
           verifyNoMoreInteractions(asyncValueListener);
 
           final appUser =
@@ -139,16 +123,4 @@ Future<void> main() async {
       );
     },
   );
-}
-
-Future<MockFirebaseAuth> _mockSignIn(MockUser firebaseAuthUser) async {
-  final googleUser = await MockGoogleSignIn().signIn();
-  final signInAccount = await googleUser?.authentication;
-  final credential = GoogleAuthProvider.credential(
-    accessToken: signInAccount?.accessToken,
-    idToken: signInAccount?.idToken,
-  );
-  final mockAuth = MockFirebaseAuth(mockUser: firebaseAuthUser);
-  await mockAuth.signInWithCredential(credential);
-  return mockAuth;
 }

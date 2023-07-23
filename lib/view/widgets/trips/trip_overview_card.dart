@@ -1,18 +1,36 @@
 import 'dart:developer';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:trip_app_nativeapp/core/extensions/build_context.dart';
 import 'package:trip_app_nativeapp/core/extensions/datetime.dart';
-import 'package:trip_app_nativeapp/features/trips/domain/entity/trip/trip.dart';
+import 'package:trip_app_nativeapp/features/trips/controller/trip_controller.dart';
+import 'package:trip_app_nativeapp/view/ui_utils.dart';
+import 'package:trip_app_nativeapp/view/widgets/trips/editable_trip_title_text.dart';
 
-class TripOverviewCard extends StatelessWidget {
-  const TripOverviewCard(this.trip, {super.key});
+class TripOverviewCard extends HookConsumerWidget {
+  const TripOverviewCard({
+    required this.tripId,
+    super.key,
+  });
 
-  final ExistingTrip trip;
+  final int tripId;
   static const height = 150.0;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedTrip = ref.watch(
+      tripsControllerProvider.select(
+        (tripsAsync) => tripsAsync.asData?.value
+            .firstWhereOrNull((trip) => trip.id == tripId),
+      ),
+    );
+    if (selectedTrip == null) {
+      return const Center(
+        child: Text('選択した旅が見つかりませんでした🙇‍♂️'),
+      );
+    }
     return Center(
       child: SizedBox(
         height: height,
@@ -31,32 +49,57 @@ class TripOverviewCard extends StatelessWidget {
                 Expanded(
                   child: Container(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      trip.title.value,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: context.textTheme.headlineMedium,
-                    ),
+                    child: EditableTripTitleText(trip: selectedTrip),
                   ),
                 ),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '🛫 ${trip.period.fromDate.toJsonDateString()}',
-                            style: context.textTheme.titleMedium,
-                          ),
-                          Text(
-                            '${trip.period.endDate.toJsonDateString()} 🔚',
-                            style: context.textTheme.titleMedium,
-                          ),
-                        ],
+                    InkWell(
+                      borderRadius: BorderRadius.circular(4),
+                      onTap: () async {
+                        final newFromDate = await showTripAppDatePicker(
+                          context,
+                          currentTime: selectedTrip.period.fromDate,
+                          maxTime: selectedTrip.period.endDate,
+                        );
+                        if (newFromDate != null) {
+                          await ref
+                              .read(tripsControllerProvider.notifier)
+                              .updateTrip(
+                                tripId: selectedTrip.id,
+                                fromDate: newFromDate,
+                              );
+                        }
+                      },
+                      child: Text(
+                        '🛫 ${selectedTrip.period.fromDate.toJsonDateString()}',
+                        style: context.textTheme.titleMedium,
                       ),
                     ),
+                    const Text(' / '),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(4),
+                      onTap: () async {
+                        final newEndDate = await showTripAppDatePicker(
+                          context,
+                          currentTime: selectedTrip.period.endDate,
+                          minTime: selectedTrip.period.fromDate,
+                        );
+                        if (newEndDate != null) {
+                          await ref
+                              .read(tripsControllerProvider.notifier)
+                              .updateTrip(
+                                tripId: selectedTrip.id,
+                                endDate: newEndDate,
+                              );
+                        }
+                      },
+                      child: Text(
+                        '${selectedTrip.period.endDate.toJsonDateString()} 🔚',
+                        style: context.textTheme.titleMedium,
+                      ),
+                    ),
+                    const Spacer(),
                     SizedBox(
                       width: 36,
                       height: 36,
@@ -64,16 +107,6 @@ class TripOverviewCard extends StatelessWidget {
                         onPressed: () => log('share'),
                         icon: const Icon(
                           Icons.share,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 36,
-                      height: 36,
-                      child: IconButton(
-                        onPressed: () => log('edit'),
-                        icon: const Icon(
-                          Icons.edit,
                         ),
                       ),
                     ),

@@ -26,7 +26,6 @@ class AppUserController extends _$AppUserController {
       return state.value;
     }
 
-    final appUser = await ref.watch(userInteractorProvider).fetchUser();
-    return appUser;
+    return ref.watch(userInteractorProvider).fetchUser();
   }
 }

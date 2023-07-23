@@ -90,6 +90,7 @@ class TripRepository implements TripRepositoryInterface {
         fromDate: tripRes.fromDate,
         endDate: tripRes.endDate,
       ),
+      // TODO(shimizu-saffle): post のレスポンスにメンバー情報を含めるように改修次第テストデータを入れる
       members: [
         // post のレスポンスにメンバー情報は含まれないので一旦空配列を入れておく
       ],

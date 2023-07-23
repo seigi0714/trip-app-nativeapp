@@ -26,7 +26,7 @@ class TripInteractor {
 
   final TripRepositoryInterface tripRepo;
 
-  Future<void> createTrip(
+  Future<ExistingTrip> createTrip(
     String title,
     DateTime fromDate,
     DateTime endDate,
@@ -38,7 +38,7 @@ class TripInteractor {
         endDate: endDate,
       ),
     ) as NewTrip;
-    await tripRepo.createTrip(trip);
+    return tripRepo.createTrip(trip);
   }
 
   Future<ExistingTrip> updateTrip(
