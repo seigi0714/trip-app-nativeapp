@@ -35,7 +35,7 @@ dependencies:
   hooks_riverpod: ^2.3.6
   intl: ^0.18.0
   json_annotation: ^4.8.1
-  lottie: ^2.3.2
+  lottie: ^2.5.0
   mockito: ^5.4.2
   mocktail: ^0.3.0
   nil: ^1.1.1
