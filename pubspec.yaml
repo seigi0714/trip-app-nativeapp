@@ -17,7 +17,7 @@ dependencies:
   dio: ^4.0.6
   firebase_auth: ^4.6.3
   firebase_auth_mocks: ^0.11.0
-  firebase_core: ^2.14.0
+  firebase_core: ^2.15.1
   flutter:
     sdk: flutter
   flutter_datetime_picker_plus: ^2.0.1
