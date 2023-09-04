@@ -45,7 +45,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.4.6
-  custom_lint: ^0.4.0
+  custom_lint: ^0.5.3
   flutter_lints: ^2.0.2
   flutter_test:
     sdk: flutter
@@ -54,7 +54,7 @@ dev_dependencies:
   http_mock_adapter: ^0.3.3
   json_serializable: ^6.7.1
   riverpod_generator: ^2.2.4
-  riverpod_lint: ^1.4.0
+  riverpod_lint: ^2.0.4
   very_good_analysis: ^4.0.0+1
 
 flutter:
